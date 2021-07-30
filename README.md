@@ -31,12 +31,12 @@
     height="210" 
   /> 
   <img 
-    src="https://github-readme-stats.vercel.app/api?username=Robson16&show_icons=true&theme=gruvbox"
+    src="https://github-readme-stats.vercel.app/api?username=Robson16&show_icons=true&theme=react"
     width="465px" 
     height="210" 
   />
   <img 
-    src="https://github-profile-trophy.vercel.app/?username=Robson16&column=7&theme=gruvbox&no-frame=true" 
+    src="https://github-profile-trophy.vercel.app/?username=Robson16&column=7&theme=react&no-frame=true" 
     width="1200px" 
   /> 
 </details>
