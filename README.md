@@ -25,18 +25,14 @@
 <details>
   <summary align="left">GitHub Profile Stats 💻 📊 🏆</summary>
   <img 
-    src="https://github-readme-stats.vercel.app/api/top-langs/?username=Robson16&langs_count=8&layout=compact&theme=gruvbox" 
+    src="https://github-readme-stats.vercel.app/api/top-langs/?username=Robson16&langs_count=8&layout=compact&theme=react" 
     align="left" 
     width="365px" 
-    height="210" 
+    height="260" 
   /> 
   <img 
     src="https://github-readme-stats.vercel.app/api?username=Robson16&show_icons=true&theme=react"
     width="465px" 
-    height="210" 
+    height="260" 
   />
-  <img 
-    src="https://github-profile-trophy.vercel.app/?username=Robson16&column=7&theme=react&no-frame=true" 
-    width="1200px" 
-  /> 
 </details>
