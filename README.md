@@ -2,7 +2,7 @@
 
 :earth_americas: I'm from Jundiaí - São Paulo, Brazil.
 <br />
-:man_technologist: I'm currently working on <a href="https://vollup.com/">Vollup Creative Agency</a> as Front-End Developer.
+:man_technologist: I'm currently #openToWork 
 <br />
 :link: <a href="https://robsonhrodrigues.com.br/">www.robsonhrodrigues.com.br</a>
 
