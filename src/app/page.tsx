@@ -24,27 +24,27 @@ export default function Home() {
           className="bg-[url('/images/bg-above-the-fold.jpg')] bg-cover bg-center"
         >
           <div className="bg-black bg-opacity-70">
-            <div className="container max-w-screen-lg mx-auto py-28 md:py-56 px-4">
-              <div className="columns-2 flex flex-col md:flex-row">
-                <div className="flex flex-1 flex-col justify-center items-center md:items-start ">
-                  <h1 className="text-5xl font-bold mb-4 text-center md:text-left">
+            <div className="container mx-auto max-w-screen-lg px-4 py-28 md:py-56">
+              <div className="flex columns-2 flex-col md:flex-row">
+                <div className="flex flex-1 flex-col items-center justify-center md:items-start">
+                  <h1 className="mb-4 text-center text-5xl font-bold md:text-left">
                     Robson H. Rodrigues
                   </h1>
                   <h2 className="text-2xl font-medium">Desenvolvedor Web</h2>
                   <ul className="my-10">
-                    <li className="group flex items-center my-2">
+                    <li className="group my-2 flex items-center">
                       <AiOutlineMail
                         size={16}
-                        className="text-gray-500 group-hover:text-teal-600 mr-2"
+                        className="mr-2 text-gray-500 group-hover:text-teal-600"
                       />
                       <a href="mailto:robhenrod@gmail.com">
                         robhenrod@gmail.com
                       </a>
                     </li>
-                    <li className="group flex items-center my-2">
+                    <li className="group my-2 flex items-center">
                       <FaMapMarkerAlt
                         size={16}
-                        className="text-gray-500 group-hover:text-teal-600 mr-2"
+                        className="mr-2 text-gray-500 group-hover:text-teal-600"
                       />
                       <span>Jundiaí - São Paulo / Brasil</span>
                     </li>
@@ -87,7 +87,7 @@ export default function Home() {
           </div>
         </section>
         <section id="about">
-          <div className="container max-w-screen-xl mx-auto py-28 px-4">
+          <div className="container mx-auto max-w-screen-xl px-4 py-28">
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
               voluptate pariatur minus corporis harum ducimus placeat
@@ -170,7 +170,7 @@ export default function Home() {
           </div>
         </section>
         <section id="skills">
-          <div className="container max-w-screen-xl mx-auto py-28 px-4">
+          <div className="container mx-auto max-w-screen-xl px-4 py-28">
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
               voluptate pariatur minus corporis harum ducimus placeat

@@ -50,13 +50,10 @@ export default function Header() {
 
   return (
     <header
-      className={`
-        fixed top-0 left-0 w-full z-50 transition-all duration-300 
-        ${isScrolled ? 'bg-zinc-800 py-5 shadow-lg' : 'bg-transparent py-4'}
-      `}
+      className={`fixed left-0 top-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'bg-zinc-800 py-5 shadow-lg' : 'bg-transparent py-4'} `}
     >
       <div className="container mx-auto px-4">
-        <nav className="flex items-center justify-between md:justify-center py-4">
+        <nav className="flex items-center justify-between py-4 md:justify-center">
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="text-white md:hidden"
@@ -66,12 +63,9 @@ export default function Header() {
           </button>
 
           <div
-            className={`
-              md:flex md:items-center md:justify-center 
-              ${isOpen ? 'block' : 'hidden'}
-            `}
+            className={`md:flex md:items-center md:justify-center ${isOpen ? 'block' : 'hidden'} `}
           >
-            <ul className="flex flex-col md:flex-row md:space-x-10 text-center text-white font-bold text-lg">
+            <ul className="flex flex-col text-center text-lg font-bold text-white md:flex-row md:space-x-10">
               {[
                 { label: 'Inicio', href: '#home' },
                 { label: 'Sobre', href: '#about' },
@@ -83,13 +77,11 @@ export default function Header() {
                 <li key={href} className="py-2 md:py-0">
                   <Link
                     href={href}
-                    className={`
-                      hover:text-teal-500 
-                      ${activeSection === href
-                        ? 'text-teal-500 border-b-2 border-teal-500'
+                    className={`hover:text-teal-500 ${
+                      activeSection === href
+                        ? 'border-b-2 border-teal-500 text-teal-500'
                         : ''
-                      }
-                    `}
+                    } `}
                   >
                     {label}
                   </Link>
