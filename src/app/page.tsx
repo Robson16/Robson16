@@ -13,10 +13,6 @@ import { FaMapMarkerAlt } from 'react-icons/fa'
 export default function Home() {
   return (
     <>
-      <Head>
-        <link rel="preload" href="/images/profile.jpg" as="image" />
-      </Head>
-
       <Header />
       <main>
         <section
@@ -24,9 +20,12 @@ export default function Home() {
           className="bg-[url('/images/bg-above-the-fold.jpg')] bg-cover bg-center"
         >
           <div className="bg-black bg-opacity-70">
-            <div className="container mx-auto max-w-screen-lg px-4 py-28 md:py-56">
-              <div className="flex columns-2 flex-col md:flex-row">
+            <div className="container mx-auto max-w-screen-lg px-4 py-20 md:py-56">
+              <div className="flex columns-2 flex-col-reverse gap-8 md:flex-row">
                 <div className="flex flex-1 flex-col items-center justify-center md:items-start">
+                  <span className="mb-4 rounded-r-[20px] rounded-tl-[20px] bg-teal-600 px-8 py-2">
+                    Olá, me chamo
+                  </span>
                   <h1 className="mb-4 text-center text-5xl font-bold md:text-left">
                     Robson H. Rodrigues
                   </h1>
@@ -78,7 +77,7 @@ export default function Home() {
                       alt="Picture of the author"
                       width={360}
                       height={360}
-                      className="mx-auto rounded-full border-[20px] border-zinc-900"
+                      className="mx-auto max-w-[240px] rounded-full border-[20px] border-zinc-900 md:max-w-none"
                     />
                   </figure>
                 </div>
@@ -86,6 +85,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+
         <section id="about">
           <div className="container mx-auto max-w-screen-xl px-4 py-28">
             <p>
