@@ -1,6 +1,5 @@
 import Header from '@/components/Header'
 import SocialLink from '@/components/SocialLink'
-import Head from 'next/head'
 import Image from 'next/image'
 import {
   AiFillGithub,
@@ -8,7 +7,7 @@ import {
   AiFillLinkedin,
   AiOutlineMail,
 } from 'react-icons/ai'
-import { FaMapMarkerAlt } from 'react-icons/fa'
+import { FaDownload, FaMapMarkerAlt } from 'react-icons/fa'
 
 export default function Home() {
   return (
@@ -87,170 +86,67 @@ export default function Home() {
         </section>
 
         <section id="about">
-          <div className="container mx-auto max-w-screen-xl px-4 py-28">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-              voluptate pariatur minus corporis harum ducimus placeat
-              architecto. Repudiandae hic error odio natus veniam consectetur
-              cupiditate aperiam, odit et, omnis ratione.
-            </p>
-            <p>
-              Temporibus perspiciatis quia, doloribus minima possimus cumque
-              voluptas perferendis tempora maiores officia expedita quis enim
-              obcaecati? Laborum nobis, molestiae natus enim aut ducimus ad
-              nesciunt accusantium labore minus sint inventore?
-            </p>
-            <p>
-              At adipisci, voluptates incidunt placeat veniam id laudantium
-              magnam, consequuntur quis deleniti rerum reprehenderit aperiam sed
-              excepturi nulla nostrum natus repellendus optio, deserunt nam
-              maiores illum provident iusto quo. Illo.
-            </p>
-            <p>
-              Illo omnis ea ab, magnam debitis corrupti cumque incidunt nesciunt
-              maiores ex at sit eius blanditiis laudantium eum molestias, alias
-              expedita velit soluta, tempore laborum! Qui quia alias similique
-              mollitia.
-            </p>
-            <p>
-              Similique delectus odio veniam sint suscipit praesentium culpa
-              dolorem omnis. Et, sunt. Dicta commodi error ipsum. Animi id
-              eligendi laudantium suscipit consequatur nostrum molestias quam
-              similique cum, sed nisi dolorum?
-            </p>
-            <p>
-              Odit accusantium ad nisi aspernatur ipsam reiciendis consectetur
-              eos deleniti, ab magnam! Cupiditate, illo tempore rerum vero animi
-              autem fugiat recusandae blanditiis beatae assumenda explicabo
-              provident quas rem magni aperiam.
-            </p>
-            <p>
-              Ab neque sequi reprehenderit harum iste ipsa quisquam repellat qui
-              corrupti, a aperiam nihil nemo est deserunt cumque sint atque
-              perferendis? Aut accusantium illum velit ea ex quasi, beatae
-              officiis!
-            </p>
-            <p>
-              Repellat nemo, dolorum suscipit ratione officia hic rem ipsum
-              veritatis dolor harum fugit temporibus blanditiis porro natus
-              voluptas numquam provident, fugiat, unde a. Aliquid aut reiciendis
-              provident eligendi blanditiis vel!
-            </p>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non nemo
-              consectetur dignissimos laboriosam porro accusamus in! Commodi
-              tenetur quae numquam minus id dolor quaerat deleniti cupiditate,
-              ex qui saepe eaque!
-            </p>
-            <p>
-              Magnam debitis, officia unde commodi cupiditate adipisci quidem
-              fugiat repellendus quod impedit, laudantium repellat illo aliquam
-              alias. Quos, vel minus odit at quo libero voluptas officiis in,
-              molestiae, veniam esse!
-            </p>
-            <p>
-              Assumenda debitis eum ut, magni incidunt inventore eligendi totam,
-              sed quia libero natus illo deleniti recusandae, ad explicabo ullam
-              praesentium aliquam eos! Repellendus omnis eum deleniti ratione
-              qui. Repellat, modi.
-            </p>
-            <p>
-              Officia asperiores voluptatibus assumenda amet repudiandae maiores
-              veniam harum beatae eligendi aliquam obcaecati velit maxime
-              distinctio nostrum deleniti ipsa vitae, eaque nobis omnis quidem
-              tempora modi facere? Maiores, vero ipsam?
-            </p>
-            <p>
-              Pariatur aliquam, sapiente maxime magnam eveniet assumenda debitis
-              cupiditate reiciendis consequatur rerum alias consequuntur!
-              Tenetur unde porro iure, maxime distinctio quibusdam id optio!
-              Reiciendis sunt corporis incidunt, blanditiis praesentium
-              molestiae!
-            </p>
+          <div className="container mx-auto max-w-screen-lg px-4 py-28">
+            <div className="flex columns-2 flex-col items-center gap-16 md:flex-row">
+              <div className="flex flex-1 flex-col">
+                <Image
+                  src="/images/about-image.png"
+                  alt="About image"
+                  width={480}
+                  height={290}
+                  className=" "
+                />
+              </div>
+              <div className="flex flex-1 flex-col items-center md:items-start">
+                <h2 className="mb-4 text-center text-4xl font-medium md:text-left">
+                  Sobre mim
+                </h2>
+                <p className="mb-8 text-center leading-7 md:text-left">
+                  Olá, sou Robson, Desenvolvedor Web de Jundiaí - SP, Brasil.
+                  Com experiência em desenvolvimento web e mobile, foco em
+                  aplicações escaláveis e otimizadas. Conhecimentos em
+                </p>
+                <ul className="mb-8 flex flex-wrap justify-center gap-4 md:justify-start">
+                  <li className="rounded border border-solid border-teal-600 px-3 py-1">
+                    Java
+                  </li>
+                  <li className="rounded border border-solid border-teal-600 px-3 py-1">
+                    NodeJS
+                  </li>
+                  <li className="rounded border border-solid border-teal-600 px-3 py-1">
+                    ReactJS
+                  </li>
+                  <li className="rounded border border-solid border-teal-600 px-3 py-1">
+                    TypeScript
+                  </li>
+                  <li className="rounded border border-solid border-teal-600 px-3 py-1">
+                    React Native
+                  </li>
+                  <li className="rounded border border-solid border-teal-600 px-3 py-1">
+                    AWS
+                  </li>
+                  <li className="rounded border border-solid border-teal-600 px-3 py-1">
+                    PHP
+                  </li>
+                  <li className="rounded border border-solid border-teal-600 px-3 py-1">
+                    WordPress
+                  </li>
+                </ul>
+                <a
+                  className="flex items-center gap-2 rounded-full bg-teal-600 px-8 py-3 font-bold text-white transition-all hover:bg-teal-700"
+                  href="/documents/robson-h-rodrigues-cv.pdf"
+                  download="robson-h-rodrigues-cv.pdf"
+                >
+                  Baixar CV
+                  <FaDownload size={16} />
+                </a>
+              </div>
+            </div>
           </div>
         </section>
+
         <section id="skills">
-          <div className="container mx-auto max-w-screen-xl px-4 py-28">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-              voluptate pariatur minus corporis harum ducimus placeat
-              architecto. Repudiandae hic error odio natus veniam consectetur
-              cupiditate aperiam, odit et, omnis ratione.
-            </p>
-            <p>
-              Temporibus perspiciatis quia, doloribus minima possimus cumque
-              voluptas perferendis tempora maiores officia expedita quis enim
-              obcaecati? Laborum nobis, molestiae natus enim aut ducimus ad
-              nesciunt accusantium labore minus sint inventore?
-            </p>
-            <p>
-              At adipisci, voluptates incidunt placeat veniam id laudantium
-              magnam, consequuntur quis deleniti rerum reprehenderit aperiam sed
-              excepturi nulla nostrum natus repellendus optio, deserunt nam
-              maiores illum provident iusto quo. Illo.
-            </p>
-            <p>
-              Illo omnis ea ab, magnam debitis corrupti cumque incidunt nesciunt
-              maiores ex at sit eius blanditiis laudantium eum molestias, alias
-              expedita velit soluta, tempore laborum! Qui quia alias similique
-              mollitia.
-            </p>
-            <p>
-              Similique delectus odio veniam sint suscipit praesentium culpa
-              dolorem omnis. Et, sunt. Dicta commodi error ipsum. Animi id
-              eligendi laudantium suscipit consequatur nostrum molestias quam
-              similique cum, sed nisi dolorum?
-            </p>
-            <p>
-              Odit accusantium ad nisi aspernatur ipsam reiciendis consectetur
-              eos deleniti, ab magnam! Cupiditate, illo tempore rerum vero animi
-              autem fugiat recusandae blanditiis beatae assumenda explicabo
-              provident quas rem magni aperiam.
-            </p>
-            <p>
-              Ab neque sequi reprehenderit harum iste ipsa quisquam repellat qui
-              corrupti, a aperiam nihil nemo est deserunt cumque sint atque
-              perferendis? Aut accusantium illum velit ea ex quasi, beatae
-              officiis!
-            </p>
-            <p>
-              Repellat nemo, dolorum suscipit ratione officia hic rem ipsum
-              veritatis dolor harum fugit temporibus blanditiis porro natus
-              voluptas numquam provident, fugiat, unde a. Aliquid aut reiciendis
-              provident eligendi blanditiis vel!
-            </p>
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non nemo
-              consectetur dignissimos laboriosam porro accusamus in! Commodi
-              tenetur quae numquam minus id dolor quaerat deleniti cupiditate,
-              ex qui saepe eaque!
-            </p>
-            <p>
-              Magnam debitis, officia unde commodi cupiditate adipisci quidem
-              fugiat repellendus quod impedit, laudantium repellat illo aliquam
-              alias. Quos, vel minus odit at quo libero voluptas officiis in,
-              molestiae, veniam esse!
-            </p>
-            <p>
-              Assumenda debitis eum ut, magni incidunt inventore eligendi totam,
-              sed quia libero natus illo deleniti recusandae, ad explicabo ullam
-              praesentium aliquam eos! Repellendus omnis eum deleniti ratione
-              qui. Repellat, modi.
-            </p>
-            <p>
-              Officia asperiores voluptatibus assumenda amet repudiandae maiores
-              veniam harum beatae eligendi aliquam obcaecati velit maxime
-              distinctio nostrum deleniti ipsa vitae, eaque nobis omnis quidem
-              tempora modi facere? Maiores, vero ipsam?
-            </p>
-            <p>
-              Pariatur aliquam, sapiente maxime magnam eveniet assumenda debitis
-              cupiditate reiciendis consequatur rerum alias consequuntur!
-              Tenetur unde porro iure, maxime distinctio quibusdam id optio!
-              Reiciendis sunt corporis incidunt, blanditiis praesentium
-              molestiae!
-            </p>
-          </div>
+          <div className="container mx-auto max-w-screen-lg px-4 py-28"></div>
         </section>
       </main>
     </>
