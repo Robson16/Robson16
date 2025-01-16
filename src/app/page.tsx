@@ -199,7 +199,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className='bg-[url("/images/computer.jpg")] bg-cover bg-center'>
+          <div className="bg-[url('/images/computer.jpg')] bg-cover bg-center">
             <div className="bg-black bg-opacity-90">
               <div className="container mx-auto max-w-screen-xl px-4 py-28">
                 <h3 className="mb-16 text-center text-4xl font-medium">
@@ -258,16 +258,18 @@ export default function Home() {
         <section id="skills">
           <div className="container mx-auto max-w-screen-lg px-4 py-28">
             <div className="flex columns-2 flex-col gap-20 md:flex-row">
-              <div className='flex flex-1 flex-col gap-4'>
-                <h3 className="mb-12 text-center text-3xl font-medium">Habilidades Técnicas</h3>
+              <div className="flex flex-1 flex-col gap-4">
+                <h3 className="mb-12 text-center text-3xl font-medium">
+                  Habilidades Técnicas
+                </h3>
                 <Progress
                   label="JavaScript"
                   classNames={{
-                    base: "w-full",
-                    track: "drop-shadow-md border border-default",
-                    indicator: "bg-teal-600",
-                    label: "tracking-wider text-default-600",
-                    value: "text-foreground/60",
+                    base: 'w-full',
+                    track: 'drop-shadow-md border border-default',
+                    indicator: 'bg-teal-600',
+                    label: 'tracking-wider text-default-600',
+                    value: 'text-foreground/60',
                   }}
                   size="md"
                   value={90}
@@ -275,11 +277,11 @@ export default function Home() {
                 <Progress
                   label="TypeScript"
                   classNames={{
-                    base: "w-full",
-                    track: "drop-shadow-md border border-default",
-                    indicator: "bg-teal-600",
-                    label: "tracking-wider text-default-600",
-                    value: "text-foreground/60",
+                    base: 'w-full',
+                    track: 'drop-shadow-md border border-default',
+                    indicator: 'bg-teal-600',
+                    label: 'tracking-wider text-default-600',
+                    value: 'text-foreground/60',
                   }}
                   size="md"
                   value={80}
@@ -287,11 +289,11 @@ export default function Home() {
                 <Progress
                   label="ReactJS"
                   classNames={{
-                    base: "w-full",
-                    track: "drop-shadow-md border border-default",
-                    indicator: "bg-teal-600",
-                    label: "tracking-wider text-default-600",
-                    value: "text-foreground/60",
+                    base: 'w-full',
+                    track: 'drop-shadow-md border border-default',
+                    indicator: 'bg-teal-600',
+                    label: 'tracking-wider text-default-600',
+                    value: 'text-foreground/60',
                   }}
                   size="md"
                   value={70}
@@ -299,11 +301,11 @@ export default function Home() {
                 <Progress
                   label="NodeJS"
                   classNames={{
-                    base: "w-full",
-                    track: "drop-shadow-md border border-default",
-                    indicator: "bg-teal-600",
-                    label: "tracking-wider text-default-600",
-                    value: "text-foreground/60",
+                    base: 'w-full',
+                    track: 'drop-shadow-md border border-default',
+                    indicator: 'bg-teal-600',
+                    label: 'tracking-wider text-default-600',
+                    value: 'text-foreground/60',
                   }}
                   size="md"
                   value={75}
@@ -311,11 +313,11 @@ export default function Home() {
                 <Progress
                   label="PHP"
                   classNames={{
-                    base: "w-full",
-                    track: "drop-shadow-md border border-default",
-                    indicator: "bg-teal-600",
-                    label: "tracking-wider text-default-600",
-                    value: "text-foreground/60",
+                    base: 'w-full',
+                    track: 'drop-shadow-md border border-default',
+                    indicator: 'bg-teal-600',
+                    label: 'tracking-wider text-default-600',
+                    value: 'text-foreground/60',
                   }}
                   size="md"
                   value={80}
@@ -323,11 +325,11 @@ export default function Home() {
                 <Progress
                   label="WordPress"
                   classNames={{
-                    base: "w-full",
-                    track: "drop-shadow-md border border-default",
-                    indicator: "bg-teal-600",
-                    label: "tracking-wider text-default-600",
-                    value: "text-foreground/60",
+                    base: 'w-full',
+                    track: 'drop-shadow-md border border-default',
+                    indicator: 'bg-teal-600',
+                    label: 'tracking-wider text-default-600',
+                    value: 'text-foreground/60',
                   }}
                   size="md"
                   value={90}
@@ -335,26 +337,28 @@ export default function Home() {
                 <Progress
                   label="Java"
                   classNames={{
-                    base: "w-full",
-                    track: "drop-shadow-md border border-default",
-                    indicator: "bg-teal-600",
-                    label: "tracking-wider text-default-600",
-                    value: "text-foreground/60",
+                    base: 'w-full',
+                    track: 'drop-shadow-md border border-default',
+                    indicator: 'bg-teal-600',
+                    label: 'tracking-wider text-default-600',
+                    value: 'text-foreground/60',
                   }}
                   size="md"
                   value={40}
                 />
               </div>
-              <div className='flex flex-1 flex-col gap-4'>
-                <h3 className="mb-12 text-center text-3xl font-medium">Habilidades Profissionais</h3>
-                <div className='grid grid-cols-2 gap-8 items-start justify-center'>
+              <div className="flex flex-1 flex-col gap-4">
+                <h3 className="mb-12 text-center text-3xl font-medium">
+                  Habilidades Profissionais
+                </h3>
+                <div className="grid grid-cols-2 items-start justify-center gap-8">
                   <CircularProgress
                     classNames={{
-                      base: "max-w-full text-center",
-                      svg: "w-36 h-36 drop-shadow-md",
-                      indicator: "stroke-teal-600",
-                      track: "drop-shadow-md border border-default",
-                      value: "text-3xl font-semibold text-white",
+                      base: 'max-w-full text-center',
+                      svg: 'w-36 h-36 drop-shadow-md',
+                      indicator: 'stroke-teal-600',
+                      track: 'drop-shadow-md border border-default',
+                      value: 'text-3xl font-semibold text-white',
                     }}
                     formatOptions={{ style: 'unit', unit: 'percent' }}
                     label="Resolução de Problemas"
@@ -364,11 +368,11 @@ export default function Home() {
                   />
                   <CircularProgress
                     classNames={{
-                      base: "max-w-full text-center",
-                      svg: "w-36 h-36 drop-shadow-md",
-                      indicator: "stroke-teal-600",
-                      track: "drop-shadow-md border border-default",
-                      value: "text-3xl font-semibold text-white",
+                      base: 'max-w-full text-center',
+                      svg: 'w-36 h-36 drop-shadow-md',
+                      indicator: 'stroke-teal-600',
+                      track: 'drop-shadow-md border border-default',
+                      value: 'text-3xl font-semibold text-white',
                     }}
                     formatOptions={{ style: 'unit', unit: 'percent' }}
                     label="Trabalho em Equipe"
@@ -378,11 +382,11 @@ export default function Home() {
                   />
                   <CircularProgress
                     classNames={{
-                      base: "max-w-full text-center",
-                      svg: "w-36 h-36 drop-shadow-md",
-                      indicator: "stroke-teal-600",
-                      track: "drop-shadow-md border border-default",
-                      value: "text-3xl font-semibold text-white",
+                      base: 'max-w-full text-center',
+                      svg: 'w-36 h-36 drop-shadow-md',
+                      indicator: 'stroke-teal-600',
+                      track: 'drop-shadow-md border border-default',
+                      value: 'text-3xl font-semibold text-white',
                     }}
                     formatOptions={{ style: 'unit', unit: 'percent' }}
                     label="Gerenciamento de Projetos"
@@ -392,11 +396,11 @@ export default function Home() {
                   />
                   <CircularProgress
                     classNames={{
-                      base: "max-w-full text-center",
-                      svg: "w-36 h-36 drop-shadow-md",
-                      indicator: "stroke-teal-600",
-                      track: "drop-shadow-md border border-default",
-                      value: "text-3xl font-semibold text-white",
+                      base: 'max-w-full text-center',
+                      svg: 'w-36 h-36 drop-shadow-md',
+                      indicator: 'stroke-teal-600',
+                      track: 'drop-shadow-md border border-default',
+                      value: 'text-3xl font-semibold text-white',
                     }}
                     formatOptions={{ style: 'unit', unit: 'percent' }}
                     label="Autodidatismo"
