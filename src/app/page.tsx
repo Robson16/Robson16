@@ -150,18 +150,18 @@ export default function Home() {
           </div>
 
           <div className="container mx-auto my-28 max-w-screen-xl px-4">
-            <h2 className="mb-16 text-center text-4xl font-medium">
+            <h3 className="mb-16 text-center text-4xl font-medium">
               O que faço
-            </h2>
+            </h3>
             <div className="flex columns-3 flex-col gap-8 md:flex-row">
               <div className="flex flex-1 flex-col rounded-sm bg-zinc-800 p-8 shadow-2xl">
                 <IoCodeSlashOutline
                   size={30}
                   className="mb-5 mt-4 text-emerald-600"
                 />
-                <h3 className="mb-4 min-h-[65px] text-2xl font-medium">
+                <h4 className="mb-4 min-h-[65px] text-2xl font-medium">
                   Desenvolvimento Web e Mobile
-                </h3>
+                </h4>
                 <p>
                   Criação de aplicações web e mobile responsivas e escaláveis,
                   utilizando tecnologias modernas para garantir alta
@@ -170,9 +170,9 @@ export default function Home() {
               </div>
               <div className="flex flex-1 flex-col rounded-sm bg-zinc-800 p-8 shadow-2xl">
                 <GoDatabase size={30} className="mb-5 mt-4 text-purple-600" />
-                <h3 className="mb-4 min-h-[65px] text-2xl font-medium">
+                <h4 className="mb-4 min-h-[65px] text-2xl font-medium">
                   API e Banco de Dados
-                </h3>
+                </h4>
                 <p>
                   Desenvolvimento de APIs eficientes e bem estruturadas,
                   garantindo integração fluida entre sistemas. Trabalho com
@@ -185,9 +185,9 @@ export default function Home() {
                   size={30}
                   className="mb-5 mt-4 text-yellow-600"
                 />
-                <h3 className="mb-4 min-h-[65px] text-2xl font-medium">
+                <h4 className="mb-4 min-h-[65px] text-2xl font-medium">
                   Boas Práticas e Performance
-                </h3>
+                </h4>
                 <p>
                   Aplicação de princípios como SOLID, TDD e DDD para garantir
                   código limpo e sustentável. Implementação de estratégias para
@@ -201,9 +201,9 @@ export default function Home() {
           <div className='bg-[url("/images/computer.jpg")] bg-cover bg-center'>
             <div className="bg-black bg-opacity-90">
               <div className="container mx-auto max-w-screen-xl px-4 py-28">
-                <h2 className="mb-16 text-center text-4xl font-medium">
+                <h3 className="mb-16 text-center text-4xl font-medium">
                   Projetos em destaque
-                </h2>
+                </h3>
                 <Carousel
                   navigation
                   loop

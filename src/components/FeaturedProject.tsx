@@ -30,8 +30,8 @@ export default function FeaturedProject({
         <span className="bold text-1xl mb-2 uppercase text-teal-600">
           {category}
         </span>
-        <h3 className="bold mb-2 text-3xl uppercase">{heading}</h3>
-        <h4 className="mb-4 uppercase">{subheading}</h4>
+        <h4 className="bold mb-2 text-3xl uppercase">{heading}</h4>
+        <h5 className="mb-4 uppercase">{subheading}</h5>
         <p className="mb-8 text-center lg:text-left">{description}</p>
         <a
           className="flex items-center gap-2 rounded-full bg-teal-600 px-8 py-3 font-bold text-white transition-all hover:bg-teal-700"
