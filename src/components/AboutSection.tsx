@@ -8,7 +8,7 @@ import FeaturedProject from './FeaturedProject'
 
 export default function AboutSection() {
   return (
-    <section id="about">
+    <section id="about" aria-labelledby="about-title">
       <div className="container mx-auto my-28 max-w-screen-lg px-4">
         <div className="flex columns-2 flex-col items-center gap-16 md:flex-row">
           <div className="flex flex-1 flex-col">
@@ -17,11 +17,13 @@ export default function AboutSection() {
               alt="About image"
               width={480}
               height={290}
-              className=" "
             />
           </div>
           <div className="flex flex-1 flex-col items-center md:items-start">
-            <h2 className="mb-4 text-center text-4xl font-medium md:text-left">
+            <h2
+              id="about-title"
+              className="mb-4 text-center text-4xl font-medium md:text-left"
+            >
               Sobre mim
             </h2>
             <p className="mb-8 text-center leading-7 md:text-left">
