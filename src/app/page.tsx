@@ -1,3 +1,5 @@
+import Carousel from '@/components/Carousel'
+import FeaturedProject from '@/components/FeaturedProject'
 import Header from '@/components/Header'
 import SocialLink from '@/components/SocialLink'
 import Image from 'next/image'
@@ -8,6 +10,9 @@ import {
   AiOutlineMail,
 } from 'react-icons/ai'
 import { FaDownload, FaMapMarkerAlt } from 'react-icons/fa'
+import { GoDatabase } from 'react-icons/go'
+import { IoCodeSlashOutline } from 'react-icons/io5'
+import { PiLightningLight } from 'react-icons/pi'
 
 export default function Home() {
   return (
@@ -16,7 +21,7 @@ export default function Home() {
       <main>
         <section
           id="home"
-          className="bg-[url('/images/bg-above-the-fold.jpg')] bg-cover bg-center"
+          className="bg-[url('/images/code.jpg')] bg-cover bg-center"
         >
           <div className="bg-black bg-opacity-70">
             <div className="container mx-auto max-w-screen-lg px-4 py-20 md:py-56">
@@ -86,7 +91,7 @@ export default function Home() {
         </section>
 
         <section id="about">
-          <div className="container mx-auto max-w-screen-lg px-4 py-28">
+          <div className="container mx-auto my-28 max-w-screen-lg px-4">
             <div className="flex columns-2 flex-col items-center gap-16 md:flex-row">
               <div className="flex flex-1 flex-col">
                 <Image
@@ -140,6 +145,110 @@ export default function Home() {
                   Baixar CV
                   <FaDownload size={16} />
                 </a>
+              </div>
+            </div>
+          </div>
+
+          <div className="container mx-auto my-28 max-w-screen-xl px-4">
+            <h3 className="mb-16 text-center text-4xl font-medium">
+              O que faço
+            </h3>
+            <div className="flex columns-3 flex-col gap-8 md:flex-row">
+              <div className="flex flex-1 flex-col rounded-sm bg-zinc-800 p-8 shadow-2xl">
+                <IoCodeSlashOutline
+                  size={30}
+                  className="mb-5 mt-4 text-emerald-600"
+                />
+                <h4 className="mb-4 min-h-[65px] text-2xl font-medium">
+                  Desenvolvimento Web e Mobile
+                </h4>
+                <p>
+                  Criação de aplicações web e mobile responsivas e escaláveis,
+                  utilizando tecnologias modernas para garantir alta
+                  performance, segurança e uma excelente experiência do usuário.
+                </p>
+              </div>
+              <div className="flex flex-1 flex-col rounded-sm bg-zinc-800 p-8 shadow-2xl">
+                <GoDatabase size={30} className="mb-5 mt-4 text-purple-600" />
+                <h4 className="mb-4 min-h-[65px] text-2xl font-medium">
+                  API e Banco de Dados
+                </h4>
+                <p>
+                  Desenvolvimento de APIs eficientes e bem estruturadas,
+                  garantindo integração fluida entre sistemas. Trabalho com
+                  bancos de dados relacionais e não relacionais, com foco em
+                  otimização e escalabilidade.
+                </p>
+              </div>
+              <div className="flex flex-1 flex-col rounded-sm bg-zinc-800 p-8 shadow-2xl">
+                <PiLightningLight
+                  size={30}
+                  className="mb-5 mt-4 text-yellow-600"
+                />
+                <h4 className="mb-4 min-h-[65px] text-2xl font-medium">
+                  Boas Práticas e Performance
+                </h4>
+                <p>
+                  Aplicação de princípios como SOLID, TDD e DDD para garantir
+                  código limpo e sustentável. Implementação de estratégias para
+                  otimizar a performance das aplicações, seguindo as melhores
+                  práticas do mercado.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className='bg-[url("/images/computer.jpg")] bg-cover bg-center'>
+            <div className="bg-black bg-opacity-90">
+              <div className="container mx-auto max-w-screen-xl px-4 py-28">
+                <h3 className="mb-16 text-center text-4xl font-medium">
+                  Projetos em destaque
+                </h3>
+                <Carousel
+                  navigation
+                  loop
+                  slides={[
+                    {
+                      id: 1,
+                      content: (
+                        <FeaturedProject
+                          imageSrc="/images/projects/castelloruspoli.png"
+                          category="WordPress"
+                          heading="Castello Ruspoli"
+                          subheading="Elegante e otimizado"
+                          description="Um tema personalizado para WordPress, desenvolvido para o site do histórico Castello Ruspoli, um castelo com origens que remontam a 847. Utiliza tecnologias como WordPress, SASS para estilização, Node.js para a automação de tarefas, Webpack para empacotamento de módulos e Babel para a transpilação de JavaScript, visando garantir um código otimizado e eficiente tanto para a parte visual quanto para a funcionalidade."
+                          href="https://castelloruspoli.com/"
+                        />
+                      ),
+                    },
+                    {
+                      id: 2,
+                      content: (
+                        <FeaturedProject
+                          imageSrc="/images/projects/castelloruspoli.png"
+                          category="WordPress"
+                          heading="Castello Ruspoli"
+                          subheading="Elegante e otimizado"
+                          description="Um tema personalizado para WordPress, desenvolvido para o site do histórico Castello Ruspoli, um castelo com origens que remontam a 847. Utiliza tecnologias como WordPress, SASS para estilização, Node.js para a automação de tarefas, Webpack para empacotamento de módulos e Babel para a transpilação de JavaScript, visando garantir um código otimizado e eficiente tanto para a parte visual quanto para a funcionalidade."
+                          href="https://castelloruspoli.com/"
+                        />
+                      ),
+                    },
+                    {
+                      id: 3,
+                      content: (
+                        <FeaturedProject
+                          imageSrc="/images/projects/castelloruspoli.png"
+                          category="WordPress"
+                          heading="Castello Ruspoli"
+                          subheading="Elegante e otimizado"
+                          description="Um tema personalizado para WordPress, desenvolvido para o site do histórico Castello Ruspoli, um castelo com origens que remontam a 847. Utiliza tecnologias como WordPress, SASS para estilização, Node.js para a automação de tarefas, Webpack para empacotamento de módulos e Babel para a transpilação de JavaScript, visando garantir um código otimizado e eficiente tanto para a parte visual quanto para a funcionalidade."
+                          href="https://castelloruspoli.com/"
+                        />
+                      ),
+                    },
+                  ]}
+                />
               </div>
             </div>
           </div>
