@@ -1,6 +1,7 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Roboto } from 'next/font/google'
 import './globals.css'
+import { Providers } from './providers'
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -13,14 +14,26 @@ export const metadata: Metadata = {
     '33 anos, Jundiaí - SP, Desenvolvedor Web, formado em Gestão da Informação pela FATEC Jundiaí',
 }
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
+  ],
+}
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR">
-      <body className={roboto.className}>{children}</body>
+    <html suppressHydrationWarning lang="pt-BR">
+      <head />
+      <body className={roboto.className}>
+        <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
+          {children}
+        </Providers>
+      </body>
     </html>
   )
 }
