@@ -62,7 +62,7 @@ export default function ExperienceSection() {
       className="bg-[url('/images/study.jpg')] bg-cover bg-center"
     >
       <div className="bg-black bg-opacity-90">
-        <div className="container mx-auto max-w-screen-xl px-4 py-28">
+        <div className="container mx-auto px-4 py-28 lg:max-w-screen-xl">
           <div className="flex columns-2 flex-col gap-20 lg:flex-row">
             {/* Seção Educação */}
             <div className="flex flex-1 flex-col gap-7">

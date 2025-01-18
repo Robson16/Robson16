@@ -9,8 +9,8 @@ import FeaturedProject from './FeaturedProject'
 export default function AboutSection() {
   return (
     <section id="about" aria-labelledby="about-title">
-      <div className="container mx-auto my-28 max-w-screen-lg px-4">
-        <div className="flex columns-2 flex-col items-center gap-16 md:flex-row">
+      <div className="container mx-auto my-28 px-4 lg:max-w-screen-lg">
+        <div className="flex columns-2 flex-col items-center gap-16 lg:flex-row">
           <div className="flex flex-1 flex-col">
             <Image
               src="/images/about-image.png"
@@ -19,19 +19,19 @@ export default function AboutSection() {
               height={290}
             />
           </div>
-          <div className="flex flex-1 flex-col items-center md:items-start">
+          <div className="flex flex-1 flex-col items-center lg:items-start">
             <h2
               id="about-title"
-              className="mb-4 text-center text-4xl font-medium md:text-left"
+              className="mb-4 text-center text-4xl font-medium lg:text-left"
             >
               Sobre mim
             </h2>
-            <p className="mb-8 text-center leading-7 md:text-left">
+            <p className="mb-8 text-center leading-7 lg:text-left">
               Olá, sou Robson, Desenvolvedor Web de Jundiaí - SP, Brasil. Com
               experiência em desenvolvimento web e mobile, foco em aplicações
               escaláveis e otimizadas. Conhecimentos em
             </p>
-            <ul className="mb-8 flex flex-wrap justify-center gap-4 md:justify-start">
+            <ul className="mb-8 flex flex-wrap justify-center gap-4 lg:justify-start">
               <li className="rounded border border-solid border-teal-600 px-3 py-1">
                 Java
               </li>
@@ -71,7 +71,7 @@ export default function AboutSection() {
 
       <div className="container mx-auto my-28 max-w-screen-xl px-4">
         <h3 className="mb-16 text-center text-4xl font-medium">O que faço</h3>
-        <div className="flex columns-3 flex-col gap-8 md:flex-row">
+        <div className="flex columns-3 flex-col gap-8 lg:flex-row">
           <div className="flex flex-1 flex-col rounded-sm bg-zinc-800 p-8 shadow-2xl">
             <IoCodeSlashOutline
               size={30}
