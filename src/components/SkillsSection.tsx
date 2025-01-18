@@ -14,7 +14,11 @@ export type SkillResponse = {
 }
 
 async function fetchSkills(): Promise<SkillResponse> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || ''
+  const apiUrl =
+    process.env.VERCEL_ENV === 'preview'
+      ? process.env.VERCEL_URL
+      : process.env.NEXT_PUBLIC_API_URL || ''
+
   const res = await fetch(`${apiUrl}/api/skills`)
 
   if (!res.ok) throw new Error('Falha ao buscar habilidades')
