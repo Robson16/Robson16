@@ -1,4 +1,7 @@
+'use client'
+
 import { CircularProgress, Progress } from '@nextui-org/progress'
+import { useEffect, useState } from 'react'
 
 export type Skill = {
   name: string
@@ -10,16 +13,27 @@ export type SkillResponse = {
   professional: Skill[]
 }
 
-async function getSkills(): Promise<SkillResponse> {
+async function fetchSkills(): Promise<SkillResponse> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || ''
   const res = await fetch(`${apiUrl}/api/skills`)
 
   if (!res.ok) throw new Error('Falha ao buscar habilidades')
+
   return res.json()
 }
 
-export default async function SkillsSections() {
-  const skills = await getSkills()
+export default function SkillsSections() {
+  const [skills, setSkills] = useState<SkillResponse | null>(null)
+
+  useEffect(() => {
+    fetchSkills()
+      .then(setSkills)
+      .catch((error) => console.error('Error fetching skills:', error))
+  }, [])
+
+  if (!skills) {
+    return <p>Carregando...</p>
+  }
 
   return (
     <section
