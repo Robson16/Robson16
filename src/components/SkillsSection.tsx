@@ -14,37 +14,42 @@ export type SkillResponse = {
 }
 
 async function fetchSkills(): Promise<SkillResponse> {
-  const apiUrl =
-    process.env.VERCEL_ENV === 'preview'
-      ? process.env.VERCEL_URL
-      : process.env.NEXT_PUBLIC_API_URL || ''
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || ''
 
-  const res = await fetch(`${apiUrl}/api/skills`)
+  const response = await fetch(`${apiUrl}/api/skills`)
 
-  if (!res.ok) throw new Error('Falha ao buscar habilidades')
+  if (!response.ok) throw new Error('Error fetching skills')
 
-  return res.json()
+  return response.json()
 }
 
 export default function SkillsSections() {
   const [skills, setSkills] = useState<SkillResponse | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     fetchSkills()
       .then(setSkills)
-      .catch((error) => console.error('Error fetching skills:', error))
+      .catch((error) => {
+        console.error('Error fetching skills:', error)
+        setError('Error loading data. Please try again.')
+      })
   }, [])
 
+  if (error) {
+    return <p className="text-center text-red-500">{error}</p>
+  }
+
   if (!skills) {
-    return <p>Carregando...</p>
+    return <p className="text-center">Carregando...</p>
   }
 
   return (
     <section
       id="skills"
-      className="container mx-auto max-w-screen-lg px-4 py-28"
+      className="container mx-auto px-4 py-28 lg:max-w-screen-lg"
     >
-      <div className="flex columns-2 flex-col gap-20 md:flex-row">
+      <div className="flex columns-2 flex-col gap-20 lg:flex-row">
         <div className="flex flex-1 flex-col gap-4">
           <h3 className="mb-12 text-center text-3xl font-medium">
             Habilidades Técnicas
