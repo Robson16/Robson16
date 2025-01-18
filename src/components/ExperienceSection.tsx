@@ -28,7 +28,11 @@ async function fetchData<T>(endpoint: string): Promise<T> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || ''
   const response = await fetch(`${apiUrl}/api/${endpoint}`)
 
-  if (!response.ok) throw new Error(`Error fetching data from ${endpoint}`)
+  if (!response.ok) {
+    throw new Error(
+      `Error fetching data from ${endpoint}: ${response.statusText}`,
+    )
+  }
 
   return response.json()
 }
@@ -43,7 +47,7 @@ export default function ExperienceSection() {
       fetchData<Education[]>('education').then(setEducation),
       fetchData<Experience[]>('experiences').then(setExperiences),
     ]).catch((error) => {
-      console.error('Error fetching skills:', error)
+      console.error('Error fetching data:', error)
       setError('Error loading data. Please try again.')
     })
   }, [])
@@ -80,9 +84,7 @@ export default function ExperienceSection() {
                       {edu.institution}
                     </span>
                   </h4>
-                  <span className="text-teal-600">
-                    {`${edu.period.start} - ${edu.period.end}`}
-                  </span>
+                  <span className="text-teal-600">{`${edu.period.start} - ${edu.period.end}`}</span>
                   <p className="text-sm">{edu.description}</p>
                 </div>
               ))}
@@ -102,9 +104,7 @@ export default function ExperienceSection() {
                     {exp.title} em{' '}
                     <span className="italic text-teal-600">{exp.company}</span>
                   </h4>
-                  <span className="text-teal-600">
-                    {`${exp.period.start} - ${exp.period.end}`}
-                  </span>
+                  <span className="text-teal-600">{`${exp.period.start} - ${exp.period.end}`}</span>
                   {exp.location && (
                     <span className="text-sm text-gray-400">
                       {exp.location}
