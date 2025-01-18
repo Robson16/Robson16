@@ -32,9 +32,9 @@ export const experiences = [
     ],
   },
   {
-    title: 'Desenvolvedor Front-End (PJ)',
+    title: 'Desenvolvedor Front-End',
     company: 'Agência B&B',
-    location: 'Jundiaí, SP',
+    location: 'São Paulo, SP',
     period: {
       start: 'Setembro de 2021',
       end: 'Janeiro de 2024',
@@ -46,9 +46,9 @@ export const experiences = [
     ],
   },
   {
-    title: 'Desenvolvedor Front-End (PJ)',
+    title: 'Desenvolvedor Front-End',
     company: 'Vollup Creative Agency',
-    location: 'Jundiaí, SP',
+    location: 'São Paulo, SP',
     period: {
       start: 'Janeiro de 2021',
       end: 'Setembro de 2021',
@@ -60,7 +60,7 @@ export const experiences = [
     ],
   },
   {
-    title: 'Desenvolvedor Web (PJ)',
+    title: 'Desenvolvedor Web',
     company: 'Stratesign Publicidade Propaganda',
     location: 'Jundiaí, SP',
     period: {
