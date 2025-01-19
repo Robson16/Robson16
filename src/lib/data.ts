@@ -16,6 +16,19 @@ export const skills = {
   ],
 }
 
+export const projects = [
+  {
+    id: 1,
+    imageSrc: '/images/projects/castelloruspoli.png',
+    category: 'WordPress',
+    heading: 'Castello Ruspoli',
+    subheading: 'Elegante e otimizado',
+    description:
+      'Um tema personalizado para WordPress, desenvolvido para o site do histórico Castello Ruspoli, um castelo com origens que remontam a 847. Utiliza tecnologias como WordPress, SASS para estilização, Node.js para a automação de tarefas, Webpack para empacotamento de módulos e Babel para a transpilação de JavaScript, visando garantir um código otimizado e eficiente tanto para a parte visual quanto para a funcionalidade.',
+    url: 'https://castelloruspoli.com/',
+  },
+]
+
 export const experiences = [
   {
     title: 'Auxiliar de Informática',
