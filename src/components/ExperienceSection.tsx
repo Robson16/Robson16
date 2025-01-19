@@ -29,9 +29,7 @@ async function fetchData<T>(endpoint: string): Promise<T> {
   const response = await fetch(`${apiUrl}/api/${endpoint}`)
 
   if (!response.ok) {
-    throw new Error(
-      `Error fetching data from ${endpoint}: ${response.statusText}`,
-    )
+    throw new Error(`Fetching data from ${endpoint}: ${response.statusText}`)
   }
 
   return response.json()
@@ -46,8 +44,8 @@ export default function ExperienceSection() {
     Promise.all([
       fetchData<Education[]>('education').then(setEducation),
       fetchData<Experience[]>('experiences').then(setExperiences),
-    ]).catch((error) => {
-      console.error('Error fetching data:', error)
+    ]).catch((err) => {
+      console.error(err)
       setError('Error loading data. Please try again.')
     })
   }, [])

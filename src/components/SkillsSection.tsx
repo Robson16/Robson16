@@ -18,7 +18,7 @@ async function fetchSkills(): Promise<SkillResponse> {
 
   const response = await fetch(`${apiUrl}/api/skills`)
 
-  if (!response.ok) throw new Error('Error fetching skills')
+  if (!response.ok) throw new Error('Fetching skills')
 
   return response.json()
 }
@@ -30,8 +30,8 @@ export default function SkillsSections() {
   useEffect(() => {
     fetchSkills()
       .then(setSkills)
-      .catch((error) => {
-        console.error('Error fetching skills:', error)
+      .catch((err) => {
+        console.error(err)
         setError('Error loading data. Please try again.')
       })
   }, [])
