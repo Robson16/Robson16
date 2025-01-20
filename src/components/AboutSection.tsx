@@ -1,13 +1,13 @@
 'use client'
 
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 import { FaDownload } from 'react-icons/fa'
 import { GoDatabase } from 'react-icons/go'
 import { IoCodeSlashOutline } from 'react-icons/io5'
 import { PiLightningLight } from 'react-icons/pi'
 import Carousel from './Carousel'
 import FeaturedProject from './FeaturedProject'
-import { useEffect, useState } from 'react'
 
 type FeaturedProjects = {
   id: number
@@ -156,18 +156,32 @@ export default function AboutSection() {
               <p className="text-center text-red-500">{error}</p>
             ) : featuredProjects.length === 0 ? (
               <p className="text-center">Nenhum projeto encontrado</p>
+            ) : featuredProjects.length === 1 ? (
+              // When having only one project, directly render the Featured Product
+              <FeaturedProject
+                key={featuredProjects[0].id}
+                imageSrc={featuredProjects[0].imageSrc}
+                category={featuredProjects[0].category}
+                heading={featuredProjects[0].heading}
+                subheading={featuredProjects[0].subheading}
+                description={featuredProjects[0].description}
+                href={featuredProjects[0].url}
+              />
             ) : (
-              featuredProjects.map((project) => (
-                <FeaturedProject
-                  key={project.id}
-                  imageSrc={project.imageSrc}
-                  category={project.category}
-                  heading={project.heading}
-                  subheading={project.subheading}
-                  description={project.description}
-                  href={project.url}
-                />
-              ))
+              // If has more than one project, use Carousel
+              <Carousel>
+                {featuredProjects.map((project) => (
+                  <FeaturedProject
+                    key={project.id}
+                    imageSrc={project.imageSrc}
+                    category={project.category}
+                    heading={project.heading}
+                    subheading={project.subheading}
+                    description={project.description}
+                    href={project.url}
+                  />
+                ))}
+              </Carousel>
             )}
           </div>
         </div>
