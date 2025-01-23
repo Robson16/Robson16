@@ -3,8 +3,6 @@
 import PortfolioThumb from '@/components/PortfolioThumb'
 import useMasonry from '@/hooks/useMasonry'
 import { Project } from '@/types/Project'
-import Image from 'next/image'
-import React from 'react'
 
 type PortfolioSectionProps = {
   projects: Project[]
