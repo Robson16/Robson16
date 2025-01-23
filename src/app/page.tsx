@@ -3,22 +3,10 @@ import AboutSection from '@/containers/HomePage/AboutSection'
 import ExperienceSection from '@/containers/HomePage/ExperienceSection'
 import HeroSection from '@/containers/HomePage/HeroSection'
 import SkillsSection from '@/containers/HomePage/SkillsSection'
-import { About } from '@/types/About'
-import { Education } from '@/types/Education'
-import { Experience } from '@/types/Experience'
-import { FeaturedProject } from '@/types/Project'
-import { Skills } from '@/types/Skill'
-import fetchData from '@/utils/api'
+import { about, education, experiences, projects, skills } from '@/lib/data'
 
 export default async function Home() {
-  const [about, skills, featuredProjects, education, experience] =
-    await Promise.all([
-      fetchData<About>('about'),
-      fetchData<Skills>('skills'),
-      fetchData<FeaturedProject[]>('projects'),
-      fetchData<Education[]>('education'),
-      fetchData<Experience[]>('experiences'),
-    ])
+  const featuredProjects = projects.filter((project) => project.featured)
 
   return (
     <>
@@ -34,7 +22,7 @@ export default async function Home() {
           technical={skills.technical}
           professional={skills.professional}
         />
-        <ExperienceSection education={education} experiences={experience} />
+        <ExperienceSection education={education} experiences={experiences} />
       </main>
     </>
   )

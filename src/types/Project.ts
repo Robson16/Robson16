@@ -1,5 +1,6 @@
-export type FeaturedProject = {
+export type Project = {
   id: number
+  featured: boolean
   imageSrc: string
   category: string
   heading: string

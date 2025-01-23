@@ -2,7 +2,7 @@ import Carousel from '@/components/Carousel'
 import DynamicIcon from '@/components/DynamicIcon'
 import FeaturedProjectItem from '@/components/FeaturedProjectItem'
 import { Feature } from '@/types/About'
-import { FeaturedProject } from '@/types/Project'
+import { Project } from '@/types/Project'
 import { Skills } from '@/types/Skill'
 import Image from 'next/image'
 import { FaDownload } from 'react-icons/fa'
@@ -10,7 +10,7 @@ import { FaDownload } from 'react-icons/fa'
 type AboutSectionProps = {
   features: Feature[]
   skills: Skills | null
-  featuredProjects: FeaturedProject[]
+  featuredProjects: Project[]
 }
 
 export default function AboutSection({

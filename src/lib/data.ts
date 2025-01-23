@@ -1,4 +1,10 @@
-export const about = {
+import { About } from '@/types/About'
+import { Education } from '@/types/Education'
+import { Experience } from '@/types/Experience'
+import { Project } from '@/types/Project'
+import { Skills } from '@/types/Skill'
+
+export const about: About = {
   name: 'Robson H. Rodrigues',
   title: 'Desenvolvedor Web',
   description:
@@ -44,7 +50,7 @@ export const about = {
   ],
 }
 
-export const skills = {
+export const skills: Skills = {
   technical: [
     { name: 'JavaScript', value: 90 },
     { name: 'TypeScript', value: 80 },
@@ -62,9 +68,10 @@ export const skills = {
   ],
 }
 
-export const projects = [
+export const projects: Project[] = [
   {
     id: 1,
+    featured: true,
     imageSrc: '/images/projects/castelloruspoli.png',
     category: 'WordPress',
     heading: 'Castello Ruspoli',
@@ -75,7 +82,7 @@ export const projects = [
   },
 ]
 
-export const experiences = [
+export const experiences: Experience[] = [
   {
     title: 'Auxiliar de Informática',
     company: 'MEQSO GROUP',
@@ -116,6 +123,20 @@ export const experiences = [
       'Desenvolvimento de sites personalizados em WordPress.',
       'Criação de interfaces de usuário intuitivas.',
       'Manutenção contínua de plataformas.',
+    ],
+  },
+  {
+    title: 'Analista de Sistema',
+    company: 'Agência io!',
+    location: 'Jundiai, SP',
+    period: {
+      start: 'Novembro de 2020',
+      end: 'Dezembro de 2020',
+    },
+    responsibilities: [
+      'Contratação temporária para suporte web.',
+      'Suporte técnico a múltiplos clientes e seus websites.',
+      'Manutenção e otimização de plataformas CMS, com foco em WordPress',
     ],
   },
   {
@@ -259,7 +280,7 @@ export const experiences = [
   },
 ]
 
-export const education = [
+export const education: Education[] = [
   {
     title: 'Análise de Sistemas',
     institution:
