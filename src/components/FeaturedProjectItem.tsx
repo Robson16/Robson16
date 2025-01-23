@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-export default function FeaturedProject({
+export default function FeaturedProjectItem({
   imageSrc,
   category,
   heading,
