@@ -20,7 +20,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "server": "json-server --watch db.json --port 3333"
   },
   "dependencies": {
     "@nextui-org/progress": "2.2.6",
@@ -36,16 +37,19 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-icons": "4.11.0",
-    "swiper": "11.2.1"
+    "react-slick": "0.30.3",
+    "slick-carousel": "1.8.1"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "2.1.0",
     "@types/node": "20.8.8",
     "@types/react": "18.2.32",
     "@types/react-dom": "18.2.14",
+    "@types/react-slick": "0.23.13",
     "autoprefixer": "10.4.16",
     "eslint": "8.52.0",
     "eslint-config-next": "15.1.4",
+    "json-server": "1.0.0-beta.3",
     "postcss": "8.4.31",
     "prettier": "3.4.2",
     "prettier-plugin-tailwindcss": "0.6.9",

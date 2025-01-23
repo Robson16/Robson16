@@ -1,63 +1,16 @@
-'use client'
-
-import { useEffect, useState } from 'react'
+import { Education } from '@/types/Education'
+import { Experience } from '@/types/Experience'
 import { FaCircle } from 'react-icons/fa'
 
-type Experience = {
-  title: string
-  company: string
-  location?: string
-  period: {
-    start: string
-    end: string
-  }
-  responsibilities: string[]
+interface ExperienceSectionProps {
+  education: Education[]
+  experiences: Experience[]
 }
 
-type Education = {
-  title: string
-  institution: string
-  period: {
-    start: string
-    end: string
-  }
-  description: string
-}
-
-async function fetchData<T>(endpoint: string): Promise<T> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || ''
-  const response = await fetch(`${apiUrl}/api/${endpoint}`)
-
-  if (!response.ok) {
-    throw new Error(`Fetching data from ${endpoint}: ${response.statusText}`)
-  }
-
-  return response.json()
-}
-
-export default function ExperienceSection() {
-  const [education, setEducation] = useState<Education[] | null>(null)
-  const [experiences, setExperiences] = useState<Experience[] | null>(null)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    Promise.all([
-      fetchData<Education[]>('education').then(setEducation),
-      fetchData<Experience[]>('experiences').then(setExperiences),
-    ]).catch((err) => {
-      console.error(err)
-      setError('Error loading data. Please try again.')
-    })
-  }, [])
-
-  if (error) {
-    return <p className="text-center text-red-500">{error}</p>
-  }
-
-  if (!education || !experiences) {
-    return <p className="text-center">Carregando...</p>
-  }
-
+export default function ExperienceSection({
+  education,
+  experiences,
+}: ExperienceSectionProps) {
   return (
     <section
       id="experience"

@@ -1,96 +1,66 @@
 'use client'
 
-import { ReactNode, useEffect, useRef } from 'react'
+import React from 'react'
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2'
-import { Swiper as SwiperClass } from 'swiper'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
-import 'swiper/css/scrollbar'
-import { A11y, Navigation, Pagination, Scrollbar } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick-theme.css'
+import 'slick-carousel/slick/slick.css'
 
-type Slide = {
-  id: number
-  content: ReactNode
+type CarouselProps = {
+  children: React.ReactNode
+  dots?: boolean
+  infinite?: boolean
+  speed?: number
+  slidesToShow?: number
+  slidesToScroll?: number
 }
 
-interface CarouselProps {
-  slides: Slide[]
-  navigation?: boolean
-  pagination?: boolean
-  scrollbar?: boolean
-  loop?: boolean
-}
+type ArrowProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 
-export default function Carousel({
-  slides,
-  navigation = false,
-  pagination = false,
-  scrollbar = false,
-  loop = false,
-}: CarouselProps) {
-  const prevRef = useRef<HTMLButtonElement | null>(null)
-  const nextRef = useRef<HTMLButtonElement | null>(null)
+const PrevArrow: React.FC<ArrowProps> = ({ onClick }) => (
+  <button
+    className="absolute left-0 top-1/2 z-10 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gray-800 text-white shadow-md transition hover:bg-teal-600 lg:-left-8"
+    onClick={onClick}
+    aria-label="Previous slide"
+  >
+    <HiChevronLeft size={20} />
+  </button>
+)
 
-  useEffect(() => {
-    if (navigation && prevRef.current && nextRef.current) {
-      const swiper: SwiperClass = new SwiperClass('.swiper-container', {
-        modules: [Navigation, Pagination, Scrollbar, A11y],
-        spaceBetween: 50,
-        slidesPerView: 1,
-        navigation: {
-          prevEl: prevRef.current,
-          nextEl: nextRef.current,
-        },
-        pagination: pagination ? { clickable: true } : false,
-        scrollbar: scrollbar ? { draggable: true } : false,
-        loop,
-      })
+const NextArrow: React.FC<ArrowProps> = ({ onClick }) => (
+  <button
+    className="absolute right-0 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-gray-800 text-white shadow-md transition hover:bg-teal-600 lg:-right-8"
+    onClick={onClick}
+    aria-label="Next slide"
+  >
+    <HiChevronRight size={20} />
+  </button>
+)
 
-      return () => {
-        swiper.destroy()
-      }
-    }
-  }, [navigation, pagination, scrollbar, loop])
-
+const Carousel: React.FC<CarouselProps> = ({
+  children,
+  dots = false,
+  infinite = true,
+  speed = 750,
+  slidesToShow = 1,
+  slidesToScroll = 1,
+}) => {
   return (
-    <div className="relative">
-      <Swiper
-        className="max-w-[92%]"
-        modules={[Navigation, Pagination, Scrollbar, A11y]}
-        spaceBetween={50}
-        slidesPerView={1}
-        navigation={
-          navigation
-            ? { prevEl: prevRef.current, nextEl: nextRef.current }
-            : false
-        }
-        pagination={pagination ? { clickable: true } : false}
-        scrollbar={scrollbar ? { draggable: true } : false}
-        loop={loop}
+    <div className="relative flex justify-center">
+      <Slider
+        className="max-w-[90%]"
+        dots={dots}
+        infinite={infinite}
+        speed={speed}
+        slidesToShow={slidesToShow}
+        slidesToScroll={slidesToScroll}
+        prevArrow={<PrevArrow />}
+        nextArrow={<NextArrow />}
       >
-        {slides.map((slide) => (
-          <SwiperSlide key={slide.id}>{slide.content}</SwiperSlide>
-        ))}
-      </Swiper>
-
-      {navigation && (
-        <>
-          <button
-            ref={prevRef}
-            className="absolute left-0 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-gray-800 text-white shadow-md transition hover:bg-teal-600 lg:-left-8"
-          >
-            <HiChevronLeft size={20} />
-          </button>
-          <button
-            ref={nextRef}
-            className="absolute right-0 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-gray-800 text-white shadow-md transition hover:bg-teal-600 lg:-right-8"
-          >
-            <HiChevronRight size={20} />
-          </button>
-        </>
-      )}
+        {children}
+      </Slider>
     </div>
   )
 }
+
+export default Carousel

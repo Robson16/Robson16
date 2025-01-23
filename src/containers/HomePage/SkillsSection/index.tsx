@@ -1,49 +1,15 @@
-'use client'
-
+import { Skill } from '@/types/Skill'
 import { CircularProgress, Progress } from '@nextui-org/progress'
-import { useEffect, useState } from 'react'
 
-export type Skill = {
-  name: string
-  value: number
-}
-
-export type SkillResponse = {
+type SkillsSectionProps = {
   technical: Skill[]
   professional: Skill[]
 }
 
-async function fetchSkills(): Promise<SkillResponse> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || ''
-
-  const response = await fetch(`${apiUrl}/api/skills`)
-
-  if (!response.ok) throw new Error('Fetching skills')
-
-  return response.json()
-}
-
-export default function SkillsSections() {
-  const [skills, setSkills] = useState<SkillResponse | null>(null)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    fetchSkills()
-      .then(setSkills)
-      .catch((err) => {
-        console.error(err)
-        setError('Error loading data. Please try again.')
-      })
-  }, [])
-
-  if (error) {
-    return <p className="text-center text-red-500">{error}</p>
-  }
-
-  if (!skills) {
-    return <p className="text-center">Carregando...</p>
-  }
-
+export default function SkillsSection({
+  technical,
+  professional,
+}: SkillsSectionProps) {
   return (
     <section
       id="skills"
@@ -54,7 +20,7 @@ export default function SkillsSections() {
           <h3 className="mb-12 text-center text-3xl font-medium">
             Habilidades Técnicas
           </h3>
-          {skills.technical.map(
+          {technical.map(
             (skill: { name: string; value: number }, index: number) => (
               <Progress
                 key={index}
@@ -77,7 +43,7 @@ export default function SkillsSections() {
             Habilidades Profissionais
           </h3>
           <div className="grid grid-cols-2 items-start justify-center gap-8">
-            {skills.professional.map(
+            {professional.map(
               (skill: { name: string; value: number }, index: number) => (
                 <CircularProgress
                   key={index}

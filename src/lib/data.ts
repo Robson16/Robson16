@@ -1,4 +1,56 @@
-export const skills = {
+import { About } from '@/types/About'
+import { Education } from '@/types/Education'
+import { Experience } from '@/types/Experience'
+import { Project } from '@/types/Project'
+import { Skills } from '@/types/Skill'
+
+export const about: About = {
+  name: 'Robson H. Rodrigues',
+  title: 'Desenvolvedor Web',
+  description:
+    'Olá, sou Robson, Desenvolvedor Web de Jundiaí - SP, Brasil. Com experiência em desenvolvimento web e mobile, foco em aplicações escaláveis e otimizadas. Conhecimentos em',
+  email: 'robhenrod@gmail.com',
+  address: 'Jundiaí - São Paulo / Brasil',
+  social: {
+    github: 'https://github.com/Robson16',
+    gitlab: 'https://gitlab.com/Robson16',
+    linkedin: 'https://www.linkedin.com/in/robson-h-rodrigues-93341746/',
+  },
+  features: [
+    {
+      title: 'Desenvolvimento Web e Mobile',
+      description:
+        'Criação de aplicações web e mobile responsivas e escaláveis, utilizando tecnologias modernas para garantir alta performance, segurança e uma excelente experiência do usuário.',
+      icon: {
+        family: 'io5',
+        name: 'IoCodeSlashOutline',
+        color: '#059669',
+      },
+    },
+    {
+      title: 'API e Banco de Dados',
+      description:
+        'Desenvolvimento de APIs eficientes e bem estruturadas, garantindo integração fluida entre sistemas. Trabalho com bancos de dados relacionais e não relacionais, com foco em otimização e escalabilidade.',
+      icon: {
+        family: 'go',
+        name: 'GoDatabase',
+        color: '#9333EA',
+      },
+    },
+    {
+      title: 'Boas Práticas e Performance',
+      description:
+        'Aplicação de princípios como SOLID, TDD e DDD para garantir código limpo e sustentável. Implementação de estratégias para otimizar a performance das aplicações, seguindo as melhores práticas do mercado.',
+      icon: {
+        family: 'pi',
+        name: 'PiLightningLight',
+        color: '#CA8A04',
+      },
+    },
+  ],
+}
+
+export const skills: Skills = {
   technical: [
     { name: 'JavaScript', value: 90 },
     { name: 'TypeScript', value: 80 },
@@ -16,9 +68,10 @@ export const skills = {
   ],
 }
 
-export const projects = [
+export const projects: Project[] = [
   {
     id: 1,
+    featured: true,
     imageSrc: '/images/projects/castelloruspoli.png',
     category: 'WordPress',
     heading: 'Castello Ruspoli',
@@ -29,7 +82,7 @@ export const projects = [
   },
 ]
 
-export const experiences = [
+export const experiences: Experience[] = [
   {
     title: 'Auxiliar de Informática',
     company: 'MEQSO GROUP',
@@ -70,6 +123,20 @@ export const experiences = [
       'Desenvolvimento de sites personalizados em WordPress.',
       'Criação de interfaces de usuário intuitivas.',
       'Manutenção contínua de plataformas.',
+    ],
+  },
+  {
+    title: 'Analista de Sistema',
+    company: 'Agência io!',
+    location: 'Jundiai, SP',
+    period: {
+      start: 'Novembro de 2020',
+      end: 'Dezembro de 2020',
+    },
+    responsibilities: [
+      'Contratação temporária para suporte web.',
+      'Suporte técnico a múltiplos clientes e seus websites.',
+      'Manutenção e otimização de plataformas CMS, com foco em WordPress',
     ],
   },
   {
@@ -213,7 +280,7 @@ export const experiences = [
   },
 ]
 
-export const education = [
+export const education: Education[] = [
   {
     title: 'Análise de Sistemas',
     institution:
