@@ -1,87 +1,23 @@
-'use client'
-
+import Carousel from '@/components/Carousel'
+import DynamicIcon from '@/components/DynamicIcon'
+import FeaturedProjectItem from '@/components/FeaturedProjectItem'
+import { Feature } from '@/types/About'
+import { FeaturedProject } from '@/types/Project'
+import { Skills } from '@/types/Skill'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
 import { FaDownload } from 'react-icons/fa'
-import { GoDatabase } from 'react-icons/go'
-import { IoCodeSlashOutline } from 'react-icons/io5'
-import { PiLightningLight } from 'react-icons/pi'
-import Carousel from './Carousel'
-import FeaturedProject from './FeaturedProject'
 
-type FeaturedProjects = {
-  id: number
-  imageSrc: string
-  category: string
-  heading: string
-  subheading: string
-  description: string
-  url: string
+type AboutSectionProps = {
+  features: Feature[]
+  skills: Skills | null
+  featuredProjects: FeaturedProject[]
 }
 
-async function fetchFeaturedProjects(): Promise<FeaturedProjects[]> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || ''
-
-  const response = await fetch(`${apiUrl}/api/projects`)
-
-  if (!response.ok) throw new Error('Fetching featured projects')
-
-  return response.json()
-}
-
-export default function AboutSection() {
-  const skills = [
-    'Java',
-    'NodeJS',
-    'ReactJS',
-    'TypeScript',
-    'React Native',
-    'AWS',
-    'PHP',
-    'WordPress',
-  ]
-
-  const features = [
-    {
-      icon: (
-        <IoCodeSlashOutline size={30} className="mb-5 mt-4 text-emerald-600" />
-      ),
-      title: 'Desenvolvimento Web e Mobile',
-      description:
-        'Criação de aplicações web e mobile responsivas e escaláveis, utilizando tecnologias modernas para garantir alta performance, segurança e uma excelente experiência do usuário.',
-    },
-    {
-      icon: <GoDatabase size={30} className="mb-5 mt-4 text-purple-600" />,
-      title: 'API e Banco de Dados',
-      description:
-        'Desenvolvimento de APIs eficientes e bem estruturadas, garantindo integração fluida entre sistemas. Trabalho com bancos de dados relacionais e não relacionais, com foco em otimização e escalabilidade.',
-    },
-    {
-      icon: (
-        <PiLightningLight size={30} className="mb-5 mt-4 text-yellow-600" />
-      ),
-      title: 'Boas Práticas e Performance',
-      description:
-        'Aplicação de princípios como SOLID, TDD e DDD para garantir código limpo e sustentável. Implementação de estratégias para otimizar a performance das aplicações, seguindo as melhores práticas do mercado.',
-    },
-  ]
-
-  const [featuredProjects, setFeaturedProjects] = useState<FeaturedProjects[]>(
-    [],
-  )
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    fetchFeaturedProjects()
-      .then((data) => {
-        setFeaturedProjects(data)
-      })
-      .catch((err) => {
-        console.error(err)
-        setError('Erro ao carregar dados. Tente novamente.')
-      })
-  }, [])
-
+export default function AboutSection({
+  features,
+  skills,
+  featuredProjects,
+}: AboutSectionProps) {
   return (
     <section id="about" aria-labelledby="about-title">
       <div className="container mx-auto my-28 px-4 lg:max-w-screen-lg">
@@ -107,14 +43,18 @@ export default function AboutSection() {
               escaláveis e otimizadas. Conhecimentos em
             </p>
             <ul className="mb-8 flex flex-wrap justify-center gap-4 lg:justify-start">
-              {skills.map((skill) => (
-                <li
-                  key={skill}
-                  className="rounded border border-solid border-teal-600 px-3 py-1"
-                >
-                  {skill}
-                </li>
-              ))}
+              {!skills ? (
+                <p className="text-center">Carregando...</p>
+              ) : (
+                skills.technical.slice(0, 8).map((skill) => (
+                  <li
+                    key={skill.name}
+                    className="rounded border border-solid border-teal-600 px-3 py-1"
+                  >
+                    {skill.name}
+                  </li>
+                ))
+              )}
             </ul>
             <a
               className="flex items-center gap-2 rounded-full bg-teal-600 px-8 py-3 font-bold text-white transition-all hover:bg-teal-700"
@@ -131,16 +71,22 @@ export default function AboutSection() {
       <div className="container mx-auto my-28 max-w-screen-xl px-4">
         <h3 className="mb-16 text-center text-4xl font-medium">O que faço</h3>
         <div className="flex flex-col gap-8 lg:flex-row">
-          {features.map(({ icon, title, description }) => (
+          {features.map((feature: Feature) => (
             <div
-              key={title}
+              key={feature.title}
               className="flex flex-1 flex-col rounded-sm bg-zinc-800 p-8 shadow-2xl"
             >
-              {icon}
+              <DynamicIcon
+                iconFamily={feature.icon.family}
+                icon={feature.icon.name}
+                size={32}
+                color={feature.icon.color}
+                className={`mb-5 mt-4`}
+              />
               <h4 className="mb-4 min-h-[65px] text-2xl font-medium">
-                {title}
+                {feature.title}
               </h4>
-              <p>{description}</p>
+              <p>{feature.description}</p>
             </div>
           ))}
         </div>
@@ -152,13 +98,11 @@ export default function AboutSection() {
             <h3 className="mb-16 text-center text-4xl font-medium">
               Projetos em destaque
             </h3>
-            {error ? (
-              <p className="text-center text-red-500">{error}</p>
-            ) : featuredProjects.length === 0 ? (
-              <p className="text-center">Nenhum projeto encontrado</p>
+            {featuredProjects.length === 0 ? (
+              <p className="text-center">Carregando...</p>
             ) : featuredProjects.length === 1 ? (
               // When having only one project, directly render the Featured Product
-              <FeaturedProject
+              <FeaturedProjectItem
                 key={featuredProjects[0].id}
                 imageSrc={featuredProjects[0].imageSrc}
                 category={featuredProjects[0].category}
@@ -171,7 +115,7 @@ export default function AboutSection() {
               // If has more than one project, use Carousel
               <Carousel>
                 {featuredProjects.map((project) => (
-                  <FeaturedProject
+                  <FeaturedProjectItem
                     key={project.id}
                     imageSrc={project.imageSrc}
                     category={project.category}
