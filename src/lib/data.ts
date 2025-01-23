@@ -1,3 +1,49 @@
+export const about = {
+  name: 'Robson H. Rodrigues',
+  title: 'Desenvolvedor Web',
+  description:
+    'Olá, sou Robson, Desenvolvedor Web de Jundiaí - SP, Brasil. Com experiência em desenvolvimento web e mobile, foco em aplicações escaláveis e otimizadas. Conhecimentos em',
+  email: 'robhenrod@gmail.com',
+  address: 'Jundiaí - São Paulo / Brasil',
+  social: {
+    github: 'https://github.com/Robson16',
+    gitlab: 'https://gitlab.com/Robson16',
+    linkedin: 'https://www.linkedin.com/in/robson-h-rodrigues-93341746/',
+  },
+  features: [
+    {
+      title: 'Desenvolvimento Web e Mobile',
+      description:
+        'Criação de aplicações web e mobile responsivas e escaláveis, utilizando tecnologias modernas para garantir alta performance, segurança e uma excelente experiência do usuário.',
+      icon: {
+        family: 'io5',
+        name: 'IoCodeSlashOutline',
+        color: '#059669',
+      },
+    },
+    {
+      title: 'API e Banco de Dados',
+      description:
+        'Desenvolvimento de APIs eficientes e bem estruturadas, garantindo integração fluida entre sistemas. Trabalho com bancos de dados relacionais e não relacionais, com foco em otimização e escalabilidade.',
+      icon: {
+        family: 'go',
+        name: 'GoDatabase',
+        color: '#9333EA',
+      },
+    },
+    {
+      title: 'Boas Práticas e Performance',
+      description:
+        'Aplicação de princípios como SOLID, TDD e DDD para garantir código limpo e sustentável. Implementação de estratégias para otimizar a performance das aplicações, seguindo as melhores práticas do mercado.',
+      icon: {
+        family: 'pi',
+        name: 'PiLightningLight',
+        color: '#CA8A04',
+      },
+    },
+  ],
+}
+
 export const skills = {
   technical: [
     { name: 'JavaScript', value: 90 },
