@@ -72,13 +72,50 @@ export const projects: Project[] = [
   {
     id: 1,
     featured: true,
-    imageSrc: '/images/projects/castelloruspoli.png',
+    featuredImage: {
+      title: 'DF Checker',
+      src: '/images/projects/dfchecker.jpg',
+      width: 1200,
+      height: 789,
+    },
+    category: 'WordPress',
+    heading: 'DF Checker',
+    subheading: 'Inteligente e confiável',
+    description:
+      'Tema personalizado para WordPress, desenvolvido para o **DF Checker**, uma empresa que oferece serviços ágeis e confiáveis de background checks, utilizando sistemas integrados e capacidades analíticas. Foi construído utilizando tecnologias como WordPress, SASS, Node.js, Webpack e Babel, garantindo um código eficiente para estilização e funcionalidade.',
+    url: 'http://dfchecker.com.br/',
+  },
+  {
+    id: 2,
+    featured: true,
+    featuredImage: {
+      title: 'Castello Ruspoli',
+      src: '/images/projects/castelloruspoli.jpg',
+      width: 1200,
+      height: 800,
+    },
     category: 'WordPress',
     heading: 'Castello Ruspoli',
     subheading: 'Elegante e otimizado',
     description:
       'Um tema personalizado para WordPress, desenvolvido para o site do histórico Castello Ruspoli, um castelo com origens que remontam a 847. Utiliza tecnologias como WordPress, SASS para estilização, Node.js para a automação de tarefas, Webpack para empacotamento de módulos e Babel para a transpilação de JavaScript, visando garantir um código otimizado e eficiente tanto para a parte visual quanto para a funcionalidade.',
     url: 'https://castelloruspoli.com/',
+  },
+  {
+    id: 3,
+    featured: true,
+    featuredImage: {
+      title: 'Higi Mulher',
+      src: '/images/projects/higimulher.jpg',
+      width: 1200,
+      height: 888,
+    },
+    category: 'WordPress',
+    heading: 'Higi Mulher',
+    subheading: 'Saúde íntima feminina sem tabus',
+    description:
+      'Este é um tema personalizado para WordPress, desenvolvido para a Higi Mulher, uma marca dedicada à saúde íntima feminina. A proposta é promover diálogos significativos sobre o cuidado íntimo, empoderando as mulheres e respeitando a diversidade. O projeto utiliza tecnologias como WordPress, SASS, Node.js, Webpack e Babel para garantir um código limpo, organizado e otimizado, oferecendo o melhor para as usuárias.',
+    url: 'https://www.higimulher.com.br/',
   },
 ]
 

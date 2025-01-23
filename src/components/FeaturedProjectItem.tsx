@@ -36,6 +36,7 @@ export default function FeaturedProjectItem({
         <a
           className="flex items-center gap-2 rounded-full bg-teal-600 px-8 py-3 font-bold text-white transition-all hover:bg-teal-700"
           href={href}
+          target="_blank"
         >
           Ver detalhes
         </a>

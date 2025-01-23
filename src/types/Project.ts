@@ -1,7 +1,12 @@
 export type Project = {
   id: number
   featured: boolean
-  imageSrc: string
+  featuredImage: {
+    title: string
+    src: string
+    width: number
+    height: number
+  }
   category: string
   heading: string
   subheading: string

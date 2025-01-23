@@ -104,7 +104,7 @@ export default function AboutSection({
               // When having only one project, directly render the Featured Product
               <FeaturedProjectItem
                 key={featuredProjects[0].id}
-                imageSrc={featuredProjects[0].imageSrc}
+                imageSrc={featuredProjects[0].featuredImage.src}
                 category={featuredProjects[0].category}
                 heading={featuredProjects[0].heading}
                 subheading={featuredProjects[0].subheading}
@@ -117,7 +117,7 @@ export default function AboutSection({
                 {featuredProjects.map((project) => (
                   <FeaturedProjectItem
                     key={project.id}
-                    imageSrc={project.imageSrc}
+                    imageSrc={project.featuredImage.src}
                     category={project.category}
                     heading={project.heading}
                     subheading={project.subheading}
