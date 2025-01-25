@@ -2,6 +2,7 @@ import Header from '@/components/Header'
 import AboutSection from '@/containers/HomePage/AboutSection'
 import ExperienceSection from '@/containers/HomePage/ExperienceSection'
 import HeroSection from '@/containers/HomePage/HeroSection'
+import PortfolioSection from '@/containers/HomePage/PortfolioSection'
 import SkillsSection from '@/containers/HomePage/SkillsSection'
 import { about, education, experiences, projects, skills } from '@/lib/data'
 
@@ -23,6 +24,7 @@ export default async function Home() {
           professional={skills.professional}
         />
         <ExperienceSection education={education} experiences={experiences} />
+        <PortfolioSection projects={projects} />
       </main>
     </>
   )

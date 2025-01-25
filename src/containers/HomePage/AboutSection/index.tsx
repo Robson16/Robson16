@@ -4,6 +4,8 @@ import FeaturedProjectItem from '@/components/FeaturedProjectItem'
 import { Feature } from '@/types/About'
 import { Project } from '@/types/Project'
 import { Skills } from '@/types/Skill'
+import { Button, Link } from '@heroui/react'
+import clsx from 'clsx'
 import Image from 'next/image'
 import { FaDownload } from 'react-icons/fa'
 
@@ -56,14 +58,22 @@ export default function AboutSection({
                 ))
               )}
             </ul>
-            <a
-              className="flex items-center gap-2 rounded-full bg-teal-600 px-8 py-3 font-bold text-white transition-all hover:bg-teal-700"
+            <Button
+              size="lg"
+              radius="full"
+              as={Link}
               href="/documents/robson-h-rodrigues-cv.pdf"
               download="robson-h-rodrigues-cv.pdf"
+              role="document"
+              endContent={<FaDownload size={16} />}
+              className={clsx(
+                'flex items-center gap-2 px-8 py-3',
+                'bg-teal-600 font-bold text-white transition-all',
+                'hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500',
+              )}
             >
               Baixar CV
-              <FaDownload size={16} />
-            </a>
+            </Button>
           </div>
         </div>
       </div>
@@ -94,7 +104,7 @@ export default function AboutSection({
 
       <div className="bg-[url('/images/computer.jpg')] bg-cover bg-center">
         <div className="bg-black bg-opacity-90">
-          <div className="container mx-auto max-w-screen-xl px-4 py-28">
+          <div className="container mx-auto max-w-screen-xl px-2 py-28">
             <h3 className="mb-16 text-center text-4xl font-medium">
               Projetos em destaque
             </h3>
@@ -102,28 +112,12 @@ export default function AboutSection({
               <p className="text-center">Carregando...</p>
             ) : featuredProjects.length === 1 ? (
               // When having only one project, directly render the Featured Product
-              <FeaturedProjectItem
-                key={featuredProjects[0].id}
-                imageSrc={featuredProjects[0].imageSrc}
-                category={featuredProjects[0].category}
-                heading={featuredProjects[0].heading}
-                subheading={featuredProjects[0].subheading}
-                description={featuredProjects[0].description}
-                href={featuredProjects[0].url}
-              />
+              <FeaturedProjectItem project={featuredProjects[0]} />
             ) : (
               // If has more than one project, use Carousel
               <Carousel>
                 {featuredProjects.map((project) => (
-                  <FeaturedProjectItem
-                    key={project.id}
-                    imageSrc={project.imageSrc}
-                    category={project.category}
-                    heading={project.heading}
-                    subheading={project.subheading}
-                    description={project.description}
-                    href={project.url}
-                  />
+                  <FeaturedProjectItem key={project.id} project={project} />
                 ))}
               </Carousel>
             )}

@@ -1,29 +1,35 @@
+import { Project } from '@/types/Project'
+import { Button, Link } from '@heroui/react'
+import clsx from 'clsx'
 import Image from 'next/image'
 
+type FeaturedProjectItemProps = {
+  project: Project
+}
+
 export default function FeaturedProjectItem({
-  imageSrc,
-  category,
-  heading,
-  subheading,
-  description,
-  href,
-}: {
-  imageSrc: string
-  category: string
-  heading: string
-  subheading?: string
-  description: string
-  href: string
-}) {
+  project,
+}: FeaturedProjectItemProps) {
+  const {
+    featuredImage: { src, title, width, height },
+    category,
+    heading,
+    subheading,
+    description,
+    url,
+    urlLabel,
+  } = project
+
   return (
     <div className="flex columns-2 flex-col gap-8 lg:flex-row">
-      <div className="flex flex-1 flex-col items-center">
+      <div className="flex flex-1">
         <Image
-          src={imageSrc}
+          src={src}
           priority={true}
-          alt={heading}
-          width={800}
-          height={600}
+          alt={title}
+          width={width}
+          height={height}
+          className="h-full w-full rounded-lg object-cover"
         />
       </div>
       <div className="flex flex-1 flex-col items-center lg:items-start">
@@ -33,12 +39,25 @@ export default function FeaturedProjectItem({
         <h4 className="bold mb-2 text-3xl uppercase">{heading}</h4>
         <h5 className="mb-4 uppercase">{subheading}</h5>
         <p className="mb-8 text-center lg:text-left">{description}</p>
-        <a
-          className="flex items-center gap-2 rounded-full bg-teal-600 px-8 py-3 font-bold text-white transition-all hover:bg-teal-700"
-          href={href}
-        >
-          Ver detalhes
-        </a>
+        {url && (
+          <Button
+            size="lg"
+            radius="full"
+            as={Link}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${urlLabel || 'Visitar site'} do projeto ${heading}`}
+            role="link"
+            className={clsx(
+              'flex items-center gap-2 px-8 py-3',
+              'bg-teal-600 font-bold text-white transition-all',
+              'hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500',
+            )}
+          >
+            {urlLabel || 'Visitar site'}
+          </Button>
+        )}
       </div>
     </div>
   )

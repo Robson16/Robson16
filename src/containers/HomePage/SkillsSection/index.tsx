@@ -1,5 +1,5 @@
 import { Skill } from '@/types/Skill'
-import { CircularProgress, Progress } from '@nextui-org/progress'
+import { CircularProgress, Progress } from '@heroui/react'
 
 type SkillsSectionProps = {
   technical: Skill[]
