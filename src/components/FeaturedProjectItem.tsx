@@ -1,4 +1,5 @@
 import { Project } from '@/types/Project'
+import { Button, Link } from '@heroui/react'
 import clsx from 'clsx'
 import Image from 'next/image'
 
@@ -39,19 +40,23 @@ export default function FeaturedProjectItem({
         <h5 className="mb-4 uppercase">{subheading}</h5>
         <p className="mb-8 text-center lg:text-left">{description}</p>
         {url && (
-          <a
+          <Button
+            size="lg"
+            radius="full"
+            as={Link}
             href={url}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`${urlLabel || 'Visitar site'} do projeto ${heading}`}
+            role="link"
             className={clsx(
-              'flex items-center gap-2 rounded-full px-8 py-3',
+              'flex items-center gap-2 px-8 py-3',
               'bg-teal-600 font-bold text-white transition-all',
               'hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500',
             )}
-            aria-label={`${urlLabel || 'Visitar site'} do projeto ${heading}`}
           >
             {urlLabel || 'Visitar site'}
-          </a>
+          </Button>
         )}
       </div>
     </div>

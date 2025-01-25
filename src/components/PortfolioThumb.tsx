@@ -1,5 +1,12 @@
 import { Project } from '@/types/Project'
-import { Modal, ModalBody, ModalContent, useDisclosure } from '@heroui/react'
+import {
+  Button,
+  Link,
+  Modal,
+  ModalBody,
+  ModalContent,
+  useDisclosure,
+} from '@heroui/react'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { PiMagnifyingGlassBold } from 'react-icons/pi'
@@ -118,19 +125,23 @@ function ModalContentBody({ project }: { project: Project }) {
           </ul>
         )}
         {url && (
-          <a
+          <Button
+            size="lg"
+            radius="full"
+            as={Link}
             href={url}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`${urlLabel || 'Visitar site'} do projeto ${heading}`}
+            role="link"
             className={clsx(
-              'flex items-center gap-2 rounded-full px-8 py-3',
+              'flex items-center gap-2 px-8 py-3',
               'bg-teal-600 font-bold text-white transition-all',
               'hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500',
             )}
-            aria-label={`${urlLabel || 'Visitar site'} do projeto ${heading}`}
           >
             {urlLabel || 'Visitar site'}
-          </a>
+          </Button>
         )}
       </div>
     </div>

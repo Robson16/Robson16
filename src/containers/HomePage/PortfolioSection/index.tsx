@@ -3,6 +3,8 @@
 import PortfolioThumb from '@/components/PortfolioThumb'
 import useMasonry from '@/hooks/useMasonry'
 import { Project } from '@/types/Project'
+import { Button } from '@heroui/react'
+import clsx from 'clsx'
 import { useState } from 'react'
 
 type PortfolioSectionProps = {
@@ -46,12 +48,19 @@ export default function PortfolioSection({ projects }: PortfolioSectionProps) {
 
         {visibleProjects < projects.length && (
           <div className="mt-8 flex items-center justify-center text-center">
-            <button
-              onClick={loadMoreProjects}
-              className="flex items-center gap-2 rounded-full bg-teal-600 px-8 py-3 font-bold text-white transition-all hover:bg-teal-700"
+            <Button
+              size="lg"
+              radius="full"
+              onPress={loadMoreProjects}
+              role="button"
+              className={clsx(
+                'flex items-center gap-2 px-8 py-3',
+                'bg-teal-600 font-bold text-white transition-all',
+                'hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500',
+              )}
             >
               Exibir mais
-            </button>
+            </Button>
           </div>
         )}
       </div>

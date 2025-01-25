@@ -4,6 +4,8 @@ import FeaturedProjectItem from '@/components/FeaturedProjectItem'
 import { Feature } from '@/types/About'
 import { Project } from '@/types/Project'
 import { Skills } from '@/types/Skill'
+import { Button, Link } from '@heroui/react'
+import clsx from 'clsx'
 import Image from 'next/image'
 import { FaDownload } from 'react-icons/fa'
 
@@ -56,14 +58,22 @@ export default function AboutSection({
                 ))
               )}
             </ul>
-            <a
-              className="flex items-center gap-2 rounded-full bg-teal-600 px-8 py-3 font-bold text-white transition-all hover:bg-teal-700"
+            <Button
+              size="lg"
+              radius="full"
+              as={Link}
               href="/documents/robson-h-rodrigues-cv.pdf"
               download="robson-h-rodrigues-cv.pdf"
+              role="document"
+              endContent={<FaDownload size={16} />}
+              className={clsx(
+                'flex items-center gap-2 px-8 py-3',
+                'bg-teal-600 font-bold text-white transition-all',
+                'hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500',
+              )}
             >
               Baixar CV
-              <FaDownload size={16} />
-            </a>
+            </Button>
           </div>
         </div>
       </div>
