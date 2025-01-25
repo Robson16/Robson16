@@ -16,6 +16,7 @@ export default function FeaturedProjectItem({
     subheading,
     description,
     url,
+    urlLabel,
   } = project
 
   return (
@@ -37,19 +38,21 @@ export default function FeaturedProjectItem({
         <h4 className="bold mb-2 text-3xl uppercase">{heading}</h4>
         <h5 className="mb-4 uppercase">{subheading}</h5>
         <p className="mb-8 text-center lg:text-left">{description}</p>
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={clsx(
-            'flex items-center gap-2 rounded-full px-8 py-3',
-            'bg-teal-600 font-bold text-white transition-all',
-            'hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500',
-          )}
-          aria-label={`Ver detalhes sobre o projeto ${heading}`}
-        >
-          Ver detalhes
-        </a>
+        {url && (
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={clsx(
+              'flex items-center gap-2 rounded-full px-8 py-3',
+              'bg-teal-600 font-bold text-white transition-all',
+              'hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500',
+            )}
+            aria-label={`${urlLabel || 'Visitar site'} do projeto ${heading}`}
+          >
+            {urlLabel || 'Visitar site'}
+          </a>
+        )}
       </div>
     </div>
   )
