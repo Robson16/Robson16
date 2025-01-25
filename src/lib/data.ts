@@ -343,6 +343,18 @@ export const projects: Project[] = [
     technologies: ['WordPress', 'SASS', 'Node.js', 'Webpack', 'Babel'],
     url: 'http://www.agenciabeb.com.br/',
     urlLabel: 'Visitar site',
+    repositories: [
+      {
+        type: 'Tema',
+        platform: 'GitLab',
+        url: 'https://gitlab.com/Robson16/agenciabeb',
+      },
+      {
+        type: 'Plugin',
+        platform: 'GitLab',
+        url: 'https://gitlab.com/Robson16/agenciabeb-cpt',
+      },
+    ],
   },
 ]
 

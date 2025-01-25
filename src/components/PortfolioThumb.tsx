@@ -9,11 +9,24 @@ import {
 } from '@heroui/react'
 import clsx from 'clsx'
 import Image from 'next/image'
+import { AiFillGithub, AiFillGitlab } from 'react-icons/ai'
+import { ImGit } from 'react-icons/im'
 import { PiMagnifyingGlassBold } from 'react-icons/pi'
 import { useMediaQuery } from 'react-responsive'
 
 type PortfolioThumbProps = {
   project: Project
+}
+
+const getPlatformIcon = (platform: string) => {
+  switch (platform) {
+    case 'GitHub':
+      return <AiFillGithub size={25} />
+    case 'GitLab':
+      return <AiFillGitlab size={25} />
+    default:
+      return <ImGit size={25} />
+  }
 }
 
 export default function PortfolioThumb({ project }: PortfolioThumbProps) {
@@ -92,6 +105,7 @@ function ModalContentBody({ project }: { project: Project }) {
     technologies,
     url,
     urlLabel,
+    repositories,
   } = project
 
   return (
@@ -124,25 +138,54 @@ function ModalContentBody({ project }: { project: Project }) {
             ))}
           </ul>
         )}
-        {url && (
-          <Button
-            size="lg"
-            radius="full"
-            as={Link}
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${urlLabel || 'Visitar site'} do projeto ${heading}`}
-            role="link"
-            className={clsx(
-              'flex items-center gap-2 px-8 py-3',
-              'bg-teal-600 font-bold text-white transition-all',
-              'hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500',
-            )}
-          >
-            {urlLabel || 'Visitar site'}
-          </Button>
-        )}
+        <ul className="flex flex-col flex-wrap gap-4 md:flex-row">
+          {/* Link do site do projeto */}
+          {url && (
+            <li>
+              <Button
+                size="lg"
+                radius="full"
+                as={Link}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${urlLabel || 'Visitar site'} do projeto ${heading}`}
+                role="link"
+                className={clsx(
+                  'flex items-center gap-2 px-8 py-3',
+                  'bg-teal-600 font-bold text-white transition-all',
+                  'hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500',
+                )}
+              >
+                {urlLabel || 'Visitar site'}
+              </Button>
+            </li>
+          )}
+
+          {/* Links dos repositórios */}
+          {repositories &&
+            repositories.length > 0 &&
+            repositories.map((repo) => (
+              <li key={repo.url}>
+                <Button
+                  size="lg"
+                  radius="full"
+                  as={Link}
+                  href={repo.url}
+                  startContent={getPlatformIcon(repo.platform)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={clsx(
+                    'flex items-center gap-2 px-4 py-3',
+                    'bg-teal-600 font-bold text-white transition-all',
+                    'hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500',
+                  )}
+                >
+                  <span>{repo.type}</span>
+                </Button>
+              </li>
+            ))}
+        </ul>
       </div>
     </div>
   )

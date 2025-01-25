@@ -5,6 +5,12 @@ type Image = {
   height: number
 }
 
+type Repository = {
+  type: string
+  platform: string
+  url: string
+}
+
 export type Project = {
   id: number
   featured: boolean
@@ -17,4 +23,5 @@ export type Project = {
   technologies: string[]
   url?: string
   urlLabel?: string
+  repositories?: Repository[]
 }
