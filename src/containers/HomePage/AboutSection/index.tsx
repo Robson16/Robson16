@@ -94,7 +94,7 @@ export default function AboutSection({
 
       <div className="bg-[url('/images/computer.jpg')] bg-cover bg-center">
         <div className="bg-black bg-opacity-90">
-          <div className="container mx-auto max-w-screen-xl px-4 py-28">
+          <div className="container mx-auto max-w-screen-xl px-2 py-28">
             <h3 className="mb-16 text-center text-4xl font-medium">
               Projetos em destaque
             </h3>
@@ -102,28 +102,12 @@ export default function AboutSection({
               <p className="text-center">Carregando...</p>
             ) : featuredProjects.length === 1 ? (
               // When having only one project, directly render the Featured Product
-              <FeaturedProjectItem
-                key={featuredProjects[0].id}
-                imageSrc={featuredProjects[0].featuredImage.src}
-                category={featuredProjects[0].category}
-                heading={featuredProjects[0].heading}
-                subheading={featuredProjects[0].subheading}
-                description={featuredProjects[0].description}
-                href={featuredProjects[0].url}
-              />
+              <FeaturedProjectItem project={featuredProjects[0]} />
             ) : (
               // If has more than one project, use Carousel
               <Carousel>
                 {featuredProjects.map((project) => (
-                  <FeaturedProjectItem
-                    key={project.id}
-                    imageSrc={project.featuredImage.src}
-                    category={project.category}
-                    heading={project.heading}
-                    subheading={project.subheading}
-                    description={project.description}
-                    href={project.url}
-                  />
+                  <FeaturedProjectItem key={project.id} project={project} />
                 ))}
               </Carousel>
             )}
