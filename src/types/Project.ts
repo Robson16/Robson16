@@ -15,5 +15,6 @@ export type Project = {
   subheading: string
   description: string
   technologies: string[]
-  url: string
+  url?: string
+  urlLabel?: string
 }

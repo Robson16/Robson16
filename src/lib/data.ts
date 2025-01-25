@@ -84,8 +84,9 @@ export const projects: Project[] = [
     subheading: 'Inteligente e confiável',
     description:
       'Tema personalizado para WordPress, desenvolvido para o **DF Checker**, uma empresa que oferece serviços ágeis e confiáveis de background checks, utilizando sistemas integrados e capacidades analíticas. Foi construído utilizando tecnologias como WordPress, SASS, Node.js, Webpack e Babel, garantindo um código eficiente para estilização e funcionalidade.',
-    technologies: [],
-    url: 'http://dfchecker.com.br/',
+    technologies: ['WordPress', 'SASS', 'Node.js', 'Webpack', 'Babel'],
+    url: 'https://dfchecker.com.br/',
+    urlLabel: 'Visitar site',
   },
   {
     id: 2,
@@ -102,8 +103,9 @@ export const projects: Project[] = [
     subheading: 'Elegante e otimizado',
     description:
       'Um tema personalizado para WordPress, desenvolvido para o site do histórico Castello Ruspoli, um castelo com origens que remontam a 847. Utiliza tecnologias como WordPress, SASS para estilização, Node.js para a automação de tarefas, Webpack para empacotamento de módulos e Babel para a transpilação de JavaScript, visando garantir um código otimizado e eficiente tanto para a parte visual quanto para a funcionalidade.',
-    technologies: [],
+    technologies: ['WordPress', 'SASS', 'Node.js', 'Webpack', 'Babel'],
     url: 'https://castelloruspoli.com/',
+    urlLabel: 'Visitar site',
   },
   {
     id: 3,
@@ -120,8 +122,9 @@ export const projects: Project[] = [
     subheading: 'Saúde íntima feminina sem tabus',
     description:
       'Este é um tema personalizado para WordPress, desenvolvido para a Higi Mulher, uma marca dedicada à saúde íntima feminina. A proposta é promover diálogos significativos sobre o cuidado íntimo, empoderando as mulheres e respeitando a diversidade. O projeto utiliza tecnologias como WordPress, SASS, Node.js, Webpack e Babel para garantir um código limpo, organizado e otimizado, oferecendo o melhor para as usuárias.',
-    technologies: [],
-    url: 'https://www.higimulher.com.br/',
+    technologies: ['WordPress', 'SASS', 'Node.js', 'Webpack', 'Babel'],
+    url: 'https://higimulher.com.br/',
+    urlLabel: 'Visitar site',
   },
   {
     id: 4,
@@ -138,8 +141,7 @@ export const projects: Project[] = [
     subheading: 'Explorando o mundo com estilo',
     description:
       'Desenvolvimento de um tema WordPress personalizado para a Tucan Travel, focado em criar uma experiência visual moderna e funcional para uma agência de viagens. O projeto utilizou SASS, Node.js, Webpack e Babel para garantir um site otimizado e com uma navegação fluida.',
-    technologies: [],
-    url: 'https://tucantravel.com.br/',
+    technologies: ['WordPress', 'SASS', 'Node.js', 'Webpack', 'Babel'],
   },
   {
     id: 5,
@@ -156,8 +158,15 @@ export const projects: Project[] = [
     subheading: 'Nossa energia é nosso diferencial',
     description:
       'Desenvolvimento de um tema WordPress personalizado e um plugin exclusivo para a Lux Energia. O tema reflete a expertise da empresa em economia energética, enquanto o plugin adiciona um bloco interativo de cálculo de CO2 ao site. Utilizando tecnologias como SASS, Node.js, React.js, Webpack, Styled Components e Babel, o projeto combina performance otimizada com uma experiência de usuário moderna.',
-    technologies: [],
-    url: 'https://www.luxenergia.com.br/',
+    technologies: [
+      'WordPress',
+      'SASS',
+      'Node.js',
+      'React.js',
+      'Webpack',
+      'Styled Components',
+      'Babel',
+    ],
   },
   {
     id: 6,
@@ -174,8 +183,13 @@ export const projects: Project[] = [
     subheading: 'Sustentabilidade em cada linha de código',
     description:
       'Desenvolvimento de um WordPress Block Theme para o Grupo Planta, referência em inovação e alimentos plant-based. Este tipo de tema utiliza o editor de blocos do WordPress (Gutenberg) para oferecer personalização completa e flexível de todas as partes do site. Construído com SASS, Node.js, Webpack e Babel, o projeto combina design moderno, alta performance e alinhamento com os valores sustentáveis do grupo.',
-    technologies: [],
-    url: 'https://www.grupoplanta.com.br/',
+    technologies: [
+      'WordPress Block Theme',
+      'SASS',
+      'Node.js',
+      'Webpack',
+      'Babel',
+    ],
   },
   {
     id: 7,
@@ -186,20 +200,7 @@ export const projects: Project[] = [
       width: 1200,
       height: 800,
     },
-    gallery: [
-      {
-        title: 'Página Inicial',
-        src: '/projects/menuplanta-home.jpg',
-        width: 1200,
-        height: 800,
-      },
-      {
-        title: 'Página de Produtos',
-        src: '/projects/menuplanta-products.jpg',
-        width: 1200,
-        height: 800,
-      },
-    ],
+    gallery: [],
     category: 'WordPress',
     heading: 'Menu Planta',
     subheading: 'Expandindo o plant-based pelo mundo',
@@ -214,7 +215,6 @@ export const projects: Project[] = [
       'React.js',
       'Styled Components',
     ],
-    url: 'https://www.menuplanta.com/',
   },
   {
     id: 8,
@@ -233,6 +233,7 @@ export const projects: Project[] = [
       'Desenvolvimento de um tema WordPress personalizado para a Smile Lovers, uma clínica odontológica que alia tecnologia avançada e acolhimento em seus serviços. O site foi projetado para refletir a missão da empresa: transformar a experiência odontológica em algo mais humano e confortável, criando um ambiente convidativo e moderno. Construído com SASS, Node.js, Webpack e Babel, o projeto entrega alta performance e flexibilidade.',
     technologies: ['WordPress', 'SASS', 'Node.js', 'Webpack', 'Babel'],
     url: 'https://www.smilelovers.com.br/',
+    urlLabel: 'Visitar site',
   },
   {
     id: 9,
@@ -251,6 +252,7 @@ export const projects: Project[] = [
       'Desenvolvimento de um tema WordPress personalizado para a Micro Plant, uma empresa líder na fabricação de componentes para próteses sobre implantes desde 2004. O site reflete os valores de inovação, qualidade e integridade da marca, proporcionando uma plataforma funcional e otimizada para atender aos profissionais da saúde. Utilizando SASS, Node.js e Gulp, o projeto oferece alto desempenho e flexibilidade.',
     technologies: ['WordPress', 'SASS', 'Node.js', 'Gulp'],
     url: 'https://www.microplant.com.br/',
+    urlLabel: 'Visitar site',
   },
 ]
 
