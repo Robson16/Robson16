@@ -20,10 +20,20 @@ export default function PortfolioSection({ projects }: PortfolioSectionProps) {
         >
           Portfólio
         </h3>
-        <div className="grid grid-cols-3 gap-8" ref={masonryContainer}>
-          {projects.map((project) => (
-            <PortfolioThumb project={project} key={project.id} />
-          ))}
+
+        <div
+          className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 md:gap-8"
+          ref={masonryContainer}
+        >
+          {projects.length > 0 ? (
+            projects.map((project) => (
+              <PortfolioThumb project={project} key={project.id} />
+            ))
+          ) : (
+            <p className="col-span-full text-center text-gray-500">
+              Nenhum projeto disponível no momento.
+            </p>
+          )}
         </div>
       </div>
     </section>
