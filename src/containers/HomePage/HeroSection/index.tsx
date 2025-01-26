@@ -16,7 +16,7 @@ export default function HeroSection() {
     >
       <div className="bg-black bg-opacity-70">
         <div className="container mx-auto max-w-screen-lg px-4 py-20 md:py-56">
-          <div className="flex columns-2 flex-col-reverse gap-8 md:flex-row">
+          <div className="flex flex-col-reverse gap-8 md:flex-row">
             <div className="flex flex-1 flex-col items-center justify-center md:items-start">
               <span className="mb-4 rounded-r-[20px] rounded-tl-[20px] bg-emerald-800 px-8 py-2">
                 Olá, me chamo
@@ -28,17 +28,23 @@ export default function HeroSection() {
               <ul className="my-10">
                 <li className="group my-2 flex items-center">
                   <AiOutlineMail
-                    size={16}
-                    className="mr-2 text-gray-500 group-hover:text-teal-600"
+                    size={22}
+                    className="mr-2 text-gray-500 transition-colors group-hover:text-emerald-600"
                   />
                   <a href="mailto:robhenrod@gmail.com">robhenrod@gmail.com</a>
                 </li>
                 <li className="group my-2 flex items-center">
                   <FaMapMarkerAlt
-                    size={16}
-                    className="mr-2 text-gray-500 group-hover:text-teal-600"
+                    size={22}
+                    className="mr-2 text-gray-500 transition-colors group-hover:text-emerald-600"
                   />
-                  <span>Jundiaí - São Paulo / Brasil</span>
+                  <a
+                    href="https://maps.app.goo.gl/vTWz8snMHN1RdMkK6"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Jundiaí - São Paulo / Brasil
+                  </a>
                 </li>
               </ul>
               <div className="flex items-center gap-4">

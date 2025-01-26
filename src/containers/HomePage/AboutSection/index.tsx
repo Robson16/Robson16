@@ -45,9 +45,7 @@ export default function AboutSection({
               escaláveis e otimizadas. Conhecimentos em
             </p>
             <ul className="mb-8 flex flex-wrap justify-center gap-4 lg:justify-start">
-              {!skills ? (
-                <p className="text-center">Carregando...</p>
-              ) : (
+              {skills &&
                 skills.technical.slice(0, 8).map((skill) => (
                   <li
                     key={skill.name}
@@ -55,8 +53,7 @@ export default function AboutSection({
                   >
                     {skill.name}
                   </li>
-                ))
-              )}
+                ))}
             </ul>
             <Button
               size="lg"
@@ -84,7 +81,7 @@ export default function AboutSection({
           {features.map((feature: Feature) => (
             <div
               key={feature.title}
-              className="flex flex-1 flex-col rounded-sm bg-zinc-800 p-8 shadow-2xl"
+              className="flex flex-1 flex-col rounded-lg bg-zinc-800 p-8 shadow-2xl"
             >
               <DynamicIcon
                 iconFamily={feature.icon.family}

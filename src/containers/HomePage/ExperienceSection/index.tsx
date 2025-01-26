@@ -27,7 +27,7 @@ export default function ExperienceSection({
               {education.map((edu) => (
                 <div
                   key={edu.title}
-                  className="flex flex-1 flex-col gap-2 rounded-sm bg-zinc-800 p-8 shadow-2xl"
+                  className="flex flex-1 flex-col gap-2 rounded-lg bg-zinc-800 p-8 shadow-2xl"
                 >
                   <h4 className="text-xl font-semibold">
                     {edu.title} em{' '}
@@ -49,7 +49,7 @@ export default function ExperienceSection({
               {experiences.slice(0, 3).map((exp) => (
                 <div
                   key={`${exp.title} - ${exp.company}`}
-                  className="flex flex-1 flex-col gap-2 rounded-sm bg-zinc-800 p-8 shadow-2xl"
+                  className="flex flex-1 flex-col gap-2 rounded-lg bg-zinc-800 p-8 shadow-2xl"
                 >
                   <h4 className="text-xl font-semibold">
                     {exp.title} em{' '}
