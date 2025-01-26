@@ -62,7 +62,7 @@ export default function Header() {
           </button>
 
           <div
-            className={`flex transition-all max-md:absolute max-md:left-0 max-md:top-0 max-md:h-screen max-md:w-80 max-md:bg-teal-600 max-md:px-4 max-md:pt-20 md:items-center md:justify-center ${isOpen ? 'max-md:translate-x-0' : 'max-md:-translate-x-[120%]'}`}
+            className={`flex transition-all max-md:absolute max-md:left-0 max-md:top-0 max-md:h-screen max-md:w-80 max-md:bg-emerald-800 max-md:px-4 max-md:pt-20 md:items-center md:justify-center ${isOpen ? 'max-md:translate-x-0' : 'max-md:-translate-x-[120%]'}`}
           >
             <ul className="flex flex-col text-lg font-bold text-white md:flex-row md:space-x-10 md:text-center">
               {[

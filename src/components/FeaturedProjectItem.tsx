@@ -51,8 +51,8 @@ export default function FeaturedProjectItem({
             role="link"
             className={clsx(
               'flex items-center gap-2 px-8 py-3',
-              'bg-teal-600 font-bold text-white transition-all',
-              'hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500',
+              'bg-emerald-800 font-bold text-white transition-all',
+              'hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500',
             )}
           >
             {urlLabel || 'Visitar site'}

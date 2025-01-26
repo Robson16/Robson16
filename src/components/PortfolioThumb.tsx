@@ -61,7 +61,7 @@ export default function PortfolioThumb({ project }: PortfolioThumbProps) {
         <div
           className={clsx(
             'absolute inset-0 flex cursor-pointer flex-col items-center justify-center rounded-lg',
-            'duration-600 bg-teal-600 bg-opacity-90 text-white opacity-0 transition-opacity ease-in-out',
+            'duration-600 bg-emerald-800 bg-opacity-90 text-white opacity-0 transition-opacity ease-in-out',
             'group-hover:opacity-100',
           )}
           onClick={onOpen}
@@ -80,13 +80,13 @@ export default function PortfolioThumb({ project }: PortfolioThumbProps) {
         backdrop="opaque"
         classNames={{
           closeButton:
-            'p-2 m-2 bg-teal-600 text-white rounded-full transition-background ease-in-out duration-300',
+            'p-2 m-2 bg-emerald-600 text-white rounded-full transition-background ease-in-out duration-300',
           backdrop: 'bg-black/90 backdrop-opacity-90 transition-opacity',
           base: 'transition-transform transition-opacity duration-300 ease-in-out transform scale-95',
         }}
       >
         <ModalContent>
-          <ModalBody className="flex flex-col gap-8 p-6 pt-14 sm:pt-6 lg:flex-row">
+          <ModalBody className="flex flex-col gap-8 rounded-lg bg-zinc-900 p-6 pt-14 sm:pt-6 lg:flex-row">
             <ModalContentBody project={project} />
           </ModalBody>
         </ModalContent>
@@ -109,7 +109,7 @@ function ModalContentBody({ project }: { project: Project }) {
   } = project
 
   return (
-    <div className="flex columns-2 flex-col gap-8 sm:flex-col sm:gap-4 lg:flex-row">
+    <div className="flex columns-2 flex-col gap-8 bg-zinc-900 sm:flex-col sm:gap-4 lg:flex-row">
       <div className="flex-1">
         <Image
           src={featuredImage.src}
@@ -120,7 +120,7 @@ function ModalContentBody({ project }: { project: Project }) {
         />
       </div>
       <div className="flex flex-1 flex-col items-center lg:items-start">
-        <span className="bold text-1xl mb-2 uppercase text-teal-600">
+        <span className="bold text-1xl mb-2 uppercase text-emerald-400">
           {category}
         </span>
         <h4 className="bold mb-2 text-3xl uppercase">{heading}</h4>
@@ -153,8 +153,8 @@ function ModalContentBody({ project }: { project: Project }) {
                 role="link"
                 className={clsx(
                   'flex items-center gap-2 px-8 py-3',
-                  'bg-teal-600 font-bold text-white transition-all',
-                  'hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500',
+                  'bg-emerald-800 font-bold text-white transition-all',
+                  'hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500',
                 )}
               >
                 {urlLabel || 'Visitar site'}
@@ -177,8 +177,8 @@ function ModalContentBody({ project }: { project: Project }) {
                   rel="noopener noreferrer"
                   className={clsx(
                     'flex items-center gap-2 px-4 py-3',
-                    'bg-teal-600 font-bold text-white transition-all',
-                    'hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500',
+                    'bg-emerald-800 font-bold text-white transition-all',
+                    'hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500',
                   )}
                 >
                   <span>{repo.type}</span>

@@ -19,7 +19,7 @@ type ArrowProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 
 const PrevArrow: React.FC<ArrowProps> = ({ onClick }) => (
   <button
-    className="absolute left-0 top-1/2 z-10 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gray-800 text-white shadow-md transition hover:bg-teal-600 lg:-left-8"
+    className="absolute left-0 top-1/2 z-10 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gray-800 text-white shadow-md transition hover:bg-emerald-600 lg:-left-8"
     onClick={onClick}
     aria-label="Previous slide"
   >
@@ -29,7 +29,7 @@ const PrevArrow: React.FC<ArrowProps> = ({ onClick }) => (
 
 const NextArrow: React.FC<ArrowProps> = ({ onClick }) => (
   <button
-    className="absolute right-0 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-gray-800 text-white shadow-md transition hover:bg-teal-600 lg:-right-8"
+    className="absolute right-0 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-gray-800 text-white shadow-md transition hover:bg-emerald-600 lg:-right-8"
     onClick={onClick}
     aria-label="Next slide"
   >

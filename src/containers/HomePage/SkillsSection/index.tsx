@@ -28,7 +28,7 @@ export default function SkillsSection({
                 classNames={{
                   base: 'w-full',
                   track: 'drop-shadow-md border border-default',
-                  indicator: 'bg-teal-600',
+                  indicator: 'bg-emerald-400',
                   label: 'tracking-wider text-default-600',
                   value: 'text-foreground/60',
                 }}
@@ -50,7 +50,7 @@ export default function SkillsSection({
                   classNames={{
                     base: 'max-w-full text-center',
                     svg: 'w-36 h-36 drop-shadow-md',
-                    indicator: 'stroke-teal-600',
+                    indicator: 'stroke-emerald-400',
                     track: 'drop-shadow-md border border-default',
                     value: 'text-3xl font-semibold text-white',
                   }}

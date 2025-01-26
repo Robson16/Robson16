@@ -31,11 +31,11 @@ export default function ExperienceSection({
                 >
                   <h4 className="text-xl font-semibold">
                     {edu.title} em{' '}
-                    <span className="italic text-teal-600">
+                    <span className="italic text-emerald-400">
                       {edu.institution}
                     </span>
                   </h4>
-                  <span className="text-teal-600">{`${edu.period.start} - ${edu.period.end}`}</span>
+                  <span className="text-emerald-400">{`${edu.period.start} - ${edu.period.end}`}</span>
                   <p className="text-sm">{edu.description}</p>
                 </div>
               ))}
@@ -53,11 +53,13 @@ export default function ExperienceSection({
                 >
                   <h4 className="text-xl font-semibold">
                     {exp.title} em{' '}
-                    <span className="italic text-teal-600">{exp.company}</span>
+                    <span className="italic text-emerald-400">
+                      {exp.company}
+                    </span>
                   </h4>
-                  <span className="text-teal-600">{`${exp.period.start} - ${exp.period.end}`}</span>
+                  <span className="text-emerald-400">{`${exp.period.start} - ${exp.period.end}`}</span>
                   {exp.location && (
-                    <span className="text-sm text-gray-400">
+                    <span className="text-sm text-stone-200">
                       {exp.location}
                     </span>
                   )}
