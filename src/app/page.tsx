@@ -1,5 +1,6 @@
 import Header from '@/components/Header'
 import AboutSection from '@/containers/HomePage/AboutSection'
+import ContactSection from '@/containers/HomePage/ContactSection'
 import ExperienceSection from '@/containers/HomePage/ExperienceSection'
 import HeroSection from '@/containers/HomePage/HeroSection'
 import PortfolioSection from '@/containers/HomePage/PortfolioSection'
@@ -25,6 +26,7 @@ export default async function Home() {
         />
         <ExperienceSection education={education} experiences={experiences} />
         <PortfolioSection projects={projects} />
+        <ContactSection />
       </main>
     </>
   )
