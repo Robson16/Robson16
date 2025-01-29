@@ -10,12 +10,14 @@ import Image from 'next/image'
 import { FaDownload } from 'react-icons/fa'
 
 type AboutSectionProps = {
+  description: string
   features: Feature[]
   skills: Skills | null
   featuredProjects: Project[]
 }
 
 export default function AboutSection({
+  description,
   features,
   skills,
   featuredProjects,
@@ -40,9 +42,7 @@ export default function AboutSection({
               Sobre mim
             </h2>
             <p className="mb-8 text-center leading-7 lg:text-left">
-              Olá, sou Robson, Desenvolvedor Web de Jundiaí - SP, Brasil. Com
-              experiência em desenvolvimento web e mobile, foco em aplicações
-              escaláveis e otimizadas. Conhecimentos em
+              {description}
             </p>
             <ul className="mb-8 flex flex-wrap justify-center gap-4 lg:justify-start">
               {skills &&

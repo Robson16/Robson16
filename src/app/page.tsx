@@ -16,6 +16,7 @@ export default async function Home() {
       <main>
         <HeroSection />
         <AboutSection
+          description={about.description}
           features={about.features}
           skills={skills}
           featuredProjects={featuredProjects}
