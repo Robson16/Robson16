@@ -2,6 +2,7 @@
 import dynamic from 'next/dynamic'
 import React from 'react'
 import type { IconBaseProps } from 'react-icons'
+import { AiFillExclamationCircle } from "react-icons/ai"
 import { FaRegCircle } from 'react-icons/fa'
 import { FiCircle } from 'react-icons/fi'
 import { GoCircle } from 'react-icons/go'
@@ -65,6 +66,14 @@ const DynamicIcon: React.FC<DynamicIconProps> = ({
             React.ComponentType<IconBaseProps>
           >,
     ),
+    ai: dynamic(
+      () =>
+        import('react-icons/ai')
+          .then((mod) => mod[icon])
+          .then((e) => (e === undefined ? AiFillExclamationCircle : e)) as Promise<
+            React.ComponentType<IconBaseProps>
+          >,
+    )
   }
 
   const Icon = iconFamily && icon ? Icons[iconFamily] : null

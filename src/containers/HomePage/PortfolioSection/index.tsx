@@ -30,7 +30,7 @@ export default function PortfolioSection({ projects }: PortfolioSectionProps) {
         </h3>
 
         <div
-          className="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 md:gap-8"
+          className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-8 lg:grid-cols-3"
           ref={masonryContainer}
         >
           {projects.length > 0 ? (

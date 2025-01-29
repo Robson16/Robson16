@@ -1,37 +1,43 @@
+import DynamicIcon from '@/components/DynamicIcon'
+import { About } from '@/types/About'
 import { Button, Link } from '@heroui/react'
 import Image from 'next/image'
-import {
-  AiFillGithub,
-  AiFillGitlab,
-  AiFillLinkedin,
-  AiOutlineMail,
-} from 'react-icons/ai'
+import { AiOutlineMail } from 'react-icons/ai'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 
-export default function HeroSection() {
+type HeroSectionProps = Omit<About, 'description' | 'features'>
+
+export default function HeroSection({
+  photoUrl,
+  name,
+  title,
+  email,
+  location,
+  social,
+}: HeroSectionProps) {
   return (
     <section
       id="home"
       className="bg-[url('/images/code.jpg')] bg-cover bg-center"
     >
       <div className="bg-black bg-opacity-70">
-        <div className="container mx-auto max-w-screen-lg px-4 py-20 md:py-56">
-          <div className="flex flex-col-reverse gap-8 md:flex-row">
-            <div className="flex flex-1 flex-col items-center justify-center md:items-start">
+        <div className="container mx-auto max-w-screen-lg px-4 py-20 md:py-40 lg:py-56">
+          <div className="flex flex-col-reverse gap-8 lg:flex-row">
+            <div className="flex flex-1 flex-col items-center justify-center lg:items-start">
               <span className="mb-4 rounded-r-[20px] rounded-tl-[20px] bg-emerald-800 px-8 py-2">
                 Olá, me chamo
               </span>
-              <h1 className="mb-4 text-center text-5xl font-bold md:text-left">
-                Robson H. Rodrigues
+              <h1 className="mb-4 text-center text-5xl font-bold lg:text-left">
+                {name}
               </h1>
-              <h2 className="text-2xl font-medium">Desenvolvedor Web</h2>
+              <h2 className="text-2xl font-medium">{title}</h2>
               <ul className="my-10">
                 <li className="group my-2 flex items-center">
                   <AiOutlineMail
                     size={22}
                     className="mr-2 text-gray-500 transition-colors group-hover:text-emerald-600"
                   />
-                  <a href="mailto:robhenrod@gmail.com">robhenrod@gmail.com</a>
+                  <a href={`mailto:${email}`}>{email}</a>
                 </li>
                 <li className="group my-2 flex items-center">
                   <FaMapMarkerAlt
@@ -39,68 +45,49 @@ export default function HeroSection() {
                     className="mr-2 text-gray-500 transition-colors group-hover:text-emerald-600"
                   />
                   <a
-                    href="https://maps.app.goo.gl/vTWz8snMHN1RdMkK6"
+                    href={location.url}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Jundiaí - São Paulo / Brasil
+                    {location.name}
                   </a>
                 </li>
               </ul>
               <div className="flex items-center gap-4">
-                <Button
-                  isIconOnly
-                  as={Link}
-                  href="https://github.com/Robson16"
-                  aria-label="Meu GitHub"
-                  className="group flex h-auto w-auto min-w-0 items-start justify-center bg-transparent p-0"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <AiFillGithub
-                    className="transition-colors group-hover:text-emerald-600"
-                    size={30}
-                  />
-                </Button>
-                <Button
-                  isIconOnly
-                  as={Link}
-                  href="https://gitlab.com/Robson16"
-                  aria-label="Meu GitLab"
-                  className="group flex h-auto w-auto min-w-0 items-start justify-center bg-transparent p-0"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <AiFillGitlab
-                    className="transition-colors group-hover:text-emerald-600"
-                    size={30}
-                  />
-                </Button>
-                <Button
-                  isIconOnly
-                  as={Link}
-                  href="https://www.linkedin.com/in/robson-h-rodrigues-93341746/"
-                  aria-label="Meu LinkedIn"
-                  className="group flex h-auto w-auto min-w-0 items-start justify-center bg-transparent p-0"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <AiFillLinkedin
-                    className="transition-colors group-hover:text-emerald-600"
-                    size={30}
-                  />
-                </Button>
+                {social.map((item) => {
+                  console.log(item.icon.color)
+
+                  return (
+                    <Button
+                      key={item.name}
+                      isIconOnly
+                      as={Link}
+                      href={item.url}
+                      aria-label={`Meu ${item.name}`}
+                      className="group flex h-auto w-auto min-w-0 items-start justify-center bg-transparent p-0"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <DynamicIcon
+                        icon={item.icon.name}
+                        iconFamily={item.icon.family}
+                        size={30}
+                        className="transition-colors group-hover:text-emerald-600"
+                      />
+                    </Button>
+                  )
+                })}
               </div>
             </div>
-            <div className="flex flex-1 flex-col items-center md:items-end">
+            <div className="flex flex-1 flex-col items-center lg:items-end">
               <figure className="rounded-full border-[20px] border-zinc-950">
                 <Image
-                  src="/images/profile.jpg"
+                  src={photoUrl}
                   priority={true}
-                  alt="Picture of the author"
+                  alt={`Foto de ${name}`}
                   width={360}
                   height={360}
-                  className="mx-auto max-w-[240px] rounded-full border-[20px] border-zinc-900 md:max-w-none"
+                  className="mx-auto max-w-[240px] rounded-full border-[20px] border-zinc-900 lg:max-w-none"
                 />
               </figure>
             </div>

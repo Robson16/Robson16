@@ -21,7 +21,7 @@ export default function FeaturedProjectItem({
   } = project
 
   return (
-    <div className="flex columns-2 flex-col gap-8 lg:flex-row">
+    <div className="flex flex-col gap-8 lg:columns-2 lg:flex-row">
       <div className="flex flex-1">
         <Image
           src={src}

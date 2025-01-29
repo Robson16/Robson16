@@ -6,16 +6,22 @@ export type Feature = {
   icon: Icon
 }
 
+export type SocialNetwork = {
+  name: string
+  url: string
+  icon: Icon
+}
+
 export type About = {
+  photoUrl: string
   name: string
   title: string
   description: string
   email: string
-  address: string
-  social: {
-    gitlab: string
-    github: string
-    linkedin: string
+  location: {
+    url: string
+    name: string
   }
+  social: SocialNetwork[]
   features: Feature[]
 }
