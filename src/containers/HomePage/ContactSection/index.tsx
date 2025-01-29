@@ -1,9 +1,4 @@
-import {
-  AiFillGithub,
-  AiFillGitlab,
-  AiFillLinkedin,
-  AiOutlineMail,
-} from 'react-icons/ai'
+import { AiFillLinkedin, AiOutlineMail } from 'react-icons/ai'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 
 export default function ContactSection() {
