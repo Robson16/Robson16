@@ -1,7 +1,20 @@
 import { AiFillLinkedin, AiOutlineMail } from 'react-icons/ai'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 
-export default function ContactSection() {
+type ContactSectionProps = {
+  location: {
+    url: string
+    name: string
+  }
+  email: string
+  linkedinUrl: string
+}
+
+export default function ContactSection({
+  location,
+  email,
+  linkedinUrl,
+}: ContactSectionProps) {
   return (
     <section
       id="contact"
@@ -18,7 +31,7 @@ export default function ContactSection() {
           </h3>
           <div className="flex flex-col gap-8 md:flex-row">
             <a
-              href="https://maps.app.goo.gl/vTWz8snMHN1RdMkK6"
+              href={location.url}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex flex-1 flex-col items-center justify-center gap-8 rounded-lg bg-zinc-800 p-8 shadow-2xl"
@@ -29,10 +42,10 @@ export default function ContactSection() {
                   className="transition-colors group-hover:text-emerald-600"
                 />
               </span>
-              <span className="text-lg">Jundiaí - São Paulo / Brasil</span>
+              <span className="text-lg">{location.name}</span>
             </a>
             <a
-              href="mailto:robhenrod@gmail.com"
+              href={`mailto:${email}`}
               className="group flex flex-1 flex-col items-center justify-center gap-8 rounded-lg bg-zinc-800 p-8 shadow-2xl"
             >
               <span className="flex items-center justify-center rounded-full border-2 border-solid border-emerald-700 p-10 transition-colors group-hover:border-emerald-600">
@@ -41,10 +54,10 @@ export default function ContactSection() {
                   className="transition-colors group-hover:text-emerald-600"
                 />
               </span>
-              <span className="text-lg">robhenrod@gmail.com</span>
+              <span className="text-lg">{email}</span>
             </a>
             <a
-              href="https://www.linkedin.com/in/robson-h-rodrigues-93341746/"
+              href={linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex flex-1 flex-col items-center justify-center gap-8 rounded-lg bg-zinc-800 p-8 shadow-2xl"

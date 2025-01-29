@@ -9,6 +9,7 @@ import { about, education, experiences, projects, skills } from '@/lib/data'
 
 export default async function Home() {
   const featuredProjects = projects.filter((project) => project.featured)
+  const linkedin = about.social.find((item) => item.name === 'LinkedIn')
 
   return (
     <>
@@ -34,7 +35,11 @@ export default async function Home() {
         />
         <ExperienceSection education={education} experiences={experiences} />
         <PortfolioSection projects={projects} />
-        <ContactSection />
+        <ContactSection
+          location={about.location}
+          email={about.email}
+          linkedinUrl={linkedin?.url || ''}
+        />
       </main>
     </>
   )
