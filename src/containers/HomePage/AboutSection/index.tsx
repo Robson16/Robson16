@@ -24,7 +24,7 @@ export default function AboutSection({
 }: AboutSectionProps) {
   return (
     <section id="about" aria-labelledby="about-title">
-      <div className="container mx-auto my-28 px-4 lg:max-w-screen-lg">
+      <div className="container mx-auto my-28 max-w-screen-sm px-4 lg:max-w-screen-lg">
         <div className="flex flex-col items-center gap-16 lg:flex-row">
           <div className="flex flex-1 flex-col">
             <Image
@@ -75,13 +75,13 @@ export default function AboutSection({
         </div>
       </div>
 
-      <div className="container mx-auto my-28 max-w-screen-xl px-4">
+      <div className="container mx-auto my-28 max-w-screen-sm px-4 lg:max-w-screen-xl">
         <h3 className="mb-16 text-center text-4xl font-medium">O que faço</h3>
-        <div className="flex flex-col gap-8 lg:flex-row">
+        <div className="flex flex-col items-center gap-8 lg:flex-row">
           {features.map((feature: Feature) => (
             <div
               key={feature.title}
-              className="flex flex-1 flex-col rounded-lg bg-zinc-800 p-8 shadow-2xl"
+              className="flex max-w-[500px] flex-1 flex-col rounded-lg bg-zinc-800 p-8 shadow-2xl"
             >
               <DynamicIcon
                 iconFamily={feature.icon.family}
@@ -101,7 +101,7 @@ export default function AboutSection({
 
       <div className="bg-[url('/images/computer.jpg')] bg-cover bg-center">
         <div className="bg-black bg-opacity-90">
-          <div className="container mx-auto max-w-screen-xl px-2 py-28">
+          <div className="container mx-auto px-2 py-28 lg:max-w-screen-xl">
             <h3 className="mb-16 text-center text-4xl font-medium">
               Projetos em destaque
             </h3>

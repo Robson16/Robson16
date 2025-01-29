@@ -19,7 +19,7 @@ type ArrowProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 
 const PrevArrow: React.FC<ArrowProps> = ({ onClick }) => (
   <button
-    className="absolute left-0 top-1/2 z-10 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gray-800 text-white shadow-md transition hover:bg-emerald-600 lg:-left-8"
+    className="absolute -left-4 top-1/2 z-10 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gray-800 text-white shadow-md transition hover:bg-emerald-600 md:-left-8"
     onClick={onClick}
     aria-label="Previous slide"
   >
@@ -29,7 +29,7 @@ const PrevArrow: React.FC<ArrowProps> = ({ onClick }) => (
 
 const NextArrow: React.FC<ArrowProps> = ({ onClick }) => (
   <button
-    className="absolute right-0 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-gray-800 text-white shadow-md transition hover:bg-emerald-600 lg:-right-8"
+    className="absolute -right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-gray-800 text-white shadow-md transition hover:bg-emerald-600 md:-right-8"
     onClick={onClick}
     aria-label="Next slide"
   >
@@ -46,7 +46,7 @@ const Carousel: React.FC<CarouselProps> = ({
   slidesToScroll = 1,
 }) => {
   return (
-    <div className="relative flex justify-center">
+    <div className="relative mx-auto flex max-w-[85%] justify-center lg:max-w-full">
       <Slider
         className="max-w-[90%]"
         dots={dots}
