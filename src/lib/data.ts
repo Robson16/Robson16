@@ -5,17 +5,45 @@ import { Project } from '@/types/Project'
 import { Skills } from '@/types/Skill'
 
 export const about: About = {
+  photoUrl: '/images/profile.jpg',
   name: 'Robson H. Rodrigues',
   title: 'Desenvolvedor Web',
   description:
     'Olá, sou Robson, Desenvolvedor Web de Jundiaí - SP, Brasil. Com experiência em desenvolvimento web e mobile, foco em aplicações escaláveis e otimizadas. Conhecimentos em',
   email: 'robhenrod@gmail.com',
-  address: 'Jundiaí - São Paulo / Brasil',
-  social: {
-    github: 'https://github.com/Robson16',
-    gitlab: 'https://gitlab.com/Robson16',
-    linkedin: 'https://www.linkedin.com/in/robson-h-rodrigues-93341746/',
+  location: {
+    url: 'https://maps.app.goo.gl/vTWz8snMHN1RdMkK6',
+    name: 'Jundiaí - São Paulo / Brasil',
   },
+  social: [
+    {
+      name: 'GitHub',
+      url: 'https://github.com/Robson16',
+      icon: {
+        family: 'ai',
+        name: 'AiFillGithub',
+        color: '#4078c0',
+      },
+    },
+    {
+      name: 'GitLab',
+      url: 'https://gitlab.com/Robson16',
+      icon: {
+        family: 'ai',
+        name: 'AiFillGitlab',
+        color: '#FC6D26',
+      },
+    },
+    {
+      name: 'LinkedIn',
+      url: 'https://www.linkedin.com/in/robson-h-rodrigues-93341746/',
+      icon: {
+        family: 'ai',
+        name: 'AiFillLinkedin',
+        color: '#0a66c2',
+      },
+    },
+  ],
   features: [
     {
       title: 'Desenvolvimento Web e Mobile',

@@ -14,7 +14,14 @@ export default async function Home() {
     <>
       <Header />
       <main>
-        <HeroSection />
+        <HeroSection
+          photoUrl={about.photoUrl}
+          name={about.name}
+          title={about.title}
+          email={about.email}
+          location={about.location}
+          social={about.social}
+        />
         <AboutSection
           description={about.description}
           features={about.features}
