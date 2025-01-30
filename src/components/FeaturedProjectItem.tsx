@@ -21,7 +21,7 @@ export default function FeaturedProjectItem({
   } = project
 
   return (
-    <div className="flex flex-col gap-8 lg:columns-2 lg:flex-row">
+    <div className="!flex flex-col gap-8 p-2 xl:columns-2 xl:flex-row">
       <div className="flex flex-1">
         <Image
           src={src}
@@ -32,13 +32,13 @@ export default function FeaturedProjectItem({
           className="h-full w-full rounded-lg object-cover"
         />
       </div>
-      <div className="flex flex-1 flex-col items-center lg:items-start">
+      <div className="flex flex-1 flex-col items-center xl:items-start">
         <span className="bold text-1xl mb-2 uppercase text-teal-600">
           {category}
         </span>
         <h4 className="bold mb-2 text-3xl uppercase">{heading}</h4>
         <h5 className="mb-4 uppercase">{subheading}</h5>
-        <p className="mb-8 text-center lg:text-left">{description}</p>
+        <p className="mb-8 text-center xl:text-left">{description}</p>
         {url && (
           <Button
             size="lg"

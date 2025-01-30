@@ -17,17 +17,17 @@ export default function ExperienceSection({
       className="bg-[url('/images/study.jpg')] bg-cover bg-center"
     >
       <div className="bg-black bg-opacity-90">
-        <div className="container mx-auto max-w-screen-sm px-4 py-28 lg:max-w-screen-xl">
-          <div className="flex columns-2 flex-col gap-20 lg:flex-row">
+        <div className="container mx-auto max-w-screen-sm px-4 py-28 xl:max-w-screen-xl">
+          <div className="flex flex-col gap-20 xl:flex-row xl:gap-6">
             {/* Seção Educação */}
-            <div className="flex flex-1 flex-col items-center gap-7">
+            <div className="flex flex-1 flex-col gap-7">
               <h3 className="mb-12 text-center text-3xl font-medium">
                 Formação
               </h3>
               {education.map((edu) => (
                 <div
                   key={edu.title}
-                  className="flex max-w-[500px] flex-1 flex-col gap-2 rounded-lg bg-zinc-800 p-8 shadow-2xl"
+                  className="flex min-h-64 max-w-[500px] flex-1 flex-col content-start gap-2 self-center rounded-lg bg-zinc-800 p-8 shadow-2xl md:min-w-[500px]"
                 >
                   <h4 className="text-xl font-semibold">
                     {edu.title} em{' '}
@@ -42,14 +42,14 @@ export default function ExperienceSection({
             </div>
 
             {/* Seção Experiência */}
-            <div className="flex flex-1 flex-col items-center gap-7">
+            <div className="flex flex-1 flex-col gap-7">
               <h3 className="mb-12 text-center text-3xl font-medium">
                 Experiência de Trabalho
               </h3>
               {experiences.slice(0, 3).map((exp) => (
                 <div
                   key={`${exp.title} - ${exp.company}`}
-                  className="flex max-w-[500px] flex-1 flex-col gap-2 rounded-lg bg-zinc-800 p-8 shadow-2xl"
+                  className="flex min-h-64 max-w-[500px] flex-1 flex-col content-start gap-2 self-center rounded-lg bg-zinc-800 p-8 shadow-2xl md:min-w-[500px]"
                 >
                   <h4 className="text-xl font-semibold">
                     {exp.title} em{' '}

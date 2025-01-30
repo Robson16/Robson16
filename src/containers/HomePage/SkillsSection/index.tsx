@@ -13,9 +13,9 @@ export default function SkillsSection({
   return (
     <section
       id="skills"
-      className="container mx-auto max-w-screen-sm px-4 py-28 lg:max-w-screen-lg"
+      className="container mx-auto max-w-screen-sm px-4 py-28 xl:max-w-screen-lg"
     >
-      <div className="flex columns-2 flex-col gap-20 lg:flex-row">
+      <div className="flex columns-2 flex-col gap-20 xl:flex-row">
         <div className="flex flex-1 flex-col gap-4">
           <h3 className="mb-12 text-center text-3xl font-medium">
             Habilidades Técnicas
@@ -38,7 +38,7 @@ export default function SkillsSection({
             ),
           )}
         </div>
-        <div className="flex flex-1 flex-col gap-4">
+        <div className="flex flex-1 flex-col items-center gap-4">
           <h3 className="mb-12 text-center text-3xl font-medium">
             Habilidades Profissionais
           </h3>

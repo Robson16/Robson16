@@ -21,13 +21,13 @@ export default function HeroSection({
       className="bg-[url('/images/code.jpg')] bg-cover bg-center"
     >
       <div className="bg-black bg-opacity-70">
-        <div className="container mx-auto max-w-screen-lg px-4 py-20 md:py-40 lg:py-56">
-          <div className="flex flex-col-reverse gap-8 lg:flex-row">
-            <div className="flex flex-1 flex-col items-center justify-center lg:items-start">
+        <div className="container mx-auto max-w-screen-lg px-4 py-20 md:py-40 xl:py-56">
+          <div className="flex flex-col-reverse gap-8 xl:flex-row">
+            <div className="flex flex-1 flex-col items-center justify-center xl:items-start">
               <span className="mb-4 rounded-r-[20px] rounded-tl-[20px] bg-emerald-800 px-8 py-2">
                 Olá, me chamo
               </span>
-              <h1 className="mb-4 text-center text-5xl font-bold lg:text-left">
+              <h1 className="mb-4 text-center text-5xl font-bold xl:text-left">
                 {name}
               </h1>
               <h2 className="text-2xl font-medium">{title}</h2>
@@ -79,7 +79,7 @@ export default function HeroSection({
                 })}
               </div>
             </div>
-            <div className="flex flex-1 flex-col items-center lg:items-end">
+            <div className="flex flex-1 flex-col items-center xl:items-end">
               <figure className="rounded-full border-[20px] border-zinc-950">
                 <Image
                   src={photoUrl}
@@ -87,7 +87,7 @@ export default function HeroSection({
                   alt={`Foto de ${name}`}
                   width={360}
                   height={360}
-                  className="mx-auto max-w-[240px] rounded-full border-[20px] border-zinc-900 lg:max-w-none"
+                  className="mx-auto max-w-60 rounded-full border-[20px] border-zinc-900 xl:max-w-none"
                 />
               </figure>
             </div>

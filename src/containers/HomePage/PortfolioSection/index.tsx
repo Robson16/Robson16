@@ -21,7 +21,7 @@ export default function PortfolioSection({ projects }: PortfolioSectionProps) {
 
   return (
     <section id="portfolio" aria-labelledby="portfolio-title">
-      <div className="container mx-auto px-4 py-28 lg:max-w-screen-xl">
+      <div className="container mx-auto max-w-screen-md px-4 py-28 xl:max-w-screen-xl">
         <h3
           id="portfolio-title"
           className="mb-16 text-center text-4xl font-medium"
@@ -30,7 +30,7 @@ export default function PortfolioSection({ projects }: PortfolioSectionProps) {
         </h3>
 
         <div
-          className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-8 lg:grid-cols-3"
+          className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-8 xl:grid-cols-3"
           ref={masonryContainer}
         >
           {projects.length > 0 ? (

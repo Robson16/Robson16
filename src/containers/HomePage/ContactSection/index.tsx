@@ -29,12 +29,12 @@ export default function ContactSection({
           >
             Contato
           </h3>
-          <div className="flex flex-col items-center gap-8 lg:flex-row">
+          <div className="flex flex-col items-center gap-8 xl:flex-row">
             <a
               href={location.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex min-w-[300px] max-w-[300px] flex-1 flex-col items-center justify-center gap-8 rounded-lg bg-zinc-800 p-8 shadow-2xl"
+              className="group flex min-w-80 max-w-80 flex-1 flex-col items-center justify-center gap-8 rounded-lg bg-zinc-800 p-8 shadow-2xl"
             >
               <span className="flex items-center justify-center rounded-full border-2 border-solid border-emerald-700 p-10 transition-colors group-hover:border-emerald-600">
                 <FaMapMarkerAlt
@@ -46,7 +46,7 @@ export default function ContactSection({
             </a>
             <a
               href={`mailto:${email}`}
-              className="group flex min-w-[300px] max-w-[300px] flex-1 flex-col items-center justify-center gap-8 rounded-lg bg-zinc-800 p-8 shadow-2xl"
+              className="group flex min-w-80 max-w-80 flex-1 flex-col items-center justify-center gap-8 rounded-lg bg-zinc-800 p-8 shadow-2xl"
             >
               <span className="flex items-center justify-center rounded-full border-2 border-solid border-emerald-700 p-10 transition-colors group-hover:border-emerald-600">
                 <AiOutlineMail
@@ -60,7 +60,7 @@ export default function ContactSection({
               href={linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex min-w-[300px] max-w-[300px] flex-1 flex-col items-center justify-center gap-8 rounded-lg bg-zinc-800 p-8 shadow-2xl"
+              className="group flex min-w-80 max-w-80 flex-1 flex-col items-center justify-center gap-8 rounded-lg bg-zinc-800 p-8 shadow-2xl"
             >
               <span className="flex items-center justify-center rounded-full border-2 border-solid border-emerald-700 p-10 transition-colors group-hover:border-emerald-600">
                 <AiFillLinkedin
