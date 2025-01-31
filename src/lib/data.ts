@@ -10,7 +10,7 @@ export const about: About = {
   title: 'Desenvolvedor Web',
   description:
     'Olá, sou Robson, Desenvolvedor Web de Jundiaí - SP, Brasil. Com experiência em desenvolvimento web e mobile, foco em aplicações escaláveis e otimizadas. Conhecimentos em',
-  email: 'robhenrod@gmail.com',
+  email: 'contato@robsonhrodrigues.com.br',
   location: {
     url: 'https://maps.app.goo.gl/vTWz8snMHN1RdMkK6',
     name: 'Jundiaí - São Paulo / Brasil',
