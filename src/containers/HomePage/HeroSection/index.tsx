@@ -54,29 +54,25 @@ export default function HeroSection({
                 </li>
               </ul>
               <div className="flex items-center gap-4">
-                {social.map((item) => {
-                  console.log(item.icon.color)
-
-                  return (
-                    <Button
-                      key={item.name}
-                      isIconOnly
-                      as={Link}
-                      href={item.url}
-                      aria-label={`Meu ${item.name}`}
-                      className="group flex h-auto w-auto min-w-0 items-start justify-center bg-transparent p-0"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <DynamicIcon
-                        icon={item.icon.name}
-                        iconFamily={item.icon.family}
-                        size={30}
-                        className="transition-colors group-hover:text-emerald-600"
-                      />
-                    </Button>
-                  )
-                })}
+                {social.map((item) => (
+                  <Button
+                    key={item.name}
+                    isIconOnly
+                    as={Link}
+                    href={item.url}
+                    aria-label={`Meu ${item.name}`}
+                    className="group flex h-auto w-auto min-w-0 items-start justify-center bg-transparent p-0"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <DynamicIcon
+                      icon={item.icon.name}
+                      iconFamily={item.icon.family}
+                      size={30}
+                      className="transition-colors group-hover:text-emerald-600"
+                    />
+                  </Button>
+                ))}
               </div>
             </div>
             <div className="flex flex-1 flex-col items-center xl:items-end">
