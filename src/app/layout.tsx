@@ -1,4 +1,5 @@
 import '@/styles/globals.css'
+import { GoogleTagManager } from '@next/third-parties/google'
 import type { Metadata, Viewport } from 'next'
 import { Roboto } from 'next/font/google'
 import { Providers } from './providers'
@@ -34,6 +35,7 @@ export default function RootLayout({
           {children}
         </Providers>
       </body>
+      <GoogleTagManager gtmId={process.env.GOOGLE_TAG_ID || ''} />
     </html>
   )
 }
