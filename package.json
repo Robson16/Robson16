@@ -18,10 +18,23 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && swc .next/static/chunks/*.js .next/static/chunks/**/*.js -d . --include-dotfiles",
     "start": "next start",
     "lint": "next lint",
     "server": "json-server --watch db.json --port 3333"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+      "last 1 ie version"
+    ]
   },
   "dependencies": {
     "@heroui/modal": "2.2.8",
@@ -45,6 +58,7 @@
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "2.1.0",
+    "@swc/cli": "0.6.0",
     "@types/node": "20.8.8",
     "@types/react": "18.2.32",
     "@types/react-dom": "18.2.14",

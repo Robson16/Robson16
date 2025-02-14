@@ -2,6 +2,7 @@ import '@/styles/globals.css'
 import { GoogleTagManager } from '@next/third-parties/google'
 import type { Metadata, Viewport } from 'next'
 import { Roboto } from 'next/font/google'
+import 'resize-observer-polyfill'
 import { Providers } from './providers'
 
 const roboto = Roboto({
