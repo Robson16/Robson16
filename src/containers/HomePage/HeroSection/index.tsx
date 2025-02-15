@@ -1,20 +1,25 @@
 import DynamicIcon from '@/components/DynamicIcon'
 import { About } from '@/types/About'
+import { Hero } from '@/types/Hero'
 import { Button, Link } from '@heroui/react'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { AiOutlineMail } from 'react-icons/ai'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 
-type HeroSectionProps = Omit<About, 'description' | 'features'>
+type HeroSectionProps = Hero & Omit<About, 'description' | 'features'>
 
 export default function HeroSection({
   photoUrl,
+  greeting,
   name,
   title,
   email,
   location,
   social,
 }: HeroSectionProps) {
+  const t = useTranslations()
+
   return (
     <section
       id="home"
@@ -25,12 +30,16 @@ export default function HeroSection({
           <div className="flex flex-col-reverse gap-8 xl:flex-row">
             <div className="flex flex-1 flex-col items-center justify-center xl:items-start">
               <span className="mb-4 rounded-r-[20px] rounded-tl-[20px] bg-emerald-800 px-8 py-2">
-                Olá, me chamo
+                {t('hero.greeting', { defaultMessage: greeting })}
               </span>
               <h1 className="mb-4 text-center text-5xl font-bold xl:text-left">
                 {name}
               </h1>
-              <h2 className="text-2xl font-medium">{title}</h2>
+              <h2 className="text-2xl font-medium">
+                {t('about.title', {
+                  defaultMessage: title,
+                })}
+              </h2>
               <ul className="my-10">
                 <li className="group my-2 flex items-center">
                   <AiOutlineMail
@@ -49,7 +58,9 @@ export default function HeroSection({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {location.name}
+                    {t('about.location.name', {
+                      defaultMessage: location.name,
+                    })}
                   </a>
                 </li>
               </ul>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import LocalSwitcher from './LocalSwitcher'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -83,6 +84,9 @@ export default function Header() {
                   </Link>
                 </li>
               ))}
+              <li className="py-2 md:py-0">
+                <LocalSwitcher />
+              </li>
             </ul>
           </div>
         </nav>

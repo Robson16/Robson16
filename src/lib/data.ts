@@ -1,8 +1,13 @@
 import { About } from '@/types/About'
 import { Education } from '@/types/Education'
 import { Experience } from '@/types/Experience'
+import { Hero } from '@/types/Hero'
 import { Project } from '@/types/Project'
 import { Skills } from '@/types/Skill'
+
+export const hero: Hero = {
+  greeting: 'Olá, me chamo',
+}
 
 export const about: About = {
   photoUrl: '/images/profile.jpg',

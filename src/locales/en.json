@@ -1,0 +1,12 @@
+{
+  "hero": {
+    "greeting": "Hello, my name is"
+  },
+  "about": {
+    "title": "Web Developer",
+    "description": "Hello, I'm Robson, a Web Developer from Jundiaí - SP, Brazil. With experience in web and mobile development, focusing on scalable and optimized applications. Knowledge in",
+    "location": {
+      "name": "Jundiaí - São Paulo / Brazil"
+    }
+  }
+}
