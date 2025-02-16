@@ -1,4 +1,7 @@
 {
+  "navbar": {
+    "languageSelector": "Mudar idioma"
+  },
   "hero": {
     "greeting": "Olá, me chamo"
   },

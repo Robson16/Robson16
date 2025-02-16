@@ -1,13 +1,33 @@
 'use client'
 
-import { useLocale } from 'next-intl'
+import { locales } from '@/lib/data'
+import { Select, SelectItem } from '@heroui/select'
+import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
-import { ChangeEvent, useTransition } from 'react'
+import { ChangeEvent, useEffect, useState, useTransition } from 'react'
+
+const { languages } = locales
 
 export default function LocalSwitcher() {
+  const [isMobile, setIsMobile] = useState(false)
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
   const localActive = useLocale()
+  const t = useTranslations('navbar')
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 1024)
+    }
+
+    checkIsMobile()
+
+    window.addEventListener('resize', checkIsMobile)
+
+    return () => {
+      window.removeEventListener('resize', checkIsMobile)
+    }
+  }, [])
 
   const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const nextLocale = e.target.value
@@ -17,17 +37,23 @@ export default function LocalSwitcher() {
   }
 
   return (
-    <label className="">
-      <p className="sr-only">change language</p>
-      <select
-        defaultValue={localActive}
-        className="bg-transparent"
-        onChange={onSelectChange}
-        disabled={isPending}
-      >
-        <option value="en">English</option>
-        <option value="pt">Portuguese</option>
-      </select>
-    </label>
+    <Select
+      classNames={{
+        base: 'w-auto min-w-52 ',
+        trigger: 'border-2 border-solid border-white hover:border-emerald-500',
+      }}
+      label={t('languageSelector')}
+      placeholder={t('languageSelector')}
+      defaultSelectedKeys={[localActive]}
+      onChange={onSelectChange}
+      isDisabled={isPending}
+      variant="bordered"
+      size={isMobile ? 'sm' : 'md'}
+      labelPlacement={isMobile ? 'outside-left' : 'inside'}
+    >
+      {languages.map((language) => (
+        <SelectItem key={language.key}>{language.label}</SelectItem>
+      ))}
+    </Select>
   )
 }
