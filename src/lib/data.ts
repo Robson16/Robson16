@@ -2,8 +2,17 @@ import { About } from '@/types/About'
 import { Education } from '@/types/Education'
 import { Experience } from '@/types/Experience'
 import { Hero } from '@/types/Hero'
+import { Locale } from '@/types/Locale'
 import { Project } from '@/types/Project'
 import { Skills } from '@/types/Skill'
+
+export const locales: Locale = {
+  default: 'pt',
+  languages: [
+    { key: 'en', label: 'English' },
+    { key: 'pt', label: 'Português (Brasil)' },
+  ],
+}
 
 export const hero: Hero = {
   greeting: 'Olá, me chamo',
