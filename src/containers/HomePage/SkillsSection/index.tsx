@@ -12,7 +12,7 @@ export default function SkillsSection() {
           <h3 className="mb-12 text-center text-3xl font-medium">
             Habilidades Técnicas
           </h3>
-          {technical.map(
+          {/* {technical.map(
             (skill: { name: string; value: number }, index: number) => (
               <Progress
                 key={index}
@@ -28,14 +28,14 @@ export default function SkillsSection() {
                 value={skill.value}
               />
             ),
-          )}
+          )} */}
         </div>
         <div className="flex flex-1 flex-col items-center gap-4">
           <h3 className="mb-12 text-center text-3xl font-medium">
             Habilidades Profissionais
           </h3>
           <div className="grid grid-cols-2 items-start justify-center gap-8">
-            {professional.map(
+            {/* {professional.map(
               (skill: { name: string; value: number }, index: number) => (
                 <CircularProgress
                   key={index}
@@ -53,7 +53,7 @@ export default function SkillsSection() {
                   value={skill.value}
                 />
               ),
-            )}
+            )} */}
           </div>
         </div>
       </div>

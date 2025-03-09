@@ -36,7 +36,7 @@ export default function AboutSection() {
               {t('about.description')}
             </p>
             <ul className="mb-8 flex max-w-sm flex-wrap justify-center gap-4 xl:justify-start">
-              {skills &&
+              {/* {skills &&
                 skills.technical.slice(0, 8).map((skill) => (
                   <li
                     key={skill.name}
@@ -44,7 +44,7 @@ export default function AboutSection() {
                   >
                     {skill.name}
                   </li>
-                ))}
+                ))} */}
             </ul>
             <Button
               size="lg"
@@ -69,7 +69,7 @@ export default function AboutSection() {
       <div className="container mx-auto my-28 max-w-screen-sm px-4 xl:max-w-screen-xl">
         <h3 className="mb-16 text-center text-4xl font-medium">O que faço</h3>
         <div className="flex flex-col items-center gap-8 xl:flex-row">
-          {features.map((feature: Feature) => (
+          {/* {features.map((feature: Feature) => (
             <div
               key={feature.title}
               className="flex max-w-lg flex-1 flex-col rounded-lg bg-zinc-800 p-8 shadow-2xl"
@@ -86,7 +86,7 @@ export default function AboutSection() {
               </h4>
               <p>{feature.description}</p>
             </div>
-          ))}
+          ))} */}
         </div>
       </div>
 
@@ -96,7 +96,7 @@ export default function AboutSection() {
             <h3 className="mb-16 text-center text-4xl font-medium">
               Projetos em destaque
             </h3>
-            {featuredProjects.length === 0 ? (
+            {/* {featuredProjects.length === 0 ? (
               <p className="text-center">Carregando...</p>
             ) : featuredProjects.length === 1 ? (
               // When having only one project, directly render the Featured Product
@@ -108,7 +108,7 @@ export default function AboutSection() {
                   <FeaturedProjectItem key={project.id} project={project} />
                 ))}
               </Carousel>
-            )}
+            )} */}
           </div>
         </div>
       </div>
