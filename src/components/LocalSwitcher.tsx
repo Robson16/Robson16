@@ -1,6 +1,6 @@
 'use client'
 
-import { locales } from '@/lib/data'
+import { locales } from '@/i18n/routing'
 import { Select, SelectItem } from '@heroui/select'
 import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'

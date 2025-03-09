@@ -1,0 +1,34 @@
+{
+  "navbar": {
+    "languageSelector": "Change language"
+  },
+  "hero": {
+    "greeting": "Hello, my name is",
+    "title": "Web Developer"
+  },
+  "about": {
+    "title": "About me",
+    "name": "Robson H. Rodrigues",
+    "description": "Hello, I'm Robson, a Web Developer from Jundiaí - SP, Brazil. With experience in web and mobile development, focusing on scalable and optimized applications. Knowledge in",
+    "location": {
+      "name": "Jundiaí - São Paulo / Brazil"
+    },
+    "features": [
+      {
+        "title": "Web and Mobile Development",
+        "description": "Creation of responsive and scalable web and mobile applications, using modern technologies to ensure high performance, security, and an excellent user experience."
+      },
+      {
+        "title": "API and Database",
+        "description": "Development of efficient and well-structured APIs, ensuring seamless integration between systems. Work with relational and non-relational databases, focusing on optimization and scalability."
+      },
+      {
+        "title": "Best Practices and Performance",
+        "description": "Application of principles like SOLID, TDD, and DDD to ensure clean and sustainable code. Implementation of strategies to optimize application performance, following industry best practices."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contact"
+  }
+}

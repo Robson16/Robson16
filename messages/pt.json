@@ -1,0 +1,34 @@
+{
+  "navbar": {
+    "languageSelector": "Mudar idioma"
+  },
+  "hero": {
+    "greeting": "Olá, me chamo",
+    "title": "Desenvolvedor Web"
+  },
+  "about": {
+    "title": "Sobre mim",
+    "name": "Robson H. Rodrigues",
+    "description": "Olá, sou Robson, Desenvolvedor Web de Jundiaí - SP, Brasil. Com experiência em desenvolvimento web e mobile, foco em aplicações escaláveis e otimizadas. Conhecimentos em",
+    "location": {
+      "name": "Jundiaí - São Paulo / Brasil"
+    },
+    "features": [
+      {
+        "title": "Desenvolvimento Web e Mobile",
+        "description": "Criação de aplicações web e mobile responsivas e escaláveis, utilizando tecnologias modernas para garantir alta performance, segurança e uma excelente experiência do usuário."
+      },
+      {
+        "title": "API e Banco de Dados",
+        "description": "Desenvolvimento de APIs eficientes e bem estruturadas, garantindo integração fluida entre sistemas. Trabalho com bancos de dados relacionais e não relacionais, com foco em otimização e escalabilidade."
+      },
+      {
+        "title": "Boas Práticas e Performance",
+        "description": "Aplicação de princípios como SOLID, TDD e DDD para garantir código limpo e sustentável. Implementação de estratégias para otimizar a performance das aplicações, seguindo as melhores práticas do mercado."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contato"
+  }
+}
