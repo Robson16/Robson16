@@ -1,27 +1,18 @@
+'use client'
+
 import Carousel from '@/components/Carousel'
 import DynamicIcon from '@/components/DynamicIcon'
 import FeaturedProjectItem from '@/components/FeaturedProjectItem'
 import { Feature } from '@/types/About'
-import { Project } from '@/types/Project'
-import { Skills } from '@/types/Skill'
 import { Button, Link } from '@heroui/react'
 import clsx from 'clsx'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { FaDownload } from 'react-icons/fa'
 
-type AboutSectionProps = {
-  description: string
-  features: Feature[]
-  skills: Skills | null
-  featuredProjects: Project[]
-}
+export default function AboutSection() {
+  const t = useTranslations()
 
-export default function AboutSection({
-  description,
-  features,
-  skills,
-  featuredProjects,
-}: AboutSectionProps) {
   return (
     <section id="about" aria-labelledby="about-title">
       <div className="container mx-auto my-28 max-w-screen-sm px-4 xl:max-w-screen-lg">
@@ -39,10 +30,10 @@ export default function AboutSection({
               id="about-title"
               className="mb-4 text-center text-4xl font-medium xl:text-left"
             >
-              Sobre mim
+              {t('about.title')}
             </h2>
             <p className="mb-8 text-center leading-7 xl:text-left">
-              {description}
+              {t('about.description')}
             </p>
             <ul className="mb-8 flex max-w-sm flex-wrap justify-center gap-4 xl:justify-start">
               {skills &&

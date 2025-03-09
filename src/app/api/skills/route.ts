@@ -1,4 +1,4 @@
-import { skills } from '@/lib/data'
+import skills from '@/data/skills.json'
 import { NextResponse } from 'next/server'
 
 export async function GET() {

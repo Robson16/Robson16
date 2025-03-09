@@ -1,15 +1,7 @@
 import { Skill } from '@/types/Skill'
 import { CircularProgress, Progress } from '@heroui/react'
 
-type SkillsSectionProps = {
-  technical: Skill[]
-  professional: Skill[]
-}
-
-export default function SkillsSection({
-  technical,
-  professional,
-}: SkillsSectionProps) {
+export default function SkillsSection() {
   return (
     <section
       id="skills"
