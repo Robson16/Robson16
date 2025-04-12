@@ -1,10 +1,11 @@
 import DynamicIcon from '@/components/DynamicIcon'
-import { email, location } from '@/data/contact.json'
+import { email, location } from '@/data/contacts.json'
 import { linkedin } from '@/data/social.json'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 export default function ContactSection() {
-  const t = useTranslations()
+  const t = useTranslations('Contact')
+  const locale = useLocale()
 
   return (
     <section
@@ -18,7 +19,7 @@ export default function ContactSection() {
             id="contact-title"
             className="mb-16 text-center text-4xl font-medium"
           >
-            {t('contact.title')}
+            {t('title')}
           </h3>
           <div className="flex flex-col items-center gap-8 xl:flex-row">
             <a
@@ -36,9 +37,10 @@ export default function ContactSection() {
                 />
               </span>
               <span className="text-lg">
-                {t('about.location.name', {
-                  defaultMessage: location.name,
-                })}
+                {/* Dynamically renders the location name based on the current locale,
+                    defaulting to Portuguese ('pt') if the locale-specific translation is missing. */}
+                {location.name[locale as keyof typeof location.name] ||
+                  location.name.pt}
               </span>
             </a>
             <a

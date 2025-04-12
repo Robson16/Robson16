@@ -1,11 +1,12 @@
 import DynamicIcon from '@/components/DynamicIcon'
 import SocialButtons from '@/components/SocialButtons'
-import { email, location } from '@/data/contact.json'
-import { useTranslations } from 'next-intl'
+import { email, location } from '@/data/contacts.json'
+import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 
 export default function HeroSection() {
-  const t = useTranslations()
+  const t = useTranslations('Hero')
+  const locale = useLocale()
 
   return (
     <section
@@ -17,12 +18,12 @@ export default function HeroSection() {
           <div className="flex flex-col-reverse gap-8 xl:flex-row">
             <div className="flex flex-1 flex-col items-center justify-center xl:items-start">
               <span className="mb-4 rounded-r-[20px] rounded-tl-[20px] bg-emerald-800 px-8 py-2">
-                {t('hero.greeting')}
+                {t('greeting')}
               </span>
               <h1 className="mb-4 text-center text-5xl font-bold xl:text-left">
-                {t('about.name')}
+                {t('title')}
               </h1>
-              <h2 className="text-2xl font-medium">{t('hero.title')}</h2>
+              <h2 className="text-2xl font-medium">{t('subtitle')}</h2>
               <ul className="my-10">
                 <li className="group my-2 flex items-center">
                   <DynamicIcon
@@ -45,9 +46,10 @@ export default function HeroSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {t('about.location.name', {
-                      defaultMessage: location.name,
-                    })}
+                    {/* Dynamically renders the location name based on the current locale,
+                    defaulting to Portuguese ('pt') if the locale-specific translation is missing. */}
+                    {location.name[locale as keyof typeof location.name] ||
+                      location.name.pt}
                   </a>
                 </li>
               </ul>
@@ -60,7 +62,7 @@ export default function HeroSection() {
                 <Image
                   src="/images/profile.jpg"
                   priority={true}
-                  alt={t('about.name')}
+                  alt={t('avatarAlt')}
                   width={360}
                   height={360}
                   className="mx-auto max-w-60 rounded-full border-[20px] border-zinc-900 xl:max-w-none"
