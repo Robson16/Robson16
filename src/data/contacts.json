@@ -3,6 +3,9 @@
   "email": "contato@robsonhrodrigues.com.br",
   "location": {
     "url": "https://maps.app.goo.gl/vTWz8snMHN1RdMkK6",
-    "name": "Jundiaí - São Paulo / Brasil"
+    "name": {
+      "pt": "Jundiaí - São Paulo / Brasil",
+      "en": "Jundiaí - São Paulo / Brazil"
+    }
   }
 }

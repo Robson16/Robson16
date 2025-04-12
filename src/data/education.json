@@ -1,0 +1,34 @@
+{
+  "education": [
+    {
+      "id": 1,
+      "title": "Análise de Sistemas",
+      "institution": "Fatec Jundiaí - Faculdade de Tecnologia - Deputado Ary Fossen",
+      "period": {
+        "start": "Julho de 2024",
+        "end": "Atualmente"
+      },
+      "description": "Análise, projeto, documentação, teste, implantação e manutenção de sistemas computacionais, com foco em linguagens de programação, metodologias de projetos e garantia da qualidade e segurança dos sistemas."
+    },
+    {
+      "id": 2,
+      "title": "Informática para Internet",
+      "institution": "Etec Vasco Antônio Venchiarutti",
+      "period": {
+        "start": "Julho de 2015",
+        "end": "Dezembro de 2016"
+      },
+      "description": "Desenvolvimento de aplicativos web e móveis, com foco em programação, design, banco de dados, marketing digital e empreendedorismo."
+    },
+    {
+      "id": 3,
+      "title": "Gestão da Informação",
+      "institution": "Fatec Jundiaí - Faculdade de Tecnologia - Deputado Ary Fossen",
+      "period": {
+        "start": "Janeiro de 2010",
+        "end": "Dezembro de 2012"
+      },
+      "description": "Gestão dos recursos de infraestrutura e sistemas informatizados, com ênfase em administração de banco de dados, níveis de serviço, e a utilização estratégica dos sistemas de informação nas organizações."
+    }
+  ]
+}

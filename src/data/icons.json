@@ -1,32 +1,34 @@
 {
-  "github": {
-    "family": "ai",
-    "name": "AiFillGithub",
-    "color": "#4078c0"
-  },
-  "gitlab": {
-    "family": "ai",
-    "name": "AiFillGitlab",
-    "color": "#FC6D26"
-  },
-  "linkedin": {
-    "family": "ai",
-    "name": "AiFillLinkedin",
-    "color": "#0a66c2"
-  },
-  "code": {
-    "family": "io5",
-    "name": "IoCodeSlashOutline",
-    "color": "#059669"
-  },
-  "database": {
-    "family": "go",
-    "name": "GoDatabase",
-    "color": "#9333EA"
-  },
-  "performance": {
-    "family": "pi",
-    "name": "PiLightningLight",
-    "color": "#CA8A04"
+  "icons": {
+    "github": {
+      "family": "ai",
+      "name": "AiFillGithub",
+      "color": "#4078c0"
+    },
+    "gitlab": {
+      "family": "ai",
+      "name": "AiFillGitlab",
+      "color": "#FC6D26"
+    },
+    "linkedin": {
+      "family": "ai",
+      "name": "AiFillLinkedin",
+      "color": "#0a66c2"
+    },
+    "code": {
+      "family": "io5",
+      "name": "IoCodeSlashOutline",
+      "color": "#059669"
+    },
+    "database": {
+      "family": "go",
+      "name": "GoDatabase",
+      "color": "#9333EA"
+    },
+    "performance": {
+      "family": "pi",
+      "name": "PiLightningLight",
+      "color": "#CA8A04"
+    }
   }
 }

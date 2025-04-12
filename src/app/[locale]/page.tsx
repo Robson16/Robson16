@@ -5,7 +5,9 @@ import ExperienceSection from '@/containers/HomePage/ExperienceSection'
 import HeroSection from '@/containers/HomePage/HeroSection'
 import PortfolioSection from '@/containers/HomePage/PortfolioSection'
 import SkillsSection from '@/containers/HomePage/SkillsSection'
-import { education, experiences, projects } from '@/lib/data'
+import { education } from '@/data/education.json'
+import { experiences } from '@/data/experiences.json'
+import { projects } from '@/data/projects.json'
 
 export default async function Home() {
   return (
