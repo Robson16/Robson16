@@ -13,7 +13,7 @@ export default function LocalSwitcher() {
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
   const localActive = useLocale()
-  const t = useTranslations('navbar')
+  const t = useTranslations('NavBar')
 
   useEffect(() => {
     const checkIsMobile = () => {
