@@ -1,12 +1,16 @@
+type Localized = {
+  [key: string]: string
+}
+
 type Image = {
-  title: string
+  title: Localized
   src: string
   width: number
   height: number
 }
 
 type Repository = {
-  type: string
+  type: Localized
   platform: string
   url: string
 }
@@ -16,12 +20,12 @@ export type Project = {
   featured: boolean
   featuredImage: Image
   gallery: Image[]
-  category: string
-  heading: string
-  subheading: string
-  description: string
+  category: Localized
+  heading: Localized
+  subheading: Localized
+  description: Localized
   technologies: string[]
   url?: string
-  urlLabel?: string
+  urlLabel?: Localized
   repositories?: Repository[]
 }

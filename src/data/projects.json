@@ -4,16 +4,31 @@
       "id": 1,
       "featured": true,
       "featuredImage": {
-        "title": "DF Checker",
+        "title": {
+          "pt": "DF Checker",
+          "en": "DF Checker"
+        },
         "src": "/projects/dfchecker.jpg",
         "width": 1200,
         "height": 900
       },
       "gallery": [],
-      "category": "WordPress",
-      "heading": "DF Checker",
-      "subheading": "Inteligente e confiável",
-      "description": "Tema personalizado para WordPress, desenvolvido para o **DF Checker**, uma empresa que oferece serviços ágeis e confiáveis de background checks, utilizando sistemas integrados e capacidades analíticas. Foi construído utilizando tecnologias como WordPress, SASS, Node.js, Webpack e Babel, garantindo um código eficiente para estilização e funcionalidade.",
+      "category": {
+        "pt": "WordPress",
+        "en": "WordPress"
+      },
+      "heading": {
+        "pt": "DF Checker",
+        "en": "DF Checker"
+      },
+      "subheading": {
+        "pt": "Inteligente e confiável",
+        "en": "Smart and reliable"
+      },
+      "description": {
+        "pt": "Desenvolvimento de um tema WordPress personalizado para o DF Checker, uma plataforma de consulta de dados públicos do Distrito Federal. O site foi projetado para ser leve e rápido, utilizando SASS, Node.js, Webpack e Babel para garantir um desempenho otimizado. A interface é intuitiva e responsiva, proporcionando uma experiência de usuário fluida e agradável.",
+        "en": "Development of a custom WordPress theme for DF Checker, a platform for querying public data from the Federal District. The site was designed to be lightweight and fast, using SASS, Node.js, Webpack, and Babel to ensure optimized performance. The interface is intuitive and responsive, providing a smooth and pleasant user experience."
+      },
       "technologies": [
         "WordPress",
         "SASS",
@@ -21,68 +36,102 @@
         "Webpack",
         "Babel"
       ],
-      "url": "https: //dfchecker.com.br/",
-      "urlLabel": "Visitar site"
+      "url": "https://dfchecker.com.br",
+      "urlLabel": {
+        "pt": "Visitar site",
+        "en": "Visit website"
+      },
+      "repositories": [
+        {
+          "type": {
+            "pt": "Tema",
+            "en": "Theme"
+          },
+          "platform": "GitLab",
+          "url": "https://gitlab.com/Robson16/df-checker"
+        }
+      ]
     },
     {
       "id": 2,
       "featured": false,
       "featuredImage": {
-        "title": "Micro Plant",
+        "title": {
+          "pt": "Micro Plant",
+          "en": "Micro Plant"
+        },
         "src": "/projects/microplant.jpg",
         "width": 1200,
         "height": 900
       },
       "gallery": [],
-      "category": "WordPress",
-      "heading": "Micro Plant",
-      "subheading": "Soluções em próteses com excelência",
-      "description": "Desenvolvimento de um tema WordPress personalizado para a Micro Plant, uma empresa líder na fabricação de componentes para próteses sobre implantes desde 2004. O site reflete os valores de inovação, qualidade e integridade da marca, proporcionando uma plataforma funcional e otimizada para atender aos profissionais da saúde. Utilizando SASS, Node.js e Gulp, o projeto oferece alto desempenho e flexibilidade.",
+      "category": {
+        "pt": "WordPress",
+        "en": "WordPress"
+      },
+      "heading": {
+        "pt": "Micro Plant",
+        "en": "Micro Plant"
+      },
+      "subheading": {
+        "pt": "Soluções em próteses com excelência",
+        "en": "Solutions in prosthetics with excellence"
+      },
+      "description": {
+        "pt": "Desenvolvimento de um tema WordPress personalizado para a Micro Plant, uma empresa especializada em soluções em próteses dentárias. O site foi projetado para ser leve e rápido, utilizando SASS, Node.js, Gulp e Babel para garantir um desempenho otimizado. A interface é intuitiva e responsiva, proporcionando uma experiência de usuário fluida e agradável.",
+        "en": "Development of a custom WordPress theme for Micro Plant, a company specializing in dental prosthetics solutions. The site was designed to be lightweight and fast, using SASS, Node.js, Gulp, and Babel to ensure optimized performance. The interface is intuitive and responsive, providing a smooth and pleasant user experience."
+      },
       "technologies": [
         "WordPress",
         "SASS",
         "Node.js",
         "Gulp"
       ],
-      "url": "https: //www.microplant.com.br/",
-      "urlLabel": "Visitar site"
+      "url": "https://microplant.com.br/",
+      "urlLabel": {
+        "pt": "Visitar site",
+        "en": "Visit website"
+      },
+      "repositories": [
+        {
+          "type": {
+            "pt": "Tema",
+            "en": "Theme"
+          },
+          "platform": "GitLab",
+          "url": "https://gitlab.com/Robson16/microplant"
+        }
+      ]
     },
     {
       "id": 3,
       "featured": true,
       "featuredImage": {
-        "title": "Tucan Travel",
+        "title": {
+          "pt": "Tucan Travel",
+          "en": "Tucan Travel"
+        },
         "src": "/projects/tucantravel.jpg",
         "width": 1200,
         "height": 900
       },
       "gallery": [],
-      "category": "WordPress",
-      "heading": "Tucan",
-      "subheading": "Explorando o mundo com estilo",
-      "description": "Desenvolvimento de um tema WordPress personalizado para a Tucan Travel, focado em criar uma experiência visual moderna e funcional para uma agência de viagens. O projeto utilizou SASS, Node.js, Webpack e Babel para garantir um site otimizado e com uma navegação fluida.",
-      "technologies": [
-        "WordPress",
-        "SASS",
-        "Node.js",
-        "Webpack",
-        "Babel"
-      ]
-    },
-    {
-      "id": 4,
-      "featured": false,
-      "featuredImage": {
-        "title": "Smile Lovers",
-        "src": "/projects/smilelovers.jpg",
-        "width": 1200,
-        "height": 900
+      "category": {
+        "pt": "WordPress",
+        "en": "WordPress"
       },
-      "gallery": [],
-      "category": "WordPress",
-      "heading": "Smile Lovers",
-      "subheading": "Cuidando de sorrisos com tecnologia",
-      "description": "Desenvolvimento de um tema WordPress personalizado para a Smile Lovers, uma clínica odontológica que alia tecnologia avançada e acolhimento em seus serviços. O site foi projetado para refletir a missão da empresa: transformar a experiência odontológica em algo mais humano e confortável, criando um ambiente convidativo e moderno. Construído com SASS, Node.js, Webpack e Babel, o projeto entrega alta performance e flexibilidade.",
+      "heading": {
+        "pt": "Tucan Travel",
+        "en": "Tucan Travel"
+      },
+      "subheading": {
+        "pt": "Experiências de viagem únicas",
+        "en": "Unique travel experiences"
+      },
+      "description": {
+        "pt": "Desenvolvimento de um tema WordPress personalizado para a Tucan Travel, focado em criar uma experiência visual moderna e funcional para uma agência de viagens. O projeto utilizou SASS, Node.js, Webpack e Babel para garantir um site otimizado e com uma navegação fluida.",
+        "en": "Development of a custom WordPress theme for Tucan Travel, focused on creating a modern and functional visual experience for a travel agency. The project used SASS, Node.js, Webpack and Babel to ensure an optimized website with fluid navigation."
+      },
       "technologies": [
         "WordPress",
         "SASS",
@@ -90,23 +139,97 @@
         "Webpack",
         "Babel"
       ],
-      "url": "https: //www.smilelovers.com.br/",
-      "urlLabel": "Visitar site"
+      "url": "",
+      "urlLabel": {},
+      "repositories": [
+        {
+          "type": {
+            "pt": "Tema",
+            "en": "Theme"
+          },
+          "platform": "GitLab",
+          "url": "https://gitlab.com/Robson16/tucan"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "featured": false,
+      "featuredImage": {
+        "title": {
+          "pt": "Smile Lovers",
+          "en": "Smile Lovers"
+        },
+        "src": "/projects/smilelovers.jpg",
+        "width": 1200,
+        "height": 900
+      },
+      "gallery": [],
+      "category": {
+        "pt": "WordPress",
+        "en": "WordPress"
+      },
+      "heading": {
+        "pt": "Smile Lovers",
+        "en": "Smile Lovers"
+      },
+      "subheading": {
+        "pt": "Cuidando de sorrisos com tecnologia",
+        "en": "Caring for smiles with technology"
+      },
+      "description": {
+        "pt": "Desenvolvimento de um tema WordPress personalizado para a Smile Lovers, uma clínica odontológica que alia tecnologia avançada e acolhimento em seus serviços. O site foi projetado para refletir a missão da empresa: transformar a experiência odontológica em algo mais humano e confortável, criando um ambiente convidativo e moderno. Construído com SASS, Node.js, Webpack e Babel, o projeto entrega alta performance e flexibilidade.",
+        "en": "Development of a custom WordPress theme for Smile Lovers, a dental clinic that combines advanced technology and hospitality in its services. The website was designed to reflect the company's mission: to transform the dental experience into something more human and comfortable, creating an inviting and modern environment. Built with SASS, Node.js, Webpack and Babel, the project delivers high performance and flexibility."
+      },
+      "technologies": [
+        "WordPress",
+        "SASS",
+        "Node.js",
+        "Webpack",
+        "Babel"
+      ],
+      "url": "https://smilelovers.com.br/",
+      "urlLabel": "Visitar site",
+      "repositories": [
+        {
+          "type": {
+            "pt": "Tema",
+            "en": "Theme"
+          },
+          "platform": "GitLab",
+          "url": "https://gitlab.com/Robson16/smilelovers"
+        }
+      ]
     },
     {
       "id": 5,
       "featured": false,
       "featuredImage": {
-        "title": "Lux Energia",
+        "title": {
+          "pt": "Lux Energia",
+          "en": "Lux Energy"
+        },
         "src": "/projects/luxenergia.jpg",
         "width": 1200,
         "height": 900
       },
       "gallery": [],
-      "category": "WordPress",
-      "heading": "Lux Energia",
-      "subheading": "Nossa energia é nosso diferencial",
-      "description": "Desenvolvimento de um tema WordPress personalizado e um plugin exclusivo para a Lux Energia. O tema reflete a expertise da empresa em economia energética, enquanto o plugin adiciona um bloco interativo de cálculo de CO2 ao site. Utilizando tecnologias como SASS, Node.js, React.js, Webpack, Styled Components e Babel, o projeto combina performance otimizada com uma experiência de usuário moderna.",
+      "category": {
+        "pt": "WordPress",
+        "en": "WordPress"
+      },
+      "heading": {
+        "pt": "Lux Energia",
+        "en": "Lux Energy"
+      },
+      "subheading": {
+        "pt": "Nossa energia é nosso diferencial",
+        "en": "Our energy is our differential"
+      },
+      "description": {
+        "pt": "Desenvolvimento de um tema WordPress personalizado e um plugin exclusivo para a Lux Energia. O tema reflete a expertise da empresa em economia energética, enquanto o plugin adiciona um bloco interativo de cálculo de CO2 ao site. Utilizando tecnologias como SASS, Node.js, React.js, Webpack, Styled Components e Babel, o projeto combina performance otimizada com uma experiência de usuário moderna.",
+        "en": "Development of a custom WordPress theme and an exclusive plugin for Lux Energia. The theme reflects the company's expertise in energy savings, while the plugin adds an interactive CO2 calculation block to the website. Using technologies such as SASS, Node.js, React.js, Webpack, Styled Components and Babel, the project combines optimized performance with a modern user experience."
+      },
       "technologies": [
         "WordPress",
         "SASS",
@@ -115,44 +238,109 @@
         "Webpack",
         "Styled Components",
         "Babel"
+      ],
+      "url": "",
+      "urlLabel": {},
+      "repositories": [
+        {
+          "type": {
+            "pt": "Tema",
+            "en": "Theme"
+          },
+          "platform": "GitLab",
+          "url": "https://gitlab.com/Robson16/luxenergia"
+        },
+        {
+          "type": {
+            "pt": "Plugin",
+            "en": "Plugin"
+          },
+          "platform": "GitLab",
+          "url": "https://gitlab.com/Robson16/luxenergia-co2calc-block"
+        }
       ]
     },
     {
       "id": 6,
       "featured": true,
       "featuredImage": {
-        "title": "Grupo Planta",
+        "title": {
+          "pt": "Grupo Planta",
+          "en": "Plant Group"
+        },
         "src": "/projects/grupoplanta.jpg",
         "width": 1200,
         "height": 900
       },
       "gallery": [],
-      "category": "WordPress",
-      "heading": "Grupo Planta",
-      "subheading": "Sustentabilidade em cada linha de código",
-      "description": "Desenvolvimento de um WordPress Block Theme para o Grupo Planta, referência em inovação e alimentos plant-based. Este tipo de tema utiliza o editor de blocos do WordPress (Gutenberg) para oferecer personalização completa e flexível de todas as partes do site. Construído com SASS, Node.js, Webpack e Babel, o projeto combina design moderno, alta performance e alinhamento com os valores sustentáveis do grupo.",
+      "category": {
+        "pt": "WordPress",
+        "en": "WordPress"
+      },
+      "heading": {
+        "pt": "Grupo Planta",
+        "en": "Plant Group"
+      },
+      "subheading": {
+        "pt": "Sustentabilidade em cada linha de código",
+        "en": "Sustainability in every line of code"
+      },
+      "description": {
+        "pt": "Desenvolvimento de um WordPress Block Theme para o Grupo Planta, referência em inovação e alimentos plant-based. Este tipo de tema utiliza o editor de blocos do WordPress (Gutenberg) para oferecer personalização completa e flexível de todas as partes do site. Construído com SASS, Node.js, Webpack e Babel, o projeto combina design moderno, alta performance e alinhamento com os valores sustentáveis do grupo.",
+        "en": "Development of a WordPress Block Theme for Grupo Planta, a reference in innovation and plant-based foods. This type of theme uses the WordPress block editor (Gutenberg) to offer complete and flexible customization of all parts of the website. Built with SASS, Node.js, Webpack and Babel, the project combines modern design, high performance and alignment with the group's sustainable values."
+      },
       "technologies": [
         "WordPress Block Theme",
         "SASS",
         "Node.js",
         "Webpack",
         "Babel"
+      ],
+      "url": "https://grupoplanta.com.br/",
+      "urlLabel": {
+        "pt": "Visitar site",
+        "en": "Visit website"
+      },
+      "repositories": [
+        {
+          "type": {
+            "pt": "Tema",
+            "en": "Theme"
+          },
+          "platform": "GitLab",
+          "url": "https://gitlab.com/Robson16/grupo-planta"
+        }
       ]
     },
     {
       "id": 7,
       "featured": false,
       "featuredImage": {
-        "title": "Menu Planta",
+        "title": {
+          "pt": "Menu Planta",
+          "en": "Menu Plant"
+        },
         "src": "/projects/menuplanta.jpg",
         "width": 1200,
         "height": 800
       },
       "gallery": [],
-      "category": "WordPress",
-      "heading": "Menu Planta",
-      "subheading": "Expandindo o plant-based pelo mundo",
-      "description": "Desenvolvimento de um site para o Menu Planta, utilizando o mesmo WordPress Block Theme flexível criado para o Grupo Planta. A plataforma B2B de food service oferece produtos 100% vegetais para estabelecimentos alimentícios, promovendo opções inclusivas e sustentáveis. O site reflete a missão de expandir a gastronomia vegana, adaptando-se a diferentes culturas e mercados internacionais, com foco em cidades como São Paulo, Nova Iorque, Londres, Miami, Amsterdam e Tel Aviv.",
+      "category": {
+        "pt": "WordPress",
+        "en": "WordPress"
+      },
+      "heading": {
+        "pt": "Menu Planta",
+        "en": "Menu Plant"
+      },
+      "subheading": {
+        "pt": "Expandindo o plant-based pelo mundo",
+        "en": "Expanding plant-based around the world"
+      },
+      "description": {
+        "pt": "Desenvolvimento de um site para o Menu Planta, utilizando o mesmo WordPress Block Theme flexível criado para o Grupo Planta. A plataforma B2B de food service oferece produtos 100% vegetais para estabelecimentos alimentícios, promovendo opções inclusivas e sustentáveis. O site reflete a missão de expandir a gastronomia vegana, adaptando-se a diferentes culturas e mercados internacionais, com foco em cidades como São Paulo, Nova Iorque, Londres, Miami, Amsterdam e Tel Aviv.",
+        "en": "Development of a website for Menu Planta, using the same flexible WordPress Block Theme created for Grupo Planta. The B2B food service platform offers 100% plant-based products for food establishments, promoting inclusive and sustainable options. The site reflects the mission to expand vegan gastronomy, adapting to different cultures and international markets, focusing on cities like São Paulo, New York, London, Miami, Amsterdam and Tel Aviv."
+      },
       "technologies": [
         "WordPress Block Theme",
         "SASS",
@@ -161,22 +349,52 @@
         "Babel",
         "React.js",
         "Styled Components"
+      ],
+      "url": "https://menuplanta.com.br/",
+      "urlLabel": {
+        "pt": "Visitar site",
+        "en": "Visit website"
+      },
+      "repositories": [
+        {
+          "type": {
+            "pt": "Tema",
+            "en": "Theme"
+          },
+          "platform": "GitLab",
+          "url": "https://gitlab.com/Robson16/grupo-planta"
+        }
       ]
     },
     {
       "id": 8,
       "featured": false,
       "featuredImage": {
-        "title": "Higi Mulher",
+        "title": {
+          "pt": "Higi Mulher",
+          "en": "Higi Mulher"
+        },
         "src": "/projects/higimulher.jpg",
         "width": 1200,
         "height": 900
       },
       "gallery": [],
-      "category": "WordPress",
-      "heading": "Higi Mulher",
-      "subheading": "Saúde íntima feminina sem tabus",
-      "description": "Este é um tema personalizado para WordPress, desenvolvido para a Higi Mulher, uma marca dedicada à saúde íntima feminina. A proposta é promover diálogos significativos sobre o cuidado íntimo, empoderando as mulheres e respeitando a diversidade. O projeto utiliza tecnologias como WordPress, SASS, Node.js, Webpack e Babel para garantir um código limpo, organizado e otimizado, oferecendo o melhor para as usuárias.",
+      "category": {
+        "pt": "WordPress",
+        "en": "WordPress"
+      },
+      "heading": {
+        "pt": "Higi Mulher",
+        "en": "Higi Mulher"
+      },
+      "subheading": {
+        "pt": "Saúde íntima feminina sem tabus",
+        "en": "Female intimate health without taboos"
+      },
+      "description": {
+        "pt": "Este é um tema personalizado para WordPress, desenvolvido para a Higi Mulher, uma marca dedicada à saúde íntima feminina. A proposta é promover diálogos significativos sobre o cuidado íntimo, empoderando as mulheres e respeitando a diversidade. O projeto utiliza tecnologias como WordPress, SASS, Node.js, Webpack e Babel para garantir um código limpo, organizado e otimizado, oferecendo o melhor para as usuárias.",
+        "en": "This is a custom WordPress theme developed for Higi Mulher, a brand dedicated to women's intimate health. The proposal is to promote meaningful dialogues about intimate care, empowering women and respecting diversity. The project uses technologies such as WordPress, SASS, Node.js, Webpack and Babel to ensure clean, organized and optimized code, offering the best for users."
+      },
       "technologies": [
         "WordPress",
         "SASS",
@@ -184,23 +402,48 @@
         "Webpack",
         "Babel"
       ],
-      "url": "https: //higimulher.com.br/",
-      "urlLabel": "Visitar site"
+      "url": "https://higimulher.com.br/",
+      "urlLabel": {
+        "pt": "Visitar site",
+        "en": "Visit website"
+      },
+      "repositories": [
+        {
+          "type": {
+            "pt": "Tema",
+            "en": "Theme"
+          },
+          "platform": "GitLab",
+          "url": "https://gitlab.com/Robson16/higimulher"
+        }
+      ]
     },
     {
       "id": 9,
       "featured": true,
       "featuredImage": {
-        "title": "Castello Ruspoli",
+        "title": {
+          "pt": "Castello Ruspoli",
+          "en": "Castello Ruspoli"
+        },
         "src": "/projects/castelloruspoli.jpg",
         "width": 1200,
         "height": 900
       },
       "gallery": [],
       "category": "WordPress",
-      "heading": "Castello Ruspoli",
-      "subheading": "Elegante e otimizado",
-      "description": "Um tema personalizado para WordPress, desenvolvido para o site do histórico Castello Ruspoli, um castelo com origens que remontam a 847. Utiliza tecnologias como WordPress, SASS para estilização, Node.js para a automação de tarefas, Webpack para empacotamento de módulos e Babel para a transpilação de JavaScript, visando garantir um código otimizado e eficiente tanto para a parte visual quanto para a funcionalidade.",
+      "heading": {
+        "pt": "Castello Ruspoli",
+        "en": "Castello Ruspoli"
+      },
+      "subheading": {
+        "pt": "Elegante e otimizado",
+        "en": "Elegant and optimized"
+      },
+      "description": {
+        "pt": "Um tema personalizado para WordPress, desenvolvido para o site do histórico Castello Ruspoli, um castelo com origens que remontam a 847. Utiliza tecnologias como WordPress, SASS para estilização, Node.js para a automação de tarefas, Webpack para empacotamento de módulos e Babel para a transpilação de JavaScript, visando garantir um código otimizado e eficiente tanto para a parte visual quanto para a funcionalidade.",
+        "en": "A custom WordPress theme developed for the website of the historic Castello Ruspoli, a castle with origins dating back to 847. It uses technologies such as WordPress, SASS for styling, Node.js for task automation, Webpack for module bundling, and Babel for JavaScript transpilation, aiming to ensure optimized and efficient code for both visual and functional aspects."
+      },
       "technologies": [
         "WordPress",
         "WooCommerce",
@@ -209,23 +452,51 @@
         "Webpack",
         "Babel"
       ],
-      "url": "https: //castelloruspoli.com/",
-      "urlLabel": "Visitar site"
+      "url": "https://castelloruspoli.com/",
+      "urlLabel": {
+        "pt": "Visitar site",
+        "en": "Visit website"
+      },
+      "repositories": [
+        {
+          "type": {
+            "pt": "Tema",
+            "en": "Theme"
+          },
+          "platform": "GitLab",
+          "url": "https://gitlab.com/Robson16/castelloruspoli"
+        }
+      ]
     },
     {
       "id": 10,
       "featured": false,
       "featuredImage": {
-        "title": "BMG Seguros",
+        "title": {
+          "pt": "BMG Seguros",
+          "en": "BMG Insurance"
+        },
         "src": "/projects/bmgseguros.jpg",
         "width": 1200,
         "height": 900
       },
       "gallery": [],
-      "category": "WordPress",
-      "heading": "BMG Seguros",
-      "subheading": "Inovação e segurança no mercado de seguros",
-      "description": "Desenvolvimento de um tema WordPress personalizado para a BMG Seguros, uma seguradora brasileira especializada em Seguro Garantia e P&C. O site foi projetado para refletir a cultura de inovação e excelência da empresa, oferecendo uma interface moderna e funcional para clientes e parceiros. O projeto utilizou SASS, Node.js, Webpack e Babel, garantindo alta performance e flexibilidade.",
+      "category": {
+        "pt": "WordPress",
+        "en": "WordPress"
+      },
+      "heading": {
+        "pt": "BMG Seguros",
+        "en": "BMG Insurance"
+      },
+      "subheading": {
+        "pt": "Inovação e segurança no mercado de seguros",
+        "en": "Innovation and security in the insurance market"
+      },
+      "description": {
+        "pt": "Desenvolvimento de um tema WordPress personalizado para a BMG Seguros, uma seguradora brasileira especializada em Seguro Garantia e P&C. O site foi projetado para refletir a cultura de inovação e excelência da empresa, oferecendo uma interface moderna e funcional para clientes e parceiros. O projeto utilizou SASS, Node.js, Webpack e Babel, garantindo alta performance e flexibilidade.",
+        "en": "Development of a custom WordPress theme for BMG Seguros, a Brazilian insurance company specializing in Guarantee Insurance and P&C. The site was designed to reflect the company's culture of innovation and excellence, providing a modern and functional interface for clients and partners. The project used SASS, Node.js, Webpack and Babel, ensuring high performance and flexibility."
+      },
       "technologies": [
         "WordPress",
         "SASS",
@@ -233,23 +504,67 @@
         "Webpack",
         "Babel"
       ],
-      "url": "https: //bmgseguros.com.br/",
-      "urlLabel": "Visitar site"
+      "url": "https://bmgseguros.com.br/",
+      "urlLabel": {
+        "pt": "Visitar site",
+        "en": "Visit website"
+      },
+      "repositories": [
+        {
+          "type": {
+            "pt": "Tema",
+            "en": "Theme"
+          },
+          "platform": "GitLab",
+          "url": "https://gitlab.com/Robson16/bmg-seguros"
+        },
+        {
+          "type": {
+            "pt": "Plugin",
+            "en": "Plugin"
+          },
+          "platform": "GitLab",
+          "url": "https://gitlab.com/Robson16/bmg-seguros-onthepress-cpt"
+        },
+        {
+          "type": {
+            "pt": "Plugin",
+            "en": "Plugin"
+          },
+          "platform": "GitLab",
+          "url": "https://gitlab.com/Robson16/bmg-seguros-timeline-cpt"
+        }
+      ]
     },
     {
       "id": 11,
       "featured": false,
       "featuredImage": {
-        "title": "Triar",
+        "title": {
+          "pt": "Grupo Triar",
+          "en": "Triar Group"
+        },
         "src": "/projects/triar.jpg",
         "width": 1200,
         "height": 900
       },
       "gallery": [],
-      "category": "WordPress",
-      "heading": "Triar",
-      "subheading": "Conectando eficiência e qualidade",
-      "description": "Desenvolvimento de um tema WordPress personalizado para a Triar, uma empresa referência na comercialização de componentes elétricos industriais. O site reflete a sinergia e flexibilidade da empresa, com foco em apresentar produtos de qualidade e informações claras para os clientes. Utilizando SASS, Node.js, Webpack e Babel, o projeto entrega alta performance e um design moderno e funcional.",
+      "category": {
+        "pt": "WordPress",
+        "en": "WordPress"
+      },
+      "heading": {
+        "pt": "Grupo Triar",
+        "en": "Triar Group"
+      },
+      "subheading": {
+        "pt": "Conectando eficiência e qualidade",
+        "en": "Connecting efficiency and quality"
+      },
+      "description": {
+        "pt": "Desenvolvimento de um tema WordPress personalizado para a Triar, uma empresa referência na comercialização de componentes elétricos industriais. O site reflete a sinergia e flexibilidade da empresa, com foco em apresentar produtos de qualidade e informações claras para os clientes. Utilizando SASS, Node.js, Webpack e Babel, o projeto entrega alta performance e um design moderno e funcional.",
+        "en": "Development of a custom WordPress theme for Triar, a reference company in the marketing of industrial electrical components. The site reflects the synergy and flexibility of the company, focusing on presenting quality products and clear information for customers. Using SASS, Node.js, Webpack and Babel, the project delivers high performance and a modern and functional design."
+      },
       "technologies": [
         "WordPress",
         "SASS",
@@ -257,23 +572,51 @@
         "Webpack",
         "Babel"
       ],
-      "url": "https: //grupotriar.com.br/",
-      "urlLabel": "Visitar site"
+      "url": "https://grupotriar.com.br/",
+      "urlLabel": {
+        "pt": "Visitar site",
+        "en": "Visit website"
+      },
+      "repositories": [
+        {
+          "type": {
+            "pt": "Tema",
+            "en": "Theme"
+          },
+          "platform": "GitLab",
+          "url": "https://gitlab.com/Robson16/triar"
+        }
+      ]
     },
     {
       "id": 12,
       "featured": false,
       "featuredImage": {
-        "title": "Baby Dufy",
+        "title": {
+          "pt": "Baby Dufy",
+          "en": "Baby Dufy"
+        },
         "src": "/projects/babydufy.jpg",
         "width": 1200,
         "height": 900
       },
       "gallery": [],
-      "category": "WordPress",
-      "heading": "Baby Dufy",
-      "subheading": "E-commerce com amor e qualidade",
-      "description": "Desenvolvimento de um tema WordPress personalizado para o e-commerce Baby Dufy, focado em produtos de alta qualidade para bebês. O site foi projetado para criar uma experiência de compra intuitiva e acolhedora, utilizando WooCommerce para gestão de produtos e vendas. Com tecnologias como SASS, Node.js, Webpack e Babel, o projeto entrega alta performance e um design pensado para encantar os clientes.",
+      "category": {
+        "pt": "WordPress",
+        "en": "WordPress"
+      },
+      "heading": {
+        "pt": "Baby Dufy",
+        "en": "Baby Dufy"
+      },
+      "subheading": {
+        "pt": "E-commerce com amor e qualidade",
+        "en": "E-commerce with love and quality"
+      },
+      "description": {
+        "pt": "Desenvolvimento de um tema WordPress personalizado para o e-commerce Baby Dufy, focado em produtos de alta qualidade para bebês. O site foi projetado para criar uma experiência de compra intuitiva e acolhedora, utilizando WooCommerce para gestão de produtos e vendas. Com tecnologias como SASS, Node.js, Webpack e Babel, o projeto entrega alta performance e um design pensado para encantar os clientes.",
+        "en": "Development of a custom WordPress theme for the Baby Dufy e-commerce, focused on high-quality products for babies. The site was designed to create an intuitive and welcoming shopping experience, using WooCommerce for product and sales management. With technologies such as SASS, Node.js, Webpack and Babel, the project delivers high performance and a design aimed at delighting customers."
+      },
       "technologies": [
         "WordPress",
         "WooCommerce",
@@ -282,23 +625,51 @@
         "Webpack",
         "Babel"
       ],
-      "url": "http: //babydufy.com.br/",
-      "urlLabel": "Visitar site"
+      "url": "https://babydufy.com.br/",
+      "urlLabel": {
+        "pt": "Visitar site",
+        "en": "Visit website"
+      },
+      "repositories": [
+        {
+          "type": {
+            "pt": "Tema",
+            "en": "Theme"
+          },
+          "platform": "GitLab",
+          "url": "https://gitlab.com/Robson16/babydufy"
+        }
+      ]
     },
     {
       "id": 13,
       "featured": false,
       "featuredImage": {
-        "title": "Agência B&B",
+        "title": {
+          "pt": "Agência B&B",
+          "en": "Agency B&B"
+        },
         "src": "/projects/agenciabeb.jpg",
         "width": 1200,
         "height": 900
       },
       "gallery": [],
-      "category": "WordPress",
-      "heading": "Agência B&B",
-      "subheading": "Criatividade e inovação em cada projeto",
-      "description": "Desenvolvimento de um tema WordPress personalizado para a Agência B&B, uma agência de publicidade onde tive a oportunidade de criar diversos trabalhos significativos. O site foi projetado para refletir a essência criativa e dinâmica da agência, com foco em destacar o portfólio e facilitar a conexão com clientes. Utilizando tecnologias como SASS, Node.js, Webpack e Babel, o projeto combina um design limpo e funcionalidade otimizada.",
+      "category": {
+        "pt": "WordPress",
+        "en": "WordPress"
+      },
+      "heading": {
+        "pt": "Agência B&B",
+        "en": "Agency B&B"
+      },
+      "subheading": {
+        "pt": "Criatividade e inovação em cada projeto",
+        "en": "Creativity and innovation in every project"
+      },
+      "description": {
+        "pt": "Desenvolvimento de um tema WordPress personalizado para a Agência B&B, uma agência de publicidade onde tive a oportunidade de criar diversos trabalhos significativos. O site foi projetado para refletir a essência criativa e dinâmica da agência, com foco em destacar o portfólio e facilitar a conexão com clientes. Utilizando tecnologias como SASS, Node.js, Webpack e Babel, o projeto combina um design limpo e funcionalidade otimizada.",
+        "en": "Development of a custom WordPress theme for Agência B&B, an advertising agency where I had the opportunity to create several significant works. The site was designed to reflect the creative and dynamic essence of the agency, focusing on highlighting the portfolio and facilitating connection with clients. Using technologies such as SASS, Node.js, Webpack and Babel, the project combines a clean design and optimized functionality."
+      },
       "technologies": [
         "WordPress",
         "SASS",
@@ -306,18 +677,27 @@
         "Webpack",
         "Babel"
       ],
-      "url": "http: //www.agenciabeb.com.br/",
-      "urlLabel": "Visitar site",
+      "url": "https://agenciabeb.com.br/",
+      "urlLabel": {
+        "pt": "Visitar site",
+        "en": "Visit website"
+      },
       "repositories": [
         {
-          "type": "Tema",
+          "type": {
+            "pt": "Tema",
+            "en": "Theme"
+          },
           "platform": "GitLab",
-          "url": "https: //gitlab.com/Robson16/agenciabeb"
+          "url": "https://gitlab.com/Robson16/agenciabeb"
         },
         {
-          "type": "Plugin",
+          "type": {
+            "pt": "Plugin",
+            "en": "Plugin"
+          },
           "platform": "GitLab",
-          "url": "https: //gitlab.com/Robson16/agenciabeb-cpt"
+          "url": "https://gitlab.com/Robson16/agenciabeb-cpt"
         }
       ]
     }

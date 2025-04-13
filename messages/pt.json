@@ -23,7 +23,8 @@
     "title": "O que faço"
   },
   "FeaturedProjects": {
-    "title": "Projetos em Destaque"
+    "title": "Projetos em Destaque",
+    "visitProject": "Visitar Projeto"
   },
   "Skills": {
     "technicalTitle": "Habilidades Técnicas",

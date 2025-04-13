@@ -23,7 +23,8 @@
     "title": "What I do"
   },
   "FeaturedProjects": {
-    "title": "Featured Projects"
+    "title": "Featured Projects",
+    "visitProject": "Visit Project"
   },
   "Skills": {
     "technicalTitle": "Technical Skills",
