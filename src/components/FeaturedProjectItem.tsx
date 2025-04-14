@@ -69,8 +69,8 @@ export default function FeaturedProjectItem({
               'hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500',
             )}
           >
-            {urlLabel?.[locale as keyof typeof urlLabel] ??
-              urlLabel?.pt ??
+            {urlLabel?.[locale as keyof typeof urlLabel] ||
+              urlLabel?.pt ||
               t('visitProject')}
           </Button>
         )}

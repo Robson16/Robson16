@@ -8,6 +8,7 @@ import {
   useDisclosure,
 } from '@heroui/react'
 import clsx from 'clsx'
+import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { AiFillGithub, AiFillGitlab } from 'react-icons/ai'
 import { ImGit } from 'react-icons/im'
@@ -32,6 +33,8 @@ const getPlatformIcon = (platform: string) => {
 export default function PortfolioThumb({ project }: PortfolioThumbProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const isMobile = useMediaQuery({ maxWidth: 768 })
+  const t = useTranslations('Portfolio')
+  const locale = useLocale()
 
   const { featuredImage, heading } = project
 
@@ -53,7 +56,10 @@ export default function PortfolioThumb({ project }: PortfolioThumbProps) {
       >
         <Image
           src={featuredImage.src}
-          alt={`Imagem destacada do projeto ${heading}`}
+          alt={
+            featuredImage.title[locale as keyof typeof featuredImage.title] ||
+            featuredImage.title.pt
+          }
           className="rounded-lg shadow-xl transition"
           width={featuredImage.width}
           height={featuredImage.height}
@@ -67,8 +73,12 @@ export default function PortfolioThumb({ project }: PortfolioThumbProps) {
           onClick={onOpen}
         >
           <PiMagnifyingGlassBold size={30} className="mb-4" />
-          <h4 className="mb-2 text-xl font-bold">{heading}</h4>
-          <span className="text-sm uppercase tracking-wide">Ver mais</span>
+          <h4 className="mb-2 text-xl font-bold">
+            {heading[locale as keyof typeof heading] || heading.pt}
+          </h4>
+          <span className="text-sm uppercase tracking-wide">
+            {t('seeMore')}
+          </span>
         </div>
       </div>
 
@@ -96,6 +106,9 @@ export default function PortfolioThumb({ project }: PortfolioThumbProps) {
 }
 
 function ModalContentBody({ project }: { project: Project }) {
+  const t = useTranslations('Portfolio')
+  const locale = useLocale()
+
   const {
     featuredImage,
     category,
@@ -113,7 +126,7 @@ function ModalContentBody({ project }: { project: Project }) {
       <div className="flex-1">
         <Image
           src={featuredImage.src}
-          alt={`Imagem destacada do projeto ${project.heading}`}
+          alt={heading[locale as keyof typeof heading] || heading.pt}
           width={featuredImage.width}
           height={featuredImage.height}
           className="rounded-lg"
@@ -121,11 +134,17 @@ function ModalContentBody({ project }: { project: Project }) {
       </div>
       <div className="flex flex-1 flex-col items-center lg:items-start">
         <span className="bold text-1xl mb-2 uppercase text-emerald-400">
-          {category}
+          {category[locale as keyof typeof category] || category.pt}
         </span>
-        <h4 className="bold mb-2 text-3xl uppercase">{heading}</h4>
-        <h5 className="mb-4 uppercase">{subheading}</h5>
-        <p className="mb-8 text-center lg:text-left">{description}</p>
+        <h4 className="bold mb-2 text-3xl uppercase">
+          {heading[locale as keyof typeof heading] || heading.pt}
+        </h4>
+        <h5 className="mb-4 uppercase">
+          {subheading[locale as keyof typeof subheading] || subheading.pt}
+        </h5>
+        <p className="mb-8 text-center lg:text-left">
+          {description[locale as keyof typeof description] || description.pt}
+        </p>
         {technologies.length > 0 && (
           <ul className="mb-8 flex flex-wrap justify-center gap-4 lg:justify-start">
             {technologies.map((tech) => (
@@ -139,7 +158,7 @@ function ModalContentBody({ project }: { project: Project }) {
           </ul>
         )}
         <ul className="flex flex-col flex-wrap gap-4 md:flex-row">
-          {/* Link do site do projeto */}
+          {/* Project website link */}
           {url && (
             <li>
               <Button
@@ -149,20 +168,26 @@ function ModalContentBody({ project }: { project: Project }) {
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`${urlLabel || 'Visitar site'} do projeto ${heading}`}
+                aria-label={
+                  urlLabel?.[locale as keyof typeof urlLabel] ||
+                  urlLabel?.pt ||
+                  t('seeWebsite')
+                }
                 role="link"
                 className={clsx(
-                  'flex items-center gap-2 px-8 py-3',
+                  'flex items-center gap-2 px-8 py-3 capitalize',
                   'bg-emerald-800 font-bold text-white transition-all',
                   'hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500',
                 )}
               >
-                {urlLabel || 'Visitar site'}
+                {urlLabel?.[locale as keyof typeof urlLabel] ||
+                  urlLabel?.pt ||
+                  t('seeWebsite')}
               </Button>
             </li>
           )}
 
-          {/* Links dos repositórios */}
+          {/* Repository links */}
           {repositories &&
             repositories.length > 0 &&
             repositories.map((repo) => (
@@ -176,12 +201,15 @@ function ModalContentBody({ project }: { project: Project }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={clsx(
-                    'flex items-center gap-2 px-4 py-3',
+                    'flex items-center gap-2 px-4 py-3 capitalize',
                     'bg-emerald-800 font-bold text-white transition-all',
                     'hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500',
                   )}
                 >
-                  <span>{repo.type}</span>
+                  <span>
+                    {repo.type[locale as keyof typeof repo.type] ||
+                      repo.type.pt}
+                  </span>
                 </Button>
               </li>
             ))}

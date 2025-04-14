@@ -9,7 +9,6 @@ import PortfolioSection from '@/containers/HomePage/PortfolioSection'
 import SkillsSection from '@/containers/HomePage/SkillsSection'
 import { education } from '@/data/education.json'
 import { experiences } from '@/data/experiences.json'
-import { projects } from '@/data/projects.json'
 
 export default async function Home() {
   return (
@@ -22,7 +21,7 @@ export default async function Home() {
         <FeaturedProjectsSection />
         <SkillsSection />
         <ExperienceSection education={education} experiences={experiences} />
-        <PortfolioSection projects={projects} />
+        <PortfolioSection />
         <ContactSection />
       </main>
     </>

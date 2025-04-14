@@ -30,6 +30,13 @@
     "technicalTitle": "Technical Skills",
     "professionalTitle": "Professional Skills"
   },
+  "Portfolio": {
+    "title": "Portfolio",
+    "noProjects": "No projects available at the moment.",
+    "loadMore": "Load more",
+    "seeMore": "See more",
+    "seeWebsite": "See the website"
+  },
   "Contact": {
     "title": "Contact"
   }

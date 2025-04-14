@@ -30,6 +30,13 @@
     "technicalTitle": "Habilidades Técnicas",
     "professionalTitle": "Habilidades Profissionais"
   },
+  "Portfolio": {
+    "title": "Portfólio",
+    "noProjects": "Nenhum projeto disponível no momento.",
+    "loadMore": "Carregar mais",
+    "seeMore": "Ver mais",
+    "seeWebsite": "Ver o site"
+  },
   "Contact": {
     "title": "Contato"
   }
