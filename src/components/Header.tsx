@@ -1,13 +1,15 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
-import LocalSwitcher from './LocalSwitcher'
+import { useEffect, useState } from 'react'
+import LocaleSwitcher from './LocaleSwitcher'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
+  const t = useTranslations('Header')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,12 +69,12 @@ export default function Header() {
           >
             <ul className="flex flex-col text-lg font-bold text-white lg:flex-row lg:space-x-10 lg:text-center">
               {[
-                { label: 'Início', href: 'home' },
-                { label: 'Sobre', href: 'about' },
-                { label: 'Habilidades', href: 'skills' },
-                { label: 'Experiências', href: 'experience' },
-                { label: 'Portfólio', href: 'portfolio' },
-                { label: 'Contato', href: 'contact' },
+                { label: t('home'), href: 'home' },
+                { label: t('about'), href: 'about' },
+                { label: t('skills'), href: 'skills' },
+                { label: t('experience'), href: 'experience' },
+                { label: t('portfolio'), href: 'portfolio' },
+                { label: t('contact'), href: 'contact' },
               ].map(({ label, href }) => (
                 <li key={href} className="flex items-center py-2 lg:py-0">
                   <Link
@@ -87,7 +89,7 @@ export default function Header() {
             </ul>
           </div>
 
-          <LocalSwitcher />
+          <LocaleSwitcher />
         </nav>
       </div>
     </header>

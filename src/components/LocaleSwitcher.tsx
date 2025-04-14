@@ -8,12 +8,12 @@ import { ChangeEvent, useEffect, useState, useTransition } from 'react'
 
 const { languages } = locales
 
-export default function LocalSwitcher() {
+export default function LocaleSwitcher() {
   const [isMobile, setIsMobile] = useState(false)
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
   const localActive = useLocale()
-  const t = useTranslations('NavBar')
+  const t = useTranslations('Header')
 
   useEffect(() => {
     const checkIsMobile = () => {

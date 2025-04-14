@@ -4,7 +4,13 @@
     "description": "Sorry, the page you are looking for does not exist.",
     "backHome": "Back to home"
   },
-  "NavBar": {
+  "Header": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "experience": "Experiences",
+    "portfolio": "Portfolio",
+    "contact": "Contact",
     "languageSelector": "Change language"
   },
   "Hero": {
