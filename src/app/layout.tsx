@@ -1,7 +1,8 @@
 import '@/styles/globals.css'
 import { GoogleTagManager } from '@next/third-parties/google'
-import type { Metadata, Viewport } from 'next'
+import { Metadata, Viewport } from 'next'
 import { Roboto } from 'next/font/google'
+import { ReactNode } from 'react'
 import { Providers } from './providers'
 
 const roboto = Roboto({
@@ -22,13 +23,13 @@ export const viewport: Viewport = {
   ],
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+interface RootLayoutProps {
+  children: ReactNode
+}
+
+export default async function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html suppressHydrationWarning lang="pt-BR">
+    <html suppressHydrationWarning>
       <head />
       <body className={roboto.className}>
         <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>

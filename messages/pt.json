@@ -1,0 +1,54 @@
+{
+  "NotFound": {
+    "title": "Página não encontrada",
+    "description": "Desculpe, a página que você está procurando não existe.",
+    "backHome": "Voltar para a página inicial"
+  },
+  "Header": {
+    "home": "Início",
+    "about": "Sobre",
+    "skills": "Habilidades",
+    "experience": "Experiência",
+    "portfolio": "Portfólio",
+    "contact": "Contato",
+    "languageSelector": "Mudar idioma"
+  },
+  "Hero": {
+    "title": "Robson H. Rodrigues",
+    "subtitle": "Desenvolvedor Web",
+    "greeting": "Olá, me chamo",
+    "avatarAlt": "Foto de Robson H. Rodrigues"
+  },
+  "About": {
+    "title": "Sobre mim",
+    "imageAlt": "Imagem da seção Sobre",
+    "description": "Olá, sou Robson, Desenvolvedor Web de Jundiaí - SP, Brasil. Com experiência em desenvolvimento web e mobile, foco em aplicações escaláveis e otimizadas. Conhecimentos em",
+    "downloadResumeButton": "Baixar Currículo"
+  },
+  "Features": {
+    "title": "O que faço"
+  },
+  "FeaturedProjects": {
+    "title": "Projetos em Destaque",
+    "visitProject": "Visitar Projeto"
+  },
+  "Skills": {
+    "technicalTitle": "Habilidades Técnicas",
+    "professionalTitle": "Habilidades Profissionais"
+  },
+  "Experience": {
+    "academicTitle": "Formação Acadêmica",
+    "professionalTitle": "Experiência Profissional",
+    "preposition": "em"
+  },
+  "Portfolio": {
+    "title": "Portfólio",
+    "noProjects": "Nenhum projeto disponível no momento.",
+    "loadMore": "Carregar mais",
+    "seeMore": "Ver mais",
+    "seeWebsite": "Ver o site"
+  },
+  "Contact": {
+    "title": "Contato"
+  }
+}

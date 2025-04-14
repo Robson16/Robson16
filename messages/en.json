@@ -1,0 +1,54 @@
+{
+  "NotFound": {
+    "title": "Page not found",
+    "description": "Sorry, the page you are looking for does not exist.",
+    "backHome": "Back to home"
+  },
+  "Header": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "experience": "Experiences",
+    "portfolio": "Portfolio",
+    "contact": "Contact",
+    "languageSelector": "Change language"
+  },
+  "Hero": {
+    "title": "Robson H. Rodrigues",
+    "subtitle": "Web Developer",
+    "greeting": "Hello, my name is",
+    "avatarAlt": "Photo of Robson H. Rodrigues"
+  },
+  "About": {
+    "title": "About me",
+    "imageAlt": "Image from the About section",
+    "description": "Hello, I'm Robson, a Web Developer from Jundiaí - SP, Brazil. With experience in web and mobile development, focusing on scalable and optimized applications. Knowledge in",
+    "downloadResumeButton": "Download Resume"
+  },
+  "Features": {
+    "title": "What I do"
+  },
+  "FeaturedProjects": {
+    "title": "Featured Projects",
+    "visitProject": "Visit Project"
+  },
+  "Skills": {
+    "technicalTitle": "Technical Skills",
+    "professionalTitle": "Professional Skills"
+  },
+  "Experience": {
+    "academicTitle": "Academic Background",
+    "professionalTitle": "Professional Experience",
+    "preposition": "in"
+  },
+  "Portfolio": {
+    "title": "Portfolio",
+    "noProjects": "No projects available at the moment.",
+    "loadMore": "Load more",
+    "seeMore": "See more",
+    "seeWebsite": "See the website"
+  },
+  "Contact": {
+    "title": "Contact"
+  }
+}

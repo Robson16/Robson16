@@ -1,0 +1,73 @@
+{
+  "technical": [
+    {
+      "id": 1,
+      "name": "JavaScript",
+      "value": 90
+    },
+    {
+      "id": 2,
+      "name": "TypeScript",
+      "value": 80
+    },
+    {
+      "id": 3,
+      "name": "ReactJS",
+      "value": 70
+    },
+    {
+      "id": 4,
+      "name": "NodeJS",
+      "value": 75
+    },
+    {
+      "id": 5,
+      "name": "PHP",
+      "value": 80
+    },
+    {
+      "id": 6,
+      "name": "WordPress",
+      "value": 90
+    },
+    {
+      "id": 7,
+      "name": "Java",
+      "value": 40
+    }
+  ],
+  "professional": [
+    {
+      "id": 1,
+      "name": {
+        "pt": "Resolução de Problemas",
+        "en": "Problem Solving"
+      },
+      "value": 90
+    },
+    {
+      "id": 2,
+      "name": {
+        "pt": "Trabalho em Equipe",
+        "en": "Teamwork"
+      },
+      "value": 85
+    },
+    {
+      "id": 3,
+      "name": {
+        "pt": "Gerenciamento de Projetos",
+        "en": "Project Management"
+      },
+      "value": 85
+    },
+    {
+      "id": 4,
+      "name": {
+        "pt": "Autodidatismo",
+        "en": "Self-taught"
+      },
+      "value": 95
+    }
+  ]
+}

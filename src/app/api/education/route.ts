@@ -1,4 +1,4 @@
-import { education } from '@/lib/data'
+import { education } from '@/data/education.json'
 import { NextResponse } from 'next/server'
 
 export async function GET() {

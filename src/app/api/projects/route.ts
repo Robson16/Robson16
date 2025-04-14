@@ -1,4 +1,4 @@
-import { projects } from '@/lib/data'
+import { projects } from '@/data/projects.json'
 import { NextResponse } from 'next/server'
 
 export async function GET() {

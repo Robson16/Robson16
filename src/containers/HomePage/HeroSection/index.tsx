@@ -1,20 +1,13 @@
 import DynamicIcon from '@/components/DynamicIcon'
-import { About } from '@/types/About'
-import { Button, Link } from '@heroui/react'
+import SocialButtons from '@/components/SocialButtons'
+import { email, location } from '@/data/contacts.json'
+import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { AiOutlineMail } from 'react-icons/ai'
-import { FaMapMarkerAlt } from 'react-icons/fa'
 
-type HeroSectionProps = Omit<About, 'description' | 'features'>
+export default function HeroSection() {
+  const t = useTranslations('Hero')
+  const locale = useLocale()
 
-export default function HeroSection({
-  photoUrl,
-  name,
-  title,
-  email,
-  location,
-  social,
-}: HeroSectionProps) {
   return (
     <section
       id="home"
@@ -25,22 +18,26 @@ export default function HeroSection({
           <div className="flex flex-col-reverse gap-8 xl:flex-row">
             <div className="flex flex-1 flex-col items-center justify-center xl:items-start">
               <span className="mb-4 rounded-r-[20px] rounded-tl-[20px] bg-emerald-800 px-8 py-2">
-                Olá, me chamo
+                {t('greeting')}
               </span>
               <h1 className="mb-4 text-center text-5xl font-bold xl:text-left">
-                {name}
+                {t('title')}
               </h1>
-              <h2 className="text-2xl font-medium">{title}</h2>
+              <h2 className="text-2xl font-medium">{t('subtitle')}</h2>
               <ul className="my-10">
                 <li className="group my-2 flex items-center">
-                  <AiOutlineMail
+                  <DynamicIcon
+                    icon="AiOutlineMail"
+                    iconFamily="ai"
                     size={22}
                     className="mr-2 text-gray-500 transition-colors group-hover:text-emerald-600"
                   />
                   <a href={`mailto:${email}`}>{email}</a>
                 </li>
                 <li className="group my-2 flex items-center">
-                  <FaMapMarkerAlt
+                  <DynamicIcon
+                    icon="FaMapMarkerAlt"
+                    iconFamily="fa"
                     size={22}
                     className="mr-2 text-gray-500 transition-colors group-hover:text-emerald-600"
                   />
@@ -49,38 +46,23 @@ export default function HeroSection({
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {location.name}
+                    {/* Dynamically renders the location name based on the current locale,
+                    defaulting to Portuguese ('pt') if the locale-specific translation is missing. */}
+                    {location.name[locale as keyof typeof location.name] ||
+                      location.name.pt}
                   </a>
                 </li>
               </ul>
               <div className="flex items-center gap-4">
-                {social.map((item) => (
-                  <Button
-                    key={item.name}
-                    isIconOnly
-                    as={Link}
-                    href={item.url}
-                    aria-label={`Meu ${item.name}`}
-                    className="group flex h-auto w-auto min-w-0 items-start justify-center bg-transparent p-0"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <DynamicIcon
-                      icon={item.icon.name}
-                      iconFamily={item.icon.family}
-                      size={30}
-                      className="transition-colors group-hover:text-emerald-600"
-                    />
-                  </Button>
-                ))}
+                <SocialButtons />
               </div>
             </div>
             <div className="flex flex-1 flex-col items-center xl:items-end">
               <figure className="rounded-full border-[20px] border-zinc-950">
                 <Image
-                  src={photoUrl}
+                  src="/images/profile.jpg"
                   priority={true}
-                  alt={`Foto de ${name}`}
+                  alt={t('avatarAlt')}
                   width={360}
                   height={360}
                   className="mx-auto max-w-60 rounded-full border-[20px] border-zinc-900 xl:max-w-none"
