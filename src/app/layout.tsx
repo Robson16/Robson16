@@ -1,6 +1,6 @@
 import '@/styles/globals.css'
 import { GoogleTagManager } from '@next/third-parties/google'
-import { Metadata, Viewport } from 'next'
+import { Viewport } from 'next'
 import { Roboto } from 'next/font/google'
 import { ReactNode } from 'react'
 import { Providers } from './providers'
@@ -9,12 +9,6 @@ const roboto = Roboto({
   subsets: ['latin'],
   weight: ['400', '500', '700'],
 })
-
-export const metadata: Metadata = {
-  title: 'Robson H. Rodrigues',
-  description:
-    '33 anos, Jundiaí - SP, Desenvolvedor Web, formado em Gestão da Informação pela FATEC Jundiaí',
-}
 
 export const viewport: Viewport = {
   themeColor: [
