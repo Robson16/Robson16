@@ -7,8 +7,6 @@ import FeaturesSection from '@/containers/HomePage/FeaturesSection'
 import HeroSection from '@/containers/HomePage/HeroSection'
 import PortfolioSection from '@/containers/HomePage/PortfolioSection'
 import SkillsSection from '@/containers/HomePage/SkillsSection'
-import { education } from '@/data/education.json'
-import { experiences } from '@/data/experiences.json'
 
 export default async function Home() {
   return (
@@ -20,7 +18,7 @@ export default async function Home() {
         <FeaturesSection />
         <FeaturedProjectsSection />
         <SkillsSection />
-        <ExperienceSection education={education} experiences={experiences} />
+        <ExperienceSection />
         <PortfolioSection />
         <ContactSection />
       </main>

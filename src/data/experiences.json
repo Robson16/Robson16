@@ -2,212 +2,477 @@
   "experiences": [
     {
       "id": 1,
-      "title": "Auxiliar de Informática",
-      "company": "MEQSO GROUP",
-      "location": "Jundiaí, SP",
-      "period": {
-        "start": "Julho de 2024",
-        "end": "Janeiro de 2025"
+      "title": {
+        "pt": "Auxiliar de Informática",
+        "en": "IT Assistant"
       },
-      "responsibilities": [
-        "Suporte técnico aos usuários e manutenção de sistemas de TI.",
-        "Manutenção preventiva e corretiva de hardware.",
-        "Gerenciamento da infraestrutura de rede."
-      ]
+      "company": "MEQSO GROUP",
+      "location": {
+        "pt": "Jundiaí, SP",
+        "en": "Jundiaí, SP"
+      },
+      "period": {
+        "start": {
+          "pt": "Julho de 2024",
+          "en": "July 2024"
+        },
+        "end": {
+          "pt": "Janeiro de 2025",
+          "en": "January 2025"
+        }
+      },
+      "responsibilities": {
+        "pt": [
+          "Suporte técnico aos usuários e manutenção de sistemas de TI.",
+          "Manutenção preventiva e corretiva de hardware.",
+          "Gerenciamento da infraestrutura de rede."
+        ],
+        "en": [
+          "Technical support to users and maintenance of IT systems.",
+          "Preventive and corrective hardware maintenance.",
+          "Network infrastructure management."
+        ]
+      }
     },
     {
       "id": 2,
-      "title": "Desenvolvedor Front-End",
-      "company": "Agência B&B",
-      "location": "São Paulo, SP",
-      "period": {
-        "start": "Setembro de 2021",
-        "end": "Janeiro de 2024"
+      "title": {
+        "pt": "Desenvolvedor Front-End",
+        "en": "Front-End Developer"
       },
-      "responsibilities": [
-        "Desenvolvimento e manutenção de sites e landing pages.",
-        "Codificação de temas e plugins personalizados em WordPress.",
-        "Implementação de soluções responsivas e otimizadas para SEO."
-      ]
+      "company": "Agência B&B",
+      "location": {
+        "pt": "São Paulo, SP",
+        "en": "São Paulo, SP"
+      },
+      "period": {
+        "start": {
+          "pt": "Setembro de 2021",
+          "en": "September 2021"
+        },
+        "end": {
+          "pt": "Janeiro de 2024",
+          "en": "January 2024"
+        }
+      },
+      "responsibilities": {
+        "pt": [
+          "Desenvolvimento e manutenção de sites e landing pages.",
+          "Codificação de temas e plugins personalizados em WordPress.",
+          "Implementação de soluções responsivas e otimizadas para SEO."
+        ],
+        "en": [
+          "Development and maintenance of websites and landing pages.",
+          "Coding of custom themes and plugins in WordPress.",
+          "Implementation of responsive and SEO-optimized solutions."
+        ]
+      }
     },
     {
       "id": 3,
-      "title": "Desenvolvedor Front-End",
-      "company": "Vollup Creative Agency",
-      "location": "São Paulo, SP",
-      "period": {
-        "start": "Janeiro de 2021",
-        "end": "Setembro de 2021"
+      "title": {
+        "pt": "Desenvolvedor Front-End",
+        "en": "Front-End Developer"
       },
-      "responsibilities": [
-        "Desenvolvimento de sites personalizados em WordPress.",
-        "Criação de interfaces de usuário intuitivas.",
-        "Manutenção contínua de plataformas."
-      ]
+      "company": "Vollup Creative Agency",
+      "location": {
+        "pt": "São Paulo, SP",
+        "en": "São Paulo, SP"
+      },
+      "period": {
+        "start": {
+          "pt": "Janeiro de 2021",
+          "en": "January 2021"
+        },
+        "end": {
+          "pt": "Setembro de 2021",
+          "en": "September 2021"
+        }
+      },
+      "responsibilities": {
+        "pt": [
+          "Desenvolvimento de sites personalizados em WordPress.",
+          "Criação de interfaces de usuário intuitivas.",
+          "Manutenção contínua de plataformas."
+        ],
+        "en": [
+          "Development of custom websites in WordPress.",
+          "Creation of intuitive user interfaces.",
+          "Continuous platform maintenance."
+        ]
+      }
     },
     {
       "id": 4,
-      "title": "Analista de Sistema",
-      "company": "Agência io!",
-      "location": "Jundiai, SP",
-      "period": {
-        "start": "Novembro de 2020",
-        "end": "Dezembro de 2020"
+      "title": {
+        "pt": "Analista de Sistema",
+        "en": "System Analyst"
       },
-      "responsibilities": [
-        "Contratação temporária para suporte web.",
-        "Suporte técnico a múltiplos clientes e seus websites.",
-        "Manutenção e otimização de plataformas CMS, com foco em WordPress"
-      ]
+      "company": "Agência io!",
+      "location": {
+        "pt": "Jundiai, SP",
+        "en": "Jundiai, SP"
+      },
+      "period": {
+        "start": {
+          "pt": "Novembro de 2020",
+          "en": "November 2020"
+        },
+        "end": {
+          "pt": "Dezembro de 2020",
+          "en": "December 2020"
+        }
+      },
+      "responsibilities": {
+        "pt": [
+          "Contratação temporária para suporte web.",
+          "Suporte técnico a múltiplos clientes e seus websites.",
+          "Manutenção e otimização de plataformas CMS, com foco em WordPress"
+        ],
+        "en": [
+          "Temporary hire for web support.",
+          "Technical support to multiple clients and their websites.",
+          "Maintenance and optimization of CMS platforms, with a focus on WordPress."
+        ]
+      }
     },
     {
       "id": 5,
-      "title": "Desenvolvedor Web",
-      "company": "Stratesign Publicidade Propaganda",
-      "location": "Jundiaí, SP",
-      "period": {
-        "start": "Março de 2019",
-        "end": "Dezembro de 2019"
+      "title": {
+        "pt": "Desenvolvedor Web",
+        "en": "Web Developer"
       },
-      "responsibilities": [
-        "Desenvolvimento de sites e blogs para o setor imobiliário.",
-        "Integração de sistemas de gestão de propriedades.",
-        "Otimização para SEO e manutenção contínua."
-      ]
+      "company": "Stratesign Publicidade Propaganda",
+      "location": {
+        "pt": "Jundiaí, SP",
+        "en": "Jundiaí, SP"
+      },
+      "period": {
+        "start": {
+          "pt": "Março de 2019",
+          "en": "March 2019"
+        },
+        "end": {
+          "pt": "Dezembro de 2019",
+          "en": "December 2019"
+        }
+      },
+      "responsibilities": {
+        "pt": [
+          "Desenvolvimento de sites e blogs para o setor imobiliário.",
+          "Integração de sistemas de gestão de propriedades.",
+          "Otimização para SEO e manutenção contínua."
+        ],
+        "en": [
+          "Development of websites and blogs for the real estate sector.",
+          "Integration of property management systems.",
+          "SEO optimization and continuous maintenance."
+        ]
+      }
     },
     {
       "id": 6,
-      "title": "Designer Web",
-      "company": "AD-ONE Marketing Digital",
-      "location": "Jundiaí, SP",
-      "period": {
-        "start": "Julho de 2018",
-        "end": "Janeiro de 2019"
+      "title": {
+        "pt": "Designer Web",
+        "en": "Web Designer"
       },
-      "responsibilities": [
-        "Design e desenvolvimento de páginas institucionais.",
-        "Criação de layouts funcionais e atraentes.",
-        "Implementação de práticas de SEO."
-      ]
+      "company": "AD-ONE Marketing Digital",
+      "location": {
+        "pt": "Jundiaí, SP",
+        "en": "Jundiaí, SP"
+      },
+      "period": {
+        "start": {
+          "pt": "Julho de 2018",
+          "en": "July 2018"
+        },
+        "end": {
+          "pt": "Janeiro de 2019",
+          "en": "January 2019"
+        }
+      },
+      "responsibilities": {
+        "pt": [
+          "Design e desenvolvimento de páginas institucionais.",
+          "Criação de layouts funcionais e atraentes.",
+          "Implementação de práticas de SEO."
+        ],
+        "en": [
+          "Design and development of institutional pages.",
+          "Creation of functional and attractive layouts.",
+          "Implementation of SEO practices."
+        ]
+      }
     },
     {
       "id": 7,
-      "title": "Consultor de Sistemas",
-      "company": "Grupo IV2",
-      "location": "Jundiaí, SP",
-      "period": {
-        "start": "Setembro de 2017",
-        "end": "Fevereiro de 2018"
+      "title": {
+        "pt": "Consultor de Sistemas",
+        "en": "Systems Consultant"
       },
-      "responsibilities": [
-        "Desenvolvimento de soluções em JavaScript e AngularJS.",
-        "Análise de requisitos e personalização de sistemas.",
-        "Integração de sistemas e otimização de processos internos."
-      ]
+      "company": "Grupo IV2",
+      "location": {
+        "pt": "Jundiaí, SP",
+        "en": "Jundiaí, SP"
+      },
+      "period": {
+        "start": {
+          "pt": "Setembro de 2017",
+          "en": "September 2017"
+        },
+        "end": {
+          "pt": "Fevereiro de 2018",
+          "en": "February 2018"
+        }
+      },
+      "responsibilities": {
+        "pt": [
+          "Desenvolvimento de soluções em JavaScript e AngularJS.",
+          "Análise de requisitos e personalização de sistemas.",
+          "Integração de sistemas e otimização de processos internos."
+        ],
+        "en": [
+          "Development of solutions in JavaScript and AngularJS.",
+          "Requirements analysis and system customization.",
+          "System integration and optimization of internal processes."
+        ]
+      }
     },
     {
       "id": 8,
-      "title": "Designer Web",
-      "company": "Agência Jundiaí - Internet, Marketing, Propaganda e Comunicação",
-      "location": "Jundiaí, SP",
-      "period": {
-        "start": "Maio de 2017",
-        "end": "Junho de 2017"
+      "title": {
+        "pt": "Designer Web",
+        "en": "Web Designer"
       },
-      "responsibilities": [
-        "Desenvolvimento de páginas web para pequenos negócios.",
-        "Criação de layouts com foco na experiência do usuário.",
-        "Implementação de soluções de gestão de conteúdo."
-      ]
+      "company": "Agência Jundiaí - Internet, Marketing, Propaganda e Comunicação",
+      "location": {
+        "pt": "Jundiaí, SP",
+        "en": "Jundiaí, SP"
+      },
+      "period": {
+        "start": {
+          "pt": "Maio de 2017",
+          "en": "May 2017"
+        },
+        "end": {
+          "pt": "Junho de 2017",
+          "en": "June 2017"
+        }
+      },
+      "responsibilities": {
+        "pt": [
+          "Desenvolvimento de páginas web para pequenos negócios.",
+          "Criação de layouts com foco na experiência do usuário.",
+          "Implementação de soluções de gestão de conteúdo."
+        ],
+        "en": [
+          "Development of web pages for small businesses.",
+          "Creation of layouts focused on user experience.",
+          "Implementation of content management solutions."
+        ]
+      }
     },
     {
       "id": 9,
-      "title": "Vendedor",
-      "company": "EletroNote",
-      "location": "Jundiaí, SP",
-      "period": {
-        "start": "Abril de 2015",
-        "end": "Maio de 2017"
+      "title": {
+        "pt": "Vendedor",
+        "en": "Salesperson"
       },
-      "responsibilities": [
-        "Venda de acessórios e computadores.",
-        "Atendimento personalizado aos clientes.",
-        "Manutenção de estoque e organização de vitrines."
-      ]
+      "company": "EletroNote",
+      "location": {
+        "pt": "Jundiaí, SP",
+        "en": "Jundiaí, SP"
+      },
+      "period": {
+        "start": {
+          "pt": "Abril de 2015",
+          "en": "April 2015"
+        },
+        "end": {
+          "pt": "Maio de 2017",
+          "en": "May 2017"
+        }
+      },
+      "responsibilities": {
+        "pt": [
+          "Venda de acessórios e computadores.",
+          "Atendimento personalizado aos clientes.",
+          "Manutenção de estoque e organização de vitrines."
+        ],
+        "en": [
+          "Sale of accessories and computers.",
+          "Personalized customer service.",
+          "Stock maintenance and organization of showcases."
+        ]
+      }
     },
     {
       "id": 10,
-      "title": "Técnico de Infraestrutura Jr",
-      "company": "Capgemini",
-      "location": "Jundiaí, SP",
-      "period": {
-        "start": "Março de 2014",
-        "end": "Janeiro de 2015"
+      "title": {
+        "pt": "Técnico de Infraestrutura Jr",
+        "en": "Junior Infrastructure Technician"
       },
-      "responsibilities": [
-        "Instalação e configuração de equipamentos.",
-        "Monitoramento de redes e suporte a usuários.",
-        "Colaboração com a equipe de sistemas para manter a infraestrutura funcionando."
-      ]
+      "company": "Capgemini",
+      "location": {
+        "pt": "Jundiaí, SP",
+        "en": "Jundiaí, SP"
+      },
+      "period": {
+        "start": {
+          "pt": "Março de 2014",
+          "en": "March 2014"
+        },
+        "end": {
+          "pt": "Janeiro de 2015",
+          "en": "January 2015"
+        }
+      },
+      "responsibilities": {
+        "pt": [
+          "Instalação e configuração de equipamentos.",
+          "Monitoramento de redes e suporte a usuários.",
+          "Colaboração com a equipe de sistemas para manter a infraestrutura funcionando."
+        ],
+        "en": [
+          "Installation and configuration of equipment.",
+          "Network monitoring and user support.",
+          "Collaboration with the systems team to keep the infrastructure running."
+        ]
+      }
     },
     {
       "id": 11,
-      "title": "Suporte de TI",
-      "company": "Centro de Estudos Britânicos de Jundiaí Ltda",
-      "location": "Jundiaí, SP",
-      "period": {
-        "start": "Março de 2013",
-        "end": "Fevereiro de 2014"
+      "title": {
+        "pt": "Suporte de TI",
+        "en": "IT Support"
       },
-      "responsibilities": [
-        "Manutenção de redes e suporte a usuários.",
-        "Configuração e manutenção de micros.",
-        "Auxílio na implementação de campanhas de e-mail marketing."
-      ]
+      "company": "Centro de Estudos Britânicos de Jundiaí Ltda",
+      "location": {
+        "pt": "Jundiaí, SP",
+        "en": "Jundiaí, SP"
+      },
+      "period": {
+        "start": {
+          "pt": "Março de 2013",
+          "en": "March 2013"
+        },
+        "end": {
+          "pt": "Fevereiro de 2014",
+          "en": "February 2014"
+        }
+      },
+      "responsibilities": {
+        "pt": [
+          "Manutenção de redes e suporte a usuários.",
+          "Configuração e manutenção de micros.",
+          "Auxílio na implementação de campanhas de e-mail marketing."
+        ],
+        "en": [
+          "Network maintenance and user support.",
+          "Configuration and maintenance of microcomputers.",
+          "Assistance in the implementation of email marketing campaigns."
+        ]
+      }
     },
     {
       "id": 12,
-      "title": "Analista de Suporte",
-      "company": "PCTec Soluções",
-      "location": "Jundiaí, SP",
-      "period": {
-        "start": "Fevereiro de 2013",
-        "end": "Fevereiro de 2013"
+      "title": {
+        "pt": "Analista de Suporte",
+        "en": "Support Analyst"
       },
-      "responsibilities": [
-        "Participação em projeto de rollout.",
-        "Instalação e configuração de novos sistemas.",
-        "Migração de dados e suporte pós-implantação."
-      ]
+      "company": "PCTec Soluções",
+      "location": {
+        "pt": "Jundiaí, SP",
+        "en": "Jundiaí, SP"
+      },
+      "period": {
+        "start": {
+          "pt": "Fevereiro de 2013",
+          "en": "February 2013"
+        },
+        "end": {
+          "pt": "Fevereiro de 2013",
+          "en": "February 2013"
+        }
+      },
+      "responsibilities": {
+        "pt": [
+          "Participação em projeto de rollout.",
+          "Instalação e configuração de novos sistemas.",
+          "Migração de dados e suporte pós-implantação."
+        ],
+        "en": [
+          "Participation in a rollout project.",
+          "Installation and configuration of new systems.",
+          "Data migration and post-implementation support."
+        ]
+      }
     },
     {
       "id": 13,
-      "title": "Técnico de Suporte",
-      "company": "GZ Sistemas",
-      "location": "Jundiaí, SP",
-      "period": {
-        "start": "Outubro de 2012",
-        "end": "Janeiro de 2013"
+      "title": {
+        "pt": "Técnico de Suporte",
+        "en": "Support Technician"
       },
-      "responsibilities": [
-        "Suporte telefônico a sistemas comercializados.",
-        "Auxílio aos clientes na resolução de problemas técnicos."
-      ]
+      "company": "GZ Sistemas",
+      "location": {
+        "pt": "Jundiaí, SP",
+        "en": "Jundiaí, SP"
+      },
+      "period": {
+        "start": {
+          "pt": "Outubro de 2012",
+          "en": "October 2012"
+        },
+        "end": {
+          "pt": "Janeiro de 2013",
+          "en": "January 2013"
+        }
+      },
+      "responsibilities": {
+        "pt": [
+          "Suporte telefônico a sistemas comercializados.",
+          "Auxílio aos clientes na resolução de problemas técnicos."
+        ],
+        "en": [
+          "Telephone support for marketed systems.",
+          "Assisting customers in resolving technical issues."
+        ]
+      }
     },
     {
       "id": 14,
-      "title": "Técnico de Informática",
-      "company": "Note Express Comércio e Serviços de Informática",
-      "location": "Jundiaí, SP",
-      "period": {
-        "start": "Outubro de 2009",
-        "end": "Março de 2012"
+      "title": {
+        "pt": "Técnico de Informática",
+        "en": "IT Technician"
       },
-      "responsibilities": [
-        "Manutenção e venda de computadores e acessórios.",
-        "Diagnóstico e reparo de hardware, instalação de software.",
-        "Atendimento ao cliente e soluções personalizadas."
-      ]
+      "company": "Note Express Comércio e Serviços de Informática",
+      "location": {
+        "pt": "Jundiaí, SP",
+        "en": "Jundiaí, SP"
+      },
+      "period": {
+        "start": {
+          "pt": "Outubro de 2009",
+          "en": "October 2009"
+        },
+        "end": {
+          "pt": "Março de 2012",
+          "en": "March 2012"
+        }
+      },
+      "responsibilities": {
+        "pt": [
+          "Manutenção e venda de computadores e acessórios.",
+          "Diagnóstico e reparo de hardware, instalação de software.",
+          "Atendimento ao cliente e soluções personalizadas."
+        ],
+        "en": [
+          "Maintenance and sale of computers and accessories.",
+          "Hardware diagnosis and repair, software installation.",
+          "Customer service and personalized solutions."
+        ]
+      }
     }
   ]
 }

@@ -30,6 +30,11 @@
     "technicalTitle": "Habilidades Técnicas",
     "professionalTitle": "Habilidades Profissionais"
   },
+  "Experience": {
+    "academicTitle": "Formação Acadêmica",
+    "professionalTitle": "Experiência Profissional",
+    "preposition": "em"
+  },
   "Portfolio": {
     "title": "Portfólio",
     "noProjects": "Nenhum projeto disponível no momento.",

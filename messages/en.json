@@ -30,6 +30,11 @@
     "technicalTitle": "Technical Skills",
     "professionalTitle": "Professional Skills"
   },
+  "Experience": {
+    "academicTitle": "Academic Background",
+    "professionalTitle": "Professional Experience",
+    "preposition": "in"
+  },
   "Portfolio": {
     "title": "Portfolio",
     "noProjects": "No projects available at the moment.",
