@@ -7,11 +7,11 @@ import { ReactNode } from 'react'
 
 interface LocaleLayoutProps {
   children: ReactNode
-  params: Promise<{ locale: string }>
+  params: { locale: string }
 }
 
 interface GenerateMetadataProps {
-  params: Promise<{ locale: string }>
+  params: { locale: string }
 }
 
 export function generateStaticParams() {
@@ -19,7 +19,7 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: GenerateMetadataProps) {
-  const { locale } = await params
+  const { locale } = params
   // TODO: Fix this any type
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const messages: any = await getMessages({ locale })
@@ -38,7 +38,7 @@ export default async function LocaleLayout({
   params,
 }: LocaleLayoutProps) {
   // Ensure that the incoming `locale` is valid
-  const { locale } = await params
+  const { locale } = params
 
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     notFound()
