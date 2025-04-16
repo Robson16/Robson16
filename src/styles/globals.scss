@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+
+  scroll-behavior: smooth;
+}
+
+html.dark {
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 16, 14, 23;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    --foreground-rgb: 255, 255, 255;
+    --background-rgb: 16, 14, 23;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

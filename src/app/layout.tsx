@@ -1,4 +1,4 @@
-import '@/styles/globals.css'
+import '@/styles/globals.scss'
 import { GoogleTagManager } from '@next/third-parties/google'
 import { Viewport } from 'next'
 import { Roboto } from 'next/font/google'
