@@ -1,8 +1,9 @@
-import { professional, technical } from '@/data/skills.json'
+import skillsData from '@/data/skills.json'
 import { CircularProgress, Progress } from '@heroui/react'
 import { useLocale, useTranslations } from 'next-intl'
 
 export default function SkillsSection() {
+  const { technical, professional } = skillsData
   const t = useTranslations('Skills')
   const locale = useLocale()
 

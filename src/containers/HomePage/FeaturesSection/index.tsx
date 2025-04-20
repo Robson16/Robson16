@@ -1,9 +1,11 @@
 import DynamicIcon from '@/components/DynamicIcon'
-import { features } from '@/data/features.json'
-import { icons } from '@/data/icons.json'
+import featuresData from '@/data/features.json'
+import iconsData from '@/data/icons.json'
 import { useLocale, useTranslations } from 'next-intl'
 
 export default function FeaturesSection() {
+  const { features } = featuresData
+  const icons = iconsData.icons
   const t = useTranslations('Features')
   const locale = useLocale()
 

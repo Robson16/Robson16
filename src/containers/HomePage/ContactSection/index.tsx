@@ -1,9 +1,11 @@
 import DynamicIcon from '@/components/DynamicIcon'
-import { email, location } from '@/data/contacts.json'
-import { linkedin } from '@/data/social.json'
+import contactsData from '@/data/contacts.json'
+import socialData from '@/data/social.json'
 import { useLocale, useTranslations } from 'next-intl'
 
 export default function ContactSection() {
+  const { email, location } = contactsData
+  const { linkedin } = socialData
   const t = useTranslations('Contact')
   const locale = useLocale()
 

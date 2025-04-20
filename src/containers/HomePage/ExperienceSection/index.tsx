@@ -1,9 +1,11 @@
-import { education } from '@/data/education.json'
-import { experiences } from '@/data/experiences.json'
+import educationData from '@/data/education.json'
+import experiencesData from '@/data/experiences.json'
 import { useLocale, useTranslations } from 'next-intl'
 import { FaCircle } from 'react-icons/fa'
 
 export default function ExperienceSection() {
+  const { education } = educationData
+  const { experiences } = experiencesData
   const t = useTranslations('Experience')
   const locale = useLocale()
 

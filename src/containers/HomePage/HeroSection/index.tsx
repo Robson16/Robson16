@@ -1,10 +1,11 @@
 import DynamicIcon from '@/components/DynamicIcon'
 import SocialButtons from '@/components/SocialButtons'
-import { email, location } from '@/data/contacts.json'
+import contactsData from '@/data/contacts.json'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 
 export default function HeroSection() {
+  const { email, location } = contactsData
   const t = useTranslations('Hero')
   const locale = useLocale()
 

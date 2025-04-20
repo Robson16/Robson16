@@ -1,6 +1,6 @@
-import { education } from '@/data/education.json'
+import educationData from '@/data/education.json'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
-  return NextResponse.json(education)
+  return NextResponse.json(educationData)
 }

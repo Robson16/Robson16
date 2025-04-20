@@ -1,4 +1,4 @@
-import { technical } from '@/data/skills.json'
+import skillsData from '@/data/skills.json'
 import { Button, Link } from '@heroui/react'
 import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { FaDownload } from 'react-icons/fa'
 
 export default function AboutSection() {
+  const { technical } = skillsData
   const t = useTranslations('About')
 
   return (
