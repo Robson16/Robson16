@@ -1,5 +1,6 @@
 import { Project } from '@/types/Project'
-import { Button, Link } from '@heroui/react'
+import { Button } from '@heroui/button'
+import { Link } from '@heroui/link'
 import clsx from 'clsx'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'

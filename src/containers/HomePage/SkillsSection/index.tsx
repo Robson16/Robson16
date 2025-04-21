@@ -1,5 +1,5 @@
 import skillsData from '@/data/skills.json'
-import { CircularProgress, Progress } from '@heroui/react'
+import { CircularProgress, Progress } from '@heroui/progress'
 import { useLocale, useTranslations } from 'next-intl'
 
 export default function SkillsSection() {

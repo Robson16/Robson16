@@ -1,12 +1,7 @@
 import { Project } from '@/types/Project'
-import {
-  Button,
-  Link,
-  Modal,
-  ModalBody,
-  ModalContent,
-  useDisclosure,
-} from '@heroui/react'
+import { Button } from '@heroui/button'
+import { Link } from '@heroui/link'
+import { Modal, ModalBody, ModalContent, useDisclosure } from '@heroui/modal'
 import clsx from 'clsx'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -40,12 +35,12 @@ export default function PortfolioThumb({ project }: PortfolioThumbProps) {
 
   return (
     <>
-      <div
+      <Link
         className={clsx(
           'group relative cursor-pointer outline-none',
           'focus-within:rounded-lg focus-within:ring-4 focus-within:ring-teal-600',
         )}
-        onClick={onOpen}
+        onPress={onOpen}
         tabIndex={0}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
@@ -70,7 +65,6 @@ export default function PortfolioThumb({ project }: PortfolioThumbProps) {
             'duration-600 bg-emerald-800 bg-opacity-90 text-white opacity-0 transition-opacity ease-in-out',
             'group-hover:opacity-100',
           )}
-          onClick={onOpen}
         >
           <PiMagnifyingGlassBold size={30} className="mb-4" />
           <h4 className="mb-2 text-xl font-bold">
@@ -80,7 +74,7 @@ export default function PortfolioThumb({ project }: PortfolioThumbProps) {
             {t('seeMore')}
           </span>
         </div>
-      </div>
+      </Link>
 
       <Modal
         isOpen={isOpen}

@@ -1,14 +1,15 @@
 import DynamicIcon from '@/components/DynamicIcon'
 import iconsData from '@/data/icons.json'
-import social from '@/data/social.json'
-import { Button, Link } from '@heroui/react'
+import socialData from '@/data/social.json'
+import { Button } from '@heroui/button'
+import { Link } from '@heroui/link'
 
 export default function SocialButtons() {
   const icons = iconsData.icons
 
   return (
     <>
-      {Object.entries(social).map(([key, value]) => {
+      {Object.entries(socialData).map(([key, value]) => {
         const iconKey = key as keyof typeof icons
 
         return (

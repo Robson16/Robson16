@@ -1,5 +1,6 @@
 import skillsData from '@/data/skills.json'
-import { Button, Link } from '@heroui/react'
+import { Button } from '@heroui/button'
+import { Link } from '@heroui/link'
 import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
