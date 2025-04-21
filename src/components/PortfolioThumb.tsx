@@ -1,12 +1,7 @@
 import { Project } from '@/types/Project'
-import {
-  Button,
-  Link,
-  Modal,
-  ModalBody,
-  ModalContent,
-  useDisclosure,
-} from '@heroui/react'
+import { Button } from '@heroui/button'
+import { Link } from '@heroui/link'
+import { Modal, ModalBody, ModalContent, useDisclosure } from '@heroui/modal'
 import clsx from 'clsx'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'

@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import Link from 'next/link'
+import { Link } from '@heroui/link'
 import { useEffect, useState } from 'react'
 import LocaleSwitcher from './LocaleSwitcher'
 
@@ -80,7 +80,7 @@ export default function Header() {
                   <Link
                     onClick={() => setIsOpen(false)}
                     href={`#${href}`}
-                    className={`lg:hover:text-emerald-500 ${activeSection === href ? 'border-b-2 border-white' : ''}`}
+                    className={`text-white lg:hover:text-emerald-500 ${activeSection === href ? 'border-b-2 border-white' : ''}`}
                   >
                     {label}
                   </Link>
