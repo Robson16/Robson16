@@ -700,6 +700,57 @@
           "url": "https://gitlab.com/Robson16/agenciabeb-cpt"
         }
       ]
+    },
+    {
+      "id": 14,
+      "featured": false,
+      "featuredImage": {
+        "title": {
+          "pt": "NLW 14 - Notes",
+          "en": "NLW 14 - Notes"
+        },
+        "src": "/projects/nlw14-notes.png",
+        "width": 1200,
+        "height": 900
+      },
+      "gallery": [],
+      "category": {
+        "pt": "ReactJS",
+        "en": "ReactJS"
+      },
+      "heading": {
+        "pt": "NLW 14 - Notes",
+        "en": "NLW 14 - Notes"
+      },
+      "subheading": {
+        "pt": "Aplicação de anotações com React",
+        "en": "Notes application with React"
+      },
+      "description": {
+        "pt": "Aplicação web desenvolvida durante o NLW Experts da Rocketseat, o NLW14 Notes é um bloco de notas moderno com suporte à transcrição de voz em tempo real via SpeechRecognition API. Utilizando React, TypeScript, TailwindCSS e ferramentas da Vercel, o projeto oferece uma interface fluida e responsiva para registrar ideias por voz ou digitação, diretamente no navegador.",
+        "en": "Developed during NLW Experts by Rocketseat, NLW14 Notes is a modern web-based notepad with real-time voice transcription using the SpeechRecognition API. Built with React, TypeScript, TailwindCSS, and Vercel tools, the project delivers a smooth and responsive interface for capturing ideas by voice or typing directly in the browser."
+      },
+      "technologies": [
+        "ReactJS",
+        "TypeScript",
+        "Tailwind CSS",
+        "SpeechRecognition API"
+      ],
+      "url": "https://nlw14-notes.vercel.app/",
+      "urlLabel": {
+        "pt": "Acesse",
+        "en": "Live"
+      },
+      "repositories": [
+        {
+          "type": {
+            "pt": "Código-fonte",
+            "en": "Source code"
+          },
+          "platform": "GitHub",
+          "url": "https://github.com/Robson16/nlw14-notes"
+        }
+      ]
     }
   ]
 }
