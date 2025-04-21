@@ -1,8 +1,10 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import { Button } from '@heroui/button'
 import { Link } from '@heroui/link'
+import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
+import { IoIosMenu, IoMdClose } from 'react-icons/io'
 import LocaleSwitcher from './LocaleSwitcher'
 
 export default function Header() {
@@ -53,16 +55,15 @@ export default function Header() {
     >
       <div className="container mx-auto">
         <nav className="flex items-start justify-between transition-all max-lg:px-4 max-lg:py-6 lg:items-center lg:justify-center lg:space-x-10">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="z-[1081] flex flex-col gap-2 text-white lg:hidden"
+          <Button
+            isIconOnly
+            onPress={() => setIsOpen(!isOpen)}
+            className="z-[1081] flex flex-col gap-2 bg-transparent text-white lg:hidden"
             aria-label="Toggle navigation"
             aria-expanded={isOpen}
           >
-            <span className="block h-[2px] w-8 rounded bg-white"></span>
-            <span className="block h-[2px] w-8 rounded bg-white"></span>
-            <span className="block h-[2px] w-8 rounded bg-white"></span>
-          </button>
+            {isOpen ? <IoMdClose size={45} /> : <IoIosMenu size={45} />}
+          </Button>
 
           <div
             className={`z-[1080] flex transition-all max-lg:absolute max-lg:left-0 max-lg:top-0 max-lg:h-screen max-lg:w-80 max-lg:bg-emerald-800 max-lg:px-4 max-lg:pt-20 lg:items-center lg:justify-center ${isOpen ? 'max-lg:translate-x-0' : 'max-lg:-translate-x-[120%]'}`}
@@ -78,7 +79,7 @@ export default function Header() {
               ].map(({ label, href }) => (
                 <li key={href} className="flex items-center py-2 lg:py-0">
                   <Link
-                    onClick={() => setIsOpen(false)}
+                    onPress={() => setIsOpen(false)}
                     href={`#${href}`}
                     className={`text-white lg:hover:text-emerald-500 ${activeSection === href ? 'border-b-2 border-white' : ''}`}
                   >
