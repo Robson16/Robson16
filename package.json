@@ -18,7 +18,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build && swc .next/static/chunks/*.js .next/static/chunks/**/*.js -d . --include-dotfiles",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -48,7 +48,6 @@
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "2.1.0",
-    "@swc/cli": "0.6.0",
     "@types/node": "20.8.8",
     "@types/react": "18.2.32",
     "@types/react-dom": "18.2.14",
