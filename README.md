@@ -14,8 +14,8 @@
   <img src="https://img.shields.io/badge/-Whatsapp-4CA143?style=flat&labelColor=4CA143&logo=whatsapp&logoColor=white" title="Text me" align="right" alt="Whatsapp">
 </a>
 
-<a href="mailto:robhenrod@gmail.com">
-  <img src="https://img.shields.io/badge/-Gmail-c14438?style=flat&logo=Gmail&logoColor=white" title="Send me an email" align="right" alt="Gmail">
+<a href="mailto:contato@robsonhrodrigues.com.br">
+  <img src="https://img.shields.io/badge/-Email-c14438?style=flat&logo=mail&logoColor=yellow" title="Send me an email" align="right" alt="Mail">
 </a>
 
 <a href="https://www.linkedin.com/in/robson-h-rodrigues-93341746/">
