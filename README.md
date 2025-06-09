@@ -10,12 +10,8 @@
   <img src="https://img.shields.io/github/followers/Robson16?label=follow&style=social" height="22" title="Follow me" align="right" alt="GitHub">
 </a>
 
-<a href="https://api.whatsapp.com/send?phone=5511982145920">
-  <img src="https://img.shields.io/badge/-Whatsapp-4CA143?style=flat&labelColor=4CA143&logo=whatsapp&logoColor=white" title="Text me" align="right" alt="Whatsapp">
-</a>
-
-<a href="mailto:contato@robsonhrodrigues.com.br">
-  <img src="https://img.shields.io/badge/-Email-c14438?style=flat&logo=mail&logoColor=yellow" title="Send me an email" align="right" alt="Mail">
+<a href="https://gitlab.com/Robson16">
+  <img src="https://img.shields.io/badge/GitLab-Follow-orange?logo=gitlab&style=social" height="22" title="Follow me on GitLab" align="right" alt="GitLab">
 </a>
 
 <a href="https://www.linkedin.com/in/robson-h-rodrigues-93341746/">
