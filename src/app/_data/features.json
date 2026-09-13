@@ -1,0 +1,40 @@
+{
+  "features": [
+    {
+      "id": 1,
+      "icon": "code",
+      "title": {
+        "pt": "Desenvolvimento Web e Mobile",
+        "en": "Web and Mobile Development"
+      },
+      "description": {
+        "pt": "Criação de aplicações web e mobile responsivas e escaláveis, utilizando tecnologias modernas para garantir alta performance, segurança e uma excelente experiência do usuário.",
+        "en": "Creation of responsive and scalable web and mobile applications, using modern technologies to ensure high performance, security, and an excellent user experience."
+      }
+    },
+    {
+      "id": 2,
+      "icon": "database",
+      "title": {
+        "pt": "API e Banco de Dados",
+        "en": "API and Database"
+      },
+      "description": {
+        "pt": "Desenvolvimento de APIs eficientes e bem estruturadas, garantindo integração fluida entre sistemas. Trabalho com bancos de dados relacionais e não relacionais, com foco em otimização e escalabilidade.",
+        "en": "Development of efficient and well-structured APIs, ensuring smooth integration between systems. Work with relational and non-relational databases, focusing on optimization and scalability."
+      }
+    },
+    {
+      "id": 3,
+      "icon": "performance",
+      "title": {
+        "pt": "Boas Práticas e Performance",
+        "en": "Best Practices and Performance"
+      },
+      "description": {
+        "pt": "Aplicação de princípios como SOLID, TDD e DDD para garantir código limpo e sustentável. Implementação de estratégias para otimizar a performance das aplicações, seguindo as melhores práticas do mercado.",
+        "en": "Application of principles such as SOLID, TDD, and DDD to ensure clean and sustainable code. Implementation of strategies to optimize application performance, following market best practices."
+      }
+    }
+  ]
+}
