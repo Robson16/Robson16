@@ -1,13 +1,13 @@
-import { Link } from '@heroui/link'
-import { useTranslations } from 'next-intl'
 import Image from 'next/image'
+import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 export default function NotFound() {
   const t = useTranslations('NotFound')
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-black bg-opacity-70">
-      <div className="container mx-auto max-w-screen-md px-4 py-16 text-center text-white">
+    <div className="flex min-h-screen items-center justify-center bg-black/70">
+      <div className="container mx-auto max-w-3xl px-4 py-16 text-center text-white">
         <div className="flex flex-col justify-center gap-10">
           <Image
             src="/images/logo.png"

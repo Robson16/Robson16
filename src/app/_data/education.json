@@ -1,0 +1,79 @@
+{
+  "education": [
+    {
+      "id": 1,
+      "title": {
+        "pt": "Análise de Sistemas",
+        "en": "Systems Analysis"
+      },
+      "institution": {
+        "pt": "Fatec Jundiaí - Faculdade de Tecnologia - Deputado Ary Fossen",
+        "en": "Fatec Jundiaí - Faculty of Technology - Deputy Ary Fossen"
+      },
+      "period": {
+        "start": {
+          "pt": "Julho de 2024",
+          "en": "July 2024"
+        },
+        "end": {
+          "pt": "Atualmente",
+          "en": "Currently"
+        }
+      },
+      "description": {
+        "pt": "Análise, projeto, documentação, teste, implantação e manutenção de sistemas computacionais, com foco em linguagens de programação, metodologias de projetos e garantia da qualidade e segurança dos sistemas.",
+        "en": "Analysis, design, documentation, testing, implementation, and maintenance of computer systems, with a focus on programming languages, project methodologies, and ensuring the quality and security of systems."
+      }
+    },
+    {
+      "id": 2,
+      "title": {
+        "pt": "Informática para Internet",
+        "en": "Internet Informatics"
+      },
+      "institution": {
+        "pt": "Etec Vasco Antônio Venchiarutti",
+        "en": "Etec Vasco Antônio Venchiarutti"
+      },
+      "period": {
+        "start": {
+          "pt": "Julho de 2015",
+          "en": "July 2015"
+        },
+        "end": {
+          "pt": "Dezembro de 2016",
+          "en": "December 2016"
+        }
+      },
+      "description": {
+        "pt": "Desenvolvimento de aplicativos web e móveis, com foco em programação, design, banco de dados, marketing digital e empreendedorismo.",
+        "en": "Development of web and mobile applications, with a focus on programming, design, databases, digital marketing, and entrepreneurship."
+      }
+    },
+    {
+      "id": 3,
+      "title": {
+        "pt": "Gestão da Informação",
+        "en": "Information Management"
+      },
+      "institution": {
+        "pt": "Fatec Jundiaí - Faculdade de Tecnologia - Deputado Ary Fossen",
+        "en": "Fatec Jundiaí - Faculty of Technology - Deputy Ary Fossen"
+      },
+      "period": {
+        "start": {
+          "pt": "Janeiro de 2010",
+          "en": "January 2010"
+        },
+        "end": {
+          "pt": "Dezembro de 2012",
+          "en": "December 2012"
+        }
+      },
+      "description": {
+        "pt": "Gestão dos recursos de infraestrutura e sistemas informatizados, com ênfase em administração de banco de dados, níveis de serviço, e a utilização estratégica dos sistemas de informação nas organizações.",
+        "en": "Management of infrastructure resources and computerized systems, with an emphasis on database administration, service levels, and the strategic use of information systems in organizations."
+      }
+    }
+  ]
+}
