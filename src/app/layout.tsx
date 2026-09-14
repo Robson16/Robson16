@@ -5,6 +5,8 @@ import { Viewport } from 'next'
 import { Roboto } from 'next/font/google'
 import { ReactNode } from 'react'
 
+import { env } from '@/app/env'
+
 import { Providers } from './providers'
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'] })
@@ -22,14 +24,13 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html suppressHydrationWarning data-scroll-behavior="smooth">
-      <head />
+    <html lang="pt-BR" suppressHydrationWarning data-scroll-behavior="smooth">
+      <GoogleTagManager gtmId={env.GOOGLE_TAG_ID} />
       <body className={roboto.className} suppressHydrationWarning>
         <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
           {children}
         </Providers>
       </body>
-      <GoogleTagManager gtmId={process.env.GOOGLE_TAG_ID || ''} />
     </html>
   )
 }
