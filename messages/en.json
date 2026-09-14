@@ -9,6 +9,12 @@
     "description": "Sorry, the page you are looking for does not exist.",
     "backHome": "Back to home"
   },
+  "Login": {
+    "title": "Restricted Area",
+    "subtitle": "Exclusive access for portfolio administration.",
+    "buttonText": "Sign in with GitHub",
+    "warning": "Unauthorized access attempts will be blocked."
+  },
   "Header": {
     "home": "Home",
     "about": "About",

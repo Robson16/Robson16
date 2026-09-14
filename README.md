@@ -29,9 +29,3 @@
   <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
 </p>
-
-### GitHub Activity & Consistency 📊
-
-<p align="center">
-  <img src="https://github-readme-streak-stats.vercel.app?user=Robson16&theme=react&hide_border=true&background=18181b" alt="GitHub Streak" />
-</p>
