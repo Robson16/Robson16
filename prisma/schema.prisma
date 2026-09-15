@@ -52,3 +52,114 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Project {
+  id        String   @id @default(uuid())
+  image     String   @db.Text
+  tier      Int      @default(3)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  translations ProjectTranslation[]
+
+  skills      ProjectSkill[]
+  experiences ExperienceProject[]
+  links       ProjectLink[]
+}
+
+model ProjectTranslation {
+  id        String @id @default(uuid())
+  projectId String
+  locale    String
+
+  title       String
+  description String  @db.Text
+  challenge   String? @db.Text
+  solution    String? @db.Text
+  impact      String? @db.Text
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, locale])
+}
+
+model ProjectLink {
+  id        String @id @default(uuid())
+  projectId String
+  type      String
+  url       String @db.Text
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+}
+
+model Skill {
+  id        String   @id @default(uuid())
+  icon      String?
+  category  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  translations SkillTranslation[]
+
+  projects ProjectSkill[]
+}
+
+model SkillTranslation {
+  id      String @id @default(uuid())
+  skillId String
+  locale  String
+
+  name String
+
+  skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([skillId, locale])
+}
+
+model Experience {
+  id        String    @id @default(uuid())
+  company   String
+  startDate DateTime
+  endDate   DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  translations ExperienceTranslation[]
+
+  projects ExperienceProject[]
+}
+
+model ExperienceTranslation {
+  id           String @id @default(uuid())
+  experienceId String
+  locale       String
+
+  role        String
+  description String @db.Text
+
+  experience Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+
+  @@unique([experienceId, locale])
+}
+
+model ProjectSkill {
+  projectId String
+  skillId   String
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  skill   Skill   @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@id([projectId, skillId])
+}
+
+model ExperienceProject {
+  experienceId String
+  projectId    String
+
+  experience Experience @relation(fields: [experienceId], references: [id], onDelete: Cascade)
+  project    Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@id([experienceId, projectId])
+}
