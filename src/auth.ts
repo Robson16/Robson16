@@ -7,11 +7,11 @@ import { env } from '@/app/env'
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
-  secret: env.NEXTAUTH_SECRET,
+  secret: env.NEXT_AUTH_SECRET,
   providers: [
     GithubProvider({
-      clientId: env.NEXTAUTH_GITHUB_ID,
-      clientSecret: env.NEXTAUTH_GITHUB_SECRET,
+      clientId: env.NEXT_AUTH_GITHUB_ID,
+      clientSecret: env.NEXT_AUTH_GITHUB_SECRET,
       allowDangerousEmailAccountLinking: true,
     }),
   ],
