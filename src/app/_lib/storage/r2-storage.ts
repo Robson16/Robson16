@@ -10,7 +10,7 @@ import { env } from '@/app/env'
 
 // S3 Client singleton instance
 const s3Client = new S3Client({
-  region: 'auto', // R2 requires 'auto', MinIO ignores this.
+  region: 'us-east-1',
   endpoint: env.CLOUDFLARE_ENDPOINT,
   credentials: {
     accessKeyId: env.CLOUDFLARE_ACCESS_KEY_ID,
