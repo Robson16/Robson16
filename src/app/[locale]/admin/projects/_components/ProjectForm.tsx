@@ -5,35 +5,91 @@ import { useState, useTransition } from 'react'
 import { createProjectAction } from '@/app/_actions/project.actions'
 import { uploadImageAction } from '@/app/_actions/upload-image.action'
 
-export default function ProjectForm() {
+interface Language {
+  code: string
+  name: string
+  isDefault: boolean
+}
+
+interface Item {
+  id: string
+  name?: string
+  company?: string
+}
+
+interface ProjectFormProps {
+  languages: Language[]
+  skills: Item[]
+  experiences: Item[]
+}
+
+export default function ProjectForm({
+  languages,
+  skills,
+  experiences,
+}: ProjectFormProps) {
   const [isPending, startTransition] = useTransition()
   const [message, setMessage] = useState('')
+  const [activeTab, setActiveTab] = useState(languages[0]?.code || 'pt')
+
+  const [translations, setTranslations] = useState<
+    Record<string, { title: string; description: string }>
+  >({})
+
+  const handleTranslationChange = (
+    locale: string,
+    field: 'title' | 'description',
+    value: string,
+  ) => {
+    setTranslations((prev) => ({
+      ...prev,
+      [locale]: {
+        ...prev[locale],
+        [field]: value,
+      },
+    }))
+  }
 
   async function handleFormSubmit(formData: FormData) {
     startTransition(async () => {
-      setMessage('Uploading the image...')
+      setMessage('Uploading images...')
 
-      // 1. Upload the image to MinIO/R2
-      const uploadResult = await uploadImageAction(formData)
+      const files = formData.getAll('files') as File[]
+      const imageUrls: string[] = []
 
-      if (!uploadResult.success || !uploadResult.url) {
-        setMessage(uploadResult.error || 'Upload error')
-        return
+      for (const file of files) {
+        if (file.size === 0) continue
+
+        const fileData = new FormData()
+
+        fileData.append('file', file)
+
+        const uploadResult = await uploadImageAction(fileData)
+
+        if (uploadResult.success && uploadResult.url) {
+          imageUrls.push(uploadResult.url)
+        } else {
+          setMessage(`Error uploading ${file.name}: ${uploadResult.error}`)
+          return
+        }
       }
 
       setMessage('Saving to the database...')
 
-      // 2. Extract data from the form
+      const formattedTranslations = languages.map((lang) => ({
+        locale: lang.code,
+        title: translations[lang.code]?.title || '',
+        description: translations[lang.code]?.description || '',
+      }))
+
       const data = {
-        titlePt: formData.get('titlePt') as string,
-        titleEn: formData.get('titleEn') as string,
-        descriptionPt: formData.get('descriptionPt') as string,
-        descriptionEn: formData.get('descriptionEn') as string,
         tier: Number(formData.get('tier')),
-        imageUrl: uploadResult.url,
+        gallery: imageUrls,
+        translations: formattedTranslations,
+        skillIds: formData.getAll('skills') as string[],
+        experienceId: (formData.get('experience') as string) || undefined,
       }
 
-      // 3. Save to PostgreSQL via Server Action
       const dbResult = await createProjectAction(data)
 
       if (dbResult.success) {
@@ -47,80 +103,139 @@ export default function ProjectForm() {
   return (
     <form
       action={handleFormSubmit}
-      className="flex w-full max-w-2xl flex-col gap-6 rounded-lg bg-zinc-800 p-8 shadow-2xl"
+      className="flex w-full max-w-3xl flex-col gap-6 rounded-lg bg-zinc-800 p-8 shadow-2xl"
     >
       <h2 className="mb-2 text-2xl font-medium text-zinc-100">New Project</h2>
 
       <div className="flex flex-col gap-2">
-        <label className="text-zinc-300">Featured Image</label>
+        <label className="text-zinc-300">
+          Images (You can select multiple)
+        </label>
         <input
           type="file"
-          name="file"
+          name="files"
           accept="image/*"
+          multiple
           required
           disabled={isPending}
           className="w-full cursor-pointer rounded border border-zinc-700 bg-zinc-900 px-4 py-2 text-zinc-300 file:mr-4 file:rounded file:border-0 file:bg-emerald-800 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <div className="flex flex-col gap-2">
-          <label className="text-zinc-300">Title (PT)</label>
-          <input
-            type="text"
-            name="titlePt"
-            required
-            disabled={isPending}
-            className="w-full rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-          />
+      {/* TABS DE IDIOMAS */}
+      <div className="mt-4 flex flex-col gap-4">
+        <div className="flex gap-2 border-b border-zinc-700 pb-2">
+          {languages.map((lang) => (
+            <button
+              key={lang.code}
+              type="button"
+              onClick={() => setActiveTab(lang.code)}
+              className={`rounded px-4 py-2 transition-colors ${
+                activeTab === lang.code
+                  ? 'bg-emerald-800 text-white'
+                  : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-700'
+              }`}
+            >
+              {lang.name}
+            </button>
+          ))}
         </div>
-        <div className="flex flex-col gap-2">
-          <label className="text-zinc-300">Title (EN)</label>
-          <input
-            type="text"
-            name="titleEn"
-            required
-            disabled={isPending}
-            className="w-full rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-          />
-        </div>
+
+        {languages.map((lang) => (
+          <div
+            key={lang.code}
+            className={`flex flex-col gap-4 ${
+              activeTab === lang.code ? 'block' : 'hidden'
+            }`}
+          >
+            <div className="flex flex-col gap-2">
+              <label className="text-zinc-300">
+                Title ({lang.code.toUpperCase()})
+              </label>
+              <input
+                type="text"
+                required={lang.isDefault}
+                value={translations[lang.code]?.title || ''}
+                onChange={(e) =>
+                  handleTranslationChange(lang.code, 'title', e.target.value)
+                }
+                disabled={isPending}
+                className="w-full rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-zinc-300">
+                Description ({lang.code.toUpperCase()})
+              </label>
+              <textarea
+                required={lang.isDefault}
+                rows={4}
+                value={translations[lang.code]?.description || ''}
+                onChange={(e) =>
+                  handleTranslationChange(
+                    lang.code,
+                    'description',
+                    e.target.value,
+                  )
+                }
+                disabled={isPending}
+                className="w-full resize-none rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+              />
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div className="flex flex-col gap-2">
-          <label className="text-zinc-300">Description (PT)</label>
-          <textarea
-            name="descriptionPt"
-            required
-            rows={4}
+          <label className="text-zinc-300">Related Experience</label>
+          <select
+            name="experience"
             disabled={isPending}
-            className="w-full resize-none rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-          />
+            className="w-full rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <option value="">Personal / Freelance (None)</option>
+            {experiences.map((exp) => (
+              <option key={exp.id} value={exp.id}>
+                {exp.company}
+              </option>
+            ))}
+          </select>
         </div>
+
         <div className="flex flex-col gap-2">
-          <label className="text-zinc-300">Description (EN)</label>
-          <textarea
-            name="descriptionEn"
-            required
-            rows={4}
+          <label className="text-zinc-300">Level of Distinction (Tier)</label>
+          <select
+            name="tier"
             disabled={isPending}
-            className="w-full resize-none rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-          />
+            className="w-full rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            <option value="1">1 - Top Highlight</option>
+            <option value="2">2 - Normal Highlight</option>
+            <option value="3">3 - Archive</option>
+          </select>
         </div>
       </div>
 
       <div className="flex flex-col gap-2">
-        <label className="text-zinc-300">Level of Distinction (Tier)</label>
-        <select
-          name="tier"
-          disabled={isPending}
-          defaultValue={2}
-          className="w-full rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          <option value="1">1 - Top Highlight</option>
-          <option value="2">2 - Normal Highlight</option>
-          <option value="3">3 - Archive</option>
-        </select>
+        <label className="text-zinc-300">Skills & Technologies</label>
+        <div className="grid max-h-48 grid-cols-2 gap-2 overflow-y-auto rounded border border-zinc-700 bg-zinc-900 p-4 md:grid-cols-3">
+          {skills.map((skill) => (
+            <label
+              key={skill.id}
+              className="flex items-center gap-2 text-sm text-zinc-300"
+            >
+              <input
+                type="checkbox"
+                name="skills"
+                value={skill.id}
+                disabled={isPending}
+                className="accent-emerald-600"
+              />
+              {skill.name}
+            </label>
+          ))}
+        </div>
       </div>
 
       <button

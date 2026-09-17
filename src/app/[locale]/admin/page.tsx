@@ -1,30 +1,21 @@
-import { redirect } from 'next/navigation'
-
-import { env } from '@/app/env'
-import { getAuthSession } from '@/auth'
-
-import ProjectForm from './projects/_components/ProjectForm'
-
-interface AdminPageProps {
-  params: Promise<{ locale: string }>
-}
-
-export default async function AdminPage({ params }: AdminPageProps) {
-  const { locale } = await params
-  const session = await getAuthSession()
-
-  if (!session || session.user?.email !== env.ALLOWED_EMAIL) {
-    redirect(`/${locale}/login`)
-  }
-
+export default function AdminDashboardPage() {
   return (
-    <main className="p-8">
-      <h1 className="text-2xl font-bold">Painel Administrativo do Portfólio</h1>
-      <p>Bem-vindo, {session.user?.name}!</p>
-
-      <div className="container mx-auto flex min-h-screen items-center justify-center p-4">
-        <ProjectForm />
+    <div>
+      <h2 className="mb-6 text-3xl font-bold text-zinc-100">Dashboard</h2>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="rounded border border-zinc-800 bg-zinc-900 p-6 shadow">
+          <h3 className="text-zinc-400">Total Projects</h3>
+          <p className="mt-2 text-4xl font-bold text-emerald-500">--</p>
+        </div>
+        <div className="rounded border border-zinc-800 bg-zinc-900 p-6 shadow">
+          <h3 className="text-zinc-400">Active Skills</h3>
+          <p className="mt-2 text-4xl font-bold text-emerald-500">--</p>
+        </div>
+        <div className="rounded border border-zinc-800 bg-zinc-900 p-6 shadow">
+          <h3 className="text-zinc-400">Languages</h3>
+          <p className="mt-2 text-4xl font-bold text-emerald-500">--</p>
+        </div>
       </div>
-    </main>
+    </div>
   )
 }

@@ -4,35 +4,43 @@ import { revalidatePath } from 'next/cache'
 
 import { db } from '@/app/_lib/prisma'
 
+interface TranslationInput {
+  locale: string
+  title: string
+  description: string
+}
+
 interface CreateProjectInput {
-  titlePt: string
-  titleEn: string
-  descriptionPt: string
-  descriptionEn: string
-  imageUrl: string
   tier: number
+  gallery: string[]
+  translations: TranslationInput[]
+  skillIds: string[]
+  experienceId?: string
 }
 
 export async function createProjectAction(data: CreateProjectInput) {
   try {
     await db.project.create({
       data: {
-        image: data.imageUrl,
         tier: data.tier,
-        translations: {
-          create: [
-            {
-              locale: 'pt',
-              title: data.titlePt,
-              description: data.descriptionPt,
-            },
-            {
-              locale: 'en',
-              title: data.titleEn,
-              description: data.descriptionEn,
-            },
-          ],
+        gallery: {
+          create: data.gallery.map((url, index) => ({ url, order: index })),
         },
+        translations: {
+          create: data.translations.map((t) => ({
+            locale: t.locale,
+            title: t.title,
+            description: t.description,
+          })),
+        },
+        skills: {
+          create: data.skillIds.map((id) => ({ skillId: id })),
+        },
+        experiences: data.experienceId
+          ? {
+              create: [{ experienceId: data.experienceId }],
+            }
+          : undefined,
       },
     })
 

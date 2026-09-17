@@ -6,50 +6,23 @@ import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '@prisma/client'
 import pg from 'pg'
 
-// 1. Lemos a string de conexão do .env
 const connectionString = process.env.DATABASE_URL
-
-// 2. Inicializamos o Pool do Postgres e o Adapter do Prisma
 const pool = new pg.Pool({ connectionString })
 const adapter = new PrismaPg(pool)
-
-// 3. Instanciamos o Prisma Client usando o adapter (igualzinho ao seu app!)
 const prisma = new PrismaClient({ adapter })
 
-// Configuração para ler caminhos absolutos em ES Modules
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const rootDir = path.resolve(__dirname, '..')
 
-// Lendo os JSONs
-const experiencesData = JSON.parse(
-  fs.readFileSync(
-    path.join(rootDir, 'src/app/_data/experiences.json'),
-    'utf-8',
-  ),
-)
-const projectsData = JSON.parse(
-  fs.readFileSync(path.join(rootDir, 'src/app/_data/projects.json'), 'utf-8'),
-)
-const skillsData = JSON.parse(
-  fs.readFileSync(path.join(rootDir, 'src/app/_data/skills.json'), 'utf-8'),
-)
+const experiencesData = JSON.parse(fs.readFileSync(path.join(rootDir, 'src/app/_data/experiences.json'), 'utf-8'))
+const projectsData = JSON.parse(fs.readFileSync(path.join(rootDir, 'src/app/_data/projects.json'), 'utf-8'))
+const skillsData = JSON.parse(fs.readFileSync(path.join(rootDir, 'src/app/_data/skills.json'), 'utf-8'))
 
-// Função auxiliar para converter datas
 function parseDatePt(dateString) {
   const months = {
-    janeiro: 0,
-    fevereiro: 1,
-    março: 2,
-    abril: 3,
-    maio: 4,
-    junho: 5,
-    julho: 6,
-    agosto: 7,
-    setembro: 8,
-    outubro: 9,
-    novembro: 10,
-    dezembro: 11,
+    janeiro: 0, fevereiro: 1, março: 2, abril: 3, maio: 4, junho: 5,
+    julho: 6, agosto: 7, setembro: 8, outubro: 9, novembro: 10, dezembro: 11,
   }
   const parts = dateString.toLowerCase().split(' de ')
   if (parts.length === 2) {
@@ -61,16 +34,32 @@ function parseDatePt(dateString) {
 }
 
 async function main() {
-  console.log('🌱 Iniciando o Seeding i18n do banco de dados (JS Puro)...')
+  console.log('🌱 Iniciando o Seeding V2 (Múltiplas Imagens e Idiomas Dinâmicos)...')
 
+  // 1. Limpeza em ordem reversa para não quebrar chaves estrangeiras
+  await prisma.projectImage.deleteMany()
   await prisma.experienceProject.deleteMany()
   await prisma.projectSkill.deleteMany()
+  await prisma.projectTranslation.deleteMany()
+  await prisma.experienceTranslation.deleteMany()
+  await prisma.skillTranslation.deleteMany()
   await prisma.project.deleteMany()
   await prisma.experience.deleteMany()
   await prisma.skill.deleteMany()
+  await prisma.language.deleteMany()
+
+  // 2. Criar Idiomas (O segredo para a migração funcionar!)
+  console.log('🗣️ Inserindo Idiomas Base...')
+  await prisma.language.createMany({
+    data: [
+      { code: 'pt', name: 'Português', isDefault: true },
+      { code: 'en', name: 'English', isDefault: false },
+    ]
+  })
 
   const skillMap = new Map()
 
+  console.log('🛠️ Inserindo Skills...')
   for (const skill of skillsData.technical) {
     const created = await prisma.skill.create({
       data: {
@@ -101,6 +90,7 @@ async function main() {
     skillMap.set(skill.name.pt, created.id)
   }
 
+  console.log('💼 Inserindo Experiências...')
   for (const exp of experiencesData.experiences) {
     await prisma.experience.create({
       data: {
@@ -125,6 +115,7 @@ async function main() {
     })
   }
 
+  console.log('🚀 Inserindo Projetos e construindo a Galeria...')
   for (const proj of projectsData.projects) {
     const links = []
     if (proj.url) {
@@ -139,31 +130,29 @@ async function main() {
 
     const createdProject = await prisma.project.create({
       data: {
-        image: proj.featuredImage.src,
         tier: proj.featured ? 1 : 3,
+        // O campo antigo 'image' saiu, agora criamos a relação com a nova tabela!
+        gallery: {
+          create: [
+            { url: proj.featuredImage.src, order: 0 }
+          ]
+        },
         links: {
           create: links,
         },
         translations: {
           create: [
-            {
-              locale: 'pt',
-              title: proj.heading.pt,
-              description: proj.description.pt,
-            },
-            {
-              locale: 'en',
-              title: proj.heading.en,
-              description: proj.description.en,
-            },
+            { locale: 'pt', title: proj.heading.pt, description: proj.description.pt },
+            { locale: 'en', title: proj.heading.en, description: proj.description.en },
           ],
         },
       },
     })
 
+    // Associações de Skills
     for (const techName of proj.technologies) {
       let skillId = skillMap.get(techName)
-
+      
       if (!skillId) {
         const newSkill = await prisma.skill.create({
           data: {
@@ -189,7 +178,7 @@ async function main() {
     }
   }
 
-  console.log('✅ Seeding i18n finalizado com sucesso!')
+  console.log('✅ Seeding V2 finalizado com sucesso!')
 }
 
 main()
