@@ -1,15 +1,29 @@
+import { randomUUID } from 'node:crypto' // Para gerar o ID único da imagem
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import { PutObjectCommand,S3Client } from '@aws-sdk/client-s3' // Import do S3
 import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '@prisma/client'
 import pg from 'pg'
 
+// Configurações do Banco
 const connectionString = process.env.DATABASE_URL
 const pool = new pg.Pool({ connectionString })
 const adapter = new PrismaPg(pool)
 const prisma = new PrismaClient({ adapter })
+
+// Configuração do MinIO/R2 no Seed
+const s3Client = new S3Client({
+  region: 'us-east-1',
+  endpoint: process.env.CLOUDFLARE_ENDPOINT,
+  credentials: {
+    accessKeyId: process.env.CLOUDFLARE_ACCESS_KEY_ID,
+    secretAccessKey: process.env.CLOUDFLARE_SECRET_ACCESS_KEY,
+  },
+  forcePathStyle: true,
+})
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -33,10 +47,47 @@ function parseDatePt(dateString) {
   return new Date()
 }
 
-async function main() {
-  console.log('🌱 Iniciando o Seeding V2 (Múltiplas Imagens e Idiomas Dinâmicos)...')
+// Função auxiliar para fazer o upload da imagem local para o MinIO
+async function uploadImageToStorage(localPath) {
+  try {
+    // Ex: transforma "/images/projects/babydufy.jpg" no caminho real da sua máquina
+    const fullPath = path.join(rootDir, 'public', localPath)
+    
+    if (!fs.existsSync(fullPath)) {
+      console.warn(`⚠️ Imagem não encontrada localmente: ${fullPath}`)
+      return localPath // Retorna o caminho estático como fallback
+    }
 
-  // 1. Limpeza em ordem reversa para não quebrar chaves estrangeiras
+    const fileBuffer = fs.readFileSync(fullPath)
+    const fileName = path.basename(localPath)
+    
+    // Mesma lógica de higienização do nosso StorageService
+    const sanitizedName = fileName.replace(/[^a-zA-Z0-9.-]/g, '-')
+    const uniqueFileName = `${randomUUID()}-${sanitizedName}`
+    
+    const ext = path.extname(fileName).toLowerCase()
+    const mimeType = ext === '.png' ? 'image/png' : 'image/jpeg'
+
+    const command = new PutObjectCommand({
+      Bucket: process.env.CLOUDFLARE_BUCKET_NAME,
+      Key: uniqueFileName,
+      Body: fileBuffer,
+      ContentType: mimeType,
+    })
+
+    await s3Client.send(command)
+    console.log(`🖼️ Upload concluído: ${fileName} -> MinIO`)
+    
+    return `${process.env.CLOUDFLARE_PUBLIC_URL}/${uniqueFileName}`
+  } catch (error) {
+    console.error('❌ Erro no upload para o MinIO:', error)
+    return localPath
+  }
+}
+
+async function main() {
+  console.log('🌱 Iniciando o Seeding V3 (Upload de Imagens para o MinIO)...')
+
   await prisma.projectImage.deleteMany()
   await prisma.experienceProject.deleteMany()
   await prisma.projectSkill.deleteMany()
@@ -48,7 +99,6 @@ async function main() {
   await prisma.skill.deleteMany()
   await prisma.language.deleteMany()
 
-  // 2. Criar Idiomas (O segredo para a migração funcionar!)
   console.log('🗣️ Inserindo Idiomas Base...')
   await prisma.language.createMany({
     data: [
@@ -128,13 +178,15 @@ async function main() {
       })
     }
 
+    // 🔥 O PULO DO GATO: Faz o upload da imagem antes de salvar no banco!
+    const finalImageUrl = await uploadImageToStorage(proj.featuredImage.src)
+
     const createdProject = await prisma.project.create({
       data: {
         tier: proj.featured ? 1 : 3,
-        // O campo antigo 'image' saiu, agora criamos a relação com a nova tabela!
         gallery: {
           create: [
-            { url: proj.featuredImage.src, order: 0 }
+            { url: finalImageUrl, order: 0 }
           ]
         },
         links: {
@@ -178,7 +230,7 @@ async function main() {
     }
   }
 
-  console.log('✅ Seeding V2 finalizado com sucesso!')
+  console.log('✅ Seeding V3 finalizado com sucesso!')
 }
 
 main()

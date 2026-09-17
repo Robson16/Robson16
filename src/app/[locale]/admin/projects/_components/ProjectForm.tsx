@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from 'react'
 
-import { createProjectAction } from '@/app/_actions/project.actions'
+import { createProjectAction } from '@/app/_actions/create-project.actions'
 import { uploadImageAction } from '@/app/_actions/upload-image.action'
 
 interface Language {

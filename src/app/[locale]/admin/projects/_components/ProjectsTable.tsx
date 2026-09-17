@@ -2,6 +2,9 @@
 
 import Image from 'next/image'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useState, useTransition } from 'react'
+
+import { deleteProjectAction } from '@/app/_actions/delete-project.action'
 
 interface ProjectData {
   id: string
@@ -47,7 +50,7 @@ function SortableHeader({
     <th scope="col" className="px-6 py-4">
       <button
         onClick={() => router.push(createSortUrl(column))}
-        className="group flex items-center gap-2 font-semibold hover:text-white"
+        className="group flex cursor-pointer items-center gap-2 font-semibold hover:text-white"
       >
         {label}
         <span
@@ -68,6 +71,9 @@ export default function ProjectsTable({
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
+  const [isPending, startTransition] = useTransition()
+  const [deletingId, setDeletingId] = useState<string | null>(null)
+
   const createSortUrl = (columnName: string) => {
     const params = new URLSearchParams(searchParams)
 
@@ -79,6 +85,28 @@ export default function ProjectsTable({
     }
 
     return `${pathname}?${params.toString()}`
+  }
+
+  const handleDelete = (id: string) => {
+    if (
+      !window.confirm(
+        'Are you sure you want to delete this project? This action cannot be undone.',
+      )
+    ) {
+      return
+    }
+
+    setDeletingId(id)
+
+    startTransition(async () => {
+      const result = await deleteProjectAction(id)
+
+      if (!result.success) {
+        alert(result.error)
+      }
+
+      setDeletingId(null)
+    })
   }
 
   return (
@@ -178,11 +206,22 @@ export default function ProjectsTable({
                 </td>
                 <td className="px-6 py-4 text-right">
                   <div className="flex justify-end gap-3">
-                    <button className="text-zinc-400 transition-colors hover:text-blue-400">
+                    <button
+                      disabled={isPending}
+                      className="cursor-pointer text-zinc-400 transition-colors hover:text-blue-400"
+                    >
                       Edit
                     </button>
-                    <button className="text-zinc-400 transition-colors hover:text-red-400">
-                      Delete
+                    <button
+                      onClick={() => handleDelete(project.id)}
+                      disabled={isPending}
+                      className={`cursor-pointer font-medium transition-colors ${
+                        deletingId === project.id
+                          ? 'cursor-not-allowed text-red-500 opacity-50'
+                          : 'text-zinc-400 hover:text-red-400'
+                      }`}
+                    >
+                      {deletingId === project.id ? 'Deleting...' : 'Delete'}
                     </button>
                   </div>
                 </td>
