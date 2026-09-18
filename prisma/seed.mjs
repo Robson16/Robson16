@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-import { PutObjectCommand,S3Client } from '@aws-sdk/client-s3' // Import do S3
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3' // Import do S3
 import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '@prisma/client'
 import pg from 'pg'
@@ -29,14 +29,33 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const rootDir = path.resolve(__dirname, '..')
 
-const experiencesData = JSON.parse(fs.readFileSync(path.join(rootDir, 'src/app/_data/experiences.json'), 'utf-8'))
-const projectsData = JSON.parse(fs.readFileSync(path.join(rootDir, 'src/app/_data/projects.json'), 'utf-8'))
-const skillsData = JSON.parse(fs.readFileSync(path.join(rootDir, 'src/app/_data/skills.json'), 'utf-8'))
+const experiencesData = JSON.parse(
+  fs.readFileSync(
+    path.join(rootDir, 'src/app/_data/experiences.json'),
+    'utf-8',
+  ),
+)
+const projectsData = JSON.parse(
+  fs.readFileSync(path.join(rootDir, 'src/app/_data/projects.json'), 'utf-8'),
+)
+const skillsData = JSON.parse(
+  fs.readFileSync(path.join(rootDir, 'src/app/_data/skills.json'), 'utf-8'),
+)
 
 function parseDatePt(dateString) {
   const months = {
-    janeiro: 0, fevereiro: 1, março: 2, abril: 3, maio: 4, junho: 5,
-    julho: 6, agosto: 7, setembro: 8, outubro: 9, novembro: 10, dezembro: 11,
+    janeiro: 0,
+    fevereiro: 1,
+    março: 2,
+    abril: 3,
+    maio: 4,
+    junho: 5,
+    julho: 6,
+    agosto: 7,
+    setembro: 8,
+    outubro: 9,
+    novembro: 10,
+    dezembro: 11,
   }
   const parts = dateString.toLowerCase().split(' de ')
   if (parts.length === 2) {
@@ -52,7 +71,7 @@ async function uploadImageToStorage(localPath) {
   try {
     // Ex: transforma "/images/projects/babydufy.jpg" no caminho real da sua máquina
     const fullPath = path.join(rootDir, 'public', localPath)
-    
+
     if (!fs.existsSync(fullPath)) {
       console.warn(`⚠️ Imagem não encontrada localmente: ${fullPath}`)
       return localPath // Retorna o caminho estático como fallback
@@ -60,11 +79,11 @@ async function uploadImageToStorage(localPath) {
 
     const fileBuffer = fs.readFileSync(fullPath)
     const fileName = path.basename(localPath)
-    
+
     // Mesma lógica de higienização do nosso StorageService
     const sanitizedName = fileName.replace(/[^a-zA-Z0-9.-]/g, '-')
     const uniqueFileName = `${randomUUID()}-${sanitizedName}`
-    
+
     const ext = path.extname(fileName).toLowerCase()
     const mimeType = ext === '.png' ? 'image/png' : 'image/jpeg'
 
@@ -77,7 +96,7 @@ async function uploadImageToStorage(localPath) {
 
     await s3Client.send(command)
     console.log(`🖼️ Upload concluído: ${fileName} -> MinIO`)
-    
+
     return `${process.env.CLOUDFLARE_PUBLIC_URL}/${uniqueFileName}`
   } catch (error) {
     console.error('❌ Erro no upload para o MinIO:', error)
@@ -104,7 +123,7 @@ async function main() {
     data: [
       { code: 'pt', name: 'Português', isDefault: true },
       { code: 'en', name: 'English', isDefault: false },
-    ]
+    ],
   })
 
   const skillMap = new Map()
@@ -185,17 +204,23 @@ async function main() {
       data: {
         tier: proj.featured ? 1 : 3,
         gallery: {
-          create: [
-            { url: finalImageUrl, order: 0 }
-          ]
+          create: [{ url: finalImageUrl, order: 0 }],
         },
         links: {
           create: links,
         },
         translations: {
           create: [
-            { locale: 'pt', title: proj.heading.pt, description: proj.description.pt },
-            { locale: 'en', title: proj.heading.en, description: proj.description.en },
+            {
+              locale: 'pt',
+              title: proj.heading.pt,
+              description: proj.description.pt,
+            },
+            {
+              locale: 'en',
+              title: proj.heading.en,
+              description: proj.description.en,
+            },
           ],
         },
       },
@@ -204,7 +229,7 @@ async function main() {
     // Associações de Skills
     for (const techName of proj.technologies) {
       let skillId = skillMap.get(techName)
-      
+
       if (!skillId) {
         const newSkill = await prisma.skill.create({
           data: {

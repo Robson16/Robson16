@@ -1,8 +1,10 @@
 'use client'
 
+import { Prisma } from '@prisma/client'
 import { useState, useTransition } from 'react'
 
-import { createProjectAction } from '@/app/_actions/create-project.actions'
+import { createProjectAction } from '@/app/_actions/create-project.action'
+import { updateProjectAction } from '@/app/_actions/update-project.action'
 import { uploadImageAction } from '@/app/_actions/upload-image.action'
 
 interface Language {
@@ -17,24 +19,55 @@ interface Item {
   company?: string
 }
 
+export type ProjectWithRelations = Prisma.ProjectGetPayload<{
+  include: {
+    translations: true
+    gallery: true
+    skills: true
+    links: true
+    experiences: true
+  }
+}>
+
 interface ProjectFormProps {
   languages: Language[]
   skills: Item[]
   experiences: Item[]
+  initialData?: ProjectWithRelations
 }
 
 export default function ProjectForm({
   languages,
   skills,
   experiences,
+  initialData,
 }: ProjectFormProps) {
   const [isPending, startTransition] = useTransition()
   const [message, setMessage] = useState('')
   const [activeTab, setActiveTab] = useState(languages[0]?.code || 'pt')
 
-  const [translations, setTranslations] = useState<
-    Record<string, { title: string; description: string }>
-  >({})
+  const initialTranslations =
+    initialData?.translations?.reduce(
+      (
+        acc: Record<string, { title: string; description: string }>,
+        translation,
+      ) => {
+        acc[translation.locale] = {
+          title: translation.title,
+          description: translation.description,
+        }
+
+        return acc
+      },
+      {},
+    ) || {}
+
+  const [translations, setTranslations] =
+    useState<Record<string, { title: string; description: string }>>(
+      initialTranslations,
+    )
+
+  const isEditing = !!initialData
 
   const handleTranslationChange = (
     locale: string,
@@ -52,25 +85,27 @@ export default function ProjectForm({
 
   async function handleFormSubmit(formData: FormData) {
     startTransition(async () => {
-      setMessage('Uploading images...')
+      setMessage(isEditing ? 'Updating project...' : 'Uploading images...')
 
       const files = formData.getAll('files') as File[]
       const imageUrls: string[] = []
 
-      for (const file of files) {
-        if (file.size === 0) continue
+      const hasNewFiles = files.length > 0 && files[0].size > 0
 
-        const fileData = new FormData()
+      if (hasNewFiles) {
+        for (const file of files) {
+          const fileData = new FormData()
 
-        fileData.append('file', file)
+          fileData.append('file', file)
 
-        const uploadResult = await uploadImageAction(fileData)
+          const uploadResult = await uploadImageAction(fileData)
 
-        if (uploadResult.success && uploadResult.url) {
-          imageUrls.push(uploadResult.url)
-        } else {
-          setMessage(`Error uploading ${file.name}: ${uploadResult.error}`)
-          return
+          if (uploadResult.success && uploadResult.url) {
+            imageUrls.push(uploadResult.url)
+          } else {
+            setMessage(`Error uploading ${file.name}: ${uploadResult.error}`)
+            return
+          }
         }
       }
 
@@ -84,16 +119,25 @@ export default function ProjectForm({
 
       const data = {
         tier: Number(formData.get('tier')),
-        gallery: imageUrls,
+        gallery: hasNewFiles ? imageUrls : undefined,
         translations: formattedTranslations,
         skillIds: formData.getAll('skills') as string[],
         experienceId: (formData.get('experience') as string) || undefined,
       }
 
-      const dbResult = await createProjectAction(data)
+      let dbResult
+      if (isEditing) {
+        dbResult = await updateProjectAction(initialData.id, data)
+      } else {
+        dbResult = await createProjectAction(data)
+      }
 
       if (dbResult.success) {
-        setMessage('Project successfully created!')
+        setMessage(
+          isEditing
+            ? 'Project successfully updated!'
+            : 'Project successfully created!',
+        )
       } else {
         setMessage(dbResult.error || 'Error saving project')
       }
@@ -105,18 +149,20 @@ export default function ProjectForm({
       action={handleFormSubmit}
       className="flex w-full max-w-3xl flex-col gap-6 rounded-lg bg-zinc-800 p-8 shadow-2xl"
     >
-      <h2 className="mb-2 text-2xl font-medium text-zinc-100">New Project</h2>
+      <h2 className="mb-2 text-2xl font-medium text-zinc-100">
+        {isEditing ? 'Edit Project' : 'New Project'}
+      </h2>
 
       <div className="flex flex-col gap-2">
         <label className="text-zinc-300">
-          Images (You can select multiple)
+          Images {isEditing && '(Leave empty to keep current images)'}
         </label>
         <input
           type="file"
           name="files"
           accept="image/*"
           multiple
-          required
+          required={!isEditing}
           disabled={isPending}
           className="w-full cursor-pointer rounded border border-zinc-700 bg-zinc-900 px-4 py-2 text-zinc-300 file:mr-4 file:rounded file:border-0 file:bg-emerald-800 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
         />
@@ -191,6 +237,7 @@ export default function ProjectForm({
           <label className="text-zinc-300">Related Experience</label>
           <select
             name="experience"
+            defaultValue={initialData?.experiences?.[0]?.experienceId || ''}
             disabled={isPending}
             className="w-full rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           >
@@ -207,6 +254,7 @@ export default function ProjectForm({
           <label className="text-zinc-300">Level of Distinction (Tier)</label>
           <select
             name="tier"
+            defaultValue={initialData?.tier || '3'}
             disabled={isPending}
             className="w-full rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           >
@@ -220,21 +268,28 @@ export default function ProjectForm({
       <div className="flex flex-col gap-2">
         <label className="text-zinc-300">Skills & Technologies</label>
         <div className="grid max-h-48 grid-cols-2 gap-2 overflow-y-auto rounded border border-zinc-700 bg-zinc-900 p-4 md:grid-cols-3">
-          {skills.map((skill) => (
-            <label
-              key={skill.id}
-              className="flex items-center gap-2 text-sm text-zinc-300"
-            >
-              <input
-                type="checkbox"
-                name="skills"
-                value={skill.id}
-                disabled={isPending}
-                className="accent-emerald-600"
-              />
-              {skill.name}
-            </label>
-          ))}
+          {skills.map((skill) => {
+            // Verifica se a skill já estava associada ao projeto
+            const isChecked = initialData?.skills?.some(
+              (s) => s.skillId === skill.id,
+            )
+            return (
+              <label
+                key={skill.id}
+                className="flex items-center gap-2 text-sm text-zinc-300"
+              >
+                <input
+                  type="checkbox"
+                  name="skills"
+                  value={skill.id}
+                  defaultChecked={isChecked}
+                  disabled={isPending}
+                  className="accent-emerald-600"
+                />
+                {skill.name}
+              </label>
+            )
+          })}
         </div>
       </div>
 
@@ -243,7 +298,11 @@ export default function ProjectForm({
         disabled={isPending}
         className="mt-4 w-full rounded-full bg-emerald-800 py-4 font-bold text-white transition-all hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {isPending ? 'Processing...' : 'Register Project'}
+        {isPending
+          ? 'Processing...'
+          : isEditing
+            ? 'Save Changes'
+            : 'Register Project'}
       </button>
 
       {message && (

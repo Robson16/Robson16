@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useState, useTransition } from 'react'
 
 import { deleteProjectAction } from '@/app/_actions/delete-project.action'
+import { Link } from '@/app/_i18n/navigation'
 
 interface ProjectData {
   id: string
@@ -206,12 +207,16 @@ export default function ProjectsTable({
                 </td>
                 <td className="px-6 py-4 text-right">
                   <div className="flex justify-end gap-3">
-                    <button
-                      disabled={isPending}
-                      className="cursor-pointer text-zinc-400 transition-colors hover:text-blue-400"
+                    <Link
+                      href={`/admin/projects/${project.id}/edit`}
+                      className={`font-medium transition-colors hover:text-blue-400 ${
+                        isPending
+                          ? 'pointer-events-none opacity-50'
+                          : 'text-zinc-400'
+                      }`}
                     >
                       Edit
-                    </button>
+                    </Link>
                     <button
                       onClick={() => handleDelete(project.id)}
                       disabled={isPending}

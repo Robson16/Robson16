@@ -12,7 +12,7 @@ interface TranslationInput {
 
 interface CreateProjectInput {
   tier: number
-  gallery: string[]
+  gallery?: string[]
   translations: TranslationInput[]
   skillIds: string[]
   experienceId?: string
@@ -24,7 +24,10 @@ export async function createProjectAction(data: CreateProjectInput) {
       data: {
         tier: data.tier,
         gallery: {
-          create: data.gallery.map((url, index) => ({ url, order: index })),
+          create: (data.gallery || []).map((url, index) => ({
+            url,
+            order: index,
+          })),
         },
         translations: {
           create: data.translations.map((t) => ({
