@@ -6,6 +6,7 @@ import { useState, useTransition } from 'react'
 
 import { deleteProjectAction } from '@/app/_actions/delete-project.action'
 import { Link } from '@/app/_i18n/navigation'
+import { formatDate } from '@/app/_utils/format-date'
 
 interface ProjectData {
   id: string
@@ -21,14 +22,7 @@ interface ProjectsTableProps {
   projects: ProjectData[]
   currentSort: string
   currentDir: string
-}
-
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat('en-GB', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-  }).format(new Date(date))
+  currentLocale: string
 }
 
 function SortableHeader({
@@ -68,6 +62,7 @@ export default function ProjectsTable({
   projects,
   currentSort,
   currentDir,
+  currentLocale,
 }: ProjectsTableProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -200,10 +195,10 @@ export default function ProjectsTable({
                 </td>
                 <td className="px-6 py-4">{project.skillsCount} tech(s)</td>
                 <td className="px-6 py-4 text-zinc-400">
-                  {formatDate(project.createdAt)}
+                  {formatDate(project.createdAt, currentLocale)}
                 </td>
                 <td className="px-6 py-4 text-zinc-400">
-                  {formatDate(project.updatedAt)}
+                  {formatDate(project.updatedAt, currentLocale)}
                 </td>
                 <td className="px-6 py-4 text-right">
                   <div className="flex justify-end gap-3">

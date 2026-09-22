@@ -32,6 +32,23 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               Add New
             </Link>
           </div>
+          <div className="flex flex-col gap-2">
+            <span className="text-sm font-semibold text-zinc-500 uppercase">
+              Experiences
+            </span>
+            <Link
+              href="/admin/experiences"
+              className="ml-4 rounded p-2 text-sm transition-colors hover:bg-zinc-800"
+            >
+              List All
+            </Link>
+            <Link
+              href="/admin/experiences/new"
+              className="ml-4 rounded p-2 text-sm transition-colors hover:bg-zinc-800"
+            >
+              Add New
+            </Link>
+          </div>
           {/* Futuros links: Experiences, Skills, etc */}
         </nav>
       </aside>

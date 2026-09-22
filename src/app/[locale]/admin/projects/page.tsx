@@ -1,5 +1,4 @@
-import Link from 'next/link'
-
+import { Link } from '@/app/_i18n/navigation'
 import { db } from '@/app/_lib/prisma'
 
 import ProjectsTable from './_components/ProjectsTable'
