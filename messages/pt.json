@@ -9,6 +9,12 @@
     "description": "Desculpe, a página que você está procurando não existe.",
     "backHome": "Voltar para a página inicial"
   },
+  "Login": {
+    "title": "Área Restrita",
+    "subtitle": "Acesso exclusivo para administração do portfólio.",
+    "buttonText": "Entrar com GitHub",
+    "warning": "Tentativas de acesso não autorizadas são bloqueadas."
+  },
   "Header": {
     "home": "Início",
     "about": "Sobre",

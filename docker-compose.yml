@@ -1,0 +1,30 @@
+services:
+  postgres:
+    container_name: portfolio-pg
+    image: postgres:15
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: portfolio
+      PGDATA: /data/postgres
+    volumes:
+      - ./data/pg:/data/postgres
+      - ./scripts/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql
+
+  minio:
+    image: quay.io/minio/minio:latest
+    container_name: portfolio-r2-local
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    environment:
+      MINIO_ROOT_USER: 'admin'
+      MINIO_ROOT_PASSWORD: 'password123'
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+
+volumes:
+  minio_data:
