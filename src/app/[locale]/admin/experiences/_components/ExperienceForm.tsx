@@ -51,8 +51,6 @@ export default function ExperienceForm({
       initialTranslations,
     )
 
-  const isEditing = !!initialData
-
   const handleTranslationChange = (
     locale: string,
     field: 'role' | 'description',
@@ -66,6 +64,8 @@ export default function ExperienceForm({
       },
     }))
   }
+
+  const isEditing = !!initialData
 
   async function handleFormSubmit(formData: FormData) {
     startTransition(async () => {
