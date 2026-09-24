@@ -4,6 +4,7 @@ import { db } from '@/app/_lib/prisma'
 import ProjectsTable from './_components/ProjectsTable'
 
 interface ProjectsListPageProps {
+  params: Promise<{ locale: string }>
   searchParams: Promise<{
     sort?: string
     dir?: string
@@ -11,11 +12,14 @@ interface ProjectsListPageProps {
 }
 
 export default async function ProjectsListPage({
+  params,
   searchParams,
 }: ProjectsListPageProps) {
-  const params = await searchParams
-  const sortBy = params.sort || 'tier'
-  const sortDir = params.dir === 'desc' ? 'desc' : 'asc'
+  const { locale } = await params
+  const resolvedSearchParams = await searchParams
+
+  const sortBy = resolvedSearchParams.sort || 'tier'
+  const sortDir = resolvedSearchParams.dir === 'desc' ? 'desc' : 'asc'
 
   const rawProjects = await db.project.findMany({
     include: {
@@ -24,7 +28,7 @@ export default async function ProjectsListPage({
         take: 1,
       },
       translations: {
-        where: { locale: 'pt' },
+        where: { locale },
       },
       skills: true,
     },
@@ -76,6 +80,7 @@ export default async function ProjectsListPage({
         projects={formattedProjects}
         currentSort={sortBy}
         currentDir={sortDir}
+        currentLocale={locale}
       />
     </div>
   )
