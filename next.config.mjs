@@ -2,6 +2,18 @@ import createNextIntlPlugin from 'next-intl/plugin'
 
 const withNextIntl = createNextIntlPlugin('./src/app/_i18n/request.ts')
 
+let r2Hostname = ''
+if (process.env.CLOUDFLARE_PUBLIC_URL) {
+  try {
+    r2Hostname = new URL(process.env.CLOUDFLARE_PUBLIC_URL).hostname
+  } catch (error) {
+    console.warn(
+      'The variable CLOUDFLARE_PUBLIC_URL is invalid or missing. Please check your environment variables: ',
+      error,
+    )
+  }
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -22,6 +34,15 @@ const nextConfig = {
       },
     ],
   },
+}
+
+if (r2Hostname) {
+  nextConfig.images.remotePatterns.push({
+    protocol: 'https',
+    hostname: r2Hostname,
+    port: '',
+    pathname: '/**',
+  })
 }
 
 export default withNextIntl(nextConfig)

@@ -20,7 +20,7 @@
     "dev": "next dev",
     "dev:migrate": "prisma migrate dev",
     "dev:studio": "prisma studio",
-    "build": "next build",
+    "build": "prisma migrate deploy && next build",
     "start": "next start",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
