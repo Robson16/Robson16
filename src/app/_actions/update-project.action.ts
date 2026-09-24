@@ -5,15 +5,23 @@ import { revalidatePath } from 'next/cache'
 import { db } from '@/app/_lib/prisma'
 import { StorageService } from '@/app/_lib/storage/r2-storage'
 
+interface TranslationInput {
+  locale: string
+  title: string
+  description: string
+}
+
+interface LinkInput {
+  type: string
+  url: string
+}
+
 interface UpdateProjectInput {
   tier: number
   gallery?: string[]
-  translations: {
-    locale: string
-    title: string
-    description: string
-  }[]
+  translations: TranslationInput[]
   skillIds: string[]
+  links?: LinkInput[]
   experienceId?: string
 }
 
@@ -80,6 +88,15 @@ export async function updateProjectAction(
           },
           create: data.skillIds.map((skillId) => ({
             skillId,
+          })),
+        },
+        links: {
+          deleteMany: {
+            projectId,
+          },
+          create: (data.links || []).map((link) => ({
+            type: link.type,
+            url: link.url,
           })),
         },
         experiences: {

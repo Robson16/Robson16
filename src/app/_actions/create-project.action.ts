@@ -10,11 +10,17 @@ interface TranslationInput {
   description: string
 }
 
+interface LinkInput {
+  type: string
+  url: string
+}
+
 interface CreateProjectInput {
   tier: number
   gallery?: string[]
   translations: TranslationInput[]
   skillIds: string[]
+  links?: LinkInput[]
   experienceId?: string
 }
 
@@ -38,6 +44,12 @@ export async function createProjectAction(data: CreateProjectInput) {
         },
         skills: {
           create: data.skillIds.map((id) => ({ skillId: id })),
+        },
+        links: {
+          create: (data.links || []).map((link) => ({
+            type: link.type,
+            url: link.url,
+          })),
         },
         experiences: data.experienceId
           ? {

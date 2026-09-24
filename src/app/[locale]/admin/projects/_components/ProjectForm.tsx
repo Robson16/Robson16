@@ -45,6 +45,28 @@ export default function ProjectForm({
   const [isPending, startTransition] = useTransition()
   const [message, setMessage] = useState('')
   const [activeTab, setActiveTab] = useState(languages[0]?.code || 'pt')
+  const [links, setLinks] = useState<{ type: string; url: string }[]>(
+    initialData?.links?.map((link) => ({ type: link.type, url: link.url })) ||
+      [],
+  )
+
+  const handleAddLink = () => {
+    setLinks([...links, { type: 'github', url: '' }])
+  }
+
+  const handleRemoveLink = (index: number) => {
+    setLinks(links.filter((_, i) => i !== index))
+  }
+
+  const handleLinkChange = (
+    index: number,
+    field: 'type' | 'url',
+    value: string,
+  ) => {
+    const newLinks = [...links]
+    newLinks[index][field] = value
+    setLinks(newLinks)
+  }
 
   const initialTranslations =
     initialData?.translations?.reduce(
@@ -123,6 +145,7 @@ export default function ProjectForm({
         translations: formattedTranslations,
         skillIds: formData.getAll('skills') as string[],
         experienceId: (formData.get('experience') as string) || undefined,
+        links,
       }
 
       let dbResult
@@ -291,6 +314,67 @@ export default function ProjectForm({
             )
           })}
         </div>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center justify-between">
+          <label className="text-zinc-300">External Links</label>
+          <button
+            type="button"
+            onClick={handleAddLink}
+            disabled={isPending}
+            className="text-sm font-medium text-emerald-500 hover:text-emerald-400 focus:outline-none"
+          >
+            + Add Link
+          </button>
+        </div>
+
+        {links.length === 0 && (
+          <p className="text-sm text-zinc-500 italic">
+            No external links added.
+          </p>
+        )}
+
+        {links.map((link, index) => (
+          <div
+            key={index}
+            className="flex flex-col items-start gap-2 rounded border border-zinc-700/50 bg-zinc-900/50 p-3 sm:flex-row sm:items-center"
+          >
+            <select
+              value={link.type}
+              onChange={(e) => handleLinkChange(index, 'type', e.target.value)}
+              disabled={isPending}
+              className="w-full rounded border border-zinc-700 bg-zinc-900 p-2 text-sm text-zinc-100 transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 sm:w-1/3"
+            >
+              <option value="github">GitHub</option>
+              <option value="gitlab">GitLab</option>
+              <option value="website">Live Preview</option>
+              <option value="figma">Figma</option>
+              <option value="youtube">YouTube</option>
+              <option value="other">Other</option>
+            </select>
+
+            <input
+              type="url"
+              placeholder="https://..."
+              value={link.url}
+              onChange={(e) => handleLinkChange(index, 'url', e.target.value)}
+              disabled={isPending}
+              required
+              className="w-full rounded border border-zinc-700 bg-zinc-900 p-2 text-sm text-zinc-100 transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 sm:w-2/3"
+            />
+
+            <button
+              type="button"
+              onClick={() => handleRemoveLink(index)}
+              disabled={isPending}
+              className="p-2 text-red-500 hover:text-red-400 focus:outline-none disabled:opacity-50"
+              title="Remove link"
+            >
+              ✕
+            </button>
+          </div>
+        ))}
       </div>
 
       <button
