@@ -20,14 +20,14 @@ const envSchema = z.object({
   ALLOWED_EMAIL: z.string().email({
     message: 'ALLOWED_EMAIL não pode estar vazio.',
   }),
-  NEXT_AUTH_SECRET: z.string().min(1, {
-    message: 'NEXT_AUTH_SECRET não pode estar vazio.',
+  NEXTAUTH_SECRET: z.string().min(1, {
+    message: 'NEXTAUTH_SECRET não pode estar vazio.',
   }),
-  NEXT_AUTH_GITHUB_ID: z.string().min(1, {
-    message: 'NEXT_AUTH_GITHUB_ID não pode estar vazio.',
+  NEXTAUTH_GITHUB_ID: z.string().min(1, {
+    message: 'NEXTAUTH_GITHUB_ID não pode estar vazio.',
   }),
-  NEXT_AUTH_GITHUB_SECRET: z.string().min(1, {
-    message: 'NEXT_AUTH_GITHUB_SECRET não pode estar vazio.',
+  NEXTAUTH_GITHUB_SECRET: z.string().min(1, {
+    message: 'NEXTAUTH_GITHUB_SECRET não pode estar vazio.',
   }),
 
   // Cloudflare R2 / MinIO
@@ -62,9 +62,9 @@ export const env = envSchema.parse({
   NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   GOOGLE_TAG_ID: process.env.GOOGLE_TAG_ID,
   ALLOWED_EMAIL: process.env.ALLOWED_EMAIL,
-  NEXT_AUTH_SECRET: process.env.NEXT_AUTH_SECRET,
-  NEXT_AUTH_GITHUB_ID: process.env.NEXT_AUTH_GITHUB_ID,
-  NEXT_AUTH_GITHUB_SECRET: process.env.NEXT_AUTH_GITHUB_SECRET,
+  NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+  NEXTAUTH_GITHUB_ID: process.env.NEXTAUTH_GITHUB_ID,
+  NEXTAUTH_GITHUB_SECRET: process.env.NEXTAUTH_GITHUB_SECRET,
   CLOUDFLARE_ENDPOINT: process.env.CLOUDFLARE_ENDPOINT,
   CLOUDFLARE_ACCESS_KEY_ID: process.env.CLOUDFLARE_ACCESS_KEY_ID,
   CLOUDFLARE_SECRET_ACCESS_KEY: process.env.CLOUDFLARE_SECRET_ACCESS_KEY,

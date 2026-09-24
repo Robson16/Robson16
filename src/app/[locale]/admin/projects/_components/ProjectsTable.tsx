@@ -168,6 +168,7 @@ export default function ProjectsTable({
                           alt={project.title}
                           fill
                           className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       ) : (
                         <div className="flex size-full items-center justify-center text-xs text-zinc-500">
