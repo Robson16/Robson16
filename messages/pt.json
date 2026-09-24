@@ -18,8 +18,6 @@
   "Header": {
     "home": "Início",
     "about": "Sobre",
-    "skills": "Habilidades",
-    "experience": "Experiência",
     "portfolio": "Portfólio",
     "contact": "Contato",
     "languageSelector": "Mudar idioma"
@@ -40,17 +38,7 @@
     "title": "O que faço"
   },
   "FeaturedProjects": {
-    "title": "Projetos em Destaque",
-    "visitProject": "Visitar Projeto"
-  },
-  "Skills": {
-    "technicalTitle": "Habilidades Técnicas",
-    "professionalTitle": "Habilidades Profissionais"
-  },
-  "Experience": {
-    "academicTitle": "Formação Acadêmica",
-    "professionalTitle": "Experiência Profissional",
-    "preposition": "em"
+    "title": "Projetos em Destaque"
   },
   "Portfolio": {
     "title": "Portfólio",

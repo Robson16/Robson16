@@ -20,7 +20,7 @@ export default async function Home({ params }: PageProps) {
         <HeroSection />
         <AboutSection locale={locale} />
         <FeaturesSection />
-        <FeaturedProjectsSection />
+        <FeaturedProjectsSection locale={locale} />
         <PortfolioSection />
         <ContactSection />
       </main>

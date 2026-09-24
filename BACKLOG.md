@@ -42,13 +42,13 @@
 
 ### Story 2.1: Reestruturação da Base de Projetos  
 
-- [ ] Implementar sistema de "Tiers" (níveis de destaque) no JSON.  
+- [x] Implementar sistema de "Tiers" (níveis de destaque) no JSON.  
 - [ ] Limpar e reorganizar projetos antigos em uma visualização secundária (Grid/Tabela de Arquivo).
 
 ### Story 2.2: Refatoração de Habilidades e Experiências
 
 - [x] Remover o sistema de barras de porcentagem/progresso das tecnologias.
-- [ ] Vincular as tecnologias (Skills) diretamente aos Projetos em que foram utilizadas.
+- [x] Vincular as tecnologias (Skills) diretamente aos Projetos em que foram utilizadas.
 - [ ] Atualizar experiences para cruzar dados e exibir os projetos entregues durante a atuação em cada empresa (ex: Agência B&B).
 
 ---

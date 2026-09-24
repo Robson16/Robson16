@@ -18,8 +18,6 @@
   "Header": {
     "home": "Home",
     "about": "About",
-    "skills": "Skills",
-    "experience": "Experiences",
     "portfolio": "Portfolio",
     "contact": "Contact",
     "languageSelector": "Change language"
@@ -40,17 +38,7 @@
     "title": "What I do"
   },
   "FeaturedProjects": {
-    "title": "Featured Projects",
-    "visitProject": "Visit Project"
-  },
-  "Skills": {
-    "technicalTitle": "Technical Skills",
-    "professionalTitle": "Professional Skills"
-  },
-  "Experience": {
-    "academicTitle": "Academic Background",
-    "professionalTitle": "Professional Experience",
-    "preposition": "in"
+    "title": "Featured Projects"
   },
   "Portfolio": {
     "title": "Portfolio",
