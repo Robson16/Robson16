@@ -6,23 +6,17 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useLocale, useTranslations } from 'next-intl'
 import { AiFillGithub, AiFillGitlab } from 'react-icons/ai'
-import { ImGit } from 'react-icons/im'
 import { PiMagnifyingGlassBold } from 'react-icons/pi'
 import { useMediaQuery } from 'react-responsive'
 
-import { Project } from '@/app/_types/Project'
+import { PortfolioProject } from '../PortfolioSection'
 
-type PortfolioThumbProps = { project: Project }
+type PortfolioThumbProps = { project: PortfolioProject }
 
 const getPlatformIcon = (platform: string) => {
-  switch (platform) {
-    case 'GitHub':
-      return <AiFillGithub size={25} />
-    case 'GitLab':
-      return <AiFillGitlab size={25} />
-    default:
-      return <ImGit size={25} />
-  }
+  const p = platform.toLowerCase()
+  if (p.includes('github')) return <AiFillGithub size={25} />
+  if (p.includes('gitlab')) return <AiFillGitlab size={25} />
 }
 
 export default function PortfolioThumb({ project }: PortfolioThumbProps) {
@@ -30,25 +24,27 @@ export default function PortfolioThumb({ project }: PortfolioThumbProps) {
   const t = useTranslations('Portfolio')
   const locale = useLocale()
 
-  const { featuredImage, heading } = project
+  const featuredImage = project.gallery?.[0]?.url || '/images/placeholder.jpg'
+  const translation =
+    project.translations.find((t) => t.locale === locale) ||
+    project.translations[0]
+
+  if (!translation) return null
 
   return (
     <Modal>
       <Modal.Trigger
         className={clsx(
-          'group relative cursor-pointer border-none bg-transparent p-0 text-left outline-none',
+          'group relative block h-70 w-full cursor-pointer border-none bg-transparent p-0 text-left outline-none',
           'focus-visible:rounded-lg focus-visible:ring-4 focus-visible:ring-teal-600',
         )}
       >
         <Image
-          src={featuredImage.src}
-          alt={
-            featuredImage.title[locale as keyof typeof featuredImage.title] ||
-            featuredImage.title.pt
-          }
+          src={featuredImage}
+          alt={translation.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
           className="rounded-lg shadow-xl transition"
-          width={featuredImage.width}
-          height={featuredImage.height}
         />
         <div
           className={clsx(
@@ -58,8 +54,8 @@ export default function PortfolioThumb({ project }: PortfolioThumbProps) {
           )}
         >
           <PiMagnifyingGlassBold size={30} className="mb-4" />
-          <h4 className="mb-2 text-xl font-bold">
-            {heading[locale as keyof typeof heading] || heading.pt}
+          <h4 className="mb-2 px-4 text-center text-xl font-bold uppercase">
+            {translation.title}
           </h4>
           <span className="text-sm tracking-wide uppercase">
             {t('seeMore')}
@@ -86,89 +82,60 @@ export default function PortfolioThumb({ project }: PortfolioThumbProps) {
   )
 }
 
-function ModalContentBody({ project }: { project: Project }) {
-  const t = useTranslations('Portfolio')
+function ModalContentBody({ project }: { project: PortfolioProject }) {
   const locale = useLocale()
+  const featuredImage = project.gallery?.[0]?.url || '/images/placeholder.jpg'
+  const translation =
+    project.translations.find((t) => t.locale === locale) ||
+    project.translations[0]
 
-  const {
-    featuredImage,
-    category,
-    heading,
-    subheading,
-    description,
-    technologies,
-    url,
-    urlLabel,
-    repositories,
-  } = project
+  if (!translation) return null
 
   return (
     <div className="flex w-full flex-col gap-8 bg-zinc-900 lg:flex-row">
-      <div className="flex-1">
+      <div className="relative min-h-75 flex-1 lg:min-h-100">
         <Image
-          src={featuredImage.src}
-          alt={heading[locale as keyof typeof heading] || heading.pt}
-          width={featuredImage.width}
-          height={featuredImage.height}
-          className="rounded-lg"
+          src={featuredImage}
+          alt={translation.title}
+          fill
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          className="rounded-lg object-cover"
         />
       </div>
-      <div className="flex flex-1 flex-col items-center lg:items-start">
-        <span className="mb-2 text-xl font-bold text-emerald-400 uppercase">
-          {category[locale as keyof typeof category] || category.pt}
-        </span>
-        <h4 className="mb-2 text-3xl font-bold uppercase">
-          {heading[locale as keyof typeof heading] || heading.pt}
+
+      <div className="flex max-h-[60vh] flex-1 flex-col items-center overflow-y-auto pr-2 lg:items-start">
+        <h4 className="mb-2 text-center text-3xl font-bold uppercase lg:text-left">
+          {translation.title}
         </h4>
-        <h5 className="mb-4 uppercase">
-          {subheading[locale as keyof typeof subheading] || subheading.pt}
-        </h5>
-        <p className="mb-8 text-center lg:text-left">
-          {description[locale as keyof typeof description] || description.pt}
+        <p className="mb-8 text-center text-zinc-300 lg:text-left">
+          {translation.description}
         </p>
-        {technologies.length > 0 && (
-          <ul className="mb-8 flex flex-wrap justify-center gap-4 lg:justify-start">
-            {technologies.map((tech) => (
-              <li
-                key={tech}
-                className="rounded border border-solid border-teal-600 px-3 py-1"
-              >
-                {tech}
-              </li>
-            ))}
+
+        {project.skills && project.skills.length > 0 && (
+          <ul className="mb-8 flex flex-wrap justify-center gap-2 lg:justify-start">
+            {project.skills.map((ps) => {
+              const skillName =
+                ps.skill.translations.find((t) => t.locale === locale)?.name ||
+                ps.skill.translations[0]?.name ||
+                'Unknown'
+              return (
+                <li
+                  key={ps.skillId}
+                  className="rounded border border-solid border-teal-600 bg-teal-900/20 px-3 py-1 text-sm text-teal-400"
+                >
+                  {skillName}
+                </li>
+              )
+            })}
           </ul>
         )}
-        <ul className="flex flex-col flex-wrap gap-4 md:flex-row">
-          {url && (
-            <li>
-              <Link
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={
-                  urlLabel?.[locale as keyof typeof urlLabel] ||
-                  urlLabel?.pt ||
-                  t('seeWebsite')
-                }
-                className={clsx(
-                  'flex items-center gap-2 rounded-full px-8 py-3 text-base font-bold capitalize',
-                  'bg-emerald-800 text-white transition-all',
-                  'hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none',
-                )}
-              >
-                {urlLabel?.[locale as keyof typeof urlLabel] ||
-                  urlLabel?.pt ||
-                  t('seeWebsite')}
-              </Link>
-            </li>
-          )}
 
-          {repositories &&
-            repositories.length > 0 &&
-            repositories.map((repo) => (
-              <li key={repo.url}>
+        {project.links && project.links.length > 0 && (
+          <ul className="flex w-full flex-col flex-wrap justify-center gap-4 md:flex-row lg:justify-start">
+            {project.links.map((link) => (
+              <li key={link.id}>
                 <Link
-                  href={repo.url}
+                  href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={clsx(
@@ -177,15 +144,13 @@ function ModalContentBody({ project }: { project: Project }) {
                     'hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none',
                   )}
                 >
-                  {getPlatformIcon(repo.platform)}
-                  <span>
-                    {repo.type[locale as keyof typeof repo.type] ||
-                      repo.type.pt}
-                  </span>
+                  {getPlatformIcon(link.type)}
+                  <span>{link.type}</span>
                 </Link>
               </li>
             ))}
-        </ul>
+          </ul>
+        )}
       </div>
     </div>
   )

@@ -5,6 +5,7 @@ import FeaturesSection from '@/app/_components/FeaturesSection'
 import Header from '@/app/_components/Header'
 import HeroSection from '@/app/_components/HeroSection'
 import PortfolioSection from '@/app/_components/PortfolioSection'
+import { db } from '@/app/_lib/prisma'
 
 interface PageProps {
   params: Promise<{ locale: string }>
@@ -12,6 +13,37 @@ interface PageProps {
 
 export default async function Home({ params }: PageProps) {
   const { locale } = await params
+
+  const portfolioProjects = await db.project.findMany({
+    where: {
+      tier: {
+        in: [2, 3],
+      },
+    },
+    include: {
+      translations: { where: { locale } },
+      gallery: {
+        orderBy: { order: 'asc' },
+      },
+      skills: {
+        include: {
+          skill: {
+            include: {
+              translations: {
+                where: {
+                  locale,
+                },
+              },
+            },
+          },
+        },
+      },
+      links: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  })
 
   return (
     <>
@@ -21,7 +53,7 @@ export default async function Home({ params }: PageProps) {
         <AboutSection locale={locale} />
         <FeaturesSection />
         <FeaturedProjectsSection locale={locale} />
-        <PortfolioSection />
+        <PortfolioSection projects={portfolioProjects} />
         <ContactSection />
       </main>
     </>
