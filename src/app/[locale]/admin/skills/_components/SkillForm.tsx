@@ -5,6 +5,7 @@ import { useState, useTransition } from 'react'
 
 import { createSkillAction } from '@/app/_actions/create-skill.action'
 import { updateSkillAction } from '@/app/_actions/update-skill.action'
+import { Link } from '@/app/_i18n/navigation'
 
 interface Language {
   code: string
@@ -88,9 +89,17 @@ export default function SkillForm({ languages, initialData }: SkillFormProps) {
       action={handleFormSubmit}
       className="flex w-full max-w-2xl flex-col gap-6 rounded-lg bg-zinc-800 p-8 shadow-2xl"
     >
-      <h2 className="text-2xl font-medium text-zinc-100">
-        {isEditing ? 'Edit Skill' : 'New Skill'}
-      </h2>
+      <div className="flex items-center justify-between border-b border-zinc-700 pb-4">
+        <h2 className="text-2xl font-medium text-zinc-100">
+          {isEditing ? 'Edit Skill' : 'New Skill'}
+        </h2>
+        <Link
+          href="/admin/skills"
+          className="rounded-full bg-zinc-700 px-4 py-2 text-sm font-medium text-zinc-300 transition-colors hover:bg-zinc-600 hover:text-white"
+        >
+          ← Back to List
+        </Link>
+      </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="flex flex-col gap-2">

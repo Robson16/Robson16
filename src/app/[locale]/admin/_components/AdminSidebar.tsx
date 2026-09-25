@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { AiOutlineHome } from 'react-icons/ai'
 // Importando os ícones do react-icons
 import {
   LuBriefcase,
@@ -93,6 +94,14 @@ export default function AdminSidebar() {
         </div>
 
         <nav className="flex flex-col gap-4">
+          <Link
+            href="/"
+            onClick={closeMobileMenu}
+            className="flex items-center gap-3 rounded p-2 font-medium text-zinc-300 transition-colors hover:bg-zinc-800 hover:text-white"
+          >
+            <AiOutlineHome className="text-emerald-500" size={18} />
+            To site
+          </Link>
           <Link
             href="/admin"
             onClick={closeMobileMenu}

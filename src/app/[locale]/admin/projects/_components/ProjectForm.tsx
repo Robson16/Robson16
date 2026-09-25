@@ -6,6 +6,7 @@ import { useState, useTransition } from 'react'
 import { createProjectAction } from '@/app/_actions/create-project.action'
 import { updateProjectAction } from '@/app/_actions/update-project.action'
 import { uploadImageAction } from '@/app/_actions/upload-image.action'
+import { Link } from '@/app/_i18n/navigation'
 
 interface Language {
   code: string
@@ -172,9 +173,17 @@ export default function ProjectForm({
       action={handleFormSubmit}
       className="flex w-full max-w-3xl flex-col gap-6 rounded-lg bg-zinc-800 p-8 shadow-2xl"
     >
-      <h2 className="mb-2 text-2xl font-medium text-zinc-100">
-        {isEditing ? 'Edit Project' : 'New Project'}
-      </h2>
+      <div className="flex items-center justify-between border-b border-zinc-700 pb-4">
+        <h2 className="mb-2 text-2xl font-medium text-zinc-100">
+          {isEditing ? 'Edit Project' : 'New Project'}
+        </h2>
+        <Link
+          href="/admin/projects"
+          className="rounded-full bg-zinc-700 px-4 py-2 text-sm font-medium text-zinc-300 transition-colors hover:bg-zinc-600 hover:text-white"
+        >
+          ← Back to List
+        </Link>
+      </div>
 
       <div className="flex flex-col gap-2">
         <label className="text-zinc-300">
