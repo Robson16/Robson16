@@ -1,14 +1,43 @@
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { FaDownload } from 'react-icons/fa'
 
-import skillsData from '@/app/_data/skills.json'
+import { db } from '@/app/_lib/prisma'
 
-export default function AboutSection() {
-  const { technical } = skillsData
-  const t = useTranslations('About')
+interface AboutSectionProps {
+  locale: string
+}
+
+export default async function AboutSection({ locale }: AboutSectionProps) {
+  const t = await getTranslations('About')
+
+  const skillsData = await db.skill.findMany({
+    take: 7,
+    include: {
+      translations: {
+        where: {
+          locale,
+        },
+      },
+      _count: {
+        select: {
+          projects: true,
+        },
+      },
+    },
+    orderBy: {
+      projects: {
+        _count: 'desc',
+      },
+    },
+  })
+
+  const topSkills = skillsData.map((skill) => ({
+    id: skill.id,
+    name: skill.translations[0]?.name || 'Unknown',
+  }))
 
   return (
     <section id="about" aria-labelledby="about-title">
@@ -32,16 +61,18 @@ export default function AboutSection() {
             <p className="mb-8 text-center leading-7 xl:text-left">
               {t('description')}
             </p>
+
             <ul className="mb-8 flex max-w-sm flex-wrap justify-center gap-4 xl:justify-start">
-              {technical.slice(0, 8).map((skill) => (
+              {topSkills.map((skill) => (
                 <li
                   key={skill.id}
-                  className="rounded border border-solid border-teal-600 px-3 py-1"
+                  className="rounded border border-solid border-teal-600 px-3 py-1 text-sm transition-colors hover:bg-teal-900/20"
                 >
                   {skill.name}
                 </li>
               ))}
             </ul>
+
             <Link
               href="/documents/robson-h-rodrigues-cv.pdf"
               download="robson-h-rodrigues-cv.pdf"

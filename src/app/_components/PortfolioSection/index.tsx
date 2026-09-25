@@ -1,16 +1,36 @@
 'use client'
 
 import { Button } from '@heroui/react'
+import { Prisma } from '@prisma/client'
 import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
 import PortfolioThumb from '@/app/_components/PortfolioThumb'
-import projectsData from '@/app/_data/projects.json'
 import useMasonry from '@/app/_hooks/useMasonry'
-import { Project } from '@/app/_types/Project'
 
-export default function PortfolioSection() {
+export type PortfolioProject = Prisma.ProjectGetPayload<{
+  include: {
+    translations: true
+    gallery: true
+    skills: {
+      include: {
+        skill: {
+          include: {
+            translations: true
+          }
+        }
+      }
+    }
+    links: true
+  }
+}>
+
+interface PortfolioSectionProps {
+  projects: PortfolioProject[]
+}
+
+export default function PortfolioSection({ projects }: PortfolioSectionProps) {
   const [visibleProjects, setVisibleProjects] = useState(6)
   const masonryContainer = useMasonry()
   const t = useTranslations('Portfolio')
@@ -18,8 +38,6 @@ export default function PortfolioSection() {
   const loadMoreProjects = () => {
     setVisibleProjects((prevVisible) => prevVisible + 6)
   }
-
-  const projects = projectsData.projects as Project[]
 
   return (
     <section id="portfolio" aria-labelledby="portfolio-title">
@@ -42,7 +60,7 @@ export default function PortfolioSection() {
                 <PortfolioThumb project={project} key={project.id} />
               ))
           ) : (
-            <p className="col-span-full text-center text-gray-500">
+            <p className="col-span-full text-center text-zinc-500">
               {t('noProjects')}
             </p>
           )}

@@ -20,8 +20,6 @@ export default function Header() {
       const sections = [
         { id: 'home', offset: 0 },
         { id: 'about', offset: 200 },
-        { id: 'skills', offset: 200 },
-        { id: 'experience', offset: 200 },
         { id: 'portfolio', offset: 200 },
         { id: 'contact', offset: 200 },
       ]
@@ -72,8 +70,6 @@ export default function Header() {
               {[
                 { label: t('home'), href: 'home' },
                 { label: t('about'), href: 'about' },
-                { label: t('skills'), href: 'skills' },
-                { label: t('experience'), href: 'experience' },
                 { label: t('portfolio'), href: 'portfolio' },
                 { label: t('contact'), href: 'contact' },
               ].map(({ label, href }) => (

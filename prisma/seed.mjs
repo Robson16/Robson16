@@ -188,7 +188,7 @@ async function main() {
   for (const proj of projectsData.projects) {
     const links = []
     if (proj.url) {
-      links.push({ type: 'LIVE_DEMO', url: proj.url })
+      links.push({ type: 'Website', url: proj.url })
     }
     for (const repo of proj.repositories) {
       links.push({
