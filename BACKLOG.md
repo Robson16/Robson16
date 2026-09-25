@@ -52,22 +52,31 @@
 
 ---
 
-## Epic 3: Desenvolvimento de Features Visuais e Integrações (APIs Externas)
+## Epic 3: Perfil Dinâmico, Integrações e Estudos de Caso
 
-### Story 3.1: Mosaico de Contribuições (Hero Section)
+### Story 3.1: Modelagem e Administração do Perfil (Settings/Profile)
+
+- [x] Criar o model `Profile` no Prisma (nome, email, telefone, localização, bio).
+- [x] Criar o model relacional `SocialLink` (GitHub, LinkedIn, GitLab).
+- [x] Criar o model `Education` no Prisma (curso, instituição, datas, descrição) com suporte a traduções.
+- [-] Criar as tabelas no painel administrativo (`/admin/profile` e `/admin/education`) para gerenciar esses dados sem tocar em JSON.
+- [ ] Refatorar a `AboutSection`, `ContactSection`, `Header` e `Footer` para consumirem os dados globais do banco de dados.
+
+### Story 3.2: Mosaico de Contribuições (Hero Section)
 
 - [ ] Instalar e configurar a biblioteca `react-activity-calendar`.
 - [ ] Desenvolver serviço de fetch para consumir a API GraphQL do GitHub (`contributionsCollection`).
 - [ ] Desenvolver serviço de fetch para consumir a API de Eventos do GitLab.
 - [ ] Criar função utilitária para mesclar e somar as arrays de contribuições (GitHub + GitLab) por data e renderizar no gráfico customizado.
 
-### Story 3.2: Páginas Internas de Detalhes dos Projetos
+### Story 3.3: Páginas Internas de Detalhes dos Projetos (Estudo de Caso)
 
 - [ ] Criar a rota dinâmica de visualização de projeto (`src/app/[locale]/portfolio/[projectId]/page.tsx`).
-- [ ] Desenvolver o layout focado em "Estudo de Caso", exibindo o Desafio, a Solução Arquitetural, e as Métricas de Impacto.
-- [ ] Configurar os links para repositórios (Front/Back) e deploy (Swagger, Vercel, Render).
+- [ ] Desenvolver o layout focado em "Estudo de Caso", exibindo o Desafio, a Solução Arquitetural e as Métricas de Impacto (buscados do Prisma).
+- [ ] Renderizar a galeria completa de imagens do projeto.
+- [ ] Configurar os links externos para repositórios e deploys com ícones corretos.
 
-### Story 3.3: Timeline de Histórico de Commits
+### Story 3.4: Timeline de Histórico de Commits (API Externa)
 
 - [ ] Criar o componente `<CommitTimeline repoUrl="..." />`.
 - [ ] Configurar consumo dinâmico da API REST do GitHub (`/repos/{owner}/{repo}/commits`).

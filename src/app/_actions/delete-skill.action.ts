@@ -11,6 +11,7 @@ export async function deleteSkillAction(id: string) {
     })
 
     revalidatePath('/admin/skill')
+
     return {
       success: true,
     }

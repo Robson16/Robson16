@@ -11,6 +11,7 @@ import {
   LuLanguages,
   LuLayoutDashboard,
   LuMenu,
+  LuUserPen,
   LuX,
 } from 'react-icons/lu'
 
@@ -111,6 +112,14 @@ export default function AdminSidebar() {
             Dashboard
           </Link>
           <div className="my-2 h-px w-full bg-zinc-800" />{' '}
+          <Link
+            href="/admin/profile"
+            onClick={closeMobileMenu}
+            className="flex items-center gap-3 rounded p-2 font-medium text-zinc-300 transition-colors hover:bg-zinc-800 hover:text-white"
+          >
+            <LuUserPen className="text-emerald-500" size={18} />
+            Profile
+          </Link>
           {menuGroups.map((group) => (
             <div key={group.id} className="flex flex-col gap-1">
               <button
