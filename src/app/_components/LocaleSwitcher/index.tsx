@@ -1,48 +1,45 @@
 'use client'
 
 import { ListBox, Select } from '@heroui/react'
-import { useRouter } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import { useEffect, useState, useTransition } from 'react'
 
-import { locales } from '@/app/_i18n/routing'
+import { usePathname, useRouter } from '@/app/_i18n/routing'
 
-const { languages } = locales
+const languages = [
+  { key: 'pt', label: 'Português (Brasil)' },
+  { key: 'en', label: 'English' },
+]
 
 export default function LocaleSwitcher() {
   const [isMobile, setIsMobile] = useState(false)
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
+  const pathname = usePathname()
   const localActive = useLocale()
   const t = useTranslations('Header')
 
   useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth <= 1024)
-    }
-
+    const checkIsMobile = () => setIsMobile(window.innerWidth <= 1024)
     checkIsMobile()
-
     window.addEventListener('resize', checkIsMobile)
-
-    return () => {
-      window.removeEventListener('resize', checkIsMobile)
-    }
+    return () => window.removeEventListener('resize', checkIsMobile)
   }, [])
 
-  const onSelectionChange = (key: React.Key | null) => {
-    if (!key) return
-    const nextLocale = String(key)
+  const handleLocaleChange = (value: React.Key | null) => {
+    if (!value) return
+    const nextLocale = String(value) as 'pt' | 'en'
+
     startTransition(() => {
-      router.replace(`/${nextLocale}`)
+      router.replace(pathname, { locale: nextLocale })
     })
   }
 
   return (
     <Select
       className={isMobile ? 'w-auto' : 'w-52 min-w-52'}
-      selectedKey={localActive}
-      onSelectionChange={onSelectionChange}
+      value={localActive}
+      onChange={handleLocaleChange}
       isDisabled={isPending}
       aria-label={t('languageSelector')}
     >

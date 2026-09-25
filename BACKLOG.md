@@ -40,15 +40,15 @@
 
 ## Epic 2: Reposicionamento e Nova Arquitetura de Dados ("Show, Don't Tell")
 
-### Story 2.1: Reestruturação da Base de Projetos  
+### Story 2.1: Reestruturação da Base de Projetos
 
-- [x] Implementar sistema de "Tiers" (níveis de destaque) no JSON.  
+- [x] Implementar sistema de "Tiers" (níveis de destaque) no JSON.
 - [x] Limpar e reorganizar projetos antigos em uma visualização secundária (Grid/Tabela de Arquivo).
 
 ### Story 2.2: Refatoração de Habilidades e Experiências
 
 - [x] Remover o sistema de barras de porcentagem/progresso das tecnologias.
-- [x] Vincular as tecnologias (Skills) diretamente aos Projetos em que foram utilizadas. 
+- [x] Vincular as tecnologias (Skills) diretamente aos Projetos em que foram utilizadas.
 
 ---
 
