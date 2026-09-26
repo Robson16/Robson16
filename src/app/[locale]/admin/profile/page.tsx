@@ -1,5 +1,6 @@
 import { db } from '@/app/_lib/prisma'
 
+import FeatureForm from './_components/FeatureForm'
 import ProfileForm from './_components/ProfileForm'
 import SocialLinkForm from './_components/SocialLinkForm'
 
@@ -16,6 +17,11 @@ export default async function AdminProfilePage() {
     },
   })
 
+  const features = await db.feature.findMany({
+    include: { translations: true },
+    orderBy: { order: 'asc' },
+  })
+
   const socialLinks = await db.socialLink.findMany({
     orderBy: {
       order: 'asc',
@@ -30,6 +36,7 @@ export default async function AdminProfilePage() {
 
       <div className="flex flex-col items-center gap-8">
         <ProfileForm languages={languages} initialData={profile} />
+        <FeatureForm languages={languages} initialFeatures={features} />
         <SocialLinkForm initialSocialLinks={socialLinks} />
       </div>
     </div>
