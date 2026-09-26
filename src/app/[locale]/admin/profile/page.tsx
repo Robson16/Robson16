@@ -5,7 +5,9 @@ import SocialLinkForm from './_components/SocialLinkForm'
 
 export default async function AdminProfilePage() {
   const languages = await db.language.findMany({
-    orderBy: { isDefault: 'desc' },
+    orderBy: {
+      isDefault: 'desc',
+    },
   })
 
   const profile = await db.profile.findFirst({
@@ -15,7 +17,9 @@ export default async function AdminProfilePage() {
   })
 
   const socialLinks = await db.socialLink.findMany({
-    orderBy: { order: 'asc' },
+    orderBy: {
+      order: 'asc',
+    },
   })
 
   return (

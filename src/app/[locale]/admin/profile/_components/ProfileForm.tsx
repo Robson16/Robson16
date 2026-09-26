@@ -8,8 +8,6 @@ import { useRef, useState, useTransition } from 'react'
 import { updateProfile } from '@/app/_actions/update-profile.action'
 import { uploadImageAction } from '@/app/_actions/upload-image.action'
 
-import SocialLinkForm from './SocialLinkForm'
-
 interface Language {
   code: string
   name: string
@@ -152,6 +150,7 @@ export default function ProfileForm({
                 src={avatarPreview}
                 alt="Avatar"
                 fill
+                sizes="128px"
                 className="object-cover"
               />
             ) : (
