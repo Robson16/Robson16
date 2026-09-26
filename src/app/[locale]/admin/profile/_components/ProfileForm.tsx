@@ -279,7 +279,7 @@ export default function ProfileForm({
       <button
         type="submit"
         disabled={isPending}
-        className="mt-4 w-full rounded-full bg-emerald-800 py-4 font-bold text-white transition-all hover:bg-emerald-700 disabled:opacity-50"
+        className="mt-4 w-full rounded bg-emerald-800 py-4 font-bold text-white transition-all hover:bg-emerald-700 disabled:opacity-50"
       >
         {isPending ? 'Saving...' : 'Save Changes'}
       </button>

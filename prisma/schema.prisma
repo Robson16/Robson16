@@ -89,6 +89,7 @@ model ProfileTranslation {
 
 model SocialLink {
   id        String   @id @default(uuid())
+  icon      String   @default("")
   name      String
   url       String
   order     Int      @default(0)

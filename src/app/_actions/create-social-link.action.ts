@@ -5,11 +5,12 @@ import { revalidatePath } from 'next/cache'
 import { db } from '@/app/_lib/prisma'
 
 interface CreateSocialLinkInput {
+  icon: string
   name: string
   url: string
 }
 
-export async function createSocialLink(data: CreateSocialLinkInput) {
+export async function createSocialLinkAction(data: CreateSocialLinkInput) {
   try {
     const lastLink = await db.socialLink.findFirst({
       orderBy: { order: 'desc' },
@@ -19,6 +20,7 @@ export async function createSocialLink(data: CreateSocialLinkInput) {
 
     await db.socialLink.create({
       data: {
+        icon: data.icon || 'link',
         name: data.name,
         url: data.url,
         order: nextOrder,

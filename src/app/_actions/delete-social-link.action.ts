@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache'
 
 import { db } from '@/app/_lib/prisma'
 
-export async function deleteSocialLink(id: string) {
+export async function deleteSocialLinkAction(id: string) {
   try {
     await db.socialLink.delete({
       where: { id },

@@ -6,12 +6,13 @@ import { db } from '@/app/_lib/prisma'
 
 export type SocialLinkInput = {
   id?: string
+  icon: string
   name: string
   url: string
   order: number
 }
 
-export async function updateSocialLinks(links: SocialLinkInput[]) {
+export async function updateSocialLinkAction(links: SocialLinkInput[]) {
   try {
     await db.$transaction(async (tx) => {
       await tx.socialLink.deleteMany()
@@ -19,6 +20,7 @@ export async function updateSocialLinks(links: SocialLinkInput[]) {
       if (links.length > 0) {
         await tx.socialLink.createMany({
           data: links.map((link) => ({
+            icon: link.icon,
             name: link.name,
             url: link.url,
             order: link.order,
