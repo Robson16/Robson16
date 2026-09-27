@@ -59,7 +59,7 @@
 - [x] Criar o model `Profile` no Prisma (nome, email, telefone, localização, bio).
 - [x] Criar o model relacional `SocialLink` (GitHub, LinkedIn, GitLab).
 - [x] Criar o model `Education` no Prisma (curso, instituição, datas, descrição) com suporte a traduções.
-- [-] Criar as tabelas no painel administrativo (`/admin/profile` e `/admin/education`) para gerenciar esses dados sem tocar em JSON.
+- [x] Criar as tabelas no painel administrativo (`/admin/profile` e `/admin/education`) para gerenciar esses dados sem tocar em JSON.
 - [ ] Refatorar a `AboutSection`, `ContactSection`, `Header` e `Footer` para consumirem os dados globais do banco de dados.
 
 ### Story 3.2: Mosaico de Contribuições (Hero Section)
