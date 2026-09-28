@@ -23,7 +23,33 @@
     "languageSelector": "Mudar idioma"
   },
   "Hero": {
-    "greeting": "Olá, me chamo"
+    "greeting": "Olá, me chamo",
+    "contributionsTotal": "{count} contribuições no último ano",
+    "legendLess": "Menos",
+    "legendMore": "Mais",
+    "months": [
+      "Jan",
+      "Fev",
+      "Mar",
+      "Abr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Set",
+      "Out",
+      "Nov",
+      "Dez"
+    ],
+    "weekdays": [
+      "Dom",
+      "Seg",
+      "Ter",
+      "Qua",
+      "Qui",
+      "Sex",
+      "Sáb"
+    ]
   },
   "About": {
     "title": "Sobre mim",
