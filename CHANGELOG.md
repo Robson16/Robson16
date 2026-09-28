@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.3.0](https://github.com/Robson16/Robson16/compare/v2.2.0...v2.3.0) (2026-09-28)
+
+### Features
+
+* **epic-3:** implement combined contributions calendar ([f9ba3ee](https://github.com/Robson16/Robson16/commit/f9ba3eec1bddb349305e578eac201d25f1778098))
+* **i18n:** add translations for contributions calendar ([fbfe76a](https://github.com/Robson16/Robson16/commit/fbfe76a86b40e893381095270d8946c248b8b115))
+
 ## [2.2.0](https://github.com/Robson16/Robson16/compare/v2.1.0...v2.2.0) (2026-09-28)
 
 ### Features
