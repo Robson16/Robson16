@@ -3,41 +3,68 @@
 import { revalidatePath } from 'next/cache'
 
 import { db } from '@/app/_lib/prisma'
+import { StorageService } from '@/app/_lib/storage/r2-storage'
 
-export async function updateProfile(formData: FormData) {
+interface ProfileTranslationInput {
+  locale: string
+  title: string
+  locationName: string
+  bio: string
+}
+
+interface UpdateProfileInput {
+  name: string
+  email: string
+  phone: string
+  locationUrl: string
+  avatarUrl?: string
+  translations: ProfileTranslationInput[]
+}
+
+export async function updateProfileAction(
+  id: string,
+  data: UpdateProfileInput,
+) {
   try {
-    const id = formData.get('id') as string
-    const email = formData.get('email') as string
-    const phone = formData.get('phone') as string
-    const locationUrl = formData.get('locationUrl') as string
-
-    const locationPt = formData.get('locationPt') as string
-    const bioPt = formData.get('bioPt') as string
-
-    const locationEn = formData.get('locationEn') as string
-    const bioEn = formData.get('bioEn') as string
-
-    const avatarUrl = formData.get('avatarUrl') as string
-
-    const currentProfile = await db.profile.findUnique({
+    const existingProfile = await db.profile.findUnique({
       where: { id },
     })
 
-    if (!currentProfile) throw new Error('Perfil não encontrado')
+    if (!existingProfile) {
+      return {
+        success: false,
+        error: 'Profile not found.',
+      }
+    }
+
+    if (
+      data.avatarUrl &&
+      existingProfile.avatarUrl &&
+      data.avatarUrl !== existingProfile.avatarUrl
+    ) {
+      try {
+        await StorageService.delete(existingProfile.avatarUrl)
+      } catch (e) {
+        console.error('Failed to delete old avatar from storage', e)
+      }
+    }
 
     await db.profile.update({
       where: { id },
       data: {
-        email,
-        phone,
-        locationUrl,
-        avatarUrl,
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        locationUrl: data.locationUrl,
+        ...(data.avatarUrl && { avatarUrl: data.avatarUrl }),
         translations: {
-          deleteMany: {},
-          create: [
-            { locale: 'pt', locationName: locationPt, bio: bioPt },
-            { locale: 'en', locationName: locationEn, bio: bioEn },
-          ],
+          deleteMany: { profileId: id },
+          create: data.translations.map((translation) => ({
+            locale: translation.locale,
+            title: translation.title,
+            locationName: translation.locationName,
+            bio: translation.bio,
+          })),
         },
       },
     })
@@ -46,7 +73,10 @@ export async function updateProfile(formData: FormData) {
 
     return { success: true }
   } catch (error) {
-    console.error('Erro ao atualizar perfil:', error)
-    return { success: false, error: 'Falha ao atualizar perfil' }
+    console.error('Error updating profile:', error)
+    return {
+      success: false,
+      error: 'Internal error updating profile.',
+    }
   }
 }

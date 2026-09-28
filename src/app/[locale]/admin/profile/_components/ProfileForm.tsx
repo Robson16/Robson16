@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useRef, useState, useTransition } from 'react'
 
-import { updateProfile } from '@/app/_actions/update-profile.action'
+import { updateProfileAction } from '@/app/_actions/update-profile.action'
 import { uploadImageAction } from '@/app/_actions/upload-image.action'
 
 interface Language {
@@ -42,10 +42,14 @@ export default function ProfileForm({
   const initialTranslations =
     initialData?.translations?.reduce(
       (
-        acc: Record<string, { locationName: string; bio: string }>,
+        acc: Record<
+          string,
+          { title: string; locationName: string; bio: string }
+        >,
         translation,
       ) => {
         acc[translation.locale] = {
+          title: translation.title || '',
           locationName: translation.locationName,
           bio: translation.bio || '',
         }
@@ -55,13 +59,13 @@ export default function ProfileForm({
     ) || {}
 
   const [translations, setTranslations] =
-    useState<Record<string, { locationName: string; bio: string }>>(
-      initialTranslations,
-    )
+    useState<
+      Record<string, { title: string; locationName: string; bio: string }>
+    >(initialTranslations)
 
   const handleTranslationChange = (
     locale: string,
-    field: 'locationName' | 'bio',
+    field: 'title' | 'locationName' | 'bio',
     value: string,
   ) => {
     setTranslations((prev) => ({
@@ -100,28 +104,25 @@ export default function ProfileForm({
         }
       }
 
-      const profileData = new FormData()
+      const profileId = initialData?.id || ''
 
-      profileData.append('id', initialData?.id || '')
-      profileData.append('email', formData.get('email') as string)
-      profileData.append('phone', formData.get('phone') as string)
-      profileData.append('locationUrl', formData.get('locationUrl') as string)
-      profileData.append('avatarUrl', finalAvatarUrl)
+      const formattedTranslations = languages.map((lang) => ({
+        locale: lang.code,
+        title: translations[lang.code]?.title || '',
+        locationName: translations[lang.code]?.locationName || '',
+        bio: translations[lang.code]?.bio || '',
+      }))
 
-      languages.forEach((lang) => {
-        const capitalizedLocale =
-          lang.code.charAt(0).toUpperCase() + lang.code.slice(1)
-        profileData.append(
-          `location${capitalizedLocale}`,
-          translations[lang.code]?.locationName || '',
-        )
-        profileData.append(
-          `bio${capitalizedLocale}`,
-          translations[lang.code]?.bio || '',
-        )
-      })
+      const data = {
+        name: formData.get('name') as string,
+        email: formData.get('email') as string,
+        phone: formData.get('phone') as string,
+        locationUrl: formData.get('locationUrl') as string,
+        avatarUrl: finalAvatarUrl,
+        translations: formattedTranslations,
+      }
 
-      const result = await updateProfile(profileData)
+      const result = await updateProfileAction(profileId, data)
 
       if (result.success) {
         setMessage('Profile updated successfully!')
@@ -180,6 +181,17 @@ export default function ProfileForm({
         {/* Dados Básicos */}
         <div className="flex flex-1 flex-col gap-4">
           <div className="flex flex-col gap-2">
+            <label className="text-zinc-300">Name</label>
+            <input
+              type="text"
+              name="name"
+              required
+              defaultValue={initialData?.name || ''}
+              disabled={isPending}
+              className="rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 focus:border-emerald-500 focus:outline-none"
+            />
+          </div>
+          <div className="flex flex-col gap-2">
             <label className="text-zinc-300">Contact Email</label>
             <input
               type="email"
@@ -190,32 +202,34 @@ export default function ProfileForm({
               className="rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 focus:border-emerald-500 focus:outline-none"
             />
           </div>
-          <div className="flex flex-col gap-2">
-            <label className="text-zinc-300">Phone</label>
-            <input
-              type="text"
-              name="phone"
-              required
-              defaultValue={initialData?.phone || ''}
-              disabled={isPending}
-              className="rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 focus:border-emerald-500 focus:outline-none"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label className="text-zinc-300">Google Maps URL</label>
-            <input
-              type="url"
-              name="locationUrl"
-              required
-              defaultValue={initialData?.locationUrl || ''}
-              disabled={isPending}
-              className="rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 focus:border-emerald-500 focus:outline-none"
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div className="flex flex-col gap-2">
+              <label className="text-zinc-300">Phone</label>
+              <input
+                type="text"
+                name="phone"
+                required
+                defaultValue={initialData?.phone || ''}
+                disabled={isPending}
+                className="rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 focus:border-emerald-500 focus:outline-none"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-zinc-300">Google Maps URL</label>
+              <input
+                type="url"
+                name="locationUrl"
+                required
+                defaultValue={initialData?.locationUrl || ''}
+                disabled={isPending}
+                className="rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 focus:border-emerald-500 focus:outline-none"
+              />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Traduções (Localização e Bio) */}
+      {/* Traduções (Title, Localização e Bio) */}
       <div className="mt-4 flex flex-col gap-4">
         <div className="flex gap-2 border-b border-zinc-700 pb-2">
           {languages.map((lang) => (
@@ -241,17 +255,36 @@ export default function ProfileForm({
           >
             <div className="flex flex-col gap-2">
               <label className="text-zinc-300">
+                Title ({lang.code.toUpperCase()})
+              </label>
+              <input
+                type="text"
+                required={lang.isDefault}
+                value={translations[lang.code]?.title || ''}
+                onChange={(event) =>
+                  handleTranslationChange(
+                    lang.code,
+                    'title',
+                    event.target.value,
+                  )
+                }
+                disabled={isPending}
+                className="rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 focus:border-emerald-500 focus:outline-none"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-zinc-300">
                 Location ({lang.code.toUpperCase()})
               </label>
               <input
                 type="text"
                 required={lang.isDefault}
                 value={translations[lang.code]?.locationName || ''}
-                onChange={(e) =>
+                onChange={(event) =>
                   handleTranslationChange(
                     lang.code,
                     'locationName',
-                    e.target.value,
+                    event.target.value,
                   )
                 }
                 disabled={isPending}
@@ -265,8 +298,8 @@ export default function ProfileForm({
               <textarea
                 rows={4}
                 value={translations[lang.code]?.bio || ''}
-                onChange={(e) =>
-                  handleTranslationChange(lang.code, 'bio', e.target.value)
+                onChange={(event) =>
+                  handleTranslationChange(lang.code, 'bio', event.target.value)
                 }
                 disabled={isPending}
                 className="resize-none rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 focus:border-emerald-500 focus:outline-none"

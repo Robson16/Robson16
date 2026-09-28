@@ -23,10 +23,7 @@
     "languageSelector": "Change language"
   },
   "Hero": {
-    "title": "Robson H. Rodrigues",
-    "subtitle": "Web Developer",
-    "greeting": "Hello, my name is",
-    "avatarAlt": "Photo of Robson H. Rodrigues"
+    "greeting": "Hello, my name is"
   },
   "About": {
     "title": "About me",

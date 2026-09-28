@@ -65,6 +65,7 @@ model Language {
 
 model Profile {
   id          String   @id @default(uuid())
+  name        String   @default("")
   email       String
   phone       String
   locationUrl String
@@ -79,6 +80,7 @@ model ProfileTranslation {
   id           String  @id @default(uuid())
   profileId    String
   locale       String
+  title        String  @default("")
   locationName String
   bio          String? @db.Text
 
