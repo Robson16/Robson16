@@ -23,7 +23,33 @@
     "languageSelector": "Change language"
   },
   "Hero": {
-    "greeting": "Hello, my name is"
+    "greeting": "Hello, my name is",
+    "contributionsTotal": "{count} contributions in the last year",
+    "legendLess": "Less",
+    "legendMore": "More",
+    "months": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec"
+    ],
+    "weekdays": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
+    ]
   },
   "About": {
     "title": "About me",

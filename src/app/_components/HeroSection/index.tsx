@@ -1,9 +1,12 @@
 import Image from 'next/image'
 import { getTranslations } from 'next-intl/server'
+import { ActivityCalendar } from 'react-activity-calendar'
 
 import DynamicIcon from '@/app/_components/DynamicIcon'
 import SocialButtons from '@/app/_components/SocialButtons'
 import { db } from '@/app/_lib/prisma'
+import { fetchGitHubContributions } from '@/app/_services/github.service'
+import { fetchGitLabContributions } from '@/app/_services/gitlab.service'
 
 interface HeroSectionProps {
   locale: string
@@ -22,14 +25,57 @@ export default async function HeroSection({ locale }: HeroSectionProps) {
     },
   })
 
+  const [githubDays, gitlabDays] = await Promise.all([
+    fetchGitHubContributions(),
+    fetchGitLabContributions(),
+  ])
+
+  const contributionsMap = new Map<string, number>()
+
+  githubDays.forEach((day) => {
+    const dateStr = day.date.split('T')[0]
+    contributionsMap.set(dateStr, day.contributionCount)
+  })
+
+  gitlabDays.forEach((day) => {
+    const dateStr = day.date.split('T')[0]
+    const current = contributionsMap.get(dateStr) || 0
+    contributionsMap.set(dateStr, current + day.contributionCount)
+  })
+
+  const oneYearAgo = new Date()
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1)
+  oneYearAgo.setHours(0, 0, 0, 0)
+
+  //   Map the data to the ActivityCalendar format.
+  const calendarData = Array.from(contributionsMap.entries())
+    .map(([date, count]) => {
+      let level = 0
+      if (count > 0) level = 1
+      if (count >= 3) level = 2
+      if (count >= 6) level = 3
+      if (count >= 10) level = 4
+
+      return {
+        date,
+        count,
+        level: level as 0 | 1 | 2 | 3 | 4,
+      }
+    })
+    .filter((item) => {
+      const itemDate = new Date(`${item.date}T00:00:00`)
+      return itemDate >= oneYearAgo
+    })
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+
   return (
     <section
       id="home"
       className="bg-[url('/images/code.jpg')] bg-cover bg-center"
     >
       <div className="bg-black/70">
-        <div className="container mx-auto max-w-5xl px-4 py-20 md:py-40 xl:py-56">
-          <div className="flex flex-col-reverse gap-8 xl:flex-row">
+        <div className="container mx-auto max-w-5xl px-4 py-20 md:py-40 xl:pt-50 xl:pb-32">
+          <div className="mb-16 flex flex-col-reverse gap-8 xl:flex-row">
             <div className="flex flex-1 flex-col items-center justify-center xl:items-start">
               <span className="mb-4 rounded-tl-[20px] rounded-r-[20px] bg-emerald-800 px-8 py-2">
                 {t('greeting')}
@@ -85,6 +131,27 @@ export default async function HeroSection({ locale }: HeroSectionProps) {
               </figure>
             </div>
           </div>
+
+          {calendarData.length > 0 && (
+            <div className="flex w-full flex-col items-center justify-center overflow-x-auto rounded-lg bg-zinc-900/5 p-2 shadow-xl backdrop-blur-sm">
+              <ActivityCalendar
+                data={calendarData}
+                colorScheme="dark"
+                theme={{
+                  dark: ['#27272a', '#064e3b', '#059669', '#10b981', '#34d399'],
+                }}
+                labels={{
+                  totalCount: t('contributionsTotal', { count: '{{count}}' }),
+                  legend: {
+                    less: t('legendLess'),
+                    more: t('legendMore'),
+                  },
+                  months: t.raw('months'),
+                  weekdays: t.raw('weekdays'),
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </section>

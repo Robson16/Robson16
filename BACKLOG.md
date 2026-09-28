@@ -64,10 +64,10 @@
 
 ### Story 3.2: Mosaico de Contribuições (Hero Section)
 
-- [ ] Instalar e configurar a biblioteca `react-activity-calendar`.
-- [ ] Desenvolver serviço de fetch para consumir a API GraphQL do GitHub (`contributionsCollection`).
-- [ ] Desenvolver serviço de fetch para consumir a API de Eventos do GitLab.
-- [ ] Criar função utilitária para mesclar e somar as arrays de contribuições (GitHub + GitLab) por data e renderizar no gráfico customizado.
+- [x] Instalar e configurar a biblioteca `react-activity-calendar`.
+- [x] Desenvolver serviço de fetch para consumir a API GraphQL do GitHub (`contributionsCollection`).
+- [x] Desenvolver serviço de fetch para consumir a API de Eventos do GitLab.
+- [x] Criar função utilitária para mesclar e somar as arrays de contribuições (GitHub + GitLab) por data e renderizar no gráfico customizado.
 
 ### Story 3.3: Páginas Internas de Detalhes dos Projetos (Estudo de Caso)
 
