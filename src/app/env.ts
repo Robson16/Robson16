@@ -11,6 +11,22 @@ const envSchema = z.object({
     message: 'GOOGLE_TAG_ID não pode estar vazio.',
   }),
 
+  // GitLab
+  GITLAB_ACCESS_TOKEN: z.string().min(1, {
+    message: 'GITLAB_ACCESS_TOKEN não pode estar vazio.',
+  }),
+  GITLAB_USERNAME: z.string().min(1, {
+    message: 'GITLAB_USERNAME não pode estar vazio.',
+  }),
+
+  // GitHub
+  GITHUB_ACCESS_TOKEN: z.string().min(1, {
+    message: 'GITHUB_ACCESS_TOKEN não pode estar vazio.',
+  }),
+  GITHUB_USERNAME: z.string().min(1, {
+    message: 'GITHUB_USERNAME não pode estar vazio.',
+  }),
+
   // GitHub Auth
   ALLOWED_EMAIL: z.string().email({
     message: 'ALLOWED_EMAIL não pode estar vazio.',
@@ -55,6 +71,10 @@ declare global {
 export const env = envSchema.parse({
   DATABASE_URL: process.env.DATABASE_URL,
   GOOGLE_TAG_ID: process.env.GOOGLE_TAG_ID,
+  GITLAB_ACCESS_TOKEN: process.env.GITLAB_ACCESS_TOKEN,
+  GITLAB_USERNAME: process.env.GITLAB_USERNAME,
+  GITHUB_ACCESS_TOKEN: process.env.GITHUB_ACCESS_TOKEN,
+  GITHUB_USERNAME: process.env.GITHUB_USERNAME,
   ALLOWED_EMAIL: process.env.ALLOWED_EMAIL,
   NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   NEXTAUTH_GITHUB_ID: process.env.NEXTAUTH_GITHUB_ID,
