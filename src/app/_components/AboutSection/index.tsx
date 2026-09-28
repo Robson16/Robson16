@@ -13,6 +13,16 @@ interface AboutSectionProps {
 export default async function AboutSection({ locale }: AboutSectionProps) {
   const t = await getTranslations('About')
 
+  const profileData = await db.profile.findFirstOrThrow({
+    include: {
+      translations: {
+        where: {
+          locale,
+        },
+      },
+    },
+  })
+
   const skillsData = await db.skill.findMany({
     take: 7,
     include: {
@@ -59,7 +69,7 @@ export default async function AboutSection({ locale }: AboutSectionProps) {
               {t('title')}
             </h2>
             <p className="mb-8 text-center leading-7 xl:text-left">
-              {t('description')}
+              {profileData.translations[0].bio}
             </p>
 
             <ul className="mb-8 flex max-w-sm flex-wrap justify-center gap-4 xl:justify-start">

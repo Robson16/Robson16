@@ -28,7 +28,6 @@
   "About": {
     "title": "About me",
     "imageAlt": "Image from the About section",
-    "description": "Hello, I'm Robson, a Web Developer from Jundiaí - SP, Brazil. With experience in web and mobile development, focusing on scalable and optimized applications. Knowledge in",
     "downloadResumeButton": "Download Resume"
   },
   "Features": {
@@ -41,8 +40,7 @@
     "title": "Portfolio",
     "noProjects": "No projects available at the moment.",
     "loadMore": "Load more",
-    "seeMore": "See more",
-    "seeWebsite": "See the website"
+    "seeMore": "See more"
   },
   "Contact": {
     "title": "Contact"

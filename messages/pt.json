@@ -28,7 +28,6 @@
   "About": {
     "title": "Sobre mim",
     "imageAlt": "Imagem da seção Sobre",
-    "description": "Olá, sou Robson, Desenvolvedor Web de Jundiaí - SP, Brasil. Com experiência em desenvolvimento web e mobile, foco em aplicações escaláveis e otimizadas. Conhecimentos em",
     "downloadResumeButton": "Baixar Currículo"
   },
   "Features": {
@@ -41,8 +40,7 @@
     "title": "Portfólio",
     "noProjects": "Nenhum projeto disponível no momento.",
     "loadMore": "Carregar mais",
-    "seeMore": "Ver mais",
-    "seeWebsite": "Ver o site"
+    "seeMore": "Ver mais"
   },
   "Contact": {
     "title": "Contato"
