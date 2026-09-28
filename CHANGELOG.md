@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.2.0](https://github.com/Robson16/Robson16/compare/v2.1.0...v2.2.0) (2026-09-28)
+
+### Features
+
+* **admin:** add social link icon and make editable ([831e2c1](https://github.com/Robson16/Robson16/commit/831e2c14826540e4060c25b67f193d90ef791673))
+* **admin:** create feature management form in profile settings ([d7f857d](https://github.com/Robson16/Robson16/commit/d7f857d94870b34842719cca178277972db0da7c))
+* **admin:** create server actions for educations CRUD ([29796fc](https://github.com/Robson16/Robson16/commit/29796fc5e221d7891bd5c728c5b7c7e9acedd42f))
+* **admin:** create server actions for features CRUD ([129c43f](https://github.com/Robson16/Robson16/commit/129c43f01b4bc451ebc5f1e25621fc664ec593d8))
+* **admin:** implement dynamic profile and social links management ([810ea01](https://github.com/Robson16/Robson16/commit/810ea014d4f70b7dc399e91f60812ef9a941da2b))
+* **admin:** implement education CRUD module ([8fff19e](https://github.com/Robson16/Robson16/commit/8fff19e2a963615ff14b3799e601c276e91c14b9))
+
 ## 2.1.0 (2026-09-25)
 
 ### ⚠ BREAKING CHANGES
