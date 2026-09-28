@@ -54,7 +54,7 @@ export default async function Home({ params }: PageProps) {
         <FeaturesSection locale={locale} />
         <FeaturedProjectsSection locale={locale} />
         <PortfolioSection projects={portfolioProjects} />
-        <ContactSection />
+        <ContactSection locale={locale} />
       </main>
     </>
   )

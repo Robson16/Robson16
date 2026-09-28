@@ -1,14 +1,34 @@
-import { useLocale, useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
 import DynamicIcon from '@/app/_components/DynamicIcon'
-import contactsData from '@/app/_data/contacts.json'
-import socialData from '@/app/_data/social.json'
+import iconsData from '@/app/_data/icons.json'
+import { db } from '@/app/_lib/prisma'
 
-export default function ContactSection() {
-  const { email, location } = contactsData
-  const { linkedin } = socialData
-  const t = useTranslations('Contact')
-  const locale = useLocale()
+interface ContactSectionProps {
+  locale: string
+}
+
+type IconKey = keyof typeof iconsData.icons
+
+export default async function ContactSection({ locale }: ContactSectionProps) {
+  const icons = iconsData.icons
+  const t = await getTranslations('Contact')
+
+  const profileData = await db.profile.findFirstOrThrow({
+    include: {
+      translations: {
+        where: {
+          locale,
+        },
+      },
+    },
+  })
+
+  const socialData = await db.socialLink.findMany({
+    orderBy: {
+      order: 'asc',
+    },
+  })
 
   return (
     <section
@@ -24,58 +44,74 @@ export default function ContactSection() {
           >
             {t('title')}
           </h3>
-          <div className="flex flex-col items-center gap-8 xl:flex-row">
-            <a
-              href={location.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex max-w-80 min-w-80 flex-1 flex-col items-center justify-center gap-8 rounded-lg bg-zinc-800 p-8 shadow-2xl"
-            >
-              <span className="flex items-center justify-center rounded-full border-2 border-solid border-emerald-700 p-10 transition-colors group-hover:border-emerald-600">
-                <DynamicIcon
-                  icon="FaMapMarkerAlt"
-                  iconFamily="fa"
-                  size={40}
-                  className="transition-colors group-hover:text-emerald-600"
-                />
-              </span>
-              <span className="text-lg">
-                {/* Dynamically renders the location name based on the current locale,
-                    defaulting to Portuguese ('pt') if the locale-specific translation is missing. */}
-                {location.name[locale as keyof typeof location.name] ||
-                  location.name.pt}
-              </span>
-            </a>
-            <a
-              href={`mailto:${email}`}
-              className="group flex max-w-80 min-w-80 flex-1 flex-col items-center justify-center gap-8 rounded-lg bg-zinc-800 p-8 shadow-2xl"
-            >
-              <span className="flex items-center justify-center rounded-full border-2 border-solid border-emerald-700 p-10 transition-colors group-hover:border-emerald-600">
-                <DynamicIcon
-                  icon="AiOutlineMail"
-                  iconFamily="ai"
-                  size={40}
-                  className="transition-colors group-hover:text-emerald-600"
-                />
-              </span>
-              <span className="text-lg">{email}</span>
-            </a>
-            <a
-              href={linkedin.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex max-w-80 min-w-80 flex-1 flex-col items-center justify-center gap-8 rounded-lg bg-zinc-800 p-8 shadow-2xl"
-            >
-              <span className="flex items-center justify-center rounded-full border-2 border-solid border-emerald-700 p-10 transition-colors group-hover:border-emerald-600">
-                <DynamicIcon
-                  icon="AiFillLinkedin"
-                  iconFamily="ai"
-                  size={40}
-                  className="transition-colors group-hover:text-emerald-600"
-                />
-              </span>
-              <span className="text-lg">Linkedin</span>
-            </a>
+
+          <div className="flex flex-col gap-8">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+              <a
+                href={profileData.locationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex size-full flex-col items-center justify-center gap-8 rounded-lg bg-zinc-800 p-8 shadow-2xl transition-transform hover:-translate-y-1"
+              >
+                <span className="flex items-center justify-center rounded-full border-2 border-solid border-emerald-700 p-10 transition-colors group-hover:border-emerald-600">
+                  <DynamicIcon
+                    icon="FaMapMarkerAlt"
+                    iconFamily="fa"
+                    size={40}
+                    className="transition-colors group-hover:text-emerald-600"
+                  />
+                </span>
+                <span className="text-center text-lg">
+                  {profileData.translations[0].locationName}
+                </span>
+              </a>
+              <a
+                href={`mailto:${profileData.email}`}
+                className="group flex size-full flex-col items-center justify-center gap-8 rounded-lg bg-zinc-800 p-8 shadow-2xl transition-transform hover:-translate-y-1"
+              >
+                <span className="flex items-center justify-center rounded-full border-2 border-solid border-emerald-700 p-10 transition-colors group-hover:border-emerald-600">
+                  <DynamicIcon
+                    icon="AiOutlineMail"
+                    iconFamily="ai"
+                    size={40}
+                    className="transition-colors group-hover:text-emerald-600"
+                  />
+                </span>
+                <span className="text-center text-lg">{profileData.email}</span>
+              </a>
+            </div>
+
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {socialData.map((social) => {
+                const iconKey = social.icon as IconKey
+                const iconConfig = icons[iconKey]
+
+                if (!iconConfig) {
+                  console.warn(`Icon not found in JSON: ${social.icon}`)
+                  return null
+                }
+
+                return (
+                  <a
+                    key={social.id}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex size-full flex-col items-center justify-center gap-8 rounded-lg bg-zinc-800 p-8 shadow-2xl transition-transform hover:-translate-y-1"
+                  >
+                    <span className="flex items-center justify-center rounded-full border-2 border-solid border-emerald-700 p-10 transition-colors group-hover:border-emerald-600">
+                      <DynamicIcon
+                        icon={iconConfig.name}
+                        iconFamily={iconConfig.family}
+                        size={30}
+                        className="transition-colors group-hover:text-emerald-600"
+                      />
+                    </span>
+                    <span className="text-center text-lg">{social.name}</span>
+                  </a>
+                )
+              })}
+            </div>
           </div>
         </div>
       </div>
