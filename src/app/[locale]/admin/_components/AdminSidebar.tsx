@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { AiOutlineHome } from 'react-icons/ai'
-// Importando os ícones do react-icons
 import {
   LuBriefcase,
   LuChevronDown,
@@ -11,8 +10,10 @@ import {
   LuLanguages,
   LuLayoutDashboard,
   LuMenu,
+  LuUserPen,
   LuX,
 } from 'react-icons/lu'
+import { MdOutlineSchool } from 'react-icons/md'
 
 import { Link } from '@/app/_i18n/navigation'
 
@@ -44,6 +45,12 @@ export default function AdminSidebar() {
       label: 'Experiences',
       basePath: '/admin/experiences',
       icon: <LuBriefcase className="text-emerald-500" size={18} />,
+    },
+    {
+      id: 'education',
+      label: 'Education',
+      basePath: '/admin/education',
+      icon: <MdOutlineSchool className="text-emerald-500" size={18} />,
     },
     {
       id: 'skills',
@@ -111,6 +118,14 @@ export default function AdminSidebar() {
             Dashboard
           </Link>
           <div className="my-2 h-px w-full bg-zinc-800" />{' '}
+          <Link
+            href="/admin/profile"
+            onClick={closeMobileMenu}
+            className="flex items-center gap-3 rounded p-2 font-medium text-zinc-300 transition-colors hover:bg-zinc-800 hover:text-white"
+          >
+            <LuUserPen className="text-emerald-500" size={18} />
+            Profile
+          </Link>
           {menuGroups.map((group) => (
             <div key={group.id} className="flex flex-col gap-1">
               <button

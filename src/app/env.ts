@@ -6,11 +6,6 @@ const envSchema = z.object({
     message: 'DATABASE_URL deve ser uma URL válida.',
   }),
 
-  // API Routes
-  NEXT_PUBLIC_API_URL: z.string().url({
-    message: 'NEXT_PUBLIC_API_URL deve ser uma URL válida.',
-  }),
-
   // Google Tag Manager
   GOOGLE_TAG_ID: z.string().min(1, {
     message: 'GOOGLE_TAG_ID não pode estar vazio.',
@@ -59,7 +54,6 @@ declare global {
 
 export const env = envSchema.parse({
   DATABASE_URL: process.env.DATABASE_URL,
-  NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   GOOGLE_TAG_ID: process.env.GOOGLE_TAG_ID,
   ALLOWED_EMAIL: process.env.ALLOWED_EMAIL,
   NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,

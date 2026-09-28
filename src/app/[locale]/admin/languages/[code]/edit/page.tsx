@@ -26,7 +26,7 @@ export default async function EditLanguagePage({
   }
 
   return (
-    <div className="container mx-auto flex min-h-screen flex-col items-center justify-center p-4 py-10">
+    <div className="container mx-auto flex min-h-screen flex-col items-center p-4 py-10">
       <LanguageForm initialData={language} />
     </div>
   )

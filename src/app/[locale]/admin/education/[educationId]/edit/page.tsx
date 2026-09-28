@@ -2,27 +2,29 @@ import { notFound } from 'next/navigation'
 
 import { db } from '@/app/_lib/prisma'
 
-import SkillForm from '../../_components/SkillForm'
+import EducationForm from '../../_components/EducationForm'
 
-interface EditSkillPageProps {
+interface EditEducationPageProps {
   params: Promise<{
-    skillId: string
+    educationId: string
   }>
 }
 
-export default async function EditSkillPage({ params }: EditSkillPageProps) {
-  const { skillId } = await params
+export default async function EditEducationPage({
+  params,
+}: EditEducationPageProps) {
+  const { educationId } = await params
 
-  const skill = await db.skill.findUnique({
+  const education = await db.education.findUnique({
     where: {
-      id: skillId,
+      id: educationId,
     },
     include: {
       translations: true,
     },
   })
 
-  if (!skill) {
+  if (!education) {
     notFound()
   }
 
@@ -34,7 +36,7 @@ export default async function EditSkillPage({ params }: EditSkillPageProps) {
 
   return (
     <div className="container mx-auto flex min-h-screen flex-col items-center p-4 py-10">
-      <SkillForm languages={languages} initialData={skill} />
+      <EducationForm languages={languages} initialData={education} />
     </div>
   )
 }

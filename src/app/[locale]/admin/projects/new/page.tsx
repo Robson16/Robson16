@@ -36,7 +36,7 @@ export default async function NewProjectPage() {
   }))
 
   return (
-    <div className="container mx-auto flex min-h-screen flex-col items-center justify-center p-4 py-10">
+    <div className="container mx-auto flex min-h-screen flex-col items-center p-4 py-10">
       <ProjectForm
         languages={languages}
         skills={formattedSkills}

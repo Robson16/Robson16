@@ -19,6 +19,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:migrate": "prisma migrate dev",
+    "dev:seed": "node --env-file=.env prisma/seed.mjs",
     "dev:studio": "prisma studio",
     "build": "prisma migrate deploy && next build",
     "start": "next start",

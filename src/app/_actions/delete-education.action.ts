@@ -4,23 +4,23 @@ import { revalidatePath } from 'next/cache'
 
 import { db } from '@/app/_lib/prisma'
 
-export async function deleteSkillAction(id: string) {
+export async function deleteEducationAction(id: string) {
   try {
-    await db.skill.delete({
+    await db.education.delete({
       where: { id },
     })
 
-    revalidatePath('/admin/skills')
+    revalidatePath('/admin/educations')
 
     return {
       success: true,
     }
   } catch (error) {
-    console.error('Error deleting skill: ', error)
+    console.error('Error deleting education: ', error)
 
     return {
       success: false,
-      error: 'Error deleting skill.',
+      error: 'Error deleting education.',
     }
   }
 }

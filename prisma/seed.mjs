@@ -29,6 +29,19 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const rootDir = path.resolve(__dirname, '..')
 
+// Adicione isso no topo, junto com os outros JSON.parse
+const contactsData = JSON.parse(
+  fs.readFileSync(path.join(rootDir, 'src/app/_data/contacts.json'), 'utf-8'),
+)
+const educationData = JSON.parse(
+  fs.readFileSync(path.join(rootDir, 'src/app/_data/education.json'), 'utf-8'),
+)
+const featuresData = JSON.parse(
+  fs.readFileSync(path.join(rootDir, 'src/app/_data/features.json'), 'utf-8'),
+)
+const socialData = JSON.parse(
+  fs.readFileSync(path.join(rootDir, 'src/app/_data/social.json'), 'utf-8'),
+)
 const experiencesData = JSON.parse(
   fs.readFileSync(
     path.join(rootDir, 'src/app/_data/experiences.json'),
@@ -67,7 +80,7 @@ function parseDatePt(dateString) {
 }
 
 // Função auxiliar para fazer o upload da imagem local para o MinIO
-async function uploadImageToStorage(localPath) {
+async function uploadImageToStorage(localPath, keepOriginalName = false) {
   try {
     // Ex: transforma "/images/projects/babydufy.jpg" no caminho real da sua máquina
     const fullPath = path.join(rootDir, 'public', localPath)
@@ -82,22 +95,25 @@ async function uploadImageToStorage(localPath) {
 
     // Mesma lógica de higienização do nosso StorageService
     const sanitizedName = fileName.replace(/[^a-zA-Z0-9.-]/g, '-')
-    const uniqueFileName = `${randomUUID()}-${sanitizedName}`
+    // Se keepOriginalName for true, ele usa um prefixo fixo de 'seed-' em vez de UUID aleatório
+    const finalFileName = keepOriginalName
+      ? `seed-${sanitizedName}`
+      : `${randomUUID()}-${sanitizedName}`
 
     const ext = path.extname(fileName).toLowerCase()
     const mimeType = ext === '.png' ? 'image/png' : 'image/jpeg'
 
     const command = new PutObjectCommand({
       Bucket: process.env.CLOUDFLARE_BUCKET_NAME,
-      Key: uniqueFileName,
+      Key: finalFileName,
       Body: fileBuffer,
       ContentType: mimeType,
     })
 
     await s3Client.send(command)
-    console.log(`🖼️ Upload concluído: ${fileName} -> MinIO`)
+    console.log(`🖼️ Upload concluído: ${fileName} -> MinIO (${finalFileName})`)
 
-    return `${process.env.CLOUDFLARE_PUBLIC_URL}/${uniqueFileName}`
+    return `${process.env.CLOUDFLARE_PUBLIC_URL}/${finalFileName}`
   } catch (error) {
     console.error('❌ Erro no upload para o MinIO:', error)
     return localPath
@@ -107,6 +123,13 @@ async function uploadImageToStorage(localPath) {
 async function main() {
   console.log('🌱 Iniciando o Seeding V3 (Upload de Imagens para o MinIO)...')
 
+  await prisma.profileTranslation.deleteMany()
+  await prisma.profile.deleteMany()
+  await prisma.socialLink.deleteMany()
+  await prisma.featureTranslation.deleteMany()
+  await prisma.feature.deleteMany()
+  await prisma.educationTranslation.deleteMany()
+  await prisma.education.deleteMany()
   await prisma.projectImage.deleteMany()
   await prisma.experienceProject.deleteMany()
   await prisma.projectSkill.deleteMany()
@@ -125,6 +148,97 @@ async function main() {
       { code: 'en', name: 'English', isDefault: false },
     ],
   })
+
+  console.log('👤 Inserindo Profile (Settings)...')
+
+  const avatarUrl = await uploadImageToStorage('/images/profile.jpg', true)
+
+  await prisma.profile.create({
+    data: {
+      email: contactsData.email,
+      phone: contactsData.phone,
+      locationUrl: contactsData.location.url,
+      avatarUrl: avatarUrl,
+      translations: {
+        create: [
+          {
+            locale: 'pt',
+            locationName: contactsData.location.name.pt,
+            bio: 'Desenvolvedor Full Stack apaixonado por criar soluções eficientes e escaláveis.',
+          },
+          {
+            locale: 'en',
+            locationName: contactsData.location.name.en,
+            bio: 'Full Stack Developer passionate about creating efficient and scalable solutions.',
+          },
+        ],
+      },
+    },
+  })
+
+  console.log('🌐 Inserindo Social Links...')
+  const socialLinks = [
+    { name: socialData.github.name, url: socialData.github.url, order: 1 },
+    { name: socialData.gitlab.name, url: socialData.gitlab.url, order: 2 },
+    { name: socialData.linkedin.name, url: socialData.linkedin.url, order: 3 },
+  ]
+  for (const link of socialLinks) {
+    await prisma.socialLink.create({ data: link })
+  }
+
+  console.log('✨ Inserindo Features...')
+  for (const feature of featuresData.features) {
+    await prisma.feature.create({
+      data: {
+        icon: feature.icon,
+        order: feature.id,
+        translations: {
+          create: [
+            {
+              locale: 'pt',
+              title: feature.title.pt,
+              description: feature.description.pt,
+            },
+            {
+              locale: 'en',
+              title: feature.title.en,
+              description: feature.description.en,
+            },
+          ],
+        },
+      },
+    })
+  }
+
+  console.log('🎓 Inserindo Education...')
+  for (const edu of educationData.education) {
+    await prisma.education.create({
+      data: {
+        startDate: parseDatePt(edu.period.start.pt),
+        endDate:
+          edu.period.end.pt.toLowerCase() === 'atualmente'
+            ? null
+            : parseDatePt(edu.period.end.pt),
+        order: edu.id,
+        translations: {
+          create: [
+            {
+              locale: 'pt',
+              title: edu.title.pt,
+              institution: edu.institution.pt,
+              description: edu.description.pt,
+            },
+            {
+              locale: 'en',
+              title: edu.title.en,
+              institution: edu.institution.en,
+              description: edu.description.en,
+            },
+          ],
+        },
+      },
+    })
+  }
 
   const skillMap = new Map()
 

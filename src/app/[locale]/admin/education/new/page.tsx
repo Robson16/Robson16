@@ -1,8 +1,8 @@
 import { db } from '@/app/_lib/prisma'
 
-import ExperienceForm from '../_components/ExperienceForm'
+import EducationForm from '../_components/EducationForm'
 
-export default async function NewExperiencePage() {
+export default async function NewEducationPage() {
   const languages = await db.language.findMany({
     orderBy: {
       isDefault: 'desc',
@@ -11,7 +11,7 @@ export default async function NewExperiencePage() {
 
   return (
     <div className="container mx-auto flex min-h-screen flex-col items-center p-4 py-10">
-      <ExperienceForm languages={languages} />
+      <EducationForm languages={languages} />
     </div>
   )
 }

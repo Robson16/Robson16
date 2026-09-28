@@ -1,14 +1,26 @@
 import Image from 'next/image'
-import { useLocale, useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
 import DynamicIcon from '@/app/_components/DynamicIcon'
 import SocialButtons from '@/app/_components/SocialButtons'
-import contactsData from '@/app/_data/contacts.json'
+import { db } from '@/app/_lib/prisma'
 
-export default function HeroSection() {
-  const { email, location } = contactsData
-  const t = useTranslations('Hero')
-  const locale = useLocale()
+interface HeroSectionProps {
+  locale: string
+}
+
+export default async function HeroSection({ locale }: HeroSectionProps) {
+  const t = await getTranslations('Hero')
+
+  const profileData = await db.profile.findFirstOrThrow({
+    include: {
+      translations: {
+        where: {
+          locale,
+        },
+      },
+    },
+  })
 
   return (
     <section
@@ -23,9 +35,11 @@ export default function HeroSection() {
                 {t('greeting')}
               </span>
               <h1 className="mb-4 text-center text-5xl font-bold xl:text-left">
-                {t('title')}
+                {profileData.name}
               </h1>
-              <h2 className="text-2xl font-medium">{t('subtitle')}</h2>
+              <h2 className="text-2xl font-medium">
+                {profileData.translations[0].title}
+              </h2>
               <ul className="my-10">
                 <li className="group my-2 flex items-center">
                   <DynamicIcon
@@ -34,7 +48,9 @@ export default function HeroSection() {
                     size={22}
                     className="mr-2 text-gray-500 transition-colors group-hover:text-emerald-600"
                   />
-                  <a href={`mailto:${email}`}>{email}</a>
+                  <a href={`mailto:${profileData.email}`}>
+                    {profileData.email}
+                  </a>
                 </li>
                 <li className="group my-2 flex items-center">
                   <DynamicIcon
@@ -44,14 +60,11 @@ export default function HeroSection() {
                     className="mr-2 text-gray-500 transition-colors group-hover:text-emerald-600"
                   />
                   <a
-                    href={location.url}
+                    href={profileData.locationUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {/* Dynamically renders the location name based on the current locale,
-                    defaulting to Portuguese ('pt') if the locale-specific translation is missing. */}
-                    {location.name[locale as keyof typeof location.name] ||
-                      location.name.pt}
+                    {profileData.translations[0].locationName}
                   </a>
                 </li>
               </ul>
@@ -62,11 +75,11 @@ export default function HeroSection() {
             <div className="flex flex-1 flex-col items-center xl:items-end">
               <figure className="rounded-full border-20 border-zinc-950">
                 <Image
-                  src="/images/profile.jpg"
+                  src={profileData.avatarUrl ?? '/images/default-avatar.jpg'} // Fallback se for null
                   priority={true}
-                  alt={t('avatarAlt')}
-                  width={360}
-                  height={360}
+                  alt={`Photo of ${profileData.name}`}
+                  width={320}
+                  height={320}
                   className="mx-auto max-w-60 rounded-full border-20 border-zinc-900 xl:max-w-none"
                 />
               </figure>
