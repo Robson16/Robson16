@@ -1,31 +1,44 @@
 'use server'
 
+import { ProjectLinkType } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
 
-interface TranslationInput {
-  locale: string
-  title: string
-  description: string
-}
+const ProjectLinkTypeValues = Object.values(ProjectLinkType) as [
+  string,
+  ...string[],
+]
 
-interface LinkInput {
-  type: string
-  url: string
-}
+const createProjectSchema = z.object({
+  tier: z.number().int(),
+  gallery: z.array(z.string()).optional(),
+  translations: z.array(
+    z.object({
+      locale: z.string(),
+      title: z.string().min(1, { message: 'Title is required' }),
+      description: z.string(),
+    }),
+  ),
+  skillIds: z.array(z.string()),
+  links: z
+    .array(
+      z.object({
+        type: z.enum(ProjectLinkTypeValues),
+        url: z.string().url({ message: 'Invalid URL format' }),
+      }),
+    )
+    .optional(),
+  experienceId: z.string().optional(),
+})
 
-interface CreateProjectInput {
-  tier: number
-  gallery?: string[]
-  translations: TranslationInput[]
-  skillIds: string[]
-  links?: LinkInput[]
-  experienceId?: string
-}
+export type CreateProjectInput = z.infer<typeof createProjectSchema>
 
-export async function createProjectAction(data: CreateProjectInput) {
+export async function createProjectAction(inputData: CreateProjectInput) {
   try {
+    const data = createProjectSchema.parse(inputData)
+
     await db.project.create({
       data: {
         tier: data.tier,
@@ -47,7 +60,7 @@ export async function createProjectAction(data: CreateProjectInput) {
         },
         links: {
           create: (data.links || []).map((link) => ({
-            type: link.type,
+            type: link.type as ProjectLinkType,
             url: link.url,
           })),
         },

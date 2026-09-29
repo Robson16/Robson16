@@ -1,35 +1,48 @@
 'use server'
 
+import { ProjectLinkType } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
 import { StorageService } from '@/app/_lib/storage/r2-storage'
 
-interface TranslationInput {
-  locale: string
-  title: string
-  description: string
-}
+const ProjectLinkTypeValues = Object.values(ProjectLinkType) as [
+  string,
+  ...string[],
+]
 
-interface LinkInput {
-  type: string
-  url: string
-}
+const updateProjectSchema = z.object({
+  tier: z.number().int(),
+  gallery: z.array(z.string()).optional(),
+  translations: z.array(
+    z.object({
+      locale: z.string(),
+      title: z.string().min(1, { message: 'Title is required' }),
+      description: z.string(),
+    }),
+  ),
+  skillIds: z.array(z.string()),
+  links: z
+    .array(
+      z.object({
+        type: z.enum(ProjectLinkTypeValues),
+        url: z.string().url({ message: 'Invalid URL format' }),
+      }),
+    )
+    .optional(),
+  experienceId: z.string().optional(),
+})
 
-interface UpdateProjectInput {
-  tier: number
-  gallery?: string[]
-  translations: TranslationInput[]
-  skillIds: string[]
-  links?: LinkInput[]
-  experienceId?: string
-}
+export type UpdateProjectInput = z.infer<typeof updateProjectSchema>
 
 export async function updateProjectAction(
   projectId: string,
-  data: UpdateProjectInput,
+  inputData: UpdateProjectInput,
 ) {
   try {
+    const data = updateProjectSchema.parse(inputData)
+
     const existingProject = await db.project.findUnique({
       where: {
         id: projectId,
@@ -95,7 +108,7 @@ export async function updateProjectAction(
             projectId,
           },
           create: (data.links || []).map((link) => ({
-            type: link.type,
+            type: link.type as ProjectLinkType,
             url: link.url,
           })),
         },

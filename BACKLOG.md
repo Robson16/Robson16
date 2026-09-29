@@ -109,6 +109,4 @@
 ### Story 4.4: Refatoração do Consumo de Dados no Next.js
 
 - [x] Criar o arquivo de instância Singleton do Prisma Client (ex: `src/_utils/prisma.ts`) para evitar vazamento de conexões no modo dev.
-- [ ] Refatorar as rotas da API (`src/app/api/...`) e/ou Server Components para buscar os dados diretamente do PostgreSQL em vez dos arquivos JSON.
-- [ ] Utilizar os relacionamentos (`include`) do Prisma para trazer os projetos com suas respectivas skills embutidas.
-- [ ] Validar a renderização no front-end e, em seguida, **deletar com orgulho** a pasta `src/app/_data/` com os `.json` antigos.
+- [ ] Refatorar as actions para validação com zod.
