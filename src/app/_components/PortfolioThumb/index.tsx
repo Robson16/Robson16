@@ -55,16 +55,16 @@ export default function PortfolioThumb({
     <Modal>
       <Modal.Trigger
         className={clsx(
-          'group relative block h-70 w-full cursor-pointer border-none bg-transparent p-0 text-left outline-none',
+          'group relative block size-full cursor-pointer border-none bg-transparent p-0 text-left outline-none',
           'focus-visible:rounded-lg focus-visible:ring-4 focus-visible:ring-teal-600',
         )}
       >
         <Image
           src={featuredImage}
           alt={translation.title}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-          className="rounded-lg shadow-xl transition"
+          width={1200}
+          height={900}
+          className="h-auto w-full rounded-lg object-cover shadow-xl transition"
         />
         <div
           className={clsx(
@@ -88,7 +88,7 @@ export default function PortfolioThumb({
           <Modal.Dialog
             className={clsx(
               'rounded-lg bg-zinc-900 p-6 pt-14 text-white sm:pt-6',
-              isMobile ? 'max-w-sm' : 'w-full max-w-5xl',
+              isMobile ? 'max-w-sm' : 'w-full max-w-7xl',
             )}
           >
             <Modal.CloseTrigger className="m-2 rounded-full bg-emerald-600 p-2 text-white transition-colors duration-300 ease-in-out" />
@@ -118,9 +118,9 @@ function ModalContentBody({ locale, project }: PortfolioThumbProps) {
         <Image
           src={featuredImage}
           alt={translation.title}
-          fill
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          className="rounded-lg object-cover"
+          width={1200}
+          height={900}
+          className="h-auto w-full rounded-lg object-cover"
         />
       </div>
 

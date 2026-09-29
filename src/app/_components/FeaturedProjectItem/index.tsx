@@ -44,9 +44,9 @@ export default function FeaturedProjectItem({
           src={featuredImage}
           priority={true}
           alt={translation.title}
-          fill
-          sizes="(max-width: 1280px) 100vw, 50vw"
-          className="size-full rounded-lg shadow-xl"
+          width={1200}
+          height={900}
+          className="h-auto w-full rounded-lg object-cover shadow-xl"
         />
       </div>
 
