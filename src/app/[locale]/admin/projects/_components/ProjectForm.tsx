@@ -1,6 +1,6 @@
 'use client'
 
-import { Prisma } from '@prisma/client'
+import { Prisma, ProjectLinkType } from '@prisma/client'
 import { useState, useTransition } from 'react'
 
 import { createProjectAction } from '@/app/_actions/create-project.action'
@@ -35,6 +35,15 @@ interface ProjectFormProps {
   skills: Item[]
   experiences: Item[]
   initialData?: ProjectWithRelations
+}
+
+const LINK_TYPE_LABELS: Record<ProjectLinkType, string> = {
+  [ProjectLinkType.GITHUB]: 'GitHub',
+  [ProjectLinkType.GITLAB]: 'GitLab',
+  [ProjectLinkType.WEBSITE]: 'Live Preview',
+  [ProjectLinkType.FIGMA]: 'Figma',
+  [ProjectLinkType.YOUTUBE]: 'YouTube',
+  [ProjectLinkType.OTHER]: 'Other',
 }
 
 export default function ProjectForm({
@@ -351,16 +360,21 @@ export default function ProjectForm({
           >
             <select
               value={link.type}
-              onChange={(e) => handleLinkChange(index, 'type', e.target.value)}
+              onChange={(event) =>
+                handleLinkChange(
+                  index,
+                  'type',
+                  event.target.value as ProjectLinkType,
+                )
+              }
               disabled={isPending}
               className="w-full rounded border border-zinc-700 bg-zinc-900 p-2 text-sm text-zinc-100 transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 sm:w-1/3"
             >
-              <option value="github">GitHub</option>
-              <option value="gitlab">GitLab</option>
-              <option value="website">Live Preview</option>
-              <option value="figma">Figma</option>
-              <option value="youtube">YouTube</option>
-              <option value="other">Other</option>
+              {Object.values(ProjectLinkType).map((type) => (
+                <option key={type} value={type}>
+                  {LINK_TYPE_LABELS[type]}
+                </option>
+              ))}
             </select>
 
             <input
