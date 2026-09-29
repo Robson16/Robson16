@@ -6,6 +6,7 @@ import { FaRegCircle } from 'react-icons/fa'
 import { FiCircle } from 'react-icons/fi'
 import { GoCircle } from 'react-icons/go'
 import { IoEllipseOutline } from 'react-icons/io5'
+import { LuCircle } from 'react-icons/lu'
 import { PiCircle } from 'react-icons/pi'
 
 interface DynamicIconProps extends IconBaseProps {
@@ -70,6 +71,14 @@ const DynamicIcon: React.FC<DynamicIconProps> = ({
           .then((e) =>
             e === undefined ? AiFillExclamationCircle : e,
           ) as Promise<React.ComponentType<IconBaseProps>>,
+    ),
+    lu: dynamic(
+      () =>
+        import('react-icons/lu')
+          .then((mod) => mod[icon])
+          .then((e) => (e === undefined ? LuCircle : e)) as Promise<
+          React.ComponentType<IconBaseProps>
+        >,
     ),
   }
 

@@ -21,9 +21,15 @@ export default async function Home({ params }: PageProps) {
       },
     },
     include: {
-      translations: { where: { locale } },
+      translations: {
+        where: {
+          locale,
+        },
+      },
       gallery: {
-        orderBy: { order: 'asc' },
+        orderBy: {
+          order: 'asc',
+        },
       },
       skills: {
         include: {
@@ -53,7 +59,7 @@ export default async function Home({ params }: PageProps) {
         <AboutSection locale={locale} />
         <FeaturesSection locale={locale} />
         <FeaturedProjectsSection locale={locale} />
-        <PortfolioSection projects={portfolioProjects} />
+        <PortfolioSection locale={locale} projects={portfolioProjects} />
         <ContactSection locale={locale} />
       </main>
     </>

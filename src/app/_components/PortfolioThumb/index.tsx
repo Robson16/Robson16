@@ -4,25 +4,45 @@ import { Modal } from '@heroui/react'
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useLocale, useTranslations } from 'next-intl'
-import { AiFillGithub, AiFillGitlab } from 'react-icons/ai'
+import { useTranslations } from 'next-intl'
+import { AiFillGithub, AiFillGitlab, AiFillYoutube } from 'react-icons/ai'
+import { FaExternalLinkAlt, FaLink } from 'react-icons/fa'
+import { LuFigma } from 'react-icons/lu'
 import { PiMagnifyingGlassBold } from 'react-icons/pi'
 import { useMediaQuery } from 'react-responsive'
 
 import { PortfolioProject } from '../PortfolioSection'
 
-type PortfolioThumbProps = { project: PortfolioProject }
-
-const getPlatformIcon = (platform: string) => {
-  const p = platform.toLowerCase()
-  if (p.includes('github')) return <AiFillGithub size={25} />
-  if (p.includes('gitlab')) return <AiFillGitlab size={25} />
+interface PortfolioThumbProps {
+  locale: string
+  project: PortfolioProject
 }
 
-export default function PortfolioThumb({ project }: PortfolioThumbProps) {
+const getPlatformIcon = (platform: string) => {
+  const type = platform.toUpperCase()
+
+  switch (type) {
+    case 'GITHUB':
+      return <AiFillGithub size={18} />
+    case 'GITLAB':
+      return <AiFillGitlab size={18} />
+    case 'FIGMA':
+      return <LuFigma size={18} />
+    case 'YOUTUBE':
+      return <AiFillYoutube size={18} />
+    case 'WEBSITE':
+      return <FaExternalLinkAlt size={18} />
+    default:
+      return <FaLink size={18} />
+  }
+}
+
+export default function PortfolioThumb({
+  locale,
+  project,
+}: PortfolioThumbProps) {
   const isMobile = useMediaQuery({ maxWidth: 768 })
-  const t = useTranslations('Portfolio')
-  const locale = useLocale()
+  const tPortfolio = useTranslations('Portfolio')
 
   const featuredImage = project.gallery?.[0]?.url || '/images/placeholder.jpg'
   const translation =
@@ -58,7 +78,7 @@ export default function PortfolioThumb({ project }: PortfolioThumbProps) {
             {translation.title}
           </h4>
           <span className="text-sm tracking-wide uppercase">
-            {t('seeMore')}
+            {tPortfolio('seeMore')}
           </span>
         </div>
       </Modal.Trigger>
@@ -73,7 +93,7 @@ export default function PortfolioThumb({ project }: PortfolioThumbProps) {
           >
             <Modal.CloseTrigger className="m-2 rounded-full bg-emerald-600 p-2 text-white transition-colors duration-300 ease-in-out" />
             <Modal.Body className="flex flex-col gap-8 bg-zinc-900 lg:flex-row">
-              <ModalContentBody project={project} />
+              <ModalContentBody locale={locale} project={project} />
             </Modal.Body>
           </Modal.Dialog>
         </Modal.Container>
@@ -82,8 +102,9 @@ export default function PortfolioThumb({ project }: PortfolioThumbProps) {
   )
 }
 
-function ModalContentBody({ project }: { project: PortfolioProject }) {
-  const locale = useLocale()
+function ModalContentBody({ locale, project }: PortfolioThumbProps) {
+  const tPortfolio = useTranslations('Portfolio')
+  const tProject = useTranslations('ProjectDetails')
   const featuredImage = project.gallery?.[0]?.url || '/images/placeholder.jpg'
   const translation =
     project.translations.find((t) => t.locale === locale) ||
@@ -103,54 +124,75 @@ function ModalContentBody({ project }: { project: PortfolioProject }) {
         />
       </div>
 
-      <div className="flex max-h-[60vh] flex-1 flex-col items-center overflow-y-auto pr-2 lg:items-start">
-        <h4 className="mb-2 text-center text-3xl font-bold uppercase lg:text-left">
-          {translation.title}
-        </h4>
-        <p className="mb-8 text-center text-zinc-300 lg:text-left">
-          {translation.description}
-        </p>
+      <div className="flex max-h-[60vh] flex-1 flex-col overflow-y-auto pr-2">
+        <div className="grow">
+          <h4 className="mb-2 text-center text-3xl font-bold uppercase lg:text-left">
+            {translation.title}
+          </h4>
+          <p className="mb-8 text-center text-zinc-300 lg:text-left">
+            {translation.description}
+          </p>
 
-        {project.skills && project.skills.length > 0 && (
-          <ul className="mb-8 flex flex-wrap justify-center gap-2 lg:justify-start">
-            {project.skills.map((ps) => {
-              const skillName =
-                ps.skill.translations.find((t) => t.locale === locale)?.name ||
-                ps.skill.translations[0]?.name ||
-                'Unknown'
-              return (
-                <li
-                  key={ps.skillId}
-                  className="rounded border border-solid border-teal-600 bg-teal-900/20 px-3 py-1 text-sm text-teal-400"
-                >
-                  {skillName}
+          {project.skills && project.skills.length > 0 && (
+            <div className="mb-8">
+              <h5 className="mb-3 text-center text-sm font-semibold text-zinc-400 uppercase lg:text-left">
+                {tProject('technologies')}
+              </h5>
+              <ul className="mb-8 flex flex-wrap justify-center gap-2 lg:justify-start">
+                {project.skills.map((ps) => {
+                  const skillName =
+                    ps.skill.translations.find((t) => t.locale === locale)
+                      ?.name ||
+                    ps.skill.translations[0]?.name ||
+                    'Unknown'
+                  return (
+                    <li
+                      key={ps.skillId}
+                      className="rounded border border-solid border-emerald-600 bg-emerald-900/20 px-3 py-1 text-sm text-emerald-400"
+                    >
+                      {skillName}
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        <div className="mt-auto flex flex-col items-center gap-4 border-t border-zinc-800 pt-6 lg:items-start">
+          {project.links && project.links.length > 0 && (
+            <ul className="flex w-full flex-col flex-wrap justify-center gap-4 md:flex-row lg:justify-start">
+              {project.links.map((link) => (
+                <li key={link.id}>
+                  <Link
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={clsx(
+                      'flex items-center gap-2 rounded-full px-6 py-3 text-base font-bold capitalize',
+                      'bg-emerald-800 text-white transition-all',
+                      'hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none',
+                    )}
+                  >
+                    {getPlatformIcon(link.type)}
+                    <span>{link.type}</span>
+                  </Link>
                 </li>
-              )
-            })}
-          </ul>
-        )}
+              ))}
+            </ul>
+          )}
 
-        {project.links && project.links.length > 0 && (
-          <ul className="flex w-full flex-col flex-wrap justify-center gap-4 md:flex-row lg:justify-start">
-            {project.links.map((link) => (
-              <li key={link.id}>
-                <Link
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={clsx(
-                    'flex items-center gap-2 rounded-full px-6 py-3 text-base font-bold capitalize',
-                    'bg-emerald-800 text-white transition-all',
-                    'hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none',
-                  )}
-                >
-                  {getPlatformIcon(link.type)}
-                  <span>{link.type}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+          <Link
+            href={`/${locale}/projects/${project.id}`}
+            className={clsx(
+              'flex w-full items-center justify-center gap-2 rounded-lg border-2 border-emerald-600 px-6 py-3 text-base font-bold uppercase',
+              'bg-transparent text-emerald-500 transition-all',
+              'hover:bg-emerald-600 hover:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none',
+            )}
+          >
+            {tPortfolio('seeMore')}
+          </Link>
+        </div>
       </div>
     </div>
   )

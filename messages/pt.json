@@ -41,15 +41,7 @@
       "Nov",
       "Dez"
     ],
-    "weekdays": [
-      "Dom",
-      "Seg",
-      "Ter",
-      "Qua",
-      "Qui",
-      "Sex",
-      "Sáb"
-    ]
+    "weekdays": ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"]
   },
   "About": {
     "title": "Sobre mim",
@@ -70,5 +62,19 @@
   },
   "Contact": {
     "title": "Contato"
+  },
+  "ProjectDetails": {
+    "aboutProject": "Sobre o Projeto",
+    "challenge": "O Desafio",
+    "solution": "A Solução",
+    "technologies": "Tecnologias Utilizadas",
+    "links": {
+      "github": "Ver Código",
+      "gitlab": "Ver no GitLab",
+      "figma": "Ver Design",
+      "youtube": "Assistir Vídeo",
+      "website": "Live Demo",
+      "other": "Acessar Link"
+    }
   }
 }

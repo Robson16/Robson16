@@ -1,6 +1,7 @@
 'use client'
 
 import { Button, Link } from '@heroui/react'
+import { useParams, usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useEffect, useState } from 'react'
 import { IoIosMenu, IoMdClose } from 'react-icons/io'
@@ -11,9 +12,18 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
+
   const t = useTranslations('Header')
 
+  const pathname = usePathname()
+  const params = useParams()
+  const locale = params.locale as string
+
+  const isHomePage = pathname === '/' || pathname === `/${locale}`
+
   useEffect(() => {
+    if (!isHomePage) return
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
 
@@ -45,11 +55,16 @@ export default function Header() {
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [isHomePage])
+
+  const headerBgClass =
+    isScrolled || !isHomePage
+      ? 'bg-zinc-800 shadow-lg lg:py-6'
+      : 'bg-transparent lg:py-5'
 
   return (
     <header
-      className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${isScrolled ? 'bg-zinc-800 shadow-lg lg:py-6' : 'bg-transparent lg:py-5'}`}
+      className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${headerBgClass}`}
     >
       <div className="container mx-auto">
         <nav className="flex items-start justify-between transition-all max-lg:px-4 max-lg:py-6 lg:items-center lg:justify-center lg:space-x-10">
@@ -72,17 +87,23 @@ export default function Header() {
                 { label: t('about'), href: 'about' },
                 { label: t('portfolio'), href: 'portfolio' },
                 { label: t('contact'), href: 'contact' },
-              ].map(({ label, href }) => (
-                <li key={href} className="flex items-center py-2 lg:py-0">
-                  <Link
-                    onPress={() => setIsOpen(false)}
-                    href={`#${href}`}
-                    className={`text-white lg:hover:text-emerald-500 ${activeSection === href ? 'rounded-none border-b-2 border-white' : ''}`}
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
+              ].map(({ label, href }) => {
+                const linkHref = isHomePage ? `#${href}` : `/${locale}#${href}`
+
+                const isActive = isHomePage && activeSection === href
+
+                return (
+                  <li key={href} className="flex items-center py-2 lg:py-0">
+                    <Link
+                      onPress={() => setIsOpen(false)}
+                      href={linkHref}
+                      className={`text-white lg:hover:text-emerald-500 ${isActive ? 'rounded-none border-b-2 border-white' : ''}`}
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                )
+              })}
             </ul>
           </div>
 

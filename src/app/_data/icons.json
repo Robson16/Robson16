@@ -15,6 +15,21 @@
       "name": "AiFillLinkedin",
       "color": "#0a66c2"
     },
+    "youtube": {
+      "family": "ai",
+      "name": "AiFillYoutube ",
+      "color": "#FF0000"
+    },
+    "figma": {
+      "family": "lu",
+      "name": "LuFigma",
+      "color": "#9D00FF"
+    },
+    "website": {
+      "family": "fa",
+      "name": "FaExternalLinkAlt",
+      "color": "#059669"
+    },
     "code": {
       "family": "io5",
       "name": "IoCodeSlashOutline",
@@ -29,6 +44,11 @@
       "family": "pi",
       "name": "PiLightningLight",
       "color": "#CA8A04"
+    },
+    "other": {
+      "family": "fa",
+      "name": "FaLink",
+      "color": "#059669"
     }
   }
 }

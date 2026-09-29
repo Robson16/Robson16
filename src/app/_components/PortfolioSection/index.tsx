@@ -27,10 +27,14 @@ export type PortfolioProject = Prisma.ProjectGetPayload<{
 }>
 
 interface PortfolioSectionProps {
+  locale: string
   projects: PortfolioProject[]
 }
 
-export default function PortfolioSection({ projects }: PortfolioSectionProps) {
+export default function PortfolioSection({
+  locale,
+  projects,
+}: PortfolioSectionProps) {
   const [visibleProjects, setVisibleProjects] = useState(6)
   const masonryContainer = useMasonry()
   const t = useTranslations('Portfolio')
@@ -57,7 +61,11 @@ export default function PortfolioSection({ projects }: PortfolioSectionProps) {
             projects
               .slice(0, visibleProjects)
               .map((project) => (
-                <PortfolioThumb project={project} key={project.id} />
+                <PortfolioThumb
+                  locale={locale}
+                  project={project}
+                  key={project.id}
+                />
               ))
           ) : (
             <p className="col-span-full text-center text-zinc-500">
