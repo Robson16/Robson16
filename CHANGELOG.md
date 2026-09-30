@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.4.0](https://github.com/Robson16/Robson16/compare/v2.3.0...v2.4.0) (2026-09-30)
+
+### Features
+
+* **epic-3:** setup project details page and refine navigation ([fbdfab6](https://github.com/Robson16/Robson16/commit/fbdfab693943a6a44acd2de150f13a7a2b48a225))
+* limit and randomizing  featured project ([20a5e49](https://github.com/Robson16/Robson16/commit/20a5e49dd8d2f80b899b69ee4628d881dfb227ef))
+* reusable platform icon component ([1ec6731](https://github.com/Robson16/Robson16/commit/1ec6731faf0e5b5c791827add77ae45f4afed259))
+
+### Bug Fixes
+
+* **actions:** implement Zod validation for project creation and update ([fca164d](https://github.com/Robson16/Robson16/commit/fca164d4a4bf91c3ddf39a822f22367d4dd74a5e))
+* event type for GitLab events. ([10a4b19](https://github.com/Robson16/Robson16/commit/10a4b196af2d11a143df17529a8fe5f1c0cfb741))
+* **projects:** project image sizes and proportions ([4bc3074](https://github.com/Robson16/Robson16/commit/4bc307452a15daea39999daf1333566dd65c5510))
+
 ## [2.3.0](https://github.com/Robson16/Robson16/compare/v2.2.0...v2.3.0) (2026-09-28)
 
 ### Features
