@@ -8,6 +8,13 @@ export interface GitLabContributionDay {
   color: string
 }
 
+interface GitLabEvent {
+  created_at?: string
+  push_data?: {
+    commit_count?: number
+  }
+}
+
 export async function fetchGitLabContributions(): Promise<
   GitLabContributionDay[]
 > {
@@ -52,7 +59,7 @@ export async function fetchGitLabContributions(): Promise<
 
     const contributionsMap = new Map<string, number>()
 
-    events.forEach((event: any) => {
+    events.forEach((event: GitLabEvent) => {
       if (event.created_at) {
         const dateStr = event.created_at.split('T')[0] // '2026-09-28'
 
