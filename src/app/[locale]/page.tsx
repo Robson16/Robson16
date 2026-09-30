@@ -15,11 +15,6 @@ export default async function Home({ params }: PageProps) {
   const { locale } = await params
 
   const portfolioProjects = await db.project.findMany({
-    where: {
-      tier: {
-        in: [2, 3],
-      },
-    },
     include: {
       translations: {
         where: {
@@ -47,7 +42,7 @@ export default async function Home({ params }: PageProps) {
       links: true,
     },
     orderBy: {
-      createdAt: 'desc',
+      createdAt: 'asc',
     },
   })
 

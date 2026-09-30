@@ -13,9 +13,19 @@ export default async function FeaturedProjectsSection({
 }: FeaturedProjectsSectionProps) {
   const t = await getTranslations('FeaturedProjects')
 
+  const randomProjects = await db.$queryRaw<{ id: string }[]>`
+  SELECT id FROM "Project" 
+  WHERE tier = 1 
+  ORDER BY RANDOM() 
+  LIMIT 1;`
+
+  const randomIds = randomProjects.map((p) => p.id)
+
   const featuredProjects = await db.project.findMany({
     where: {
-      tier: 1,
+      id: {
+        in: randomIds,
+      },
     },
     include: {
       translations: {
@@ -58,7 +68,6 @@ export default async function FeaturedProjectsSection({
             <h3 className="mb-16 text-center text-4xl font-medium text-white">
               {t('title')}
             </h3>
-
             {featuredProjects.length === 1 ? (
               <FeaturedProjectItem
                 locale={locale}
