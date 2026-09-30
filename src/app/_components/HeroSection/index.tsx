@@ -124,8 +124,8 @@ export default async function HeroSection({ locale }: HeroSectionProps) {
                   src={profileData.avatarUrl ?? '/images/default-avatar.jpg'} // Fallback se for null
                   priority={true}
                   alt={`Photo of ${profileData.name}`}
-                  width={320}
-                  height={320}
+                  width={240}
+                  height={240}
                   className="mx-auto max-w-60 rounded-full border-20 border-zinc-900 xl:max-w-none"
                 />
               </figure>

@@ -1,6 +1,7 @@
 'use client'
 
 import { Prisma, ProjectLinkType } from '@prisma/client'
+import Image from 'next/image'
 import { useState, useTransition } from 'react'
 
 import { createProjectAction } from '@/app/_actions/create-project.action'
@@ -195,6 +196,35 @@ export default function ProjectForm({
       </div>
 
       <div className="flex flex-col gap-2">
+        {isEditing &&
+          initialData?.gallery &&
+          initialData.gallery.length > 0 && (
+            <div className="flex flex-col gap-2 rounded border border-zinc-700/50 bg-zinc-900/50 p-4">
+              <label className="text-sm font-medium text-zinc-400">
+                Current Images:
+              </label>
+              <div className="flex flex-wrap gap-4">
+                {initialData.gallery.map((image) => (
+                  <div
+                    key={image.id}
+                    className="relative size-24 overflow-hidden rounded-md border border-zinc-700 shadow-sm"
+                  >
+                    <Image
+                      src={image.url}
+                      alt="Project gallery image"
+                      fill
+                      sizes="96px"
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+              <p className="mt-2 text-xs text-zinc-500">
+                * Uploading new images will permanently overwrite the current
+                gallery.
+              </p>
+            </div>
+          )}
         <label className="text-zinc-300">
           Images {isEditing && '(Leave empty to keep current images)'}
         </label>
