@@ -5,36 +5,15 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { AiFillGithub, AiFillGitlab, AiFillYoutube } from 'react-icons/ai'
-import { FaExternalLinkAlt, FaLink } from 'react-icons/fa'
-import { LuFigma } from 'react-icons/lu'
 import { PiMagnifyingGlassBold } from 'react-icons/pi'
 import { useMediaQuery } from 'react-responsive'
 
+import { PlatformIcon } from '../PlatformIcon'
 import { PortfolioProject } from '../PortfolioSection'
 
 interface PortfolioThumbProps {
   locale: string
   project: PortfolioProject
-}
-
-const getPlatformIcon = (platform: string) => {
-  const type = platform.toUpperCase()
-
-  switch (type) {
-    case 'GITHUB':
-      return <AiFillGithub size={18} />
-    case 'GITLAB':
-      return <AiFillGitlab size={18} />
-    case 'FIGMA':
-      return <LuFigma size={18} />
-    case 'YOUTUBE':
-      return <AiFillYoutube size={18} />
-    case 'WEBSITE':
-      return <FaExternalLinkAlt size={18} />
-    default:
-      return <FaLink size={18} />
-  }
 }
 
 export default function PortfolioThumb({
@@ -114,7 +93,7 @@ function ModalContentBody({ locale, project }: PortfolioThumbProps) {
 
   return (
     <div className="flex w-full flex-col gap-8 bg-zinc-900 lg:flex-row">
-      <div className="relative min-h-75 flex-1 lg:min-h-100">
+      <div className="relative lg:min-h-100 lg:flex-1">
         <Image
           src={featuredImage}
           alt={translation.title}
@@ -174,7 +153,7 @@ function ModalContentBody({ locale, project }: PortfolioThumbProps) {
                       'hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none',
                     )}
                   >
-                    {getPlatformIcon(link.type)}
+                    <PlatformIcon platform={link.type} />
                     <span>{link.type}</span>
                   </Link>
                 </li>

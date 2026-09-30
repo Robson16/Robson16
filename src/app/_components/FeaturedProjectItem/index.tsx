@@ -3,6 +3,8 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { PlatformIcon } from '../PlatformIcon'
+
 type ProjectWithRelations = Prisma.ProjectGetPayload<{
   include: {
     translations: true
@@ -86,6 +88,7 @@ export default function FeaturedProjectItem({
                   'hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none',
                 )}
               >
+                <PlatformIcon platform={link.type} />
                 {link.type}
               </Link>
             ))}
