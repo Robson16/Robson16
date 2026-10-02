@@ -16,6 +16,11 @@ if (process.env.CLOUDFLARE_PUBLIC_URL) {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '20mb',
+    },
+  },
   images: {
     dangerouslyAllowLocalIP: true,
     dangerouslyAllowSVG: true,

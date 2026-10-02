@@ -41,7 +41,15 @@
       "Nov",
       "Dez"
     ],
-    "weekdays": ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"]
+    "weekdays": [
+      "Dom",
+      "Seg",
+      "Ter",
+      "Qua",
+      "Qui",
+      "Sex",
+      "Sáb"
+    ]
   },
   "About": {
     "title": "Sobre mim",
@@ -67,6 +75,9 @@
     "aboutProject": "Sobre o Projeto",
     "challenge": "O Desafio",
     "solution": "A Solução",
+    "impact": "O Impacto",
+    "gallery": "Galeria do Projeto",
+    "viewImage": "Ver imagem",
     "technologies": "Tecnologias Utilizadas",
     "links": {
       "github": "Ver Código",

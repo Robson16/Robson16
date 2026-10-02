@@ -41,7 +41,15 @@
       "Nov",
       "Dec"
     ],
-    "weekdays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    "weekdays": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
+    ]
   },
   "About": {
     "title": "About me",
@@ -67,6 +75,9 @@
     "aboutProject": "About the Project",
     "challenge": "The Challenge",
     "solution": "The Solution",
+    "impact": "The Impact",
+    "gallery": "Project Gallery",
+    "viewImage": "View image",
     "technologies": "Technologies Used",
     "links": {
       "github": "View Code",

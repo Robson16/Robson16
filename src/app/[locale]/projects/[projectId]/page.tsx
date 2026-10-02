@@ -1,12 +1,12 @@
 import { ProjectLinkType } from '@prisma/client'
-import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 
-import DynamicIcon from '@/app/_components/DynamicIcon'
 import Header from '@/app/_components/Header'
-import iconsData from '@/app/_data/icons.json'
+import { PlatformIcon } from '@/app/_components/PlatformIcon'
 import { db } from '@/app/_lib/prisma'
+
+import ProjectImageModal from './_components/ProjectImageModal'
 
 interface ProjectPageProps {
   params: Promise<{
@@ -14,8 +14,6 @@ interface ProjectPageProps {
     projectId: string
   }>
 }
-
-type IconKey = keyof typeof iconsData.icons
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { locale, projectId } = await params
@@ -60,41 +58,20 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const translation = project.translations[0]
 
-  function getLinkConfig(type: ProjectLinkType) {
-    const iconKey = type.toLowerCase() as IconKey
-    const iconConfig = iconsData.icons[iconKey]
-
-    if (!iconConfig) {
-      console.warn(`Icon not found in JSON for type: ${type}`)
-      return {
-        ...iconsData.icons['other'],
-        label: t('links.other'),
-      }
-    }
-
-    let label = t('links.other')
-
+  function getLinkLabel(type: ProjectLinkType) {
     switch (type) {
       case ProjectLinkType.GITHUB:
-        label = t('links.github')
-        break
+        return t('links.github')
       case ProjectLinkType.GITLAB:
-        label = t('links.gitlab')
-        break
+        return t('links.gitlab')
       case ProjectLinkType.FIGMA:
-        label = t('links.figma')
-        break
+        return t('links.figma')
       case ProjectLinkType.YOUTUBE:
-        label = t('links.youtube')
-        break
+        return t('links.youtube')
       case ProjectLinkType.WEBSITE:
-        label = t('links.website')
-        break
-    }
-
-    return {
-      ...iconConfig,
-      label,
+        return t('links.website')
+      default:
+        return t('links.other')
     }
   }
 
@@ -110,21 +87,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </h1>
           </div>
 
-          {/* Imagem Principal */}
+          {/* Imagem Principal (Hero) */}
           {project.gallery.length > 0 && (
-            <div className="relative mb-16 w-full overflow-hidden rounded-xl border border-zinc-800 shadow-2xl">
-              <Image
-                src={project.gallery[0].url}
-                alt={`Hero image for ${translation.title}`}
-                width={1200}
-                height={900}
-                className="h-auto w-full object-cover"
-                priority
-              />
-            </div>
+            <ProjectImageModal
+              src={project.gallery[0].url}
+              alt={`Hero image for ${translation.title}`}
+              triggerClassName="relative mb-16 block aspect-[4/3] w-full overflow-hidden rounded-xl border border-zinc-800 shadow-2xl"
+              imageClassName="object-cover"
+              sizes="(max-width: 1024px) 100vw, 1024px"
+            />
           )}
 
-          {/* Layout Grid */}
+          {/* Layout Grid do Estudo de Caso */}
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
             {/* Coluna Principal: Sobre o Projeto */}
             <div className="lg:col-span-2">
@@ -139,7 +113,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                 </div>
               </section>
 
-              {/* Seções Opcionais (Desafio, Solução) */}
               {translation.challenge && (
                 <section className="mb-12">
                   <h3 className="mb-4 text-2xl font-semibold text-white">
@@ -165,6 +138,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   </div>
                 </section>
               )}
+
+              {translation.impact && (
+                <section className="mb-12">
+                  <h3 className="mb-4 text-2xl font-semibold text-white">
+                    {t('impact')}
+                  </h3>
+                  <div className="max-w-none text-zinc-300">
+                    <p className="whitespace-pre-wrap">{translation.impact}</p>
+                  </div>
+                </section>
+              )}
             </div>
 
             {/* Coluna Lateral: Detalhes Técnicos e Links */}
@@ -172,25 +156,18 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               {/* Links Dinâmicos */}
               {project.links.length > 0 && (
                 <div className="flex flex-col gap-4">
-                  {project.links.map((link) => {
-                    const config = getLinkConfig(link.type)
-                    return (
-                      <a
-                        key={link.id}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-6 py-3 font-medium text-white transition-colors hover:bg-emerald-500"
-                      >
-                        <DynamicIcon
-                          icon={config.name}
-                          iconFamily={config.family}
-                          size={18}
-                        />
-                        {config.label}
-                      </a>
-                    )
-                  })}
+                  {project.links.map((link) => (
+                    <a
+                      key={link.id}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-6 py-3 font-medium text-white transition-colors hover:bg-emerald-500 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                    >
+                      <PlatformIcon platform={link.type} size={20} />
+                      {getLinkLabel(link.type)}
+                    </a>
+                  ))}
                 </div>
               )}
 
@@ -214,6 +191,27 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               )}
             </div>
           </div>
+
+          {/* Galeria Completa (Pula a primeira imagem que já está no Hero) */}
+          {project.gallery.length > 1 && (
+            <section className="mt-20 border-t border-zinc-800/50 pt-16">
+              <h2 className="mb-12 text-center text-3xl font-semibold text-white">
+                {t('gallery')}
+              </h2>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {project.gallery.slice(1).map((image) => (
+                  <ProjectImageModal
+                    key={image.id}
+                    src={image.url}
+                    alt={`${translation.title} gallery image`}
+                    triggerClassName="group relative aspect-video w-full overflow-hidden rounded-xl border border-zinc-800 shadow-lg"
+                    imageClassName="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                ))}
+              </div>
+            </section>
+          )}
         </div>
       </main>
     </>

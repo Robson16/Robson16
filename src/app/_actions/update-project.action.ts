@@ -15,11 +15,15 @@ const ProjectLinkTypeValues = Object.values(ProjectLinkType) as [
 const updateProjectSchema = z.object({
   tier: z.number().int(),
   gallery: z.array(z.string()).optional(),
+  existingGalleryOrder: z.array(z.string()).optional(),
   translations: z.array(
     z.object({
       locale: z.string(),
       title: z.string().min(1, { message: 'Title is required' }),
       description: z.string(),
+      challenge: z.string().optional(),
+      solution: z.string().optional(),
+      impact: z.string().optional(),
     }),
   ),
   skillIds: z.array(z.string()),
@@ -68,6 +72,18 @@ export async function updateProjectAction(
       await db.projectImage.deleteMany({
         where: { projectId },
       })
+    } else if (
+      data.existingGalleryOrder &&
+      data.existingGalleryOrder.length > 0
+    ) {
+      for (let i = 0; i < data.existingGalleryOrder.length; i++) {
+        const imageId = data.existingGalleryOrder[i]
+
+        await db.projectImage.update({
+          where: { id: imageId },
+          data: { order: i },
+        })
+      }
     }
 
     await db.project.update({
@@ -93,6 +109,9 @@ export async function updateProjectAction(
             locale: translation.locale,
             title: translation.title,
             description: translation.description,
+            challenge: translation.challenge || undefined,
+            solution: translation.solution || undefined,
+            impact: translation.impact || undefined,
           })),
         },
         skills: {
