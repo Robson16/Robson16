@@ -1,29 +1,42 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
+import { validateTranslations } from '@/app/_utils/validate-translations'
 
-interface FeatureTranslationInput {
-  locale: string
-  title: string
-  description: string
-}
+const createFeatureSchema = z.object({
+  icon: z.string().trim().min(1),
+  order: z.number().int(),
+  translations: z.array(
+    z.object({
+      locale: z.string().trim().min(1),
+      title: z.string(),
+      description: z.string(),
+    }),
+  ),
+})
 
-interface CreateFeatureInput {
-  icon: string
-  order: number
-  translations: FeatureTranslationInput[]
-}
+export type CreateFeatureInput = z.infer<typeof createFeatureSchema>
 
 export async function createFeatureAction(data: CreateFeatureInput) {
   try {
+    const validatedData = createFeatureSchema.parse(data)
+    const translationError = await validateTranslations(
+      validatedData.translations,
+    )
+
+    if (translationError) {
+      return { success: false, error: translationError }
+    }
+
     await db.feature.create({
       data: {
-        icon: data.icon,
-        order: data.order,
+        icon: validatedData.icon,
+        order: validatedData.order,
         translations: {
-          create: data.translations.map((translation) => ({
+          create: validatedData.translations.map((translation) => ({
             locale: translation.locale,
             title: translation.title,
             description: translation.description,

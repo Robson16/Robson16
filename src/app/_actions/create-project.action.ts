@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
+import { validateTranslations } from '@/app/_utils/validate-translations'
 
 const ProjectLinkTypeValues = Object.values(ProjectLinkType) as [
   string,
@@ -13,18 +14,18 @@ const ProjectLinkTypeValues = Object.values(ProjectLinkType) as [
 
 const createProjectSchema = z.object({
   tier: z.number().int(),
-  gallery: z.array(z.string()).optional(),
+  gallery: z.array(z.string().url()).optional(),
   translations: z.array(
     z.object({
-      locale: z.string(),
-      title: z.string().min(1, { message: 'Title is required' }),
+      locale: z.string().trim().min(1),
+      title: z.string(),
       description: z.string(),
       challenge: z.string().optional(),
       solution: z.string().optional(),
       impact: z.string().optional(),
     }),
   ),
-  skillIds: z.array(z.string()),
+  skillIds: z.array(z.string().trim().min(1)),
   links: z
     .array(
       z.object({
@@ -41,6 +42,14 @@ export type CreateProjectInput = z.infer<typeof createProjectSchema>
 export async function createProjectAction(inputData: CreateProjectInput) {
   try {
     const data = createProjectSchema.parse(inputData)
+    const translationError = await validateTranslations(data.translations, [
+      'title',
+      'description',
+    ])
+
+    if (translationError) {
+      return { success: false, error: translationError }
+    }
 
     await db.project.create({
       data: {

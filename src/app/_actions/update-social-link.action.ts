@@ -1,25 +1,32 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
 
-export type SocialLinkInput = {
-  id?: string
-  icon: string
-  name: string
-  url: string
-  order: number
-}
+const updateSocialLinksSchema = z.array(
+  z.object({
+    id: z.string().trim().min(1).optional(),
+    icon: z.string(),
+    name: z.string().trim().min(1),
+    url: z.url(),
+    order: z.number().int(),
+  }),
+)
+
+export type SocialLinkInput = z.infer<typeof updateSocialLinksSchema>[number]
 
 export async function updateSocialLinkAction(links: SocialLinkInput[]) {
   try {
+    const validatedLinks = updateSocialLinksSchema.parse(links)
+
     await db.$transaction(async (tx) => {
       await tx.socialLink.deleteMany()
 
-      if (links.length > 0) {
+      if (validatedLinks.length > 0) {
         await tx.socialLink.createMany({
-          data: links.map((link) => ({
+          data: validatedLinks.map((link) => ({
             icon: link.icon,
             name: link.name,
             url: link.url,

@@ -1,6 +1,7 @@
 'use server'
 
 import { getServerSession } from 'next-auth'
+import { z } from 'zod'
 
 import { StorageService } from '@/app/_lib/storage/r2-storage'
 import { authOptions } from '@/auth'
@@ -10,6 +11,15 @@ interface UploadResponse {
   url?: string
   error?: string
 }
+
+const uploadImageSchema = z.object({
+  file: z
+    .file()
+    .refine((file) => file.type.startsWith('image/'), {
+      message: 'The file must be an image.',
+    })
+    .max(5242880, { message: 'The image must be a maximum of 5MB.' }),
+})
 
 export async function uploadImageAction(
   formData: FormData,
@@ -21,18 +31,22 @@ export async function uploadImageAction(
       return { success: false, error: 'Unauthorized.' }
     }
 
-    const file = formData.get('file') as File | null
+    const parsed = uploadImageSchema.safeParse({
+      file: formData.get('file'),
+    })
 
-    if (!file) {
+    if (!parsed.success) {
+      if (formData.get('file') === null) {
+        return { success: false, error: 'No files uploaded.' }
+      }
+
+      return { success: false, error: parsed.error.issues[0].message }
+    }
+
+    const file = parsed.data.file
+
+    if (!file.name.trim()) {
       return { success: false, error: 'No files uploaded.' }
-    }
-
-    if (!file.type.startsWith('image/')) {
-      return { success: false, error: 'The file must be an image.' }
-    }
-
-    if (file.size > 5242880) {
-      return { success: false, error: 'The image must be a maximum of 5MB.' }
     }
 
     const arrayBuffer = await file.arrayBuffer()

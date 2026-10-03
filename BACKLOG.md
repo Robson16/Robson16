@@ -73,7 +73,7 @@
 
 - [x] Criar a rota dinâmica de visualização de projeto (`src/app/[locale]/portfolio/[projectId]/page.tsx`).
 - [x] Desenvolver o layout focado em "Estudo de Caso", exibindo o Desafio, a Solução Arquitetural e as Métricas de Impacto (buscados do Prisma).
-- [x] Renderizar a galeria completa de imagens do projeto. 
+- [x] Renderizar a galeria completa de imagens do projeto.
 - [x] Configurar os links externos para repositórios e deploys com ícones corretos.
 
 ### Story 3.4: Timeline de Histórico de Commits (API Externa)

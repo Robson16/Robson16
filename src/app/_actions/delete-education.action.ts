@@ -1,13 +1,16 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
 
 export async function deleteEducationAction(id: string) {
   try {
+    const validatedId = z.string().trim().min(1).parse(id)
+
     await db.education.delete({
-      where: { id },
+      where: { id: validatedId },
     })
 
     revalidatePath('/admin/educations')

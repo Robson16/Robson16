@@ -1,35 +1,42 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
 
-interface UpdateLanguageInput {
-  name: string
-  isDefault: boolean
-}
+const languageCodeSchema = z.string().trim().min(2).max(5)
+const updateLanguageSchema = z.object({
+  name: z.string().trim().min(1),
+  isDefault: z.boolean(),
+})
+
+export type UpdateLanguageInput = z.infer<typeof updateLanguageSchema>
 
 export async function updateLanguageAction(
   code: string,
   data: UpdateLanguageInput,
 ) {
   try {
+    const validatedCode = languageCodeSchema.parse(code)
+    const validatedData = updateLanguageSchema.parse(data)
+
     // If the user is marking THIS language as the new default
-    if (data.isDefault) {
+    if (validatedData.isDefault) {
       // Remove o status de padrão de todos os outros idiomas primeiro
       await db.language.updateMany({
-        where: { isDefault: true, code: { not: code } },
+        where: { isDefault: true, code: { not: validatedCode } },
         data: { isDefault: false },
       })
     } else {
       // Security lock: Prevent the user from "unchecking" the single default language.
       const currentLanguage = await db.language.findUnique({
         where: {
-          code,
+          code: validatedCode,
         },
       })
 
-      if (currentLanguage?.isDefault && !data.isDefault) {
+      if (currentLanguage?.isDefault && !validatedData.isDefault) {
         return {
           success: false,
           error:
@@ -39,10 +46,10 @@ export async function updateLanguageAction(
     }
 
     await db.language.update({
-      where: { code },
+      where: { code: validatedCode },
       data: {
-        name: data.name,
-        isDefault: data.isDefault,
+        name: validatedData.name,
+        isDefault: validatedData.isDefault,
       },
     })
 

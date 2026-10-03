@@ -1,30 +1,45 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
+import { validateTranslations } from '@/app/_utils/validate-translations'
 
-interface SkillTranslationInput {
-  locale: string
-  name: string
-}
+const updateSkillSchema = z.object({
+  icon: z.string(),
+  category: z.string().trim().min(1),
+  translations: z.array(
+    z.object({
+      locale: z.string().trim().min(1),
+      name: z.string(),
+    }),
+  ),
+})
 
-interface UpdateSkillInput {
-  icon: string
-  category: string
-  translations: SkillTranslationInput[]
-}
+export type UpdateSkillInput = z.infer<typeof updateSkillSchema>
 
 export async function updateSkillAction(id: string, data: UpdateSkillInput) {
   try {
+    const validatedId = z.string().trim().min(1).parse(id)
+    const validatedData = updateSkillSchema.parse(data)
+    const translationError = await validateTranslations(
+      validatedData.translations,
+      ['name'],
+    )
+
+    if (translationError) {
+      return { success: false, error: translationError }
+    }
+
     await db.skill.update({
-      where: { id },
+      where: { id: validatedId },
       data: {
-        icon: data.icon,
-        category: data.category,
+        icon: validatedData.icon,
+        category: validatedData.category,
         translations: {
-          deleteMany: { skillId: id },
-          create: data.translations.map((translation) => ({
+          deleteMany: { skillId: validatedId },
+          create: validatedData.translations.map((translation) => ({
             locale: translation.locale,
             name: translation.name,
           })),

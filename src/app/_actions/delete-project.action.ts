@@ -1,15 +1,17 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
 import { StorageService } from '@/app/_lib/storage/r2-storage'
 
 export async function deleteProjectAction(projectId: string) {
   try {
+    const validatedProjectId = z.string().trim().min(1).parse(projectId)
     const project = await db.project.findUnique({
       where: {
-        id: projectId,
+        id: validatedProjectId,
       },
       include: {
         gallery: true,
@@ -29,7 +31,7 @@ export async function deleteProjectAction(projectId: string) {
 
     await db.project.delete({
       where: {
-        id: projectId,
+        id: validatedProjectId,
       },
     })
 

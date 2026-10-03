@@ -1,17 +1,22 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
 
-interface CreateSocialLinkInput {
-  icon: string
-  name: string
-  url: string
-}
+const createSocialLinkSchema = z.object({
+  icon: z.string(),
+  name: z.string().trim().min(1),
+  url: z.url(),
+})
+
+export type CreateSocialLinkInput = z.infer<typeof createSocialLinkSchema>
 
 export async function createSocialLinkAction(data: CreateSocialLinkInput) {
   try {
+    const validatedData = createSocialLinkSchema.parse(data)
+
     const lastLink = await db.socialLink.findFirst({
       orderBy: { order: 'desc' },
     })
@@ -20,9 +25,9 @@ export async function createSocialLinkAction(data: CreateSocialLinkInput) {
 
     await db.socialLink.create({
       data: {
-        icon: data.icon || 'link',
-        name: data.name,
-        url: data.url,
+        icon: validatedData.icon || 'link',
+        name: validatedData.name,
+        url: validatedData.url,
         order: nextOrder,
       },
     })

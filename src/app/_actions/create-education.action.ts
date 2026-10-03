@@ -1,25 +1,39 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
+import { validateTranslations } from '@/app/_utils/validate-translations'
 
-interface EducationTranslationInput {
-  locale: string
-  title: string
-  institution: string
-  description: string
-}
+const createEducationSchema = z.object({
+  startDate: z.iso.date(),
+  endDate: z.iso.date().nullable(),
+  order: z.number().int(),
+  translations: z.array(
+    z.object({
+      locale: z.string().trim().min(1),
+      title: z.string(),
+      institution: z.string(),
+      description: z.string(),
+    }),
+  ),
+})
 
-interface CreateEducationInput {
-  startDate: string
-  endDate?: string | null
-  order: number
-  translations: EducationTranslationInput[]
-}
+export type CreateEducationInput = z.infer<typeof createEducationSchema>
 
-export async function createEducationAction(data: CreateEducationInput) {
+export async function createEducationAction(inputData: CreateEducationInput) {
   try {
+    const data = createEducationSchema.parse(inputData)
+    const translationError = await validateTranslations(data.translations, [
+      'title',
+      'institution',
+    ])
+
+    if (translationError) {
+      return { success: false, error: translationError }
+    }
+
     await db.education.create({
       data: {
         startDate: new Date(data.startDate),

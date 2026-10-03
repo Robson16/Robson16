@@ -1,33 +1,48 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
 import { StorageService } from '@/app/_lib/storage/r2-storage'
+import { validateTranslations } from '@/app/_utils/validate-translations'
 
-interface ProfileTranslationInput {
-  locale: string
-  title: string
-  locationName: string
-  bio: string
-}
+const updateProfileSchema = z.object({
+  name: z.string().trim().min(1),
+  email: z.email(),
+  phone: z.string().trim().min(1),
+  locationUrl: z.url(),
+  avatarUrl: z.union([z.url(), z.literal('')]).optional(),
+  translations: z.array(
+    z.object({
+      locale: z.string().trim().min(1),
+      title: z.string(),
+      locationName: z.string(),
+      bio: z.string(),
+    }),
+  ),
+})
 
-interface UpdateProfileInput {
-  name: string
-  email: string
-  phone: string
-  locationUrl: string
-  avatarUrl?: string
-  translations: ProfileTranslationInput[]
-}
+export type UpdateProfileInput = z.infer<typeof updateProfileSchema>
 
 export async function updateProfileAction(
   id: string,
   data: UpdateProfileInput,
 ) {
   try {
+    const validatedId = z.string().trim().min(1).parse(id)
+    const validatedData = updateProfileSchema.parse(data)
+    const translationError = await validateTranslations(
+      validatedData.translations,
+      ['title', 'locationName'],
+    )
+
+    if (translationError) {
+      return { success: false, error: translationError }
+    }
+
     const existingProfile = await db.profile.findUnique({
-      where: { id },
+      where: { id: validatedId },
     })
 
     if (!existingProfile) {
@@ -38,9 +53,9 @@ export async function updateProfileAction(
     }
 
     if (
-      data.avatarUrl &&
+      validatedData.avatarUrl &&
       existingProfile.avatarUrl &&
-      data.avatarUrl !== existingProfile.avatarUrl
+      validatedData.avatarUrl !== existingProfile.avatarUrl
     ) {
       try {
         await StorageService.delete(existingProfile.avatarUrl)
@@ -50,16 +65,18 @@ export async function updateProfileAction(
     }
 
     await db.profile.update({
-      where: { id },
+      where: { id: validatedId },
       data: {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        locationUrl: data.locationUrl,
-        ...(data.avatarUrl && { avatarUrl: data.avatarUrl }),
+        name: validatedData.name,
+        email: validatedData.email,
+        phone: validatedData.phone,
+        locationUrl: validatedData.locationUrl,
+        ...(validatedData.avatarUrl && {
+          avatarUrl: validatedData.avatarUrl,
+        }),
         translations: {
-          deleteMany: { profileId: id },
-          create: data.translations.map((translation) => ({
+          deleteMany: { profileId: validatedId },
+          create: validatedData.translations.map((translation) => ({
             locale: translation.locale,
             title: translation.title,
             locationName: translation.locationName,

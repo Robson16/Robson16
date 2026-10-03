@@ -2,19 +2,23 @@
 
 import { Prisma } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
+import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
 
-interface CreateLanguageInput {
-  code: string
-  name: string
-  isDefault: boolean
-}
+const createLanguageSchema = z.object({
+  code: z.string().trim().min(2).max(5),
+  name: z.string().trim().min(1),
+  isDefault: z.boolean(),
+})
+
+export type CreateLanguageInput = z.infer<typeof createLanguageSchema>
 
 export async function createLanguageAction(data: CreateLanguageInput) {
   try {
-    // If the new language is the default, we remove the default status from all others.
-    if (data.isDefault) {
+    const validatedData = createLanguageSchema.parse(data)
+
+    if (validatedData.isDefault) {
       await db.language.updateMany({
         where: { isDefault: true },
         data: { isDefault: false },
@@ -23,9 +27,9 @@ export async function createLanguageAction(data: CreateLanguageInput) {
 
     await db.language.create({
       data: {
-        code: data.code.toLowerCase(),
-        name: data.name,
-        isDefault: data.isDefault,
+        code: validatedData.code.toLowerCase(),
+        name: validatedData.name,
+        isDefault: validatedData.isDefault,
       },
     })
 

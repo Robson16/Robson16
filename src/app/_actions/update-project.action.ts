@@ -6,6 +6,7 @@ import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
 import { StorageService } from '@/app/_lib/storage/r2-storage'
+import { validateTranslations } from '@/app/_utils/validate-translations'
 
 const ProjectLinkTypeValues = Object.values(ProjectLinkType) as [
   string,
@@ -14,19 +15,19 @@ const ProjectLinkTypeValues = Object.values(ProjectLinkType) as [
 
 const updateProjectSchema = z.object({
   tier: z.number().int(),
-  gallery: z.array(z.string()).optional(),
-  existingGalleryOrder: z.array(z.string()).optional(),
+  gallery: z.array(z.string().url()).optional(),
+  existingGalleryOrder: z.array(z.string().trim().min(1)).optional(),
   translations: z.array(
     z.object({
-      locale: z.string(),
-      title: z.string().min(1, { message: 'Title is required' }),
+      locale: z.string().trim().min(1),
+      title: z.string(),
       description: z.string(),
       challenge: z.string().optional(),
       solution: z.string().optional(),
       impact: z.string().optional(),
     }),
   ),
-  skillIds: z.array(z.string()),
+  skillIds: z.array(z.string().trim().min(1)),
   links: z
     .array(
       z.object({
@@ -45,11 +46,20 @@ export async function updateProjectAction(
   inputData: UpdateProjectInput,
 ) {
   try {
+    const validatedProjectId = z.string().trim().min(1).parse(projectId)
     const data = updateProjectSchema.parse(inputData)
+    const translationError = await validateTranslations(data.translations, [
+      'title',
+      'description',
+    ])
+
+    if (translationError) {
+      return { success: false, error: translationError }
+    }
 
     const existingProject = await db.project.findUnique({
       where: {
-        id: projectId,
+        id: validatedProjectId,
       },
       include: {
         gallery: true,
@@ -70,7 +80,7 @@ export async function updateProjectAction(
       }
 
       await db.projectImage.deleteMany({
-        where: { projectId },
+        where: { projectId: validatedProjectId },
       })
     } else if (
       data.existingGalleryOrder &&
@@ -103,7 +113,7 @@ export async function updateProjectAction(
           }),
         translations: {
           deleteMany: {
-            projectId,
+            projectId: validatedProjectId,
           },
           create: data.translations.map((translation) => ({
             locale: translation.locale,
@@ -116,7 +126,7 @@ export async function updateProjectAction(
         },
         skills: {
           deleteMany: {
-            projectId,
+            projectId: validatedProjectId,
           },
           create: data.skillIds.map((skillId) => ({
             skillId,
@@ -143,7 +153,10 @@ export async function updateProjectAction(
     })
 
     revalidatePath('/admin/projects')
-    revalidatePath(`/[locale]/admin/projects/${projectId}/edit`, 'page')
+    revalidatePath(
+      `/[locale]/admin/projects/${validatedProjectId}/edit`,
+      'page',
+    )
 
     return { success: true }
   } catch (error) {
