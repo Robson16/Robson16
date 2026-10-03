@@ -78,10 +78,10 @@
 
 ### Story 3.4: Timeline de Histórico de Commits (API Externa)
 
-- [ ] Criar o componente `<CommitTimeline repoUrl="..." />`.
-- [ ] Configurar consumo dinâmico da API REST do GitHub (`/repos/{owner}/{repo}/commits`).
-- [ ] Configurar consumo dinâmico da API REST do GitLab (`/projects/{id}/repository/commits`).
-- [ ] Renderizar na página de detalhes de cada projeto os últimos commits de forma animada, provando aderência ao padrão _Conventional Commits_.
+- [x] Criar o componente `<CommitTimeline repoUrl="..." />`.
+- [x] Configurar consumo dinâmico da API REST do GitHub (`/repos/{owner}/{repo}/commits`).
+- [x] Configurar consumo dinâmico da API REST do GitLab (`/projects/{id}/repository/commits`).
+- [x] Renderizar na página de detalhes de cada projeto os últimos commits, provando aderência ao padrão _Conventional Commits_.
 
 ## Epic 4: Migração de Dados para PostgreSQL (Vercel Postgres)
 
@@ -109,4 +109,4 @@
 ### Story 4.4: Refatoração do Consumo de Dados no Next.js
 
 - [x] Criar o arquivo de instância Singleton do Prisma Client (ex: `src/_utils/prisma.ts`) para evitar vazamento de conexões no modo dev.
-- [ ] Refatorar as actions para validação com zod.
+- [x] Refatorar as actions para validação com zod.

@@ -11,6 +11,7 @@ interface ProjectImageModalProps {
   triggerClassName: string
   imageClassName: string
   sizes: string
+  loading?: 'eager' | 'lazy'
 }
 
 export default function ProjectImageModal({
@@ -19,6 +20,7 @@ export default function ProjectImageModal({
   triggerClassName,
   imageClassName,
   sizes,
+  loading = 'lazy',
 }: ProjectImageModalProps) {
   const t = useTranslations('ProjectDetails')
 
@@ -33,6 +35,7 @@ export default function ProjectImageModal({
           alt={alt}
           fill
           sizes={sizes}
+          loading={loading}
           className={imageClassName}
         />
         <span
@@ -57,7 +60,7 @@ export default function ProjectImageModal({
                 fill
                 sizes="94vw"
                 className="object-contain"
-                priority
+                loading="lazy"
               />
             </Modal.Body>
           </Modal.Dialog>

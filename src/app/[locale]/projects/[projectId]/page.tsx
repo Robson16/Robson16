@@ -6,7 +6,8 @@ import Header from '@/app/_components/Header'
 import { PlatformIcon } from '@/app/_components/PlatformIcon'
 import { db } from '@/app/_lib/prisma'
 
-import ProjectImageModal from './_components/ProjectImageModal'
+import CommitTimeline from '../_components/CommitTimeline'
+import ProjectImageModal from '../_components/ProjectImageModal'
 
 interface ProjectPageProps {
   params: Promise<{
@@ -95,6 +96,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               triggerClassName="relative mb-16 block aspect-[4/3] w-full overflow-hidden rounded-xl border border-zinc-800 shadow-2xl"
               imageClassName="object-cover"
               sizes="(max-width: 1024px) 100vw, 1024px"
+              loading="eager"
             />
           )}
 
@@ -212,6 +214,12 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               </div>
             </section>
           )}
+
+          {project.links.map((link) => {
+            if (link.type === 'GITHUB' || link.type === 'GITLAB') {
+              return <CommitTimeline key={link.id} repoUrl={link.url} />
+            }
+          })}
         </div>
       </main>
     </>

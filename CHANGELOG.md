@@ -6,9 +6,9 @@ All notable changes to this project will be documented in this file. See [commit
 
 ### Features
 
-* **admin:** display current image thumbnails in project edit form ([588a7a2](https://github.com/Robson16/Robson16/commit/588a7a2a820006f44be1bddeba89ffdc149fa4d8))
-* **projects:** complete case study detail pages ([34c87c7](https://github.com/Robson16/Robson16/commit/34c87c71a7929b50d31634969006ab08c50a0b02))
-* validate server action inputs with Zod ([8851ee8](https://github.com/Robson16/Robson16/commit/8851ee8880e870c2c715426d199182252f682730))
+- **admin:** display current image thumbnails in project edit form ([588a7a2](https://github.com/Robson16/Robson16/commit/588a7a2a820006f44be1bddeba89ffdc149fa4d8))
+- **projects:** complete case study detail pages ([34c87c7](https://github.com/Robson16/Robson16/commit/34c87c71a7929b50d31634969006ab08c50a0b02))
+- validate server action inputs with Zod ([8851ee8](https://github.com/Robson16/Robson16/commit/8851ee8880e870c2c715426d199182252f682730))
 
 ## [2.4.0](https://github.com/Robson16/Robson16/compare/v2.3.0...v2.4.0) (2026-09-30)
 
