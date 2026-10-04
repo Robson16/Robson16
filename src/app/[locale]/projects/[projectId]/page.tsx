@@ -1,10 +1,11 @@
-import { ProjectLinkType } from '@prisma/client'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
+import { FaBriefcase } from 'react-icons/fa6'
 
 import Header from '@/app/_components/Header'
 import { PlatformIcon } from '@/app/_components/PlatformIcon'
 import { db } from '@/app/_lib/prisma'
+import { getProjectLinkLabel } from '@/app/_utils/get-project-link-label'
 
 import CommitTimeline from '../_components/CommitTimeline'
 import ProjectImageModal from '../_components/ProjectImageModal'
@@ -49,7 +50,22 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         },
       },
       links: true,
-      experiences: true,
+      experiences: {
+        include: {
+          experience: {
+            select: {
+              id: true,
+              company: true,
+              startDate: true,
+              endDate: true,
+              translations: {
+                where: { locale },
+                select: { role: true },
+              },
+            },
+          },
+        },
+      },
     },
   })
 
@@ -58,23 +74,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   }
 
   const translation = project.translations[0]
-
-  function getLinkLabel(type: ProjectLinkType) {
-    switch (type) {
-      case ProjectLinkType.GITHUB:
-        return t('links.github')
-      case ProjectLinkType.GITLAB:
-        return t('links.gitlab')
-      case ProjectLinkType.FIGMA:
-        return t('links.figma')
-      case ProjectLinkType.YOUTUBE:
-        return t('links.youtube')
-      case ProjectLinkType.WEBSITE:
-        return t('links.website')
-      default:
-        return t('links.other')
-    }
-  }
 
   return (
     <>
@@ -167,10 +166,47 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       className="flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-6 py-3 font-medium text-white transition-colors hover:bg-emerald-500 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
                     >
                       <PlatformIcon platform={link.type} size={20} />
-                      {getLinkLabel(link.type)}
+                      {getProjectLinkLabel(link.type, t)}
                     </a>
                   ))}
                 </div>
+              )}
+
+              {project.experiences.length > 0 && (
+                <section className="border-t border-zinc-800 pt-6">
+                  <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-zinc-200">
+                    <FaBriefcase className="text-emerald-500" />
+                    {t('relatedExperience')}
+                  </h3>
+                  <ul className="space-y-4">
+                    {project.experiences.map(({ experience }) => {
+                      const dateFormatter = new Intl.DateTimeFormat(locale, {
+                        month: 'short',
+                        year: 'numeric',
+                      })
+
+                      return (
+                        <li key={experience.id}>
+                          {experience.translations[0] && (
+                            <p className="font-medium text-white">
+                              {experience.translations[0].role}
+                            </p>
+                          )}
+                          <p className="text-sm text-zinc-300">
+                            {experience.company}
+                          </p>
+                          <p className="mt-1 text-xs text-zinc-500">
+                            {dateFormatter.format(experience.startDate)}
+                            {' - '}
+                            {experience.endDate
+                              ? dateFormatter.format(experience.endDate)
+                              : t('present')}
+                          </p>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </section>
               )}
 
               {/* Tecnologias */}
@@ -194,7 +230,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
           </div>
 
-          {/* Galeria Completa (Pula a primeira imagem que já está no Hero) */}
           {project.gallery.length > 1 && (
             <section className="mt-20 border-t border-zinc-800/50 pt-16">
               <h2 className="mb-12 text-center text-3xl font-semibold text-white">

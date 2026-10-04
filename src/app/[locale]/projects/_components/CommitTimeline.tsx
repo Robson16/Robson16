@@ -17,12 +17,21 @@ export default async function CommitTimeline({ repoUrl }: CommitTimelineProps) {
 
   const isGitHub = repoUrl.includes('github.com')
   const isGitLab = repoUrl.includes('gitlab.com')
+  const repositoryTitle =
+    new URL(repoUrl).pathname
+      .split('/')
+      .filter(Boolean)
+      .pop()
+      ?.replace(/\.git$/i, '') ?? repoUrl
   let platformName
   if (isGitHub) platformName = 'GitHub'
   if (isGitLab) platformName = 'Gitlab'
 
   return (
     <div className="mt-12 rounded-xl border border-zinc-800/50 bg-zinc-900/30 p-6">
+      <h2 className="mb-2 text-lg font-semibold text-white">
+        {repositoryTitle}
+      </h2>
       <h3 className="mb-6 flex items-center gap-2 text-xl font-semibold text-white">
         <FaCodeCommit className="text-emerald-500" />
         {t('commitTimelineTitle')} {platformName}

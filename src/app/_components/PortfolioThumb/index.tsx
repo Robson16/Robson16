@@ -8,6 +8,8 @@ import { useTranslations } from 'next-intl'
 import { PiMagnifyingGlassBold } from 'react-icons/pi'
 import { useMediaQuery } from 'react-responsive'
 
+import { getProjectLinkLabel } from '@/app/_utils/get-project-link-label'
+
 import { PlatformIcon } from '../PlatformIcon'
 import { PortfolioProject } from '../PortfolioSection'
 
@@ -103,7 +105,7 @@ function ModalContentBody({ locale, project }: PortfolioThumbProps) {
         />
       </div>
 
-      <div className="flex max-h-[60vh] flex-1 flex-col overflow-y-auto pr-2">
+      <div className="flex max-h-[60vh] flex-1 flex-col pr-2">
         <div className="grow">
           <h4 className="mb-2 text-center text-3xl font-bold uppercase lg:text-left">
             {translation.title}
@@ -148,13 +150,13 @@ function ModalContentBody({ locale, project }: PortfolioThumbProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     className={clsx(
-                      'flex items-center gap-2 rounded-full px-6 py-3 text-base font-bold capitalize',
+                      'flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-bold capitalize',
                       'bg-emerald-800 text-white transition-all',
                       'hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none',
                     )}
                   >
                     <PlatformIcon platform={link.type} />
-                    <span>{link.type}</span>
+                    <span>{getProjectLinkLabel(link.type, tProject)}</span>
                   </Link>
                 </li>
               ))}

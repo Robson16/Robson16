@@ -9,6 +9,7 @@ import { createProjectAction } from '@/app/_actions/create-project.action'
 import { updateProjectAction } from '@/app/_actions/update-project.action'
 import { uploadImageAction } from '@/app/_actions/upload-image.action'
 import { Link } from '@/app/_i18n/navigation'
+import { getProjectLinkLabel } from '@/app/_utils/get-project-link-label'
 
 interface Language {
   code: string
@@ -45,15 +46,6 @@ type TranslationData = {
   challenge?: string
   solution?: string
   impact?: string
-}
-
-const LINK_TYPE_LABELS: Record<ProjectLinkType, string> = {
-  [ProjectLinkType.GITHUB]: 'GitHub',
-  [ProjectLinkType.GITLAB]: 'GitLab',
-  [ProjectLinkType.WEBSITE]: 'Live Preview',
-  [ProjectLinkType.FIGMA]: 'Figma',
-  [ProjectLinkType.YOUTUBE]: 'YouTube',
-  [ProjectLinkType.OTHER]: 'Other',
 }
 
 export default function ProjectForm({
@@ -573,7 +565,7 @@ export default function ProjectForm({
             >
               {Object.values(ProjectLinkType).map((type) => (
                 <option key={type} value={type}>
-                  {LINK_TYPE_LABELS[type]}
+                  {getProjectLinkLabel(type)}
                 </option>
               ))}
             </select>

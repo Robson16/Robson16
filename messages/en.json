@@ -72,12 +72,14 @@
     "viewImage": "View image",
     "commitTimelineTitle": "Latest Commits on",
     "technologies": "Technologies Used",
+    "relatedExperience": "Related Experience",
+    "present": "Present",
     "links": {
-      "github": "View Code",
-      "gitlab": "View on GitLab",
-      "figma": "View Design",
+      "github": "GitHub",
+      "gitlab": "GitLab",
+      "figma": "Design",
       "youtube": "Watch Video",
-      "website": "Live Demo",
+      "website": "See Online",
       "other": "Access Link"
     }
   }
