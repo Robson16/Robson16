@@ -130,5 +130,5 @@
 
 ### Story 5.3: Metadados Dinâmicos e SEO
 
-- [ ] Implementar a função `generateMetadata` na página de detalhes do projeto para injetar `<title>` e `<meta name="description">` dinamicamente.
-- [ ] Configurar o OpenGraph (OG) para utilizar a primeira imagem da galeria (capa) como miniatura ao compartilhar o link do projeto.
+- [x] Implementar a função `generateMetadata` na página de detalhes do projeto para injetar `<title>` e `<meta name="description">` dinamicamente.
+- [x] Configurar o OpenGraph (OG) para utilizar a primeira imagem da galeria (capa) como miniatura ao compartilhar o link do projeto.
