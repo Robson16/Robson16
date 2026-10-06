@@ -17,7 +17,6 @@ const ProjectLinkTypeValues = Object.values(ProjectLinkType) as [
 const createProjectSchema = z.object({
   tier: z.number().int(),
   gallery: z.array(z.string().url()).optional(),
-  defaultLocale: z.string().default('pt'),
   translations: z.array(
     z.object({
       locale: z.string().trim().min(1),
@@ -58,10 +57,32 @@ export async function createProjectAction(inputData: CreateProjectInput) {
       }
     }
 
-    const defaultTranslation =
-      data.translations.find(
-        (translation) => translation.locale === data.defaultLocale,
-      ) || data.translations[0]
+    const defaultLanguage = await db.language.findFirst({
+      where: {
+        isDefault: true,
+      },
+      select: {
+        code: true,
+      },
+    })
+
+    if (!defaultLanguage) {
+      return {
+        success: false,
+        error: 'No default language is configured.',
+      }
+    }
+
+    const defaultTranslation = data.translations.find(
+      (translation) => translation.locale === defaultLanguage.code,
+    )
+
+    if (!defaultTranslation) {
+      return {
+        success: false,
+        error: 'A translation for the default language is required.',
+      }
+    }
 
     const baseSlug = generateSlug(defaultTranslation.title)
     let finalSlug = baseSlug
