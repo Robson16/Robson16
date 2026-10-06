@@ -164,7 +164,7 @@ function ModalContentBody({ locale, project }: PortfolioThumbProps) {
           )}
 
           <Link
-            href={`/${locale}/projects/${project.id}`}
+            href={`/${locale}/projects/${project.slug}`}
             className={clsx(
               'flex w-full items-center justify-center gap-2 rounded-lg border-2 border-emerald-600 px-6 py-3 text-base font-bold uppercase',
               'bg-transparent text-emerald-500 transition-all',

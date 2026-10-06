@@ -13,17 +13,17 @@ import ProjectImageModal from '../_components/ProjectImageModal'
 interface ProjectPageProps {
   params: Promise<{
     locale: string
-    projectId: string
+    slug: string
   }>
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { locale, projectId } = await params
+  const { locale, slug } = await params
   const t = await getTranslations('ProjectDetails')
 
   const project = await db.project.findUnique({
     where: {
-      id: projectId,
+      slug: slug,
     },
     include: {
       translations: {

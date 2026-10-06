@@ -124,9 +124,9 @@
 
 ### Story 5.2: Refatoração das Actions e Roteamento
 
-- [ ] Atualizar `create-project.action.ts` e `update-project.action.ts` para gerarem o slug automaticamente a partir do título (pt-BR).
-- [ ] Renomear a pasta de rota pública de `[projectId]` para `[slug]`.
-- [ ] Atualizar todos os links do portfólio (grids, cards) para apontarem para o `slug` em vez do `id`.
+- [x] Atualizar `create-project.action.ts` e `update-project.action.ts` para gerarem o slug automaticamente a partir do título.
+- [x] Renomear a pasta de rota pública de `[projectId]` para `[slug]`.
+- [x] Atualizar todos os links do portfólio (grids, cards) para apontarem para o `slug` em vez do `id`.
 
 ### Story 5.3: Metadados Dinâmicos e SEO
 

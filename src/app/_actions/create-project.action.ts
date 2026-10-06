@@ -7,6 +7,8 @@ import { z } from 'zod'
 import { db } from '@/app/_lib/prisma'
 import { validateTranslations } from '@/app/_utils/validate-translations'
 
+import { generateSlug } from '../_utils/generate-slug'
+
 const ProjectLinkTypeValues = Object.values(ProjectLinkType) as [
   string,
   ...string[],
@@ -15,6 +17,7 @@ const ProjectLinkTypeValues = Object.values(ProjectLinkType) as [
 const createProjectSchema = z.object({
   tier: z.number().int(),
   gallery: z.array(z.string().url()).optional(),
+  defaultLocale: z.string().default('pt'),
   translations: z.array(
     z.object({
       locale: z.string().trim().min(1),
@@ -42,17 +45,47 @@ export type CreateProjectInput = z.infer<typeof createProjectSchema>
 export async function createProjectAction(inputData: CreateProjectInput) {
   try {
     const data = createProjectSchema.parse(inputData)
+
     const translationError = await validateTranslations(data.translations, [
       'title',
       'description',
     ])
 
     if (translationError) {
-      return { success: false, error: translationError }
+      return {
+        success: false,
+        error: translationError,
+      }
+    }
+
+    const defaultTranslation =
+      data.translations.find(
+        (translation) => translation.locale === data.defaultLocale,
+      ) || data.translations[0]
+
+    const baseSlug = generateSlug(defaultTranslation.title)
+    let finalSlug = baseSlug
+    let isUnique = false
+    let suffix = 1
+
+    while (!isUnique) {
+      const existing = await db.project.findUnique({
+        where: {
+          slug: finalSlug,
+        },
+      })
+
+      if (!existing) {
+        isUnique = true
+      } else {
+        finalSlug = `${baseSlug}-${suffix}`
+        suffix++
+      }
     }
 
     await db.project.create({
       data: {
+        slug: finalSlug,
         tier: data.tier,
         gallery: {
           create: (data.gallery || []).map((url, index) => ({
