@@ -83,6 +83,8 @@
 - [x] Configurar consumo dinâmico da API REST do GitLab (`/projects/{id}/repository/commits`).
 - [x] Renderizar na página de detalhes de cada projeto os últimos commits, provando aderência ao padrão _Conventional Commits_.
 
+---
+
 ## Epic 4: Migração de Dados para PostgreSQL (Vercel Postgres)
 
 ### Story 4.1: Configuração do Prisma e Banco de Dados
@@ -110,3 +112,23 @@
 
 - [x] Criar o arquivo de instância Singleton do Prisma Client (ex: `src/_utils/prisma.ts`) para evitar vazamento de conexões no modo dev.
 - [x] Refatorar as actions para validação com zod.
+
+---
+
+## Epic 5: SEO, Roteamento Amigável e Limpeza Final
+
+### Story 5.1: Modelagem e Geração de Slugs
+
+- [x] Adicionar o campo `slug` (@unique) no schema do `Project` e criar a migration.
+- [x] Criar um script rápido para gerar e preencher os slugs dos projetos que já existem no banco de dados.
+
+### Story 5.2: Refatoração das Actions e Roteamento
+
+- [x] Atualizar `create-project.action.ts` e `update-project.action.ts` para gerarem o slug automaticamente a partir do título.
+- [x] Renomear a pasta de rota pública de `[projectId]` para `[slug]`.
+- [x] Atualizar todos os links do portfólio (grids, cards) para apontarem para o `slug` em vez do `id`.
+
+### Story 5.3: Metadados Dinâmicos e SEO
+
+- [x] Implementar a função `generateMetadata` na página de detalhes do projeto para injetar `<title>` e `<meta name="description">` dinamicamente.
+- [x] Configurar o OpenGraph (OG) para utilizar a primeira imagem da galeria (capa) como miniatura ao compartilhar o link do projeto.

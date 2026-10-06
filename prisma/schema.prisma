@@ -147,6 +147,7 @@ model FeatureTranslation {
 
 model Project {
   id        String   @id @default(uuid())
+  slug      String   @unique
   tier      Int      @default(3)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

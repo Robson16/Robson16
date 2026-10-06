@@ -1,3 +1,5 @@
+import { Metadata } from 'next'
+import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 import { FaBriefcase } from 'react-icons/fa6'
@@ -6,6 +8,7 @@ import Header from '@/app/_components/Header'
 import { PlatformIcon } from '@/app/_components/PlatformIcon'
 import { db } from '@/app/_lib/prisma'
 import { getProjectLinkLabel } from '@/app/_utils/get-project-link-label'
+import { env } from '@/app/env'
 
 import CommitTimeline from '../_components/CommitTimeline'
 import ProjectImageModal from '../_components/ProjectImageModal'
@@ -13,17 +16,102 @@ import ProjectImageModal from '../_components/ProjectImageModal'
 interface ProjectPageProps {
   params: Promise<{
     locale: string
-    projectId: string
+    slug: string
   }>
 }
 
+export async function generateMetadata({
+  params,
+}: ProjectPageProps): Promise<Metadata> {
+  const { locale, slug } = await params
+
+  const requestHeaders = await headers()
+  const host =
+    requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host')
+  const protocol =
+    requestHeaders.get('x-forwarded-proto') ??
+    (process.env.NODE_ENV === 'development' ? 'http' : 'https')
+  const origin =
+    env.SITE_URL ?? (host ? `${protocol.split(',')[0]}://${host}` : undefined)
+
+  const [project, profile] = await Promise.all([
+    db.project.findUnique({
+      where: {
+        slug: slug,
+      },
+      include: {
+        translations: {
+          where: {
+            locale,
+          },
+        },
+        gallery: {
+          orderBy: {
+            order: 'asc',
+          },
+          take: 1,
+        },
+      },
+    }),
+    db.profile.findFirst({
+      select: {
+        name: true,
+      },
+    }),
+  ])
+
+  const profileName = profile?.name.trim()
+
+  if (!project || project.translations.length === 0) {
+    return {
+      title: profileName
+        ? `Project Not Found | ${profileName}`
+        : 'Project Not Found',
+    }
+  }
+
+  const translation = project.translations[0]
+  const coverImage = project.gallery[0]?.url
+
+  return {
+    title: profileName
+      ? `${translation.title} | ${profileName}`
+      : translation.title,
+    description: translation.description,
+    openGraph: {
+      title: translation.title,
+      description: translation.description,
+      type: 'article',
+      url: origin
+        ? new URL(`/${locale}/projects/${slug}`, origin).toString()
+        : undefined,
+      images: coverImage
+        ? [
+            {
+              url: coverImage,
+              width: 1200,
+              height: 630,
+              alt: translation.title,
+            },
+          ]
+        : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: translation.title,
+      description: translation.description,
+      images: coverImage ? [coverImage] : [],
+    },
+  }
+}
+
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { locale, projectId } = await params
+  const { locale, slug } = await params
   const t = await getTranslations('ProjectDetails')
 
   const project = await db.project.findUnique({
     where: {
-      id: projectId,
+      slug: slug,
     },
     include: {
       translations: {

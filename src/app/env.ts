@@ -1,6 +1,9 @@
 import { z } from 'zod'
 
 const envSchema = z.object({
+  // Public site URL for metadata
+  SITE_URL: z.string().url().optional(),
+
   // Database
   DATABASE_URL: z.string().url({
     message: 'DATABASE_URL deve ser uma URL válida.',
@@ -69,6 +72,7 @@ declare global {
 }
 
 export const env = envSchema.parse({
+  SITE_URL: process.env.SITE_URL,
   DATABASE_URL: process.env.DATABASE_URL,
   GOOGLE_TAG_ID: process.env.GOOGLE_TAG_ID,
   GITLAB_ACCESS_TOKEN: process.env.GITLAB_ACCESS_TOKEN,
