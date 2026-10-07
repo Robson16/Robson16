@@ -42,7 +42,7 @@ export default async function Home({ params }: PageProps) {
       links: true,
     },
     orderBy: {
-      createdAt: 'asc',
+      developedAt: 'desc',
     },
   })
 
