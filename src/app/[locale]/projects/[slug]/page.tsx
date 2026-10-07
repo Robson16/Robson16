@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
-import { FaBriefcase } from 'react-icons/fa6'
+import { FaBriefcase, FaCalendarDays } from 'react-icons/fa6'
 
 import Header from '@/app/_components/Header'
 import { PlatformIcon } from '@/app/_components/PlatformIcon'
@@ -163,6 +163,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const translation = project.translations[0]
 
+  const rawDate = new Date(project.developedAt).toLocaleDateString(locale, {
+    month: 'long',
+    year: 'numeric',
+  })
+
+  const formattedDate = rawDate.charAt(0).toUpperCase() + rawDate.slice(1)
+
   return (
     <>
       <Header />
@@ -296,6 +303,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                   </ul>
                 </section>
               )}
+
+              <section className="border-y border-zinc-800 py-6">
+                <h3 className="mb-2 flex items-center gap-2 text-lg font-semibold text-zinc-200">
+                  <FaCalendarDays className="text-emerald-500" />
+                  {t('developedAt')}
+                </h3>
+                <p className="text-sm text-zinc-300">{formattedDate}</p>
+              </section>
 
               {/* Tecnologias */}
               {project.skills.length > 0 && (

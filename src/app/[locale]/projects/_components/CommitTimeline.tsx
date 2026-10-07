@@ -28,7 +28,7 @@ export default async function CommitTimeline({ repoUrl }: CommitTimelineProps) {
   if (isGitLab) platformName = 'Gitlab'
 
   return (
-    <div className="mt-12 rounded-xl border border-zinc-800/50 bg-zinc-900/30 p-6">
+    <div className="mt-12 rounded-xl bg-zinc-900/50 p-6">
       <h2 className="mb-2 text-lg font-semibold text-white">
         {repositoryTitle}
       </h2>
