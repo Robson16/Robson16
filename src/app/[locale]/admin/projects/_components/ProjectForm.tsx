@@ -189,7 +189,7 @@ export default function ProjectForm({
 
       const data = {
         tier: Number(formData.get('tier')),
-        developedAt: formData.get('developedAt') as string,
+        developedAt: new Date(formData.get('developedAt') as string),
         gallery: hasNewFiles ? imageUrls : undefined,
         existingGalleryOrder: !hasNewFiles
           ? existingImages.map((img) => img.id)

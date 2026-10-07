@@ -14,6 +14,7 @@ interface ProjectData {
   title: string
   thumbnailUrl?: string
   skillsCount: number
+  developedAt: Date
   createdAt: Date
   updatedAt: Date
 }
@@ -128,6 +129,13 @@ export default function ProjectsTable({
               Skills
             </th>
             <SortableHeader
+              label="Developed At"
+              column="developedAt"
+              currentSort={currentSort}
+              currentDir={currentDir}
+              createSortUrl={createSortUrl}
+            />
+            <SortableHeader
               label="Created At"
               column="createdAt"
               currentSort={currentSort}
@@ -149,7 +157,7 @@ export default function ProjectsTable({
         <tbody className="divide-y divide-zinc-800">
           {projects.length === 0 ? (
             <tr>
-              <td colSpan={6} className="px-6 py-8 text-center text-zinc-500">
+              <td colSpan={7} className="px-6 py-8 text-center text-zinc-500">
                 No projects found.
               </td>
             </tr>
@@ -195,6 +203,9 @@ export default function ProjectsTable({
                   </span>
                 </td>
                 <td className="px-6 py-4">{project.skillsCount} tech(s)</td>
+                <td className="px-6 py-4 text-zinc-400">
+                  {formatDate(project.developedAt, currentLocale)}
+                </td>
                 <td className="px-6 py-4 text-zinc-400">
                   {formatDate(project.createdAt, currentLocale)}
                 </td>

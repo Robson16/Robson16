@@ -16,7 +16,10 @@ const ProjectLinkTypeValues = Object.values(ProjectLinkType) as [
 
 const createProjectSchema = z.object({
   tier: z.number().int(),
-  developedAt: z.coerce.date(),
+  developedAt: z.preprocess(
+    (val) => (typeof val === 'string' ? new Date(val) : val),
+    z.date(),
+  ),
   gallery: z.array(z.string().url()).optional(),
   translations: z.array(
     z.object({

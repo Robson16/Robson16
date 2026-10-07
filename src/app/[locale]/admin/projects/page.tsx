@@ -40,6 +40,7 @@ export default async function ProjectsListPage({
     title: project.translations[0]?.title || 'Untitled Project',
     thumbnailUrl: project.gallery[0]?.url,
     skillsCount: project.skills.length,
+    developedAt: project.developedAt,
     createdAt: project.createdAt,
     updatedAt: project.updatedAt,
   }))
