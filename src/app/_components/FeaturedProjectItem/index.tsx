@@ -4,10 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 
-import { getProjectLinkLabel } from '@/app/_utils/get-project-link-label'
-
-import { PlatformIcon } from '../PlatformIcon'
-
 type ProjectWithRelations = Prisma.ProjectGetPayload<{
   include: {
     translations: true
@@ -93,34 +89,12 @@ export default function FeaturedProjectItem({
         </div>
 
         <div className="mt-auto flex flex-col items-center gap-4 border-t border-zinc-800 pt-6 lg:items-start">
-          {project.links && project.links.length > 0 && (
-            <ul className="flex w-full flex-col flex-wrap justify-center gap-4 md:flex-row lg:justify-start">
-              {project.links.map((link) => (
-                <li key={link.id}>
-                  <Link
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={clsx(
-                      'flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-bold capitalize',
-                      'bg-emerald-800 text-white transition-all',
-                      'hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none',
-                    )}
-                  >
-                    <PlatformIcon platform={link.type} />
-                    <span>{getProjectLinkLabel(link.type, tProject)}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-
           <Link
             href={`/${locale}/projects/${project.slug}`}
             className={clsx(
-              'flex w-full items-center justify-center gap-2 rounded-lg border-2 border-emerald-600 px-6 py-3 text-base font-bold uppercase',
-              'bg-transparent text-emerald-500 transition-all',
-              'hover:bg-emerald-600 hover:text-white focus:ring-2 focus:ring-emerald-500 focus:outline-none',
+              'flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-bold capitalize',
+              'bg-emerald-800 text-white transition-all',
+              'hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none',
             )}
           >
             {tPortfolio('seeMore')}
