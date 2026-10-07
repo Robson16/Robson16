@@ -16,6 +16,7 @@ const ProjectLinkTypeValues = Object.values(ProjectLinkType) as [
 
 const createProjectSchema = z.object({
   tier: z.number().int(),
+  developedAt: z.coerce.date(),
   gallery: z.array(z.string().url()).optional(),
   translations: z.array(
     z.object({
@@ -108,6 +109,7 @@ export async function createProjectAction(inputData: CreateProjectInput) {
       data: {
         slug: finalSlug,
         tier: data.tier,
+        developedAt: data.developedAt,
         gallery: {
           create: (data.gallery || []).map((url, index) => ({
             url,

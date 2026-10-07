@@ -15,6 +15,7 @@ const ProjectLinkTypeValues = Object.values(ProjectLinkType) as [
 
 const updateProjectSchema = z.object({
   tier: z.number().int(),
+  developedAt: z.coerce.date(),
   gallery: z.array(z.string().url()).optional(),
   existingGalleryOrder: z.array(z.string().trim().min(1)).optional(),
   translations: z.array(
@@ -102,6 +103,7 @@ export async function updateProjectAction(
       },
       data: {
         tier: data.tier,
+        developedAt: data.developedAt,
         ...(data.gallery &&
           data.gallery.length > 0 && {
             gallery: {

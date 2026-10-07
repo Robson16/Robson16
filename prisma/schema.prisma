@@ -146,11 +146,12 @@ model FeatureTranslation {
 }
 
 model Project {
-  id        String   @id @default(uuid())
-  slug      String   @unique
-  tier      Int      @default(3)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(uuid())
+  slug        String   @unique
+  tier        Int      @default(3)
+  developedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   translations ProjectTranslation[]
 

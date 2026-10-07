@@ -132,6 +132,11 @@ export default function ProjectForm({
 
   const isEditing = !!initialData
 
+  const defaultDate =
+    isEditing && initialData?.developedAt
+      ? new Date(initialData.developedAt).toISOString().split('T')[0]
+      : new Date().toISOString().split('T')[0]
+
   const handleTranslationChange = (
     locale: string,
     field: 'title' | 'description' | 'challenge' | 'solution' | 'impact',
@@ -184,6 +189,7 @@ export default function ProjectForm({
 
       const data = {
         tier: Number(formData.get('tier')),
+        developedAt: formData.get('developedAt') as string,
         gallery: hasNewFiles ? imageUrls : undefined,
         existingGalleryOrder: !hasNewFiles
           ? existingImages.map((img) => img.id)
@@ -466,7 +472,7 @@ export default function ProjectForm({
         ))}
       </div>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <div className="flex flex-col gap-2">
           <label className="text-zinc-300">Related Experience</label>
           <select
@@ -496,6 +502,18 @@ export default function ProjectForm({
             <option value="2">2 - Normal Highlight</option>
             <option value="3">3 - Archive</option>
           </select>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label className="text-zinc-300">Development Date</label>
+          <input
+            type="date"
+            name="developedAt"
+            defaultValue={defaultDate}
+            required
+            disabled={isPending}
+            className="w-full rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 transition-colors focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          />
         </div>
       </div>
 
