@@ -33,7 +33,7 @@ export async function createExperienceAction(data: CreateExperienceInput) {
       return { success: false, error: translationError }
     }
 
-    await db.experience.create({
+    const experience = await db.experience.create({
       data: {
         company: validatedData.company,
         startDate: new Date(validatedData.startDate),
@@ -50,9 +50,7 @@ export async function createExperienceAction(data: CreateExperienceInput) {
 
     revalidatePath('/admin/experiences')
 
-    return {
-      success: true,
-    }
+    return { success: true, experienceId: experience.id }
   } catch (error) {
     console.error('Error creating experience: ', error)
 

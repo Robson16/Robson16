@@ -5,7 +5,7 @@ import { useState, useTransition } from 'react'
 
 import { createLanguageAction } from '@/app/_actions/create-language.action'
 import { updateLanguageAction } from '@/app/_actions/update-language.action'
-import { Link } from '@/app/_i18n/navigation'
+import { Link, useRouter } from '@/app/_i18n/navigation'
 
 interface LanguageFormProps {
   initialData?: Prisma.LanguageGetPayload<{}>
@@ -14,6 +14,7 @@ interface LanguageFormProps {
 export default function LanguageForm({ initialData }: LanguageFormProps) {
   const [isPending, startTransition] = useTransition()
   const [message, setMessage] = useState('')
+  const router = useRouter()
 
   const isEditing = !!initialData
 
@@ -36,6 +37,17 @@ export default function LanguageForm({ initialData }: LanguageFormProps) {
       }
 
       if (result.success) {
+        if (
+          !isEditing &&
+          'languageCode' in result &&
+          typeof result.languageCode === 'string'
+        ) {
+          router.push(
+            `/admin/languages/${encodeURIComponent(result.languageCode)}/edit`,
+          )
+          return
+        }
+
         setMessage(
           isEditing
             ? 'Language updated successfully!'

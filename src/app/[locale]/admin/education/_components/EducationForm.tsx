@@ -5,7 +5,7 @@ import { useState, useTransition } from 'react'
 
 import { createEducationAction } from '@/app/_actions/create-education.action'
 import { updateEducationAction } from '@/app/_actions/update-education.action'
-import { Link } from '@/app/_i18n/navigation'
+import { Link, useRouter } from '@/app/_i18n/navigation'
 
 interface Language {
   code: string
@@ -30,6 +30,7 @@ export default function EducationForm({
 }: EducationFormProps) {
   const [isPending, startTransition] = useTransition()
   const [message, setMessage] = useState('')
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState(languages[0]?.code || 'pt')
 
   const initialTranslations =
@@ -102,6 +103,11 @@ export default function EducationForm({
       }
 
       if (result.success) {
+        if (!isEditing && 'educationId' in result) {
+          router.push(`/admin/education/${result.educationId}/edit`)
+          return
+        }
+
         setMessage(
           isEditing
             ? 'Education updated successfully!'

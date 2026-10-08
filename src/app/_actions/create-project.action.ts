@@ -108,7 +108,7 @@ export async function createProjectAction(inputData: CreateProjectInput) {
       }
     }
 
-    await db.project.create({
+    const project = await db.project.create({
       data: {
         slug: finalSlug,
         tier: data.tier,
@@ -148,7 +148,7 @@ export async function createProjectAction(inputData: CreateProjectInput) {
 
     revalidatePath('/admin')
 
-    return { success: true }
+    return { success: true, projectId: project.id }
   } catch (error) {
     console.error('Error creating project:', error)
     return {

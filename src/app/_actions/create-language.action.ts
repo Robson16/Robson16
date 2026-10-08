@@ -25,7 +25,7 @@ export async function createLanguageAction(data: CreateLanguageInput) {
       })
     }
 
-    await db.language.create({
+    const language = await db.language.create({
       data: {
         code: validatedData.code.toLowerCase(),
         name: validatedData.name,
@@ -35,7 +35,7 @@ export async function createLanguageAction(data: CreateLanguageInput) {
 
     revalidatePath('/admin/languages')
 
-    return { success: true }
+    return { success: true, languageCode: language.code }
   } catch (error: unknown) {
     console.error('Error creating language: ', error)
 

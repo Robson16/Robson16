@@ -12,6 +12,11 @@ interface SocialLinkFormProps {
   initialSocialLinks: SocialLink[]
 }
 
+type SocialLinkEntry = Pick<
+  SocialLink,
+  'id' | 'icon' | 'name' | 'url' | 'order'
+>
+
 export default function SocialLinkForm({
   initialSocialLinks,
 }: SocialLinkFormProps) {
@@ -19,13 +24,15 @@ export default function SocialLinkForm({
   const [isPending, startTransition] = useTransition()
   const [message, setMessage] = useState('')
 
+  const [socialLinks, setSocialLinks] =
+    useState<SocialLinkEntry[]>(initialSocialLinks)
   const [editingId, setEditingId] = useState<string | null>(null)
 
   const [newSocialName, setNewSocialName] = useState('')
   const [newSocialUrl, setNewSocialUrl] = useState('')
   const [newSocialIcon, setNewSocialIcon] = useState('')
 
-  const handleEdit = (link: SocialLink) => {
+  const handleEdit = (link: SocialLinkEntry) => {
     setEditingId(link.id)
     setNewSocialName(link.name)
     setNewSocialUrl(link.url)
@@ -48,7 +55,7 @@ export default function SocialLinkForm({
       let result
 
       if (editingId) {
-        const updatedLinks = initialSocialLinks.map((link) => {
+        const updatedLinks = socialLinks.map((link) => {
           if (link.id === editingId) {
             return {
               id: link.id,
@@ -71,7 +78,38 @@ export default function SocialLinkForm({
       }
 
       if (result.success) {
-        handleCleanForm()
+        if (
+          !editingId &&
+          'socialLinkId' in result &&
+          typeof result.socialLinkId === 'string' &&
+          'order' in result &&
+          typeof result.order === 'number'
+        ) {
+          const createdLink = {
+            id: result.socialLinkId,
+            icon: newSocialIcon || 'link',
+            name: newSocialName,
+            url: newSocialUrl,
+            order: result.order,
+          }
+
+          setSocialLinks((currentLinks) => [...currentLinks, createdLink])
+          setEditingId(createdLink.id)
+          setMessage('Social link created. You can edit it now.')
+        } else {
+          if ('socialLinks' in result && Array.isArray(result.socialLinks)) {
+            setSocialLinks(
+              result.socialLinks.map((link) => ({
+                id: link.id,
+                icon: link.icon,
+                name: link.name,
+                url: link.url,
+                order: link.order,
+              })),
+            )
+          }
+          handleCleanForm()
+        }
         router.refresh()
       } else {
         setMessage(result.error || 'Error saving social network.')
@@ -85,6 +123,9 @@ export default function SocialLinkForm({
     startTransition(async () => {
       const result = await deleteSocialLinkAction(id)
       if (result.success) {
+        setSocialLinks((currentLinks) =>
+          currentLinks.filter((link) => link.id !== id),
+        )
         if (editingId === id) handleCleanForm()
         router.refresh()
       } else {
@@ -109,12 +150,12 @@ export default function SocialLinkForm({
 
       {/* Lista Existente */}
       <div className="flex flex-col gap-3">
-        {initialSocialLinks.length === 0 ? (
+        {socialLinks.length === 0 ? (
           <p className="text-sm text-zinc-500">
             No social networks registered.
           </p>
         ) : (
-          initialSocialLinks.map((link) => (
+          socialLinks.map((link) => (
             <div
               key={link.id}
               className="flex items-center justify-between rounded border border-zinc-700 bg-zinc-900 p-3"

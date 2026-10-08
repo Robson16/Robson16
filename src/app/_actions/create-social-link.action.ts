@@ -23,7 +23,7 @@ export async function createSocialLinkAction(data: CreateSocialLinkInput) {
 
     const nextOrder = lastLink ? lastLink.order + 1 : 1
 
-    await db.socialLink.create({
+    const socialLink = await db.socialLink.create({
       data: {
         icon: validatedData.icon || 'link',
         name: validatedData.name,
@@ -36,6 +36,8 @@ export async function createSocialLinkAction(data: CreateSocialLinkInput) {
 
     return {
       success: true,
+      socialLinkId: socialLink.id,
+      order: socialLink.order,
     }
   } catch (error) {
     console.error('Error creating social link:', error)

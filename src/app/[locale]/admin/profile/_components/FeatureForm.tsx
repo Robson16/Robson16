@@ -108,8 +108,17 @@ export default function FeatureForm({
       }
 
       if (result?.success) {
-        setMessage(editingId ? 'Feature updated!' : 'Feature created!')
-        handleCancelEdit()
+        if (
+          !editingId &&
+          'featureId' in result &&
+          typeof result.featureId === 'string'
+        ) {
+          setEditingId(result.featureId)
+          setMessage('Feature created. You can edit it now.')
+        } else {
+          setMessage('Feature updated!')
+          handleCancelEdit()
+        }
         router.refresh()
       } else {
         setMessage(result?.error || 'Error saving feature.')

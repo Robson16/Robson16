@@ -31,7 +31,7 @@ export async function createSkillAction(data: CreateSkillInput) {
       return { success: false, error: translationError }
     }
 
-    await db.skill.create({
+    const skill = await db.skill.create({
       data: {
         icon: validatedData.icon,
         category: validatedData.category,
@@ -46,9 +46,7 @@ export async function createSkillAction(data: CreateSkillInput) {
 
     revalidatePath('/admin/skills')
 
-    return {
-      success: true,
-    }
+    return { success: true, skillId: skill.id }
   } catch (error) {
     console.error('Error creating skill: ', error)
 

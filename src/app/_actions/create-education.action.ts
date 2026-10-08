@@ -25,6 +25,7 @@ export type CreateEducationInput = z.infer<typeof createEducationSchema>
 export async function createEducationAction(inputData: CreateEducationInput) {
   try {
     const data = createEducationSchema.parse(inputData)
+
     const translationError = await validateTranslations(data.translations, [
       'title',
       'institution',
@@ -34,7 +35,7 @@ export async function createEducationAction(inputData: CreateEducationInput) {
       return { success: false, error: translationError }
     }
 
-    await db.education.create({
+    const education = await db.education.create({
       data: {
         startDate: new Date(data.startDate),
         endDate: data.endDate ? new Date(data.endDate) : null,
@@ -52,9 +53,7 @@ export async function createEducationAction(inputData: CreateEducationInput) {
 
     revalidatePath('/admin/educations')
 
-    return {
-      success: true,
-    }
+    return { success: true, educationId: education.id }
   } catch (error) {
     console.error('Error creating education: ', error)
 

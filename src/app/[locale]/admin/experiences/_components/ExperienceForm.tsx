@@ -5,7 +5,7 @@ import { useState, useTransition } from 'react'
 
 import { createExperienceAction } from '@/app/_actions/create-experience.action'
 import { updateExperienceAction } from '@/app/_actions/update-experience.action'
-import { Link } from '@/app/_i18n/navigation'
+import { Link, useRouter } from '@/app/_i18n/navigation'
 
 interface Language {
   code: string
@@ -30,6 +30,7 @@ export default function ExperienceForm({
 }: ExperienceFormProps) {
   const [isPending, startTransition] = useTransition()
   const [message, setMessage] = useState('')
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState(languages[0]?.code || 'pt')
 
   const initialTranslations =
@@ -94,6 +95,11 @@ export default function ExperienceForm({
       }
 
       if (result.success) {
+        if (!isEditing && 'experienceId' in result) {
+          router.push(`/admin/experiences/${result.experienceId}/edit`)
+          return
+        }
+
         setMessage(
           isEditing
             ? 'Experience updated successfully!'

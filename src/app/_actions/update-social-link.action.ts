@@ -36,10 +36,15 @@ export async function updateSocialLinkAction(links: SocialLinkInput[]) {
       }
     })
 
+    const socialLinks = await db.socialLink.findMany({
+      orderBy: { order: 'asc' },
+    })
+
     revalidatePath('/', 'layout')
 
     return {
       success: true,
+      socialLinks,
     }
   } catch (error) {
     console.error('Error updating social links: ', error)

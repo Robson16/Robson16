@@ -3,12 +3,12 @@
 import { Prisma, ProjectLinkType } from '@prisma/client'
 import Image from 'next/image'
 import { useState, useTransition } from 'react'
-import { FaStar } from 'react-icons/fa'
+import { FaArrowLeft, FaEye, FaStar } from 'react-icons/fa'
 
 import { createProjectAction } from '@/app/_actions/create-project.action'
 import { updateProjectAction } from '@/app/_actions/update-project.action'
 import { uploadImageAction } from '@/app/_actions/upload-image.action'
-import { Link } from '@/app/_i18n/navigation'
+import { Link, useRouter } from '@/app/_i18n/navigation'
 import { getProjectLinkLabel } from '@/app/_utils/get-project-link-label'
 
 interface Language {
@@ -56,6 +56,7 @@ export default function ProjectForm({
 }: ProjectFormProps) {
   const [isPending, startTransition] = useTransition()
   const [message, setMessage] = useState('')
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState(languages[0]?.code || 'pt')
 
   const [existingImages, setExistingImages] = useState(
@@ -200,14 +201,16 @@ export default function ProjectForm({
         links,
       }
 
-      let dbResult
-      if (isEditing) {
-        dbResult = await updateProjectAction(initialData.id, data)
-      } else {
-        dbResult = await createProjectAction(data)
-      }
+      const dbResult = isEditing
+        ? await updateProjectAction(initialData.id, data)
+        : await createProjectAction(data)
 
       if (dbResult.success) {
+        if (!isEditing && 'projectId' in dbResult) {
+          router.push(`/admin/projects/${dbResult.projectId}/edit`)
+          return
+        }
+
         setMessage(
           isEditing
             ? 'Project successfully updated!'
@@ -224,16 +227,28 @@ export default function ProjectForm({
       action={handleFormSubmit}
       className="flex w-full max-w-3xl flex-col gap-6 rounded-lg bg-zinc-800 p-8 shadow-2xl"
     >
-      <div className="flex items-center justify-between border-b border-zinc-700 pb-4">
-        <h2 className="mb-2 text-2xl font-medium text-zinc-100">
+      <div className="flex flex-col gap-4 border-b border-zinc-700 pb-4 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="text-2xl font-medium text-zinc-100">
           {isEditing ? 'Edit Project' : 'New Project'}
         </h2>
-        <Link
-          href="/admin/projects"
-          className="rounded-full bg-zinc-700 px-4 py-2 text-sm font-medium text-zinc-300 transition-colors hover:bg-zinc-600 hover:text-white"
-        >
-          ← Back to List
-        </Link>
+        <div className="flex flex-wrap items-center gap-2">
+          {isEditing && (
+            <Link
+              href={`/projects/${initialData?.slug}`}
+              className="flex items-center gap-2 rounded-full bg-zinc-700 px-4 py-2 text-sm font-medium text-zinc-300 transition-colors hover:bg-zinc-600 hover:text-white"
+            >
+              <FaEye aria-hidden="true" />
+              See project
+            </Link>
+          )}
+          <Link
+            href="/admin/projects"
+            className="flex items-center gap-2 rounded-full bg-zinc-700 px-4 py-2 text-sm font-medium text-zinc-300 transition-colors hover:bg-zinc-600 hover:text-white"
+          >
+            <FaArrowLeft aria-hidden="true" />
+            Back to List
+          </Link>
+        </div>
       </div>
 
       <div className="flex flex-col gap-4 rounded border border-zinc-700/50 bg-zinc-900/50 p-4">

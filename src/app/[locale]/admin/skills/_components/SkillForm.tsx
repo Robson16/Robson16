@@ -5,7 +5,7 @@ import { useState, useTransition } from 'react'
 
 import { createSkillAction } from '@/app/_actions/create-skill.action'
 import { updateSkillAction } from '@/app/_actions/update-skill.action'
-import { Link } from '@/app/_i18n/navigation'
+import { Link, useRouter } from '@/app/_i18n/navigation'
 
 interface Language {
   code: string
@@ -27,6 +27,7 @@ interface SkillFormProps {
 export default function SkillForm({ languages, initialData }: SkillFormProps) {
   const [isPending, startTransition] = useTransition()
   const [message, setMessage] = useState('')
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState(languages[0]?.code || 'pt')
 
   const initialTranslations =
@@ -73,6 +74,11 @@ export default function SkillForm({ languages, initialData }: SkillFormProps) {
       }
 
       if (result.success) {
+        if (!isEditing && 'skillId' in result) {
+          router.push(`/admin/skills/${result.skillId}/edit`)
+          return
+        }
+
         setMessage(
           isEditing
             ? 'Skill updated successfully!'

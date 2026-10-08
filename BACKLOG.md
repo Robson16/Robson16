@@ -132,3 +132,17 @@
 
 - [x] Implementar a função `generateMetadata` na página de detalhes do projeto para injetar `<title>` e `<meta name="description">` dinamicamente.
 - [x] Configurar o OpenGraph (OG) para utilizar a primeira imagem da galeria (capa) como miniatura ao compartilhar o link do projeto.
+
+## Epic 6: Melhorias de Administração e Galeria
+
+### Story 6.1: Redirecionamento após Cadastro
+
+- [x] Redirecionar para a página de edição do registro após salvar um novo registro com sucesso.
+
+### Story 6.2: Paginação das Listas
+
+- [ ] Implementar paginação nas listas de registros do painel administrativo.
+
+### Story 6.3: Galeria de Imagens Rotativa
+
+- [ ] Exibir as imagens da galeria em um carrossel rotativo.

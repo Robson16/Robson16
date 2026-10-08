@@ -31,7 +31,7 @@ export async function createFeatureAction(data: CreateFeatureInput) {
       return { success: false, error: translationError }
     }
 
-    await db.feature.create({
+    const feature = await db.feature.create({
       data: {
         icon: validatedData.icon,
         order: validatedData.order,
@@ -47,9 +47,7 @@ export async function createFeatureAction(data: CreateFeatureInput) {
 
     revalidatePath('/admin/features')
 
-    return {
-      success: true,
-    }
+    return { success: true, featureId: feature.id }
   } catch (error) {
     console.error('Error creating feature: ', error)
 
