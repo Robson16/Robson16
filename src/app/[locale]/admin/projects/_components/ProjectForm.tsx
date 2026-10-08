@@ -71,7 +71,7 @@ export default function ProjectForm({
   )
 
   const handleAddLink = () => {
-    setLinks([...links, { type: 'github', url: '' }])
+    setLinks([...links, { type: 'GITHUB', url: '' }])
   }
 
   const handleRemoveLink = (index: number) => {

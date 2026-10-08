@@ -2,7 +2,6 @@
 
 import clsx from 'clsx'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
 import { PiArrowUpRightBold } from 'react-icons/pi'
 
 import { Link } from '@/app/_i18n/navigation'
@@ -18,8 +17,6 @@ export default function PortfolioThumb({
   locale,
   project,
 }: PortfolioThumbProps) {
-  const tPortfolio = useTranslations('Portfolio')
-
   const featuredImage = project.gallery?.[0]?.url || '/images/placeholder.jpg'
   const translation =
     project.translations.find((t) => t.locale === locale) ||
