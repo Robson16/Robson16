@@ -25,7 +25,12 @@ export default async function HeroSection({ locale }: HeroSectionProps) {
     },
   })
 
-  const [githubDays, gitlabDays] = await Promise.all([
+  const [socialData, githubDays, gitlabDays] = await Promise.all([
+    db.socialLink.findMany({
+      orderBy: {
+        order: 'asc',
+      },
+    }),
     fetchGitHubContributions(),
     fetchGitLabContributions(),
   ])
@@ -115,7 +120,7 @@ export default async function HeroSection({ locale }: HeroSectionProps) {
                 </li>
               </ul>
               <div className="flex items-center gap-4">
-                <SocialButtons />
+                <SocialButtons socialData={socialData} />
               </div>
             </div>
             <div className="flex flex-1 flex-col items-center xl:items-end">

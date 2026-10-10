@@ -146,3 +146,33 @@
 ### Story 6.3: Galeria de Imagens Rotativa
 
 - [ ] Exibir as imagens da galeria em um carrossel rotativo.
+
+---
+
+## Epic 7: Analytics e Rastreamento de Eventos (GA4/GTM)
+
+### Story 7.1: Validar Visualizações de Página no Site
+
+- [x] Conferir no Google Tag Manager se a tag do GA4 dispara nas páginas públicas e se o fluxo de dados correto está configurado.
+- [x] Habilitar no GA4 a medição de mudanças de página baseadas no histórico do navegador e validar navegações client-side do App Router, incluindo páginas de detalhes dos projetos.
+- [x] Testar acessos diretos, navegação entre páginas e troca de idioma (`/pt` e `/en`) com Tag Assistant e DebugView.
+- [x] Se o teste mostrar falhas, implementar o envio de `page_view` nas mudanças de rota; manter apenas uma origem de pageviews para evitar eventos duplicados.
+
+### Story 7.2: Excluir Painel Administrativo do GA4
+
+- [x] No Google Tag Manager, impedir que as tags do GA4 disparem nas rotas `/pt/admin/**` e `/en/admin/**`.
+- [x] Decidir se a página de login (`/pt/login` e `/en/login`) também deve ser excluída e configurar a mesma regra caso não deva ser rastreada.
+- [x] Publicar a versão do container e validar no Tag Assistant que páginas administrativas e de login não enviam eventos ao GA4.
+
+### Story 7.3: Instrumentar Eventos de Interesse no Código
+
+- [x] Definir uma convenção de nomes e parâmetros para eventos personalizados enviados à `dataLayer`, sem incluir dados pessoais.
+- [x] Enviar evento ao abrir um estudo de caso, incluindo o slug do projeto.
+- [x] Enviar eventos ao clicar em links externos de projeto e em formas de contato, incluindo o tipo de link ou canal utilizado.
+- [x] Instrumentar downloads de documentos do portfólio, se aplicável, sem duplicar os eventos já coletados pela medição otimizada do GA4.
+
+### Story 7.4: Configurar e Validar Eventos no GTM/GA4
+
+- [x] Criar no Google Tag Manager os acionadores e tags GA4 para os eventos personalizados definidos na Story 7.3.
+- [x] Testar os eventos no modo Preview do GTM e no DebugView do GA4, conferindo nomes, parâmetros e ausência de duplicidade.
+- [x] Publicar o container e confirmar que os eventos aparecem nos relatórios do GA4 após o processamento dos dados.

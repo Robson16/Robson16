@@ -1,5 +1,6 @@
 'use client'
 
+import { sendGTMEvent } from '@next/third-parties/google'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { PiArrowUpRightBold } from 'react-icons/pi'
@@ -31,6 +32,13 @@ export default function PortfolioThumb({
   })
   const formattedDate = rawDate.charAt(0).toUpperCase() + rawDate.slice(1)
 
+  const handleClick = () => {
+    sendGTMEvent({
+      event: 'view_case_study',
+      project_slug: project.slug,
+    })
+  }
+
   return (
     <Link
       href={`/projects/${project.slug}`}
@@ -39,6 +47,7 @@ export default function PortfolioThumb({
         'transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500/50 hover:shadow-2xl',
         'focus-visible:rounded-xl focus-visible:ring-4 focus-visible:ring-emerald-600 focus-visible:outline-none',
       )}
+      onClick={handleClick}
     >
       {/* Imagem de Capa do Projeto com efeito de zoom no hover */}
       <div className="relative aspect-video w-full overflow-hidden bg-zinc-950">

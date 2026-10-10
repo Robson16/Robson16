@@ -1,19 +1,34 @@
+'use client'
+
 import { Link } from '@heroui/react'
+import { sendGTMEvent } from '@next/third-parties/google'
 
 import DynamicIcon from '@/app/_components/DynamicIcon'
 import iconsData from '@/app/_data/icons.json'
-import { db } from '@/app/_lib/prisma'
 
 type IconKey = keyof typeof iconsData.icons
 
-export default async function SocialButtons() {
+interface SocialButtonData {
+  id: string
+  name: string
+  icon: string
+  url: string
+}
+
+interface SocialButtonsProps {
+  socialData: SocialButtonData[]
+}
+
+export default function SocialButtons({ socialData }: SocialButtonsProps) {
   const icons = iconsData.icons
 
-  const socialData = await db.socialLink.findMany({
-    orderBy: {
-      order: 'asc',
-    },
-  })
+  const handleSocialClick = (name: string, url: string) => {
+    sendGTMEvent({
+      event: 'click_external_link',
+      link_type: name.toLowerCase(),
+      url: url,
+    })
+  }
 
   return (
     <>
@@ -34,6 +49,7 @@ export default async function SocialButtons() {
             href={social.url}
             aria-label={social.name}
             className="group flex size-auto min-w-0 items-start justify-center bg-transparent p-0"
+            onClick={() => handleSocialClick(social.name, social.url)}
             target="_blank"
             rel="noopener noreferrer"
           >
