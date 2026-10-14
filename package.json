@@ -4,7 +4,7 @@
   "author": "Robson H. Rodrigues <robhenrod@gmail.com>",
   "homepage": "https://robsonhrodrigues.com.br/",
   "repository": "https://github.com/Robson16/Robson16",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "private": true,
   "keywords": [
     "ReactJs",
@@ -21,6 +21,7 @@
     "dev:migrate": "prisma migrate dev",
     "dev:seed": "node --env-file=.env prisma/seed.mjs",
     "dev:studio": "prisma studio",
+    "repos:dates": "node --env-file=.env --import tsx scripts/list-repository-dates.ts",
     "build": "prisma migrate deploy && next build",
     "start": "next start",
     "lint": "eslint .",

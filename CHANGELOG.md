@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.6.0](https://github.com/Robson16/Robson16/compare/v2.5.0...v2.6.0) (2026-10-14)
+
+### Features
+
+* add project timeline section ([d97864e](https://github.com/Robson16/Robson16/commit/d97864ef754f21e98bf625ed531930634f7f743f))
+* add slug field for the project schema ([c267583](https://github.com/Robson16/Robson16/commit/c2675834af6c0e32305eeb8a04d677a4d479b71d))
+* **admin:** add logout and home navigation ([f1ceb1c](https://github.com/Robson16/Robson16/commit/f1ceb1c3e359d4cdeddea39f359b1693b71d8ea5))
+* **admin:** add recording of project development dates ([7888577](https://github.com/Robson16/Robson16/commit/7888577ce77fa58d1470d13f1634ab47dcebebbb))
+* **admin:** redirecting to editing after registration ([aef172d](https://github.com/Robson16/Robson16/commit/aef172d24be8d82853b06b3be7a0dae9a56b696e))
+* **analytics:** implement GA4 tracking and exclude admin routes ([0a11795](https://github.com/Robson16/Robson16/commit/0a11795d8c8dc3188c2547e47d88c3c6f2a1713a))
+* enrich project details and portfolio cards ([06597c6](https://github.com/Robson16/Robson16/commit/06597c6fe5c57e9f1e8b501dfcb2c46e30f40af1))
+* ordening projects by develope date ([9c951d0](https://github.com/Robson16/Robson16/commit/9c951d0dcb52e0f3642fa092318e92e8b265a5e7))
+* **portfolio:** use project slugs in public routes ([5c74e45](https://github.com/Robson16/Robson16/commit/5c74e45e388f057b881777f0faea641c896cb402))
+* **projects:** display development date on project pages ([84fede7](https://github.com/Robson16/Robson16/commit/84fede75ea0d398ee857668a8551d9e7a2572a89))
+* **seo:** add dynamic project metadata and Open Graph ([1d1d41d](https://github.com/Robson16/Robson16/commit/1d1d41d238a6a14d4fbbde00c818d695bf5556a3))
+* **ui:** replace portfolio modal with direct case study link and add development date badge ([be6ed70](https://github.com/Robson16/Robson16/commit/be6ed70b912b94c3931218816332c85a835e0cb4))
+
+### Bug Fixes
+
+* **admin:** resolve TypeScript type mismatch for developedAt date field ([36568db](https://github.com/Robson16/Robson16/commit/36568db568fb84f34d2a5f590c1d0f75c43ca47a))
+* **projects:** corrects the default value of the link type ([dcbe3b7](https://github.com/Robson16/Robson16/commit/dcbe3b7f6cd0807b9f5d76b3ad8dce349ba20711))
+* **projects:** generate slug from default-language title ([50f0092](https://github.com/Robson16/Robson16/commit/50f00921293c25e34424968356469a06a6033306))
+
 ## [2.5.0](https://github.com/Robson16/Robson16/compare/v2.4.0...v2.5.0) (2026-10-03)
 
 ### Features
