@@ -1,6 +1,8 @@
 import { redirect } from 'next/navigation' // Se quiser, use o redirect do next-intl aqui também!
 import { getTranslations } from 'next-intl/server'
+import { LuHouse } from 'react-icons/lu'
 
+import { Link } from '@/app/_i18n/navigation'
 import { env } from '@/app/env'
 import { getAuthSession } from '@/auth'
 
@@ -28,6 +30,13 @@ export default async function LoginPage() {
         </div>
 
         <LoginButton text={t('buttonText')} />
+        <Link
+          href="/"
+          className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-zinc-200 px-4 py-3 text-sm font-medium text-zinc-600 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+        >
+          <LuHouse size={18} />
+          {t('backHome')}
+        </Link>
 
         <div className="mt-8 text-center text-xs text-zinc-400 dark:text-zinc-600">
           {t('warning')}

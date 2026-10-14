@@ -4,7 +4,14 @@ import { PrismaClient } from '@prisma/client'
 import { env } from '@/app/env'
 
 const prismaClientSingleton = () => {
-  const adapter = new PrismaPg({ connectionString: env.DATABASE_URL })
+  const connectionUrl = new URL(env.DATABASE_URL)
+  const sslMode = connectionUrl.searchParams.get('sslmode')
+
+  if (sslMode && ['prefer', 'require', 'verify-ca'].includes(sslMode)) {
+    connectionUrl.searchParams.set('sslmode', 'verify-full')
+  }
+
+  const adapter = new PrismaPg({ connectionString: connectionUrl.toString() })
 
   return new PrismaClient({
     adapter,

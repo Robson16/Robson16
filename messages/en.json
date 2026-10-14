@@ -13,6 +13,7 @@
     "title": "Restricted Area",
     "subtitle": "Exclusive access for portfolio administration.",
     "buttonText": "Sign in with GitHub",
+    "backHome": "Back to home",
     "warning": "Unauthorized access attempts will be blocked."
   },
   "Header": {

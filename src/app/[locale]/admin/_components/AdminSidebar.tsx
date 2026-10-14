@@ -1,5 +1,7 @@
 'use client'
 
+import { signOut } from 'next-auth/react'
+import { useLocale } from 'next-intl'
 import { useState } from 'react'
 import { AiOutlineHome } from 'react-icons/ai'
 import {
@@ -9,6 +11,7 @@ import {
   LuFolderGit2,
   LuLanguages,
   LuLayoutDashboard,
+  LuLogOut,
   LuMenu,
   LuUserPen,
   LuX,
@@ -19,6 +22,7 @@ import { Link } from '@/app/_i18n/navigation'
 
 export default function AdminSidebar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const locale = useLocale()
 
   const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>({
     projects: false,
@@ -166,6 +170,15 @@ export default function AdminSidebar() {
               </div>
             </div>
           ))}
+          <div className="my-2 h-px w-full bg-zinc-800" />
+          <button
+            type="button"
+            onClick={() => signOut({ callbackUrl: `/${locale}/login` })}
+            className="flex items-center gap-3 rounded p-2 font-medium text-zinc-300 transition-colors hover:bg-zinc-800 hover:text-white"
+          >
+            <LuLogOut className="text-emerald-500" size={18} />
+            Logout
+          </button>
         </nav>
       </aside>
     </>

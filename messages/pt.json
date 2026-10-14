@@ -13,6 +13,7 @@
     "title": "Área Restrita",
     "subtitle": "Acesso exclusivo para administração do portfólio.",
     "buttonText": "Entrar com GitHub",
+    "backHome": "Voltar para a página inicial",
     "warning": "Tentativas de acesso não autorizadas são bloqueadas."
   },
   "Header": {
