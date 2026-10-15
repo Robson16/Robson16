@@ -1,42 +1,22 @@
-import { Prisma } from '@prisma/client'
 import clsx from 'clsx'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 
-type ProjectWithRelations = Prisma.ProjectGetPayload<{
-  include: {
-    translations: true
-    gallery: true
-    skills: {
-      include: {
-        skill: {
-          include: {
-            translations: true
-          }
-        }
-      }
-    }
-    links: true
-  }
-}>
+import { Link } from '@/app/_i18n/navigation'
+import type { ProjectWithRelations } from '@/app/_types/project'
 
 type FeaturedProjectItemProps = {
-  locale: string
   project: ProjectWithRelations
 }
 
 export default function FeaturedProjectItem({
-  locale,
   project,
 }: FeaturedProjectItemProps) {
   const tPortfolio = useTranslations('Portfolio')
   const tProject = useTranslations('ProjectDetails')
   const featuredImage = project.gallery?.[0]?.url || '/images/placeholder.jpg'
 
-  const translation =
-    project.translations.find((translation) => translation.locale === locale) ||
-    project.translations[0]
+  const translation = project.translations[0]
 
   if (!translation) return null
 
@@ -69,11 +49,7 @@ export default function FeaturedProjectItem({
               </h5>
               <ul className="mb-8 flex flex-wrap justify-center gap-2 lg:justify-start">
                 {project.skills.map((ps) => {
-                  const skillName =
-                    ps.skill.translations.find((t) => t.locale === locale)
-                      ?.name ||
-                    ps.skill.translations[0]?.name ||
-                    'Unknown'
+                  const skillName = ps.skill.translations[0]?.name || 'Unknown'
                   return (
                     <li
                       key={ps.skillId}
@@ -90,7 +66,7 @@ export default function FeaturedProjectItem({
 
         <div className="mt-auto flex flex-col items-center gap-4 border-t border-zinc-800 pt-6 lg:items-start">
           <Link
-            href={`/${locale}/projects/${project.slug}`}
+            href={`/projects/${project.slug}`}
             className={clsx(
               'flex items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-bold capitalize',
               'bg-emerald-800 text-white transition-all',

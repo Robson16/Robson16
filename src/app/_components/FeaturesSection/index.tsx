@@ -2,30 +2,19 @@ import { getTranslations } from 'next-intl/server'
 
 import DynamicIcon from '@/app/_components/DynamicIcon'
 import iconsData from '@/app/_data/icons.json'
-import { db } from '@/app/_lib/prisma'
+import type { FeatureWithTranslations } from '@/app/_types/feature'
 
 interface FeaturesSectionProps {
-  locale: string
+  featuresData: FeatureWithTranslations[]
 }
 
 type IconKey = keyof typeof iconsData.icons
 
 export default async function FeaturesSection({
-  locale,
+  featuresData,
 }: FeaturesSectionProps) {
   const icons = iconsData.icons
   const t = await getTranslations('Features')
-
-  const featuresData = await db.feature.findMany({
-    include: {
-      translations: {
-        where: { locale },
-      },
-    },
-    orderBy: {
-      order: 'asc',
-    },
-  })
 
   return (
     <section id="features" aria-labelledby="features-title">

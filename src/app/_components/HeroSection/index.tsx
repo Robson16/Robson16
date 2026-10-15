@@ -7,11 +7,11 @@ import SocialButtons from '@/app/_components/SocialButtons'
 import { fetchGitHubContributions } from '@/app/_services/github.service'
 import { fetchGitLabContributions } from '@/app/_services/gitlab.service'
 import type { ProfileWithTranslations } from '@/app/_types/profile'
-import type { SocialLinks } from '@/app/_types/social'
+import type { SocialLink } from '@/app/_types/social'
 
 interface HeroSectionProps {
   profileData: ProfileWithTranslations
-  socialData: SocialLinks
+  socialData: SocialLink[]
 }
 
 export default async function HeroSection({

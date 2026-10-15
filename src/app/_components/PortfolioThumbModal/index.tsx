@@ -8,11 +8,11 @@ import { useTranslations } from 'next-intl'
 import { PiMagnifyingGlassBold } from 'react-icons/pi'
 import { useMediaQuery } from 'react-responsive'
 
-import { PortfolioProject } from '../PortfolioSection'
+import type { ProjectWithRelations } from '@/app/_types/project'
 
 interface PortfolioThumbProps {
   locale: string
-  project: PortfolioProject
+  project: ProjectWithRelations
 }
 
 export default function PortfolioThumbModal({

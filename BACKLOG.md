@@ -185,7 +185,7 @@
 
 - [x] Buscar os dados do perfil uma única vez na página inicial e reutilizá-los nas seções Hero, About e Contact.
 - [x] Buscar os links sociais uma única vez na página inicial e reutilizá-los nas seções Hero e Contact.
-- [ ] Reutilizar os projetos já carregados para o portfólio ao selecionar o projeto em destaque, removendo a consulta aleatória e a busca adicional no banco.
+- [x] Reutilizar os projetos já carregados para o portfólio ao selecionar o projeto em destaque, removendo a consulta aleatória e a busca adicional no banco.
 
 ### Story 8.2: Carregar Projetos do Portfólio Sob Demanda
 

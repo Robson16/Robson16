@@ -2,59 +2,16 @@ import { getTranslations } from 'next-intl/server'
 
 import Carousel from '@/app/_components/Carousel'
 import FeaturedProjectItem from '@/app/_components/FeaturedProjectItem'
-import { db } from '@/app/_lib/prisma'
+import type { ProjectWithRelations } from '@/app/_types/project'
 
 interface FeaturedProjectsSectionProps {
-  locale: string
+  featuredProjects: ProjectWithRelations[]
 }
 
 export default async function FeaturedProjectsSection({
-  locale,
+  featuredProjects,
 }: FeaturedProjectsSectionProps) {
   const t = await getTranslations('FeaturedProjects')
-
-  const randomProjects = await db.$queryRaw<{ id: string }[]>`
-  SELECT id FROM "Project" 
-  WHERE tier = 1 
-  ORDER BY RANDOM() 
-  LIMIT 1;`
-
-  const randomIds = randomProjects.map((p) => p.id)
-
-  const featuredProjects = await db.project.findMany({
-    where: {
-      id: {
-        in: randomIds,
-      },
-    },
-    include: {
-      translations: {
-        where: {
-          locale,
-        },
-      },
-      gallery: {
-        orderBy: {
-          order: 'asc',
-        },
-      },
-      skills: {
-        include: {
-          skill: {
-            include: {
-              translations: {
-                where: { locale },
-              },
-            },
-          },
-        },
-      },
-      links: true,
-    },
-    orderBy: {
-      createdAt: 'desc',
-    },
-  })
 
   if (featuredProjects.length === 0) {
     return null
@@ -69,18 +26,11 @@ export default async function FeaturedProjectsSection({
               {t('title')}
             </h3>
             {featuredProjects.length === 1 ? (
-              <FeaturedProjectItem
-                locale={locale}
-                project={featuredProjects[0]}
-              />
+              <FeaturedProjectItem project={featuredProjects[0]} />
             ) : (
               <Carousel>
                 {featuredProjects.map((project) => (
-                  <FeaturedProjectItem
-                    key={project.id}
-                    locale={locale}
-                    project={project}
-                  />
+                  <FeaturedProjectItem key={project.id} project={project} />
                 ))}
               </Carousel>
             )}

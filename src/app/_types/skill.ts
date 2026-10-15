@@ -1,7 +1,7 @@
 import type { Prisma } from '@prisma/client'
 
-export type SkillsWithTranslations = Prisma.SkillGetPayload<{
+export type SkillWithTranslations = Prisma.SkillGetPayload<{
   include: {
     translations: true
   }
-}>[]
+}>

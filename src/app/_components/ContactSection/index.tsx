@@ -3,11 +3,11 @@ import { getTranslations } from 'next-intl/server'
 import DynamicIcon from '@/app/_components/DynamicIcon'
 import iconsData from '@/app/_data/icons.json'
 import type { ProfileWithTranslations } from '@/app/_types/profile'
-import type { SocialLinks } from '@/app/_types/social'
+import type { SocialLink } from '@/app/_types/social'
 
 interface ContactSectionProps {
   profileData: ProfileWithTranslations
-  socialData: SocialLinks
+  socialData: SocialLink[]
 }
 
 type IconKey = keyof typeof iconsData.icons

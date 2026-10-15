@@ -3,25 +3,20 @@
 import { sendGTMEvent } from '@next/third-parties/google'
 import clsx from 'clsx'
 import Image from 'next/image'
+import { useLocale } from 'next-intl'
 import { PiArrowUpRightBold } from 'react-icons/pi'
 
 import { Link } from '@/app/_i18n/navigation'
-
-import { PortfolioProject } from '../PortfolioSection'
+import type { ProjectWithRelations } from '@/app/_types/project'
 
 interface PortfolioThumbProps {
-  locale: string
-  project: PortfolioProject
+  project: ProjectWithRelations
 }
 
-export default function PortfolioThumb({
-  locale,
-  project,
-}: PortfolioThumbProps) {
+export default function PortfolioThumb({ project }: PortfolioThumbProps) {
+  const locale = useLocale()
   const featuredImage = project.gallery?.[0]?.url || '/images/placeholder.jpg'
-  const translation =
-    project.translations.find((t) => t.locale === locale) ||
-    project.translations[0]
+  const translation = project.translations[0]
 
   if (!translation) return null
 
@@ -87,10 +82,7 @@ export default function PortfolioThumb({
         {project.skills && project.skills.length > 0 && (
           <div className="mt-6 flex flex-wrap gap-1.5 border-t border-zinc-800/80 pt-4">
             {project.skills.slice(0, 3).map((ps) => {
-              const skillName =
-                ps.skill.translations.find((t) => t.locale === locale)?.name ||
-                ps.skill.translations[0]?.name ||
-                'Unknown'
+              const skillName = ps.skill.translations[0]?.name || 'Unknown'
               return (
                 <span
                   key={ps.skillId}

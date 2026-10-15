@@ -11,10 +11,12 @@ interface PageProps {
   params: Promise<{ locale: string }>
 }
 
+export const revalidate = 3600
+
 export default async function Home({ params }: PageProps) {
   const { locale } = await params
 
-  const [profileData, socialData, skillsData, portfolioProjects] =
+  const [profileData, socialData, skillsData, featuresData, portfolioProjects] =
     await Promise.all([
       db.profile.findFirstOrThrow({
         include: {
@@ -48,6 +50,18 @@ export default async function Home({ params }: PageProps) {
           projects: {
             _count: 'desc',
           },
+        },
+      }),
+      db.feature.findMany({
+        include: {
+          translations: {
+            where: {
+              locale,
+            },
+          },
+        },
+        orderBy: {
+          order: 'asc',
         },
       }),
       db.project.findMany({
@@ -88,15 +102,19 @@ export default async function Home({ params }: PageProps) {
     name: skill.translations[0]?.name || 'Unknown',
   }))
 
+  const featuredProjects = portfolioProjects.filter(
+    (project) => project.tier === 1,
+  )
+
   return (
     <>
       <Header />
       <main>
         <HeroSection profileData={profileData} socialData={socialData} />
         <AboutSection profileData={profileData} topSkills={topSkills} />
-        <FeaturesSection locale={locale} />
-        <FeaturedProjectsSection locale={locale} />
-        <PortfolioSection locale={locale} projects={portfolioProjects} />
+        <FeaturesSection featuresData={featuresData} />
+        <FeaturedProjectsSection featuredProjects={featuredProjects} />
+        <PortfolioSection projects={portfolioProjects} />
         <ContactSection profileData={profileData} socialData={socialData} />
       </main>
     </>
