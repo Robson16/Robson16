@@ -5,18 +5,12 @@ import { sendGTMEvent } from '@next/third-parties/google'
 
 import DynamicIcon from '@/app/_components/DynamicIcon'
 import iconsData from '@/app/_data/icons.json'
+import type { SocialLinks } from '@/app/_types/social'
 
 type IconKey = keyof typeof iconsData.icons
 
-interface SocialButtonData {
-  id: string
-  name: string
-  icon: string
-  url: string
-}
-
 interface SocialButtonsProps {
-  socialData: SocialButtonData[]
+  socialData: SocialLinks
 }
 
 export default function SocialButtons({ socialData }: SocialButtonsProps) {

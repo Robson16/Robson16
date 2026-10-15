@@ -4,50 +4,23 @@ import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 import { FaDownload } from 'react-icons/fa'
 
-import { db } from '@/app/_lib/prisma'
+import type { ProfileWithTranslations } from '@/app/_types/profile'
 
-interface AboutSectionProps {
-  locale: string
+interface TopSkill {
+  id: string
+  name: string
 }
 
-export default async function AboutSection({ locale }: AboutSectionProps) {
+interface AboutSectionProps {
+  profileData: ProfileWithTranslations
+  topSkills: TopSkill[]
+}
+
+export default async function AboutSection({
+  profileData,
+  topSkills,
+}: AboutSectionProps) {
   const t = await getTranslations('About')
-
-  const profileData = await db.profile.findFirstOrThrow({
-    include: {
-      translations: {
-        where: {
-          locale,
-        },
-      },
-    },
-  })
-
-  const skillsData = await db.skill.findMany({
-    take: 7,
-    include: {
-      translations: {
-        where: {
-          locale,
-        },
-      },
-      _count: {
-        select: {
-          projects: true,
-        },
-      },
-    },
-    orderBy: {
-      projects: {
-        _count: 'desc',
-      },
-    },
-  })
-
-  const topSkills = skillsData.map((skill) => ({
-    id: skill.id,
-    name: skill.translations[0]?.name || 'Unknown',
-  }))
 
   return (
     <section id="about" aria-labelledby="about-title">

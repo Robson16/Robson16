@@ -2,33 +2,22 @@ import { getTranslations } from 'next-intl/server'
 
 import DynamicIcon from '@/app/_components/DynamicIcon'
 import iconsData from '@/app/_data/icons.json'
-import { db } from '@/app/_lib/prisma'
+import type { ProfileWithTranslations } from '@/app/_types/profile'
+import type { SocialLinks } from '@/app/_types/social'
 
 interface ContactSectionProps {
-  locale: string
+  profileData: ProfileWithTranslations
+  socialData: SocialLinks
 }
 
 type IconKey = keyof typeof iconsData.icons
 
-export default async function ContactSection({ locale }: ContactSectionProps) {
+export default async function ContactSection({
+  profileData,
+  socialData,
+}: ContactSectionProps) {
   const icons = iconsData.icons
   const t = await getTranslations('Contact')
-
-  const profileData = await db.profile.findFirstOrThrow({
-    include: {
-      translations: {
-        where: {
-          locale,
-        },
-      },
-    },
-  })
-
-  const socialData = await db.socialLink.findMany({
-    orderBy: {
-      order: 'asc',
-    },
-  })
 
   return (
     <section

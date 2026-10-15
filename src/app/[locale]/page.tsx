@@ -14,48 +14,90 @@ interface PageProps {
 export default async function Home({ params }: PageProps) {
   const { locale } = await params
 
-  const portfolioProjects = await db.project.findMany({
-    include: {
-      translations: {
-        where: {
-          locale,
+  const [profileData, socialData, skillsData, portfolioProjects] =
+    await Promise.all([
+      db.profile.findFirstOrThrow({
+        include: {
+          translations: {
+            where: {
+              locale,
+            },
+          },
         },
-      },
-      gallery: {
+      }),
+      db.socialLink.findMany({
         orderBy: {
           order: 'asc',
         },
-      },
-      skills: {
+      }),
+      db.skill.findMany({
+        take: 7,
         include: {
-          skill: {
+          translations: {
+            where: {
+              locale,
+            },
+          },
+          _count: {
+            select: {
+              projects: true,
+            },
+          },
+        },
+        orderBy: {
+          projects: {
+            _count: 'desc',
+          },
+        },
+      }),
+      db.project.findMany({
+        include: {
+          translations: {
+            where: {
+              locale,
+            },
+          },
+          gallery: {
+            orderBy: {
+              order: 'asc',
+            },
+          },
+          skills: {
             include: {
-              translations: {
-                where: {
-                  locale,
+              skill: {
+                include: {
+                  translations: {
+                    where: {
+                      locale,
+                    },
+                  },
                 },
               },
             },
           },
+          links: true,
         },
-      },
-      links: true,
-    },
-    orderBy: {
-      developedAt: 'desc',
-    },
-  })
+        orderBy: {
+          developedAt: 'desc',
+        },
+      }),
+    ])
+
+  const topSkills = skillsData.map((skill) => ({
+    id: skill.id,
+    name: skill.translations[0]?.name || 'Unknown',
+  }))
 
   return (
     <>
       <Header />
       <main>
-        <HeroSection locale={locale} />
-        <AboutSection locale={locale} />
+        <HeroSection profileData={profileData} socialData={socialData} />
+        <AboutSection profileData={profileData} topSkills={topSkills} />
         <FeaturesSection locale={locale} />
         <FeaturedProjectsSection locale={locale} />
         <PortfolioSection locale={locale} projects={portfolioProjects} />
-        <ContactSection locale={locale} />
+        <ContactSection profileData={profileData} socialData={socialData} />
       </main>
     </>
   )

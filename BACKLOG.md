@@ -176,3 +176,23 @@
 - [x] Criar no Google Tag Manager os acionadores e tags GA4 para os eventos personalizados definidos na Story 7.3.
 - [x] Testar os eventos no modo Preview do GTM e no DebugView do GA4, conferindo nomes, parâmetros e ausência de duplicidade.
 - [x] Publicar o container e confirmar que os eventos aparecem nos relatórios do GA4 após o processamento dos dados.
+
+---
+
+## Epic 8: Performance de SSR e Acesso ao Banco de Dados
+
+### Story 8.1: Reduzir Consultas Repetidas na Página Inicial
+
+- [x] Buscar os dados do perfil uma única vez na página inicial e reutilizá-los nas seções Hero, About e Contact.
+- [x] Buscar os links sociais uma única vez na página inicial e reutilizá-los nas seções Hero e Contact.
+- [ ] Reutilizar os projetos já carregados para o portfólio ao selecionar o projeto em destaque, removendo a consulta aleatória e a busca adicional no banco.
+
+### Story 8.2: Carregar Projetos do Portfólio Sob Demanda
+
+- [ ] Limitar a consulta inicial do portfólio aos primeiros projetos exibidos.
+- [ ] Implementar carregamento paginado dos projetos restantes ao solicitar mais itens, evitando enviar todos os projetos e suas relações no SSR inicial.
+
+### Story 8.3: Evitar Busca Duplicada na Página de Projeto
+
+- [ ] Compartilhar a leitura do projeto entre a página de detalhes e `generateMetadata` com memoização por requisição, avaliando o custo de carregar relações que os metadados não utilizam.
+- [ ] Validar a redução de consultas e o impacto no tempo de SSR após as otimizações.

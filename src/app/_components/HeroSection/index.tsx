@@ -4,33 +4,23 @@ import { ActivityCalendar } from 'react-activity-calendar'
 
 import DynamicIcon from '@/app/_components/DynamicIcon'
 import SocialButtons from '@/app/_components/SocialButtons'
-import { db } from '@/app/_lib/prisma'
 import { fetchGitHubContributions } from '@/app/_services/github.service'
 import { fetchGitLabContributions } from '@/app/_services/gitlab.service'
+import type { ProfileWithTranslations } from '@/app/_types/profile'
+import type { SocialLinks } from '@/app/_types/social'
 
 interface HeroSectionProps {
-  locale: string
+  profileData: ProfileWithTranslations
+  socialData: SocialLinks
 }
 
-export default async function HeroSection({ locale }: HeroSectionProps) {
+export default async function HeroSection({
+  profileData,
+  socialData,
+}: HeroSectionProps) {
   const t = await getTranslations('Hero')
 
-  const profileData = await db.profile.findFirstOrThrow({
-    include: {
-      translations: {
-        where: {
-          locale,
-        },
-      },
-    },
-  })
-
-  const [socialData, githubDays, gitlabDays] = await Promise.all([
-    db.socialLink.findMany({
-      orderBy: {
-        order: 'asc',
-      },
-    }),
+  const [githubDays, gitlabDays] = await Promise.all([
     fetchGitHubContributions(),
     fetchGitLabContributions(),
   ])
