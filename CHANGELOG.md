@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.7.0](https://github.com/Robson16/Robson16/compare/v2.6.0...v2.7.0) (2026-10-16)
+
+### Features
+
+- **portfolio:** load projects on demand with pagination ([31c61fe](https://github.com/Robson16/Robson16/commit/31c61fee479ed8de02beaa687d261c273fe2dc74))
+
 ## [2.6.0](https://github.com/Robson16/Robson16/compare/v2.5.0...v2.6.0) (2026-10-14)
 
 ### Features
