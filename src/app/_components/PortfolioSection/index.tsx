@@ -5,21 +5,46 @@ import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
+import { getPaginatedProjects } from '@/app/_actions/get-paginated-projects.action'
 import PortfolioThumb from '@/app/_components/PortfolioThumb'
 import useMasonry from '@/app/_hooks/useMasonry'
 import type { ProjectWithRelations } from '@/app/_types/project'
 
 interface PortfolioSectionProps {
-  projects: ProjectWithRelations[]
+  locale: string
+  initialProjects: ProjectWithRelations[]
 }
 
-export default function PortfolioSection({ projects }: PortfolioSectionProps) {
-  const [visibleProjects, setVisibleProjects] = useState(6)
+export default function PortfolioSection({
+  locale,
+  initialProjects,
+}: PortfolioSectionProps) {
+  const [projects, setProjects] = useState(initialProjects)
+  const [isLoading, setIsLoading] = useState(false)
+  const [hasMore, setHasMore] = useState(initialProjects.length === 6)
+
   const masonryContainer = useMasonry()
   const t = useTranslations('Portfolio')
 
-  const loadMoreProjects = () => {
-    setVisibleProjects((prevVisible) => prevVisible + 6)
+  const handleLoadMore = async () => {
+    setIsLoading(true)
+    try {
+      const nextProjects = await getPaginatedProjects(
+        locale,
+        projects.length,
+        6,
+      )
+
+      if (nextProjects.length < 6) {
+        setHasMore(false)
+      }
+
+      setProjects((prev) => [...prev, ...nextProjects])
+    } catch (error) {
+      console.error('Erro ao carregar mais projetos', error)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -37,11 +62,9 @@ export default function PortfolioSection({ projects }: PortfolioSectionProps) {
           ref={masonryContainer}
         >
           {projects.length > 0 ? (
-            projects
-              .slice(0, visibleProjects)
-              .map((project) => (
-                <PortfolioThumb project={project} key={project.id} />
-              ))
+            projects.map((project) => (
+              <PortfolioThumb project={project} key={project.id} />
+            ))
           ) : (
             <p className="col-span-full text-center text-zinc-500">
               {t('noProjects')}
@@ -49,18 +72,18 @@ export default function PortfolioSection({ projects }: PortfolioSectionProps) {
           )}
         </div>
 
-        {visibleProjects < projects.length && (
+        {hasMore && (
           <div className="mt-8 flex items-center justify-center text-center">
             <Button
               size="lg"
-              onPress={loadMoreProjects}
+              onPress={handleLoadMore}
               className={clsx(
                 'flex items-center gap-2 rounded-full px-8 py-3',
                 'bg-emerald-800 font-bold text-white transition-all',
                 'hover:bg-emerald-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none',
               )}
             >
-              {t('loadMore')}
+              {isLoading ? t('loading') : t('loadMore')}
             </Button>
           </div>
         )}

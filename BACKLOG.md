@@ -189,8 +189,8 @@
 
 ### Story 8.2: Carregar Projetos do Portfólio Sob Demanda
 
-- [ ] Limitar a consulta inicial do portfólio aos primeiros projetos exibidos.
-- [ ] Implementar carregamento paginado dos projetos restantes ao solicitar mais itens, evitando enviar todos os projetos e suas relações no SSR inicial.
+- [x] Limitar a consulta inicial do portfólio aos primeiros projetos exibidos.
+- [x] Implementar carregamento paginado dos projetos restantes ao solicitar mais itens, evitando enviar todos os projetos e suas relações no SSR inicial.
 
 ### Story 8.3: Evitar Busca Duplicada na Página de Projeto
 
