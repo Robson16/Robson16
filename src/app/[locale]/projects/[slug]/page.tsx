@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
+import { cache } from 'react'
 import { FaBriefcase, FaCalendarDays } from 'react-icons/fa6'
 
 import Header from '@/app/_components/Header'
@@ -20,6 +21,65 @@ interface ProjectPageProps {
   }>
 }
 
+const getProject = cache(async (slug: string, locale: string) => {
+  return await db.project.findUnique({
+    where: {
+      slug: slug,
+    },
+    include: {
+      translations: {
+        where: {
+          locale,
+        },
+      },
+      gallery: {
+        orderBy: {
+          order: 'asc',
+        },
+      },
+      skills: {
+        include: {
+          skill: {
+            include: {
+              translations: {
+                where: {
+                  locale,
+                },
+              },
+            },
+          },
+        },
+      },
+      links: true,
+      experiences: {
+        include: {
+          experience: {
+            select: {
+              id: true,
+              company: true,
+              startDate: true,
+              endDate: true,
+              translations: {
+                where: { locale },
+                select: { role: true },
+              },
+            },
+          },
+        },
+      },
+    },
+  })
+})
+
+const getProfileName = cache(async () => {
+  const profile = await db.profile.findFirst({
+    select: {
+      name: true,
+    },
+  })
+  return profile?.name.trim()
+})
+
 export async function generateMetadata({
   params,
 }: ProjectPageProps): Promise<Metadata> {
@@ -34,33 +94,10 @@ export async function generateMetadata({
   const origin =
     env.SITE_URL ?? (host ? `${protocol.split(',')[0]}://${host}` : undefined)
 
-  const [project, profile] = await Promise.all([
-    db.project.findUnique({
-      where: {
-        slug: slug,
-      },
-      include: {
-        translations: {
-          where: {
-            locale,
-          },
-        },
-        gallery: {
-          orderBy: {
-            order: 'asc',
-          },
-          take: 1,
-        },
-      },
-    }),
-    db.profile.findFirst({
-      select: {
-        name: true,
-      },
-    }),
+  const [project, profileName] = await Promise.all([
+    getProject(slug, locale),
+    getProfileName(),
   ])
-
-  const profileName = profile?.name.trim()
 
   if (!project || project.translations.length === 0) {
     return {
@@ -109,53 +146,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const { locale, slug } = await params
   const t = await getTranslations('ProjectDetails')
 
-  const project = await db.project.findUnique({
-    where: {
-      slug: slug,
-    },
-    include: {
-      translations: {
-        where: {
-          locale,
-        },
-      },
-      gallery: {
-        orderBy: {
-          order: 'asc',
-        },
-      },
-      skills: {
-        include: {
-          skill: {
-            include: {
-              translations: {
-                where: {
-                  locale,
-                },
-              },
-            },
-          },
-        },
-      },
-      links: true,
-      experiences: {
-        include: {
-          experience: {
-            select: {
-              id: true,
-              company: true,
-              startDate: true,
-              endDate: true,
-              translations: {
-                where: { locale },
-                select: { role: true },
-              },
-            },
-          },
-        },
-      },
-    },
-  })
+  const project = await getProject(slug, locale)
 
   if (!project || project.translations.length === 0) {
     notFound()

@@ -194,5 +194,5 @@
 
 ### Story 8.3: Evitar Busca Duplicada na Página de Projeto
 
-- [ ] Compartilhar a leitura do projeto entre a página de detalhes e `generateMetadata` com memoização por requisição, avaliando o custo de carregar relações que os metadados não utilizam.
-- [ ] Validar a redução de consultas e o impacto no tempo de SSR após as otimizações.
+- [x] Compartilhar a leitura do projeto entre a página de detalhes e `generateMetadata` com memoização por requisição, avaliando o custo de carregar relações que os metadados não utilizam.
+- [x] Validar a redução de consultas e o impacto no tempo de SSR após as otimizações.
