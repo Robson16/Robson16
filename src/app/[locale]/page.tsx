@@ -13,6 +13,10 @@ interface PageProps {
 
 export const revalidate = 3600
 
+export async function generateStaticParams() {
+  return [{ locale: 'pt' }, { locale: 'en' }]
+}
+
 export default async function Home({ params }: PageProps) {
   const { locale } = await params
 
