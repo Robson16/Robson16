@@ -3,7 +3,7 @@ services:
     container_name: portfolio-pg
     image: postgres:15
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: docker
@@ -13,18 +13,13 @@ services:
       - ./data/pg:/data/postgres
       - ./scripts/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql
 
-  minio:
-    image: quay.io/minio/minio:latest
+  localstack:
+    image: localstack/localstack:3.8.1
     container_name: portfolio-r2-local
     ports:
-      - '9000:9000'
-      - '9001:9001'
+      - "4566:4566"
     environment:
-      MINIO_ROOT_USER: 'admin'
-      MINIO_ROOT_PASSWORD: 'password123'
+      - SERVICES=s3
     volumes:
-      - minio_data:/data
-    command: server /data --console-address ":9001"
-
-volumes:
-  minio_data:
+      - ./data/localstack:/var/lib/localstack
+      - ./scripts/init-s3.sh:/etc/localstack/init/ready.d/init-s3.sh
