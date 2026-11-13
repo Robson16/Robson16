@@ -83,6 +83,7 @@ model ProfileTranslation {
   title        String  @default("")
   locationName String
   bio          String? @db.Text
+  objective    String? @db.Text
 
   profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 

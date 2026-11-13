@@ -19,6 +19,7 @@ const updateProfileSchema = z.object({
       title: z.string(),
       locationName: z.string(),
       bio: z.string(),
+      objective: z.string(),
     }),
   ),
 })
@@ -81,6 +82,7 @@ export async function updateProfileAction(
             title: translation.title,
             locationName: translation.locationName,
             bio: translation.bio,
+            objective: translation.objective,
           })),
         },
       },

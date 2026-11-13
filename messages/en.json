@@ -49,6 +49,12 @@
     "imageAlt": "Image from the About section",
     "downloadResumeButton": "Download Resume"
   },
+  "Resume": {
+    "objectiveTitle": "Professional Objective",
+    "summaryTitle": "Professional Summary",
+    "experienceTitle": "Professional Experience",
+    "educationTitle": "Academic Background and Courses"
+  },
   "Features": {
     "title": "What I do"
   },

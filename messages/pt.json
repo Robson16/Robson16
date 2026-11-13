@@ -49,6 +49,12 @@
     "imageAlt": "Imagem da seção Sobre",
     "downloadResumeButton": "Baixar Currículo"
   },
+  "Resume": {
+    "objectiveTitle": "Objetivo Profissional",
+    "summaryTitle": "Resumo Profissional",
+    "experienceTitle": "Experiência Profissional",
+    "educationTitle": "Formação Acadêmica e Cursos"
+  },
   "Features": {
     "title": "O que faço"
   },

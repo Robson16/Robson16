@@ -44,7 +44,12 @@ export default function ProfileForm({
       (
         acc: Record<
           string,
-          { title: string; locationName: string; bio: string }
+          {
+            title: string
+            locationName: string
+            bio: string
+            objective: string
+          }
         >,
         translation,
       ) => {
@@ -52,6 +57,7 @@ export default function ProfileForm({
           title: translation.title || '',
           locationName: translation.locationName,
           bio: translation.bio || '',
+          objective: translation.objective || '',
         }
         return acc
       },
@@ -60,12 +66,15 @@ export default function ProfileForm({
 
   const [translations, setTranslations] =
     useState<
-      Record<string, { title: string; locationName: string; bio: string }>
+      Record<
+        string,
+        { title: string; locationName: string; bio: string; objective: string }
+      >
     >(initialTranslations)
 
   const handleTranslationChange = (
     locale: string,
-    field: 'title' | 'locationName' | 'bio',
+    field: 'title' | 'locationName' | 'bio' | 'objective',
     value: string,
   ) => {
     setTranslations((prev) => ({
@@ -111,6 +120,7 @@ export default function ProfileForm({
         title: translations[lang.code]?.title || '',
         locationName: translations[lang.code]?.locationName || '',
         bio: translations[lang.code]?.bio || '',
+        objective: translations[lang.code]?.objective || '',
       }))
 
       const data = {
@@ -300,6 +310,24 @@ export default function ProfileForm({
                 value={translations[lang.code]?.bio || ''}
                 onChange={(event) =>
                   handleTranslationChange(lang.code, 'bio', event.target.value)
+                }
+                disabled={isPending}
+                className="resize-none rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 focus:border-emerald-500 focus:outline-none"
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-zinc-300">
+                Objective ({lang.code.toUpperCase()})
+              </label>
+              <textarea
+                rows={3}
+                value={translations[lang.code]?.objective || ''}
+                onChange={(event) =>
+                  handleTranslationChange(
+                    lang.code,
+                    'objective',
+                    event.target.value,
+                  )
                 }
                 disabled={isPending}
                 className="resize-none rounded border border-zinc-700 bg-zinc-900 p-3 text-zinc-100 focus:border-emerald-500 focus:outline-none"

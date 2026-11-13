@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import Image from 'next/image'
-import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 import { FaDownload } from 'react-icons/fa'
 
@@ -12,11 +11,13 @@ interface TopSkill {
 }
 
 interface AboutSectionProps {
+  locale: string
   profileData: ProfileWithTranslations
   topSkills: TopSkill[]
 }
 
 export default async function AboutSection({
+  locale,
   profileData,
   topSkills,
 }: AboutSectionProps) {
@@ -56,10 +57,10 @@ export default async function AboutSection({
               ))}
             </ul>
 
-            <Link
-              href="/documents/robson-h-rodrigues-cv.pdf"
-              download="robson-h-rodrigues-cv.pdf"
-              aria-label="Baixar currículo"
+            <a
+              href={`/api/curriculum?locale=${locale}`}
+              download={`Robson-H-Rodrigues-CV-${locale.toUpperCase()}.pdf`}
+              aria-label={t('downloadResumeButton')}
               className={clsx(
                 'inline-flex items-center gap-2 rounded-full px-8 py-3 text-lg',
                 'bg-emerald-800 font-bold text-white transition-all',
@@ -68,7 +69,7 @@ export default async function AboutSection({
             >
               {t('downloadResumeButton')}
               <FaDownload size={16} />
-            </Link>
+            </a>
           </div>
         </div>
       </div>
