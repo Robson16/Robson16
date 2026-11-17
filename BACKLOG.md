@@ -196,3 +196,49 @@
 
 - [x] Compartilhar a leitura do projeto entre a página de detalhes e `generateMetadata` com memoização por requisição, avaliando o custo de carregar relações que os metadados não utilizam.
 - [x] Validar a redução de consultas e o impacto no tempo de SSR após as otimizações.
+
+---
+
+## Epic 9: Geração de Currículo, Feedback Visual e Experiências
+
+### Story 9.1: Feedback Visual e de Ações na Administração
+
+- [ ] Adicionar indicador de carregamento (feedback visual) no botão de download do currículo, informando o usuário durante o processo de geração do PDF.
+- [ ] Implementar mensagens e alertas de feedback claro ao salvar uma nova experiência profissional no painel administrativo.
+- [ ] Revisar e padronizar o comportamento de feedback de sucesso/erro ao adicionar e editar registros nos demais recursos do painel (Perfil, Educação, Projetos).
+
+### Story 9.2: Aprimoramento da Descrição de Experiência
+
+- [ ] Ajustar o campo de texto/editor da descrição de experiências profissionais para suportar marcações ou blocos que reflitam fielmente quebras de linha e listas com marcadores, aproximando a visualização em tela do formato renderizado no PDF.
+
+### Story 9.3: Otimização do Resumo Profissional e Bio
+
+- [ ] Estudar a viabilidade técnica e arquitetural de mesclar os campos de competências do perfil com a descrição da `bio` para alimentar automaticamente o resumo profissional consolidado do PDF e do site.
+
+### Story 9.4: Competências Técnicas e Idiomas no Perfil e PDF
+
+- [ ] Modelar e implementar a gestão de Idiomas conhecidos no banco de dados e adicioná-los à tela de perfil no Admin.
+- [ ] Estabelecer o relacionamento entre as tecnologias (Skills) e as Experiências Profissionais no painel administrativo.
+- [ ] Integrar os dados de Idiomas e o relacionamento Experiência/Skills no gerador de currículo (@react-pdf/renderer) para exibir essas novas camadas de informação no documento gerado.
+
+### Story 9.5: Tradução Opcional de Empresa nas Experiências
+
+* [ ] Adicionar o campo opcional `companyName` no schema da tabela de tradução de Experiências (ex: `ExperienceTranslation`) no Prisma.
+* [ ] Atualizar o formulário de Experiências no painel administrativo para incluir o campo de nome da empresa por idioma (com fallback visual para o nome original).
+* [ ] Ajustar a geração do PDF e a listagem no site para renderizarem o nome da empresa traduzido, mantendo o original caso a tradução esteja vazia.
+
+---
+
+## Epic 10: Importação e Exportação de Dados (Backup/Migração)
+
+### Story 10.1: Exportação de Backup (Download)
+
+* [ ] Desenvolver um endpoint administrativo protegido para buscar todas as entidades do banco (Perfil, Projetos, Experiências, Educação, Skills).
+* [ ] Implementar a funcionalidade no painel Admin para baixar esse consolidado completo em formato `.json`.
+* [ ] Estudar a viabilidade e implementar conversores para baixar relatórios isolados em `.csv` (ex: apenas a lista de projetos ou experiências) para leitura em planilhas.
+
+### Story 10.2: Importação e Restauração de Dados (Upload)
+
+* [ ] Criar uma interface no painel administrativo com suporte a *drag and drop* para envio de arquivos de backup (`.json` e/ou `.csv`).
+* [ ] Desenvolver a lógica de *parser* e validação estrutural (Zod) para garantir que o arquivo enviado tem o formato correto antes de processar.
+* [ ] Implementar o script de inserção/atualização via Prisma (`upsert`), restaurando os registros no banco de dados sem quebrar os relacionamentos e evitando duplicações.
