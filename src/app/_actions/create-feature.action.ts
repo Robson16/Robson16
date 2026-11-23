@@ -1,9 +1,9 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
+import { revalidatePortfolioCache } from '@/app/_lib/revalidate-portfolio'
 import { validateTranslations } from '@/app/_utils/validate-translations'
 
 const createFeatureSchema = z.object({
@@ -45,7 +45,7 @@ export async function createFeatureAction(data: CreateFeatureInput) {
       },
     })
 
-    revalidatePath('/admin/features')
+    revalidatePortfolioCache({ adminSection: 'profile' })
 
     return { success: true, featureId: feature.id }
   } catch (error) {

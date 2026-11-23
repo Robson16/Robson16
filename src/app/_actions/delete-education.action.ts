@@ -1,9 +1,9 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
+import { revalidatePortfolioCache } from '@/app/_lib/revalidate-portfolio'
 
 export async function deleteEducationAction(id: string) {
   try {
@@ -13,7 +13,7 @@ export async function deleteEducationAction(id: string) {
       where: { id: validatedId },
     })
 
-    revalidatePath('/admin/educations')
+    revalidatePortfolioCache({ adminSection: 'education' })
 
     return {
       success: true,

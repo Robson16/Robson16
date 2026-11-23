@@ -1,9 +1,9 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
+import { revalidatePortfolioCache } from '@/app/_lib/revalidate-portfolio'
 import { validateTranslations } from '@/app/_utils/validate-translations'
 
 const updateExperienceSchema = z.object({
@@ -54,7 +54,7 @@ export async function updateExperienceAction(
       },
     })
 
-    revalidatePath('/admin/experiences')
+    revalidatePortfolioCache({ adminSection: 'experiences' })
 
     return {
       success: true,

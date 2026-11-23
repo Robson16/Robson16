@@ -1,9 +1,9 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
+import { revalidatePortfolioCache } from '@/app/_lib/revalidate-portfolio'
 import { StorageService } from '@/app/_lib/storage/r2-storage'
 
 export async function deleteProjectAction(projectId: string) {
@@ -35,7 +35,7 @@ export async function deleteProjectAction(projectId: string) {
       },
     })
 
-    revalidatePath('/admin/projects')
+    revalidatePortfolioCache({ adminSection: 'projects' })
 
     return {
       success: true,

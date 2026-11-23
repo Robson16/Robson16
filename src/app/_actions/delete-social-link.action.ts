@@ -1,9 +1,9 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
+import { revalidatePortfolioCache } from '@/app/_lib/revalidate-portfolio'
 
 export async function deleteSocialLinkAction(id: string) {
   try {
@@ -13,7 +13,7 @@ export async function deleteSocialLinkAction(id: string) {
       where: { id: validatedId },
     })
 
-    revalidatePath('/', 'layout')
+    revalidatePortfolioCache({ adminSection: 'profile' })
 
     return { success: true }
   } catch (error) {

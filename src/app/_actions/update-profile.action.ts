@@ -1,9 +1,9 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
+import { revalidatePortfolioCache } from '@/app/_lib/revalidate-portfolio'
 import { StorageService } from '@/app/_lib/storage/r2-storage'
 import { validateTranslations } from '@/app/_utils/validate-translations'
 
@@ -88,7 +88,7 @@ export async function updateProfileAction(
       },
     })
 
-    revalidatePath('/', 'layout')
+    revalidatePortfolioCache({ adminSection: 'profile' })
 
     return { success: true }
   } catch (error) {

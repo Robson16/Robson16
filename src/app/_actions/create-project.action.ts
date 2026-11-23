@@ -1,10 +1,10 @@
 'use server'
 
 import { ProjectLinkType } from '@prisma/client'
-import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
+import { revalidatePortfolioCache } from '@/app/_lib/revalidate-portfolio'
 import { validateTranslations } from '@/app/_utils/validate-translations'
 
 import { generateSlug } from '../_utils/generate-slug'
@@ -146,7 +146,7 @@ export async function createProjectAction(inputData: CreateProjectInput) {
       },
     })
 
-    revalidatePath('/admin')
+    revalidatePortfolioCache({ adminSection: 'projects' })
 
     return { success: true, projectId: project.id }
   } catch (error) {

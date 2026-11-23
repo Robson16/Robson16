@@ -1,9 +1,9 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
+import { revalidatePortfolioCache } from '@/app/_lib/revalidate-portfolio'
 
 const createSocialLinkSchema = z.object({
   icon: z.string(),
@@ -32,7 +32,7 @@ export async function createSocialLinkAction(data: CreateSocialLinkInput) {
       },
     })
 
-    revalidatePath('/', 'layout')
+    revalidatePortfolioCache({ adminSection: 'profile' })
 
     return {
       success: true,

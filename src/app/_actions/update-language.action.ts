@@ -1,9 +1,9 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
+import { revalidatePortfolioCache } from '@/app/_lib/revalidate-portfolio'
 
 const languageCodeSchema = z.string().trim().min(2).max(5)
 const updateLanguageSchema = z.object({
@@ -53,7 +53,7 @@ export async function updateLanguageAction(
       },
     })
 
-    revalidatePath('/admin/languages')
+    revalidatePortfolioCache({ adminSection: 'languages' })
 
     return { success: true }
   } catch (error: unknown) {
