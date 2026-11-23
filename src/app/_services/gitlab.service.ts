@@ -36,9 +36,15 @@ export async function fetchGitLabContributions(): Promise<
         },
       },
     )
+
+    if (!userRes.ok) {
+      console.warn(`GitLab API error (user): ${userRes.status}`)
+      return []
+    }
+
     const userData = await userRes.json()
 
-    if (!userData || userData.length === 0) {
+    if (!Array.isArray(userData) || userData.length === 0) {
       console.warn('GitLab user not found.')
       return []
     }

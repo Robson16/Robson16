@@ -223,9 +223,9 @@
 
 ### Story 9.5: Tradução Opcional de Empresa nas Experiências
 
-* [ ] Adicionar o campo opcional `companyName` no schema da tabela de tradução de Experiências (ex: `ExperienceTranslation`) no Prisma.
-* [ ] Atualizar o formulário de Experiências no painel administrativo para incluir o campo de nome da empresa por idioma (com fallback visual para o nome original).
-* [ ] Ajustar a geração do PDF e a listagem no site para renderizarem o nome da empresa traduzido, mantendo o original caso a tradução esteja vazia.
+- [ ] Adicionar o campo opcional `companyName` no schema da tabela de tradução de Experiências (ex: `ExperienceTranslation`) no Prisma.
+- [ ] Atualizar o formulário de Experiências no painel administrativo para incluir o campo de nome da empresa por idioma (com fallback visual para o nome original).
+- [ ] Ajustar a geração do PDF e a listagem no site para renderizarem o nome da empresa traduzido, mantendo o original caso a tradução esteja vazia.
 
 ---
 
@@ -233,12 +233,12 @@
 
 ### Story 10.1: Exportação de Backup (Download)
 
-* [ ] Desenvolver um endpoint administrativo protegido para buscar todas as entidades do banco (Perfil, Projetos, Experiências, Educação, Skills).
-* [ ] Implementar a funcionalidade no painel Admin para baixar esse consolidado completo em formato `.json`.
-* [ ] Estudar a viabilidade e implementar conversores para baixar relatórios isolados em `.csv` (ex: apenas a lista de projetos ou experiências) para leitura em planilhas.
+- [ ] Desenvolver um endpoint administrativo protegido para buscar todas as entidades do banco (Perfil, Projetos, Experiências, Educação, Skills).
+- [ ] Implementar a funcionalidade no painel Admin para baixar esse consolidado completo em formato `.json`.
+- [ ] Estudar a viabilidade e implementar conversores para baixar relatórios isolados em `.csv` (ex: apenas a lista de projetos ou experiências) para leitura em planilhas.
 
 ### Story 10.2: Importação e Restauração de Dados (Upload)
 
-* [ ] Criar uma interface no painel administrativo com suporte a *drag and drop* para envio de arquivos de backup (`.json` e/ou `.csv`).
-* [ ] Desenvolver a lógica de *parser* e validação estrutural (Zod) para garantir que o arquivo enviado tem o formato correto antes de processar.
-* [ ] Implementar o script de inserção/atualização via Prisma (`upsert`), restaurando os registros no banco de dados sem quebrar os relacionamentos e evitando duplicações.
+- [ ] Criar uma interface no painel administrativo com suporte a _drag and drop_ para envio de arquivos de backup (`.json` e/ou `.csv`).
+- [ ] Desenvolver a lógica de _parser_ e validação estrutural (Zod) para garantir que o arquivo enviado tem o formato correto antes de processar.
+- [ ] Implementar o script de inserção/atualização via Prisma (`upsert`), restaurando os registros no banco de dados sem quebrar os relacionamentos e evitando duplicações.

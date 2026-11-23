@@ -10,15 +10,17 @@ import type { ProfileWithTranslations } from '@/app/_types/profile'
 import type { SocialLink } from '@/app/_types/social'
 
 interface HeroSectionProps {
+  locale: string
   profileData: ProfileWithTranslations
   socialData: SocialLink[]
 }
 
 export default async function HeroSection({
+  locale,
   profileData,
   socialData,
 }: HeroSectionProps) {
-  const t = await getTranslations('Hero')
+  const t = await getTranslations({ locale, namespace: 'Hero' })
 
   const [githubDays, gitlabDays] = await Promise.all([
     fetchGitHubContributions(),

@@ -24,6 +24,7 @@
     "repos:dates": "node --env-file=.env --import tsx scripts/list-repository-dates.ts",
     "build": "prisma migrate deploy && next build",
     "start": "next start",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",

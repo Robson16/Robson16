@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
 import { ReactNode } from 'react'
 
 import { routing } from '@/app/_i18n/routing'
@@ -20,8 +20,14 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: GenerateMetadataProps) {
   const { locale } = await params
+  setRequestLocale(locale)
 
-  const messages = (await getMessages({ locale })) as {
+  if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
+    return {}
+  }
+
+  const messages = (await import(`../../../messages/${locale}.json`))
+    .default as {
     MetaData?: {
       title?: string
       description?: string
@@ -43,15 +49,16 @@ export default async function LocaleLayout({
   params,
 }: LocaleLayoutProps) {
   const { locale } = await params
+  setRequestLocale(locale)
 
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     notFound()
   }
 
-  const messages = await getMessages({ locale })
+  const messages = (await import(`../../../messages/${locale}.json`)).default
 
   return (
-    <NextIntlClientProvider messages={messages}>
+    <NextIntlClientProvider locale={locale} messages={messages}>
       {children}
     </NextIntlClientProvider>
   )

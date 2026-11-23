@@ -5,13 +5,15 @@ import FeaturedProjectItem from '@/app/_components/FeaturedProjectItem'
 import type { ProjectWithRelations } from '@/app/_types/project'
 
 interface FeaturedProjectsSectionProps {
+  locale: string
   featuredProjects: ProjectWithRelations[]
 }
 
 export default async function FeaturedProjectsSection({
+  locale,
   featuredProjects,
 }: FeaturedProjectsSectionProps) {
-  const t = await getTranslations('FeaturedProjects')
+  const t = await getTranslations({ locale, namespace: 'FeaturedProjects' })
 
   if (featuredProjects.length === 0) {
     return null
@@ -26,11 +28,18 @@ export default async function FeaturedProjectsSection({
               {t('title')}
             </h3>
             {featuredProjects.length === 1 ? (
-              <FeaturedProjectItem project={featuredProjects[0]} />
+              <FeaturedProjectItem
+                locale={locale}
+                project={featuredProjects[0]}
+              />
             ) : (
               <Carousel>
                 {featuredProjects.map((project) => (
-                  <FeaturedProjectItem key={project.id} project={project} />
+                  <FeaturedProjectItem
+                    key={project.id}
+                    locale={locale}
+                    project={project}
+                  />
                 ))}
               </Carousel>
             )}

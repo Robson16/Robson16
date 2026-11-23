@@ -5,16 +5,18 @@ import iconsData from '@/app/_data/icons.json'
 import type { FeatureWithTranslations } from '@/app/_types/feature'
 
 interface FeaturesSectionProps {
+  locale: string
   featuresData: FeatureWithTranslations[]
 }
 
 type IconKey = keyof typeof iconsData.icons
 
 export default async function FeaturesSection({
+  locale,
   featuresData,
 }: FeaturesSectionProps) {
   const icons = iconsData.icons
-  const t = await getTranslations('Features')
+  const t = await getTranslations({ locale, namespace: 'Features' })
 
   return (
     <section id="features" aria-labelledby="features-title">

@@ -58,7 +58,7 @@ async function fetchGitHubCommits(url: string): Promise<CommitData[]> {
   const response = await fetch(
     `https://api.github.com/repos/${owner}/${repo}/commits?per_page=10`,
     {
-      next: { revalidate: 3600 },
+      next: { revalidate: 86400 },
       headers: {
         Accept: 'application/vnd.github.v3+json',
         Authorization: `Bearer ${env.GITHUB_ACCESS_TOKEN}`,

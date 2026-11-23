@@ -6,6 +6,7 @@ import type { ProfileWithTranslations } from '@/app/_types/profile'
 import type { SocialLink } from '@/app/_types/social'
 
 interface ContactSectionProps {
+  locale: string
   profileData: ProfileWithTranslations
   socialData: SocialLink[]
 }
@@ -13,11 +14,12 @@ interface ContactSectionProps {
 type IconKey = keyof typeof iconsData.icons
 
 export default async function ContactSection({
+  locale,
   profileData,
   socialData,
 }: ContactSectionProps) {
   const icons = iconsData.icons
-  const t = await getTranslations('Contact')
+  const t = await getTranslations({ locale, namespace: 'Contact' })
 
   return (
     <section

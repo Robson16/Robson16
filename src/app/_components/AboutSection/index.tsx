@@ -21,7 +21,7 @@ export default async function AboutSection({
   profileData,
   topSkills,
 }: AboutSectionProps) {
-  const t = await getTranslations('About')
+  const t = await getTranslations({ locale, namespace: 'About' })
 
   return (
     <section id="about" aria-labelledby="about-title">

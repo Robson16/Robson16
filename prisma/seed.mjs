@@ -1,147 +1,37 @@
-import { randomUUID } from 'node:crypto' // Para gerar o ID único da imagem
-import fs from 'node:fs'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3' // Import do S3
 import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '@prisma/client'
 import pg from 'pg'
 
-// Configurações do Banco
 const connectionString = process.env.DATABASE_URL
 const pool = new pg.Pool({ connectionString })
 const adapter = new PrismaPg(pool)
 const prisma = new PrismaClient({ adapter })
 
-// Configuração do MinIO/R2 no Seed
-const s3Client = new S3Client({
-  region: 'us-east-1',
-  endpoint: process.env.CLOUDFLARE_ENDPOINT,
-  credentials: {
-    accessKeyId: process.env.CLOUDFLARE_ACCESS_KEY_ID,
-    secretAccessKey: process.env.CLOUDFLARE_SECRET_ACCESS_KEY,
-  },
-  forcePathStyle: true,
-})
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-const rootDir = path.resolve(__dirname, '..')
-
-// Adicione isso no topo, junto com os outros JSON.parse
-const contactsData = JSON.parse(
-  fs.readFileSync(path.join(rootDir, 'src/app/_data/contacts.json'), 'utf-8'),
-)
-const educationData = JSON.parse(
-  fs.readFileSync(path.join(rootDir, 'src/app/_data/education.json'), 'utf-8'),
-)
-const featuresData = JSON.parse(
-  fs.readFileSync(path.join(rootDir, 'src/app/_data/features.json'), 'utf-8'),
-)
-const socialData = JSON.parse(
-  fs.readFileSync(path.join(rootDir, 'src/app/_data/social.json'), 'utf-8'),
-)
-const experiencesData = JSON.parse(
-  fs.readFileSync(
-    path.join(rootDir, 'src/app/_data/experiences.json'),
-    'utf-8',
-  ),
-)
-const projectsData = JSON.parse(
-  fs.readFileSync(path.join(rootDir, 'src/app/_data/projects.json'), 'utf-8'),
-)
-const skillsData = JSON.parse(
-  fs.readFileSync(path.join(rootDir, 'src/app/_data/skills.json'), 'utf-8'),
-)
-
-function parseDatePt(dateString) {
-  const months = {
-    janeiro: 0,
-    fevereiro: 1,
-    março: 2,
-    abril: 3,
-    maio: 4,
-    junho: 5,
-    julho: 6,
-    agosto: 7,
-    setembro: 8,
-    outubro: 9,
-    novembro: 10,
-    dezembro: 11,
-  }
-  const parts = dateString.toLowerCase().split(' de ')
-  if (parts.length === 2) {
-    const month = months[parts[0]]
-    const year = parseInt(parts[1], 10)
-    return new Date(year, month, 1)
-  }
-  return new Date()
-}
-
-// Função auxiliar para fazer o upload da imagem local para o MinIO
-async function uploadImageToStorage(localPath, keepOriginalName = false) {
-  try {
-    // Ex: transforma "/images/projects/babydufy.jpg" no caminho real da sua máquina
-    const fullPath = path.join(rootDir, 'public', localPath)
-
-    if (!fs.existsSync(fullPath)) {
-      console.warn(`⚠️ Imagem não encontrada localmente: ${fullPath}`)
-      return localPath // Retorna o caminho estático como fallback
-    }
-
-    const fileBuffer = fs.readFileSync(fullPath)
-    const fileName = path.basename(localPath)
-
-    // Mesma lógica de higienização do nosso StorageService
-    const sanitizedName = fileName.replace(/[^a-zA-Z0-9.-]/g, '-')
-    // Se keepOriginalName for true, ele usa um prefixo fixo de 'seed-' em vez de UUID aleatório
-    const finalFileName = keepOriginalName
-      ? `seed-${sanitizedName}`
-      : `${randomUUID()}-${sanitizedName}`
-
-    const ext = path.extname(fileName).toLowerCase()
-    const mimeType = ext === '.png' ? 'image/png' : 'image/jpeg'
-
-    const command = new PutObjectCommand({
-      Bucket: process.env.CLOUDFLARE_BUCKET_NAME,
-      Key: finalFileName,
-      Body: fileBuffer,
-      ContentType: mimeType,
-    })
-
-    await s3Client.send(command)
-    console.log(`🖼️ Upload concluído: ${fileName} -> MinIO (${finalFileName})`)
-
-    return `${process.env.CLOUDFLARE_PUBLIC_URL}/${finalFileName}`
-  } catch (error) {
-    console.error('❌ Erro no upload para o MinIO:', error)
-    return localPath
-  }
-}
-
 async function main() {
-  console.log('🌱 Iniciando o Seeding V3 (Upload de Imagens para o MinIO)...')
+  console.log('🌱 Iniciando o Seeding local...')
 
-  await prisma.profileTranslation.deleteMany()
-  await prisma.profile.deleteMany()
-  await prisma.socialLink.deleteMany()
-  await prisma.featureTranslation.deleteMany()
-  await prisma.feature.deleteMany()
-  await prisma.educationTranslation.deleteMany()
-  await prisma.education.deleteMany()
-  await prisma.projectImage.deleteMany()
+  // Limpeza respeitando FKs
   await prisma.experienceProject.deleteMany()
   await prisma.projectSkill.deleteMany()
+  await prisma.projectLink.deleteMany()
+  await prisma.projectImage.deleteMany()
   await prisma.projectTranslation.deleteMany()
   await prisma.experienceTranslation.deleteMany()
   await prisma.skillTranslation.deleteMany()
+  await prisma.educationTranslation.deleteMany()
+  await prisma.featureTranslation.deleteMany()
+  await prisma.profileTranslation.deleteMany()
+
   await prisma.project.deleteMany()
   await prisma.experience.deleteMany()
   await prisma.skill.deleteMany()
+  await prisma.education.deleteMany()
+  await prisma.feature.deleteMany()
+  await prisma.socialLink.deleteMany()
+  await prisma.profile.deleteMany()
   await prisma.language.deleteMany()
 
-  console.log('🗣️ Inserindo Idiomas Base...')
+  console.log('🗣️ Inserindo Idiomas...')
   await prisma.language.createMany({
     data: [
       { code: 'pt', name: 'Português', isDefault: true },
@@ -149,27 +39,31 @@ async function main() {
     ],
   })
 
-  console.log('👤 Inserindo Profile (Settings)...')
-
-  const avatarUrl = await uploadImageToStorage('/images/profile.jpg', true)
-
+  console.log('👤 Inserindo Profile...')
   await prisma.profile.create({
     data: {
-      email: contactsData.email,
-      phone: contactsData.phone,
-      locationUrl: contactsData.location.url,
-      avatarUrl: avatarUrl,
+      name: 'Robson Henrique Rodrigues',
+      email: 'contato@robsonhrodrigues.com.br',
+      phone: '+55 11 98214-5920',
+      locationUrl: 'https://maps.google.com/?q=Jundiai,SP,Brazil',
+      avatarUrl: '/images/about-image.png',
       translations: {
         create: [
           {
             locale: 'pt',
-            locationName: contactsData.location.name.pt,
-            bio: 'Desenvolvedor Full Stack apaixonado por criar soluções eficientes e escaláveis.',
+            title: 'Analista de Sistemas / Desenvolvedor Full Stack',
+            locationName: 'Jundiaí - São Paulo / Brasil',
+            bio: 'Desenvolvedor Full Stack e Analista de Sistemas focado na modernização e criação de aplicações web escaláveis com React.js, Next.js, Node.js, NestJS e PHP.',
+            objective:
+              'Em busca de recolocação profissional e novos desafios como Analista de Sistemas / Desenvolvedor Full Stack, com disponibilidade para atuação remota, híbrida ou presencial.',
           },
           {
             locale: 'en',
-            locationName: contactsData.location.name.en,
-            bio: 'Full Stack Developer passionate about creating efficient and scalable solutions.',
+            title: 'Systems Analyst / Full Stack Developer',
+            locationName: 'Jundiaí - São Paulo / Brazil',
+            bio: 'Full Stack Developer and Systems Analyst focused on modernizing and building scalable web applications with React.js, Next.js, Node.js, NestJS, and PHP.',
+            objective:
+              'Seeking new challenges as a Systems Analyst / Full Stack Developer, available for remote, hybrid, or on-site roles.',
           },
         ],
       },
@@ -177,33 +71,83 @@ async function main() {
   })
 
   console.log('🌐 Inserindo Social Links...')
-  const socialLinks = [
-    { name: socialData.github.name, url: socialData.github.url, order: 1 },
-    { name: socialData.gitlab.name, url: socialData.gitlab.url, order: 2 },
-    { name: socialData.linkedin.name, url: socialData.linkedin.url, order: 3 },
-  ]
-  for (const link of socialLinks) {
-    await prisma.socialLink.create({ data: link })
-  }
+  await prisma.socialLink.createMany({
+    data: [
+      {
+        icon: 'github',
+        name: 'GitHub',
+        url: 'https://github.com/Robson16',
+        order: 1,
+      },
+      {
+        icon: 'gitlab',
+        name: 'GitLab',
+        url: 'https://gitlab.com/Robson16',
+        order: 2,
+      },
+      {
+        icon: 'linkedin',
+        name: 'LinkedIn',
+        url: 'https://www.linkedin.com/in/robson-h-rodrigues-93341746/',
+        order: 3,
+      },
+    ],
+  })
 
   console.log('✨ Inserindo Features...')
-  for (const feature of featuresData.features) {
+  const features = [
+    {
+      icon: 'code',
+      order: 1,
+      pt: {
+        title: 'Desenvolvimento Full Stack',
+        description:
+          'Aplicações web escaláveis com React, Next.js, Node.js e NestJS.',
+      },
+      en: {
+        title: 'Full Stack Development',
+        description:
+          'Scalable web applications with React, Next.js, Node.js, and NestJS.',
+      },
+    },
+    {
+      icon: 'database',
+      order: 2,
+      pt: {
+        title: 'Arquitetura & Dados',
+        description:
+          'APIs RESTful com Clean Architecture, SOLID, DDD e PostgreSQL.',
+      },
+      en: {
+        title: 'Architecture & Data',
+        description:
+          'RESTful APIs using Clean Architecture, SOLID, DDD, and PostgreSQL.',
+      },
+    },
+    {
+      icon: 'performance',
+      order: 3,
+      pt: {
+        title: 'Infraestrutura & Automação',
+        description:
+          'Docker, Linux, CI/CD e automação de processos corporativos.',
+      },
+      en: {
+        title: 'Infrastructure & Automation',
+        description: 'Docker, Linux, CI/CD, and corporate process automation.',
+      },
+    },
+  ]
+
+  for (const feat of features) {
     await prisma.feature.create({
       data: {
-        icon: feature.icon,
-        order: feature.id,
+        icon: feat.icon,
+        order: feat.order,
         translations: {
           create: [
-            {
-              locale: 'pt',
-              title: feature.title.pt,
-              description: feature.description.pt,
-            },
-            {
-              locale: 'en',
-              title: feature.title.en,
-              description: feature.description.en,
-            },
+            { locale: 'pt', ...feat.pt },
+            { locale: 'en', ...feat.en },
           ],
         },
       },
@@ -211,165 +155,206 @@ async function main() {
   }
 
   console.log('🎓 Inserindo Education...')
-  for (const edu of educationData.education) {
-    await prisma.education.create({
-      data: {
-        startDate: parseDatePt(edu.period.start.pt),
-        endDate:
-          edu.period.end.pt.toLowerCase() === 'atualmente'
-            ? null
-            : parseDatePt(edu.period.end.pt),
-        order: edu.id,
-        translations: {
-          create: [
-            {
-              locale: 'pt',
-              title: edu.title.pt,
-              institution: edu.institution.pt,
-              description: edu.description.pt,
-            },
-            {
-              locale: 'en',
-              title: edu.title.en,
-              institution: edu.institution.en,
-              description: edu.description.en,
-            },
-          ],
-        },
+  await prisma.education.create({
+    data: {
+      startDate: new Date(2024, 6, 1),
+      endDate: new Date(2027, 5, 1),
+      order: 1,
+      translations: {
+        create: [
+          {
+            locale: 'pt',
+            title: 'Tecnólogo em Análise e Desenvolvimento de Sistemas',
+            institution: 'FATEC Jundiaí',
+            description:
+              'Análise, projeto, documentação, teste, implantação e manutenção de sistemas computacionais.',
+          },
+          {
+            locale: 'en',
+            title: 'Associate Degree in Systems Analysis and Development',
+            institution: 'FATEC Jundiaí',
+            description:
+              'Analysis, design, documentation, testing, deployment, and maintenance of software systems.',
+          },
+        ],
       },
-    })
-  }
-
-  const skillMap = new Map()
+    },
+  })
 
   console.log('🛠️ Inserindo Skills...')
-  for (const skill of skillsData.technical) {
-    const created = await prisma.skill.create({
+  const skillNames = [
+    'TypeScript',
+    'React.js',
+    'Next.js',
+    'Node.js',
+    'NestJS',
+    'PostgreSQL',
+    'Docker',
+    'PHP',
+  ]
+
+  const skillMap = new Map()
+  for (const name of skillNames) {
+    const skill = await prisma.skill.create({
       data: {
         category: 'Technical',
         translations: {
           create: [
-            { locale: 'pt', name: skill.name },
-            { locale: 'en', name: skill.name },
+            { locale: 'pt', name },
+            { locale: 'en', name },
           ],
         },
       },
     })
-    skillMap.set(skill.name, created.id)
-  }
-
-  for (const skill of skillsData.professional) {
-    const created = await prisma.skill.create({
-      data: {
-        category: 'Professional',
-        translations: {
-          create: [
-            { locale: 'pt', name: skill.name.pt },
-            { locale: 'en', name: skill.name.en },
-          ],
-        },
-      },
-    })
-    skillMap.set(skill.name.pt, created.id)
+    skillMap.set(name, skill.id)
   }
 
   console.log('💼 Inserindo Experiências...')
-  for (const exp of experiencesData.experiences) {
-    await prisma.experience.create({
-      data: {
-        company: exp.company,
-        startDate: parseDatePt(exp.period.start.pt),
-        endDate: exp.period.end ? parseDatePt(exp.period.end.pt) : null,
-        translations: {
-          create: [
-            {
-              locale: 'pt',
-              role: exp.title.pt,
-              description: exp.responsibilities.pt.join('\n'),
-            },
-            {
-              locale: 'en',
-              role: exp.title.en,
-              description: exp.responsibilities.en.join('\n'),
-            },
-          ],
-        },
+  const contractorExp = await prisma.experience.create({
+    data: {
+      company: 'Atuação Autônoma / Projetos',
+      startDate: new Date(2024, 0, 1),
+      endDate: null,
+      translations: {
+        create: [
+          {
+            locale: 'pt',
+            role: 'Analista de Sistemas / Desenvolvedor Full Stack (Contractor)',
+            description:
+              'Prestação de serviços autônomos de desenvolvimento e suporte contínuo.\nDesenvolvimento de arquitetura e projetos full stack utilizando Node.js, NestJS, React e Next.js.',
+          },
+          {
+            locale: 'en',
+            role: 'Systems Analyst / Full Stack Developer (Contractor)',
+            description:
+              'Freelance full stack development and ongoing technical support.\nArchitecture and development using Node.js, NestJS, React, and Next.js.',
+          },
+        ],
       },
-    })
-  }
+    },
+  })
 
-  console.log('🚀 Inserindo Projetos e construindo a Galeria...')
-  for (const proj of projectsData.projects) {
-    const links = []
-    if (proj.url) {
-      links.push({ type: 'Website', url: proj.url })
-    }
-    for (const repo of proj.repositories) {
-      links.push({
-        type: repo.platform.toUpperCase(),
-        url: repo.url,
-      })
-    }
+  await prisma.experience.create({
+    data: {
+      company: 'Siemens Energy',
+      startDate: new Date(2026, 1, 1),
+      endDate: new Date(2026, 6, 1),
+      translations: {
+        create: [
+          {
+            locale: 'pt',
+            role: 'Estagiário de Tecnologia (Transformação Digital)',
+            description:
+              'Automatizei e digitalizei processos operacionais nas áreas de Meio Ambiente e Qualidade.\nDesenvolvi aplicações corporativas low-code utilizando a plataforma Mendix.',
+          },
+          {
+            locale: 'en',
+            role: 'Technology Intern (Digital Transformation)',
+            description:
+              'Automated and digitized operational processes in Environment and Quality departments.\nBuilt corporate low-code applications using Mendix.',
+          },
+        ],
+      },
+    },
+  })
 
-    // 🔥 O PULO DO GATO: Faz o upload da imagem antes de salvar no banco!
-    const finalImageUrl = await uploadImageToStorage(proj.featuredImage.src)
+  console.log('🚀 Inserindo Projetos...')
+  const projects = [
+    {
+      slug: 'robson16-portfolio',
+      tier: 1,
+      developedAt: new Date(2026, 10, 1),
+      image: '/images/code.jpg',
+      skills: ['TypeScript', 'Next.js', 'React.js', 'PostgreSQL', 'Docker'],
+      links: [
+        { type: 'GITHUB', url: 'https://github.com/Robson16/Robson16' },
+        { type: 'WEBSITE', url: 'https://robsonhrodrigues.com.br' },
+      ],
+      pt: {
+        title: 'Portfólio Robson16',
+        description:
+          'Portfólio pessoal com CMS administrativo, i18n e gerador de currículo em PDF ATS-friendly.',
+        challenge:
+          'Manter portfólio e currículo sincronizados em dois idiomas.',
+        solution:
+          'Next.js App Router, Prisma, PostgreSQL e @react-pdf/renderer.',
+        impact: 'Fonte única de verdade para site e PDF.',
+      },
+      en: {
+        title: 'Robson16 Portfolio',
+        description:
+          'Personal portfolio with admin CMS, i18n, and ATS-friendly PDF resume generator.',
+        challenge: 'Keeping portfolio and resume synced across two languages.',
+        solution:
+          'Next.js App Router, Prisma, PostgreSQL, and @react-pdf/renderer.',
+        impact: 'Single source of truth for web and PDF.',
+      },
+    },
+    {
+      slug: 'fast-feet-api',
+      tier: 1,
+      developedAt: new Date(2026, 9, 1),
+      image: '/images/computer.jpg',
+      skills: ['TypeScript', 'Node.js', 'NestJS', 'PostgreSQL', 'Docker'],
+      links: [
+        { type: 'GITHUB', url: 'https://github.com/Robson16/fast-feet-api' },
+      ],
+      pt: {
+        title: 'FastFeet API',
+        description:
+          'API RESTful de logística construída com NestJS, Clean Architecture e DDD.',
+        challenge:
+          'Modelar regras de negócio complexas de entregas e permissões.',
+        solution: 'NestJS, Prisma, Zod, Swagger e testes unitários/E2E.',
+        impact: 'Alta cobertura de testes e código desacoplado.',
+      },
+      en: {
+        title: 'FastFeet API',
+        description:
+          'Logistics RESTful API built with NestJS, Clean Architecture, and DDD.',
+        challenge: 'Modeling complex delivery business rules and RBAC.',
+        solution: 'NestJS, Prisma, Zod, Swagger, and unit/E2E tests.',
+        impact: 'High test coverage and decoupled architecture.',
+      },
+    },
+  ]
 
-    const createdProject = await prisma.project.create({
+  for (const proj of projects) {
+    const created = await prisma.project.create({
       data: {
-        tier: proj.featured ? 1 : 3,
+        slug: proj.slug,
+        tier: proj.tier,
+        developedAt: proj.developedAt,
         gallery: {
-          create: [{ url: finalImageUrl, order: 0 }],
+          create: [{ url: proj.image, order: 0 }],
         },
         links: {
-          create: links,
+          create: proj.links,
         },
         translations: {
           create: [
-            {
-              locale: 'pt',
-              title: proj.heading.pt,
-              description: proj.description.pt,
-            },
-            {
-              locale: 'en',
-              title: proj.heading.en,
-              description: proj.description.en,
-            },
+            { locale: 'pt', ...proj.pt },
+            { locale: 'en', ...proj.en },
           ],
         },
       },
     })
 
-    // Associações de Skills
-    for (const techName of proj.technologies) {
-      let skillId = skillMap.get(techName)
-
-      if (!skillId) {
-        const newSkill = await prisma.skill.create({
-          data: {
-            category: 'Technical',
-            translations: {
-              create: [
-                { locale: 'pt', name: techName },
-                { locale: 'en', name: techName },
-              ],
-            },
-          },
+    for (const tech of proj.skills) {
+      const skillId = skillMap.get(tech)
+      if (skillId) {
+        await prisma.projectSkill.create({
+          data: { projectId: created.id, skillId },
         })
-        skillId = newSkill.id
-        skillMap.set(techName, skillId)
       }
-
-      await prisma.projectSkill.create({
-        data: {
-          projectId: createdProject.id,
-          skillId: skillId,
-        },
-      })
     }
+
+    await prisma.experienceProject.create({
+      data: { experienceId: contractorExp.id, projectId: created.id },
+    })
   }
 
-  console.log('✅ Seeding V3 finalizado com sucesso!')
+  console.log('✅ Seeding local finalizado com sucesso!')
 }
 
 main()
@@ -379,4 +364,5 @@ main()
   })
   .finally(async () => {
     await prisma.$disconnect()
+    await pool.end()
   })

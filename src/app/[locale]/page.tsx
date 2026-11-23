@@ -1,3 +1,5 @@
+import { setRequestLocale } from 'next-intl/server'
+
 import { getHomeData } from '@/app/_actions/get-home-data.action'
 import AboutSection from '@/app/_components/AboutSection'
 import ContactSection from '@/app/_components/ContactSection'
@@ -11,7 +13,7 @@ interface PageProps {
   params: Promise<{ locale: string }>
 }
 
-export const revalidate = 3600
+export const revalidate = 86400
 
 export async function generateStaticParams() {
   return [{ locale: 'pt' }, { locale: 'en' }]
@@ -19,6 +21,7 @@ export async function generateStaticParams() {
 
 export default async function Home({ params }: PageProps) {
   const { locale } = await params
+  setRequestLocale(locale)
 
   const {
     profileData,
@@ -38,19 +41,30 @@ export default async function Home({ params }: PageProps) {
     <>
       <Header />
       <main>
-        <HeroSection profileData={profileData} socialData={socialData} />
+        <HeroSection
+          locale={locale}
+          profileData={profileData}
+          socialData={socialData}
+        />
         <AboutSection
           locale={locale}
           profileData={profileData}
           topSkills={topSkills}
         />
-        <FeaturesSection featuresData={featuresData} />
-        <FeaturedProjectsSection featuredProjects={featuredProjects} />
+        <FeaturesSection locale={locale} featuresData={featuresData} />
+        <FeaturedProjectsSection
+          locale={locale}
+          featuredProjects={featuredProjects}
+        />
         <PortfolioSection
           locale={locale}
           initialProjects={initialPortfolioProjects}
         />
-        <ContactSection profileData={profileData} socialData={socialData} />
+        <ContactSection
+          locale={locale}
+          profileData={profileData}
+          socialData={socialData}
+        />
       </main>
     </>
   )

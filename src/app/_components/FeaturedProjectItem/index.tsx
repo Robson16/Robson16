@@ -1,19 +1,23 @@
 import clsx from 'clsx'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
 import { Link } from '@/app/_i18n/navigation'
 import type { ProjectWithRelations } from '@/app/_types/project'
 
 type FeaturedProjectItemProps = {
+  locale: string
   project: ProjectWithRelations
 }
 
-export default function FeaturedProjectItem({
+export default async function FeaturedProjectItem({
+  locale,
   project,
 }: FeaturedProjectItemProps) {
-  const tPortfolio = useTranslations('Portfolio')
-  const tProject = useTranslations('ProjectDetails')
+  const [tPortfolio, tProject] = await Promise.all([
+    getTranslations({ locale, namespace: 'Portfolio' }),
+    getTranslations({ locale, namespace: 'ProjectDetails' }),
+  ])
   const featuredImage = project.gallery?.[0]?.url || '/images/placeholder.jpg'
 
   const translation = project.translations[0]

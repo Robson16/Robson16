@@ -4,11 +4,15 @@ import { FaCodeCommit } from 'react-icons/fa6'
 import { fetchRecentCommits } from '@/app/_services/commits.service'
 
 interface CommitTimelineProps {
+  locale: string
   repoUrl: string
 }
 
-export default async function CommitTimeline({ repoUrl }: CommitTimelineProps) {
-  const t = await getTranslations('ProjectDetails')
+export default async function CommitTimeline({
+  locale,
+  repoUrl,
+}: CommitTimelineProps) {
+  const t = await getTranslations({ locale, namespace: 'ProjectDetails' })
   const commits = await fetchRecentCommits(repoUrl)
 
   if (!commits || commits.length === 0) {

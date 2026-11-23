@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
-import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
-import { getTranslations } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { cache } from 'react'
 import { FaBriefcase, FaCalendarDays } from 'react-icons/fa6'
 
@@ -80,19 +79,23 @@ const getProfileName = cache(async () => {
   return profile?.name.trim()
 })
 
+export const revalidate = 86400
+
+export async function generateStaticParams() {
+  const projects = await db.project.findMany({ select: { slug: true } })
+  const locales = ['pt', 'en']
+
+  return locales.flatMap((locale) =>
+    projects.map((project) => ({ locale, slug: project.slug })),
+  )
+}
+
 export async function generateMetadata({
   params,
 }: ProjectPageProps): Promise<Metadata> {
   const { locale, slug } = await params
-
-  const requestHeaders = await headers()
-  const host =
-    requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host')
-  const protocol =
-    requestHeaders.get('x-forwarded-proto') ??
-    (process.env.NODE_ENV === 'development' ? 'http' : 'https')
-  const origin =
-    env.SITE_URL ?? (host ? `${protocol.split(',')[0]}://${host}` : undefined)
+  setRequestLocale(locale)
+  const origin = env.SITE_URL
 
   const [project, profileName] = await Promise.all([
     getProject(slug, locale),
@@ -144,7 +147,7 @@ export async function generateMetadata({
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { locale, slug } = await params
-  const t = await getTranslations('ProjectDetails')
+  const t = await getTranslations({ locale, namespace: 'ProjectDetails' })
 
   const project = await getProject(slug, locale)
 
@@ -346,7 +349,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
           {project.links.map((link) => {
             if (link.type === 'GITHUB' || link.type === 'GITLAB') {
-              return <CommitTimeline key={link.id} repoUrl={link.url} />
+              return (
+                <CommitTimeline
+                  key={link.id}
+                  locale={locale}
+                  repoUrl={link.url}
+                />
+              )
             }
           })}
         </div>
