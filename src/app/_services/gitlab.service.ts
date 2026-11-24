@@ -15,26 +15,39 @@ interface GitLabEvent {
   }
 }
 
+async function fetchGitLabJson(url: string, token?: string) {
+  const headers: HeadersInit = token ? { 'PRIVATE-TOKEN': token } : {}
+
+  let res = await fetch(url, {
+    headers,
+    next: { revalidate: 86400 }, // 24h
+  })
+
+  // Se o token expirou ou foi revogado (401), tenta novamente como requisição pública
+  if (res.status === 401 && token) {
+    res = await fetch(url, {
+      next: { revalidate: 86400 },
+    })
+  }
+
+  return res
+}
+
 export async function fetchGitLabContributions(): Promise<
   GitLabContributionDay[]
 > {
-  const token = env.GITLAB_ACCESS_TOKEN
-  const username = env.GITLAB_USERNAME
+  const token = env.GITLAB_ACCESS_TOKEN?.trim()
+  const username = env.GITLAB_USERNAME?.trim()
 
-  if (!token || !username) {
-    console.warn('GitLab token or username not configured.')
+  if (!username) {
+    console.warn('GitLab username not configured.')
     return []
   }
 
   try {
-    const userRes = await fetch(
-      `https://gitlab.com/api/v4/users?username=${username}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-        next: {
-          revalidate: 86400, // 24h
-        },
-      },
+    const userRes = await fetchGitLabJson(
+      `https://gitlab.com/api/v4/users?username=${encodeURIComponent(username)}`,
+      token,
     )
 
     if (!userRes.ok) {
@@ -50,13 +63,16 @@ export async function fetchGitLabContributions(): Promise<
     }
     const userId = userData[0].id
 
-    const eventsRes = await fetch(
+    const eventsRes = await fetchGitLabJson(
       `https://gitlab.com/api/v4/users/${userId}/events?action=pushed&per_page=100`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-        next: { revalidate: 86400 },
-      },
+      token,
     )
+
+    if (!eventsRes.ok) {
+      console.warn(`GitLab API error (events): ${eventsRes.status}`)
+      return []
+    }
+
     const events = await eventsRes.json()
 
     if (!Array.isArray(events)) {
@@ -68,7 +84,6 @@ export async function fetchGitLabContributions(): Promise<
     events.forEach((event: GitLabEvent) => {
       if (event.created_at) {
         const dateStr = event.created_at.split('T')[0] // '2026-09-28'
-
         const commits = event.push_data?.commit_count || 1
 
         const current = contributionsMap.get(dateStr) || 0
