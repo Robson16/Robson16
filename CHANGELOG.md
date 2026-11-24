@@ -6,9 +6,9 @@ All notable changes to this project will be documented in this file. See [commit
 
 ### Features
 
-* **curriculum:** implements a dynamic ATS-friendly PDF generator and real-time preview. ([98be7d8](https://github.com/Robson16/Robson16/commit/98be7d84c04be09a9d155bb9a010e72363f87608))
-* **portfolio:** load projects on demand with pagination ([31c61fe](https://github.com/Robson16/Robson16/commit/31c61fee479ed8de02beaa687d261c273fe2dc74))
-* **ssg:** enable static generation for public pages and fix next-intl headers ([3e2d8fc](https://github.com/Robson16/Robson16/commit/3e2d8fc6d132fedcd5cee392c3832c7e9c8199a3))
+- **curriculum:** implements a dynamic ATS-friendly PDF generator and real-time preview. ([98be7d8](https://github.com/Robson16/Robson16/commit/98be7d84c04be09a9d155bb9a010e72363f87608))
+- **portfolio:** load projects on demand with pagination ([31c61fe](https://github.com/Robson16/Robson16/commit/31c61fee479ed8de02beaa687d261c273fe2dc74))
+- **ssg:** enable static generation for public pages and fix next-intl headers ([3e2d8fc](https://github.com/Robson16/Robson16/commit/3e2d8fc6d132fedcd5cee392c3832c7e9c8199a3))
 
 ## [2.7.0](https://github.com/Robson16/Robson16/compare/v2.6.0...v2.7.0) (2026-10-16)
 

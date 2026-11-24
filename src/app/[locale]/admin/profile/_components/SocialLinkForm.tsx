@@ -1,12 +1,12 @@
 'use client'
 
 import { SocialLink } from '@prisma/client'
-import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 
 import { createSocialLinkAction } from '@/app/_actions/create-social-link.action'
 import { deleteSocialLinkAction } from '@/app/_actions/delete-social-link.action'
 import { updateSocialLinkAction } from '@/app/_actions/update-social-link.action'
+import { useRouter } from '@/app/_i18n/navigation'
 
 interface SocialLinkFormProps {
   initialSocialLinks: SocialLink[]

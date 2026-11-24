@@ -1,11 +1,11 @@
 'use client'
 
 import Image from 'next/image'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useState, useTransition } from 'react'
 
 import { deleteProjectAction } from '@/app/_actions/delete-project.action'
-import { Link } from '@/app/_i18n/navigation'
+import { Link, usePathname, useRouter } from '@/app/_i18n/navigation'
 import { formatDate } from '@/app/_utils/format-date'
 
 interface ProjectData {

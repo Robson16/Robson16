@@ -2,11 +2,11 @@
 
 import { Prisma } from '@prisma/client'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import { useRef, useState, useTransition } from 'react'
 
 import { updateProfileAction } from '@/app/_actions/update-profile.action'
 import { uploadImageAction } from '@/app/_actions/upload-image.action'
+import { useRouter } from '@/app/_i18n/navigation'
 
 interface Language {
   code: string

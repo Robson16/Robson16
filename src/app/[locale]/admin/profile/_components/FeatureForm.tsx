@@ -1,12 +1,12 @@
 'use client'
 
 import { Prisma } from '@prisma/client'
-import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 
 import { createFeatureAction } from '@/app/_actions/create-feature.action'
 import { deleteFeatureAction } from '@/app/_actions/delete-feature.action'
 import { updateFeatureAction } from '@/app/_actions/update-feature.action'
+import { useRouter } from '@/app/_i18n/navigation'
 
 interface Language {
   code: string
