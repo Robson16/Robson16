@@ -20,11 +20,12 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: GenerateMetadataProps) {
   const { locale } = await params
-  setRequestLocale(locale)
 
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
-    return {}
+    notFound()
   }
+
+  setRequestLocale(locale)
 
   const messages = (await import(`../../../messages/${locale}.json`))
     .default as {

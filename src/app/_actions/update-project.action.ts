@@ -100,9 +100,9 @@ export async function updateProjectAction(
       }
     }
 
-    await db.project.update({
+    const updatedProject = await db.project.update({
       where: {
-        id: projectId,
+        id: validatedProjectId,
       },
       data: {
         tier: data.tier,
@@ -139,7 +139,7 @@ export async function updateProjectAction(
         },
         links: {
           deleteMany: {
-            projectId,
+            projectId: validatedProjectId,
           },
           create: (data.links || []).map((link) => ({
             type: link.type as ProjectLinkType,
@@ -148,7 +148,7 @@ export async function updateProjectAction(
         },
         experiences: {
           deleteMany: {
-            projectId,
+            projectId: validatedProjectId,
           },
           ...(data.experienceId && {
             create: [{ experienceId: data.experienceId }],
@@ -157,7 +157,10 @@ export async function updateProjectAction(
       },
     })
 
-    revalidatePortfolioCache({ adminSection: 'projects' })
+    revalidatePortfolioCache({
+      adminSection: 'projects',
+      projectSlugs: [existingProject.slug, updatedProject.slug],
+    })
 
     return { success: true }
   } catch (error) {

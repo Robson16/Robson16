@@ -35,7 +35,10 @@ export async function deleteProjectAction(projectId: string) {
       },
     })
 
-    revalidatePortfolioCache({ adminSection: 'projects' })
+    revalidatePortfolioCache({
+      adminSection: 'projects',
+      projectSlugs: [project.slug],
+    })
 
     return {
       success: true,

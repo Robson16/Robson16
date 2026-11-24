@@ -5,9 +5,8 @@ import { z } from 'zod'
 
 import { db } from '@/app/_lib/prisma'
 import { revalidatePortfolioCache } from '@/app/_lib/revalidate-portfolio'
+import { generateSlug } from '@/app/_utils/generate-slug'
 import { validateTranslations } from '@/app/_utils/validate-translations'
-
-import { generateSlug } from '../_utils/generate-slug'
 
 const ProjectLinkTypeValues = Object.values(ProjectLinkType) as [
   string,
@@ -146,7 +145,10 @@ export async function createProjectAction(inputData: CreateProjectInput) {
       },
     })
 
-    revalidatePortfolioCache({ adminSection: 'projects' })
+    revalidatePortfolioCache({
+      adminSection: 'projects',
+      projectSlugs: [project.slug],
+    })
 
     return { success: true, projectId: project.id }
   } catch (error) {

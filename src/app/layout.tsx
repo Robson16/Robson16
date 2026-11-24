@@ -1,11 +1,14 @@
 import '@/app/globals.css'
 
 import { GoogleTagManager } from '@next/third-parties/google'
+import type { Metadata } from 'next'
 import { Viewport } from 'next'
 import { Roboto } from 'next/font/google'
 import { ReactNode } from 'react'
 
 import { env } from '@/app/env'
+
+const siteUrl = env.SITE_URL?.trim() || 'http://localhost:3000'
 
 const roboto = Roboto({ subsets: ['latin'], weight: ['400', '500', '700'] })
 
@@ -18,6 +21,10 @@ export const viewport: Viewport = {
 
 interface RootLayoutProps {
   children: ReactNode
+}
+
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
 }
 
 export default function RootLayout({ children }: RootLayoutProps) {
